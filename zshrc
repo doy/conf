@@ -42,7 +42,6 @@ bindkey "^R" history-incremental-search-backward # Like in bash, but should !
 bindkey "^T" transpose-chars     # Transposes adjacent chars (xp in vim)
 bindkey "^Z" accept-and-hold     # Enter and push line
 bindkey " " magic-space          # Expands from hist (!vim )
-bindkey "^\\" pound-insert       # As an alternative to ctrl-c; will go in hist
 bindkey "\e[3~" delete-char      # Enable delete
 # }}}
 
