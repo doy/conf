@@ -81,15 +81,6 @@ alias home='ssh $HOMEIP'
 # }}}
 
 # shortcuts {{{
-alias dwn="darcs whatsnew"
-alias darcsify="darcs init && darcs add \$(darcs whatsnew -ls | awk '/^a\ / {print \$2}') && darcs record -a -m'Initial import'"
-alias dpl="darcs pull"
-alias dps="darcs push"
-alias dp="darcs pull && darcs push"
-alias dr="darcs record"
-alias dar="darcs amend-record"
-alias db="darcs revert"
-alias dqm="darcs query manifest"
 alias starcraft="cd /home/sartak/.wine/drive_c/Program\ Files/Starcraft && sudo wine StarCraft.exe"
 alias rtp='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo prove -l -I/opt/rt3/local/lib'
 alias rtpv='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo perl -Ilib -I/opt/rt3/local/lib'
@@ -99,6 +90,18 @@ alias i='sudo apt-get install'
 alias ci='sudo cpan -i'
 alias unrt="ps aux -ww | grep standalone | sudo perl -lane 'system(qq{kill \$F[1]})'"
 alias rert="unrt && sudo make start-httpd"
+# }}}
+
+# darcs shortcuts {{{
+alias dwn="darcs whatsnew"
+alias darcsify="darcs init && darcs add \$(darcs whatsnew -ls | awk '/^a\ / {print \$2}') && darcs record -a -m'Initial import'"
+alias dpl="darcs pull"
+alias dps="darcs push"
+alias dp="darcs pull && darcs push"
+alias dr="darcs record"
+alias dar="darcs amend-record"
+alias db="darcs revert"
+alias dqm="darcs query manifest"
 # }}}
 
 # global shortcuts {{{
