@@ -1,0 +1,18 @@
+#!/bin/bash
+
+JARFILE_LOCATION=~/bin/illinexus
+
+trap 'kill $PID > /dev/null 2>&1' TERM INT
+
+USER=$1
+[[ "${USER}x" = "x" ]] && USER=`whoami`
+
+cd $JARFILE_LOCATION
+java -jar sigjavagbauth.jar -a -u 'IlliNexus Members, ou=A55AFB' -w RxL8un3G -f 63.254.227.23 -p 40076 --home=~/ &
+PID=$!
+
+sleep 5
+echo
+ssh $USER@illinexus.org
+
+kill $PID > /dev/null 2>&1

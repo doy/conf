@@ -1,0 +1,4 @@
+#!/bin/bash
+WIZKIT=/home/doy/nethack/wizkit
+NETHACKOPTIONS=@/home/doy/.nethackrc
+sudo -u wizard /usr/games/bin/nethack -D
