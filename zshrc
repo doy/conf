@@ -82,14 +82,8 @@ alias home='ssh $HOMEIP'
 
 # shortcuts {{{
 alias starcraft="cd /home/sartak/.wine/drive_c/Program\ Files/Starcraft && sudo wine StarCraft.exe"
-alias rtp='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo prove -l -I/opt/rt3/local/lib'
-alias rtpv='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo perl -Ilib -I/opt/rt3/local/lib'
-alias grtp='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo g prove -l -I/opt/rt3/local/lib'
-alias grmt='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo g make test'
 alias i='sudo apt-get install'
 alias ci='sudo cpan -i'
-alias unrt="ps aux -ww | grep standalone | sudo perl -lane 'system(qq{kill \$F[1]})'"
-alias rert="unrt && sudo make start-httpd"
 # }}}
 
 # darcs shortcuts {{{
@@ -104,7 +98,16 @@ alias db="darcs revert"
 alias dqm="darcs query manifest"
 # }}}
 
-# global shortcuts {{{
+# work shortcuts {{{
+alias rtp='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo prove -l -I/opt/rt3/local/lib'
+alias rtpv='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo perl -Ilib -I/opt/rt3/local/lib'
+alias grtp='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo g prove -l -I/opt/rt3/local/lib'
+alias grmt='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo g make test'
+alias unrt="ps aux -ww | grep standalone | sudo perl -lane 'system(qq{kill \$F[1]})'"
+alias rert="unrt && sudo make start-httpd"
+# }}}
+
+# global shortcuts (don't need to be in the command position) {{{
 alias -g L='|less'
 alias -g G='|egrep'
 alias -g H='|head'
