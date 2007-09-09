@@ -178,36 +178,6 @@ autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
 autocmd FileType perl setlocal errorformat=%f:%l:%m
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
 "}}}
-" Automatically distribute my conf files to the servers I use {{{
-" public web copy {{{
-autocmd BufWritePost ~/.vimrc !scp % tozt.jjaro.net:~/public_html/conf/vimrc
-autocmd BufWritePost ~/.vim/* !scp % tozt.jjaro.net:%:p:~:s?.vim?public_html/conf/vim?
-autocmd BufWritePost ~/.screenrc !scp % tozt.jjaro.net:~/public_html/conf/screenrc
-autocmd BufWritePost ~/.inputrc !scp % tozt.jjaro.net:~/public_html/conf/inputrc
-autocmd BufWritePost ~/bin/* !scp % tozt.jjaro.net:%:p:~:s?bin?public_html/conf/bin?
-" }}}
-" tozt {{{
-autocmd BufWritePost ~/.vimrc !scp % tozt.jjaro.net:~/
-autocmd BufWritePost ~/.vim/* !scp % tozt.jjaro.net:%:p:~:h
-autocmd BufWritePost ~/.screenrc !scp % tozt.jjaro.net:~/
-autocmd BufWritePost ~/.inputrc !scp % tozt.jjaro.net:~/
-autocmd BufWritePost ~/bin/* !scp % tozt.jjaro.net:%:p:~:h
-" }}}
-" demogorgon {{{
-autocmd BufWritePost ~/.vimrc !scp % demogorgon:~/
-autocmd BufWritePost ~/.vim/* !scp % demogorgon:%:p:~:h
-autocmd BufWritePost ~/.screenrc !scp % demogorgon:~/
-autocmd BufWritePost ~/.inputrc !scp % demogorgon:~/
-autocmd BufWritePost ~/bin/* !scp % demogorgon:%:p:~:h
-" }}}
-" rounder {{{
-autocmd BufWritePost ~/.vimrc !scp % rounder:~/
-autocmd BufWritePost ~/.vim/* !scp % rounder:%:p:~:h
-autocmd BufWritePost ~/.screenrc !scp % rounder:~/
-autocmd BufWritePost ~/.inputrc !scp % rounder:~/
-autocmd BufWritePost ~/bin/* !scp % rounder:%:p:~:h
-" }}}
-" }}}
 "}}}
 
 " Insert-mode remappings/abbreviations {{{
