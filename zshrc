@@ -102,6 +102,10 @@ alias -g T='|tail'
 alias -g W='|wc'
 # }}}
 # fortune {{{
-fortune.pl
+if which fortune.pl >/dev/null; then
+    fortune.pl
+elif which fortune >/dev/null; then
+    fortune
+fi
 # }}}
 
