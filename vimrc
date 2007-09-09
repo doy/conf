@@ -178,11 +178,9 @@ autocmd BufNewFile *.hs silent 0read ~/.vim/skeletons/haskell.hs  | normal Gk$
 au BufWritePost *.sh !chmod +x %
 au BufWritePost *.pl !chmod +x %
 "}}}
-" Automatically distribute my vimrc to the servers I use {{{
-autocmd BufWritePost ~/.vimrc !scp ~/.vimrc katron.org:public_html/vimrc
-autocmd BufWritePost ~/.vimrc !scp ~/.vimrc sartak.1ts.org:
-autocmd BufWritePost ~/.vim/skeletons/* !scp % katron.org:.vim/skeletons/
-autocmd BufWritePost ~/.vim/skeletons/* !scp % sartak.1ts.org:.vim/skeletons/
+" Automatically invoke darcs record on writing vimrc {{{
+autocmd BufWritePost ~/.vimrc !cd /home/sartak/devel/conf/ && darcs record
+autocmd BufWritePost ~/devel/conf/vimrc !cd /home/sartak/devel/conf/ && darcs record
 "}}}
 " Perl {{{
 autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
