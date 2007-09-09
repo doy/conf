@@ -174,7 +174,7 @@ au BufWritePost *.pl !chmod +x %
 autocmd BufWritePost ~/.vimrc !cd /home/sartak/devel/conf/ && darcs record
 autocmd BufWritePost ~/devel/conf/vimrc !cd /home/sartak/devel/conf/ && darcs record
 "}}}
-" Perl {{{
+" Perl :make does a syntax check {{{
 autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
 autocmd FileType perl setlocal errorformat=%f:%l:%m
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
