@@ -80,7 +80,7 @@ alias rax="ssh sartak.org"
 alias home='ssh $HOMEIP'
 # }}}
 
-# shortcuts
+# shortcuts {{{
 alias tdA="todo -f children"
 alias dwn="darcs whatsnew"
 alias emacs="emacs -nw"
@@ -101,16 +101,14 @@ alias i='sudo apt-get install'
 alias ci='sudo cpan -i'
 alias unrt="ps aux -ww | grep standalone | sudo perl -lane 'system(qq{kill \$F[1]})'"
 alias rert="unrt && sudo make start-httpd"
+# }}}
 
-# global shortcuts
+# global shortcuts {{{
 alias -g L='|less'
 alias -g G='|egrep'
 alias -g H='|head'
 alias -g T='|tail'
 alias -g W='|wc'
-alias -g '...'='../..'
-alias -g '....'='../../..'
-alias -g '.....'='../../../..'
-alias -g '......'='../../../../..'
+# }}}
 
 fortune.pl
