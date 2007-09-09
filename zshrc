@@ -101,5 +101,7 @@ alias -g H='|head'
 alias -g T='|tail'
 alias -g W='|wc'
 # }}}
-
+# fortune {{{
 fortune.pl
+# }}}
+
