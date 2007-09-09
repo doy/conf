@@ -51,9 +51,10 @@ alias man="man -P vimmanpager"
 # }}}
 # add color to some things {{{
 alias ls='ls -G'
-alias ll='ls -lhA'
+alias grep='grep --color=auto'
 alias ack='ack --color'
-# see also ~/.zshenv
+export ACK_COLOR_FILENAME=clear
+export ACK_COLOR_MATCH=red
 # }}}
 # telnet services (nao, termcast, etc) {{{
 alias nao="(TERM='rxvt'; telnet nethack.alt.org)"
@@ -71,9 +72,10 @@ alias rax="ssh sartak.org"
 alias home='ssh $HOMEIP'
 # }}}
 # shortcuts {{{
-alias starcraft="cd /home/sartak/.wine/drive_c/Program\ Files/Starcraft && sudo wine StarCraft.exe"
 alias i='sudo apt-get install'
 alias ci='sudo cpan -i'
+alias ll='ls -lhA'
+alias starcraft="cd /home/sartak/.wine/drive_c/Program\ Files/Starcraft && sudo wine StarCraft.exe"
 # }}}
 # darcs shortcuts {{{
 alias dwn="darcs whatsnew"
