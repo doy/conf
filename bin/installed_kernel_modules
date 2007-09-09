@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ "$1x" == "x" ]]; then
+    kernel_name=`uname -r`
+else
+    kernel_name=$1
+fi
+
+find /lib/modules/$kernel_name/ -iname '*.ko' | sed 's:.*/\(.*\)\.ko:\1:'

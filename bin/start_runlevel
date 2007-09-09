@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+open LEVEL, "/var/lib/init.d/softlevel" or die;
+$current_level = <LEVEL>;
+close LEVEL;
+chomp $current_level;
+
+@services = qx(ls /etc/runlevels/$current_level) =~ /\b\w+\b/g;
+foreach $service(@services) {
+    system("/etc/init.d/$service start") unless -e "/var/lib/init.d/started/$service";
+}

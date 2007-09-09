@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+    num=20
+else
+    num=$1
+fi
+ps -eo size,ucmd | sort -rn | head -n${num}

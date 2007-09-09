@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/.gaim/logs/aim/thedoyster/$1
+less $(ls | tail -n1)

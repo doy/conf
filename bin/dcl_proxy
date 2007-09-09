@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh jluehrs2@dcllnx7.ews.uiuc.edu tinyproxy-controller $1

@@ -1,0 +1,256 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+die "usage: $0 [module-name]" unless @ARGV == 1;
+my $name = shift;
+
+my ($colons, $hyphens);
+if ($name =~ /::/)
+{
+    $colons = $name;
+    ($hyphens = $name) =~ s/::/-/g;
+}
+else
+{
+    $hyphens = $name;
+    ($colons = $name) =~ s/-/::/g;
+}
+
+my @parts = split '-', $hyphens;
+my $dir = "lib/" . join('/', @parts[0..$#parts-1]);
+system("mkdir $hyphens");
+chdir $hyphens;
+system("mkdir -p $dir");
+system("mkdir t");
+
+open my $handle, '>', "$dir/$parts[-1].pm"
+    or die "Unable to open $dir/$parts[-1].pm for writing: $!";
+print {$handle} module_contents();
+close $handle;
+
+open $handle, '>', "t/000-load.t"
+    or die "Unable to open t/000-load.t for writing: $!";
+print {$handle} load_contents();
+close $handle;
+
+open $handle, '>', "t/001-basic.t"
+    or die "Unable to open t/001-basic.t for writing: $!";
+print {$handle} basic_contents();
+close $handle;
+
+open $handle, '>', "Makefile.PL"
+    or die "Unable to open Makefile.PL for writing: $!";
+print {$handle} makefile_contents();
+close $handle;
+
+open $handle, '>', "README"
+    or die "Unable to open README for writing: $!";
+print {$handle} readme_contents();
+close $handle;
+
+open $handle, '>', "Changes"
+    or die "Unable to open Changes for writing: $!";
+print {$handle} changes_contents();
+close $handle;
+
+#system('darcs init && darcs add $(darcs whatsnew -ls | perl -ple "s/^a //") && darcs record -a -m"Initial import of '.$colons.'"');
+
+sub readme_contents
+{
+    return << "README";
+$hyphens 0.01
+
+$colons is
+
+MAJOR CHANGES
+    0.01: first version
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+SUPPORT AND DOCUMENTATION
+
+After installing, you can find documentation for this module with the perldoc
+command.
+
+    perldoc $colons
+
+You can also look for information at:
+
+    Search CPAN
+        http://search.cpan.org/dist/$hyphens
+
+    CPAN Request Tracker:
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=$hyphens
+
+    AnnoCPAN, annotated CPAN documentation:
+        http://annocpan.org/dist/$hyphens
+
+    CPAN Ratings:
+        http://cpanratings.perl.org/d/$hyphens
+
+COPYRIGHT AND LICENSE
+
+Copyright (C) 2007 Shawn M Moore
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+README
+}
+
+sub changes_contents
+{
+    my $time = localtime;
+    return << "CHANGES";
+Revision history for $hyphens
+
+0.01    $time
+        First version, released on an unsuspecting world.
+
+CHANGES
+}
+
+sub makefile_contents
+{
+    return << "MAKEFILE";
+# Load the Module::Install bundled in ./inc/
+use inc::Module::Install;
+
+# Define metadata
+name           '$hyphens';
+all_from       '$dir/$parts[-1].pm';
+
+requires       '';
+
+build_requires 'Test::More';
+
+auto_install;
+WriteAll;
+
+MAKEFILE
+}
+
+sub basic_contents
+{
+    return << "TEST";
+#!perl -T
+use strict;
+use warnings;
+use Test::More tests => 1;
+use $colons;
+
+ok(1);
+
+TEST
+}
+
+sub load_contents
+{
+    return << "TEST";
+#!perl -T
+use strict;
+use warnings;
+use Test::More tests => 1;
+
+use_ok '$colons';
+
+TEST
+}
+
+sub module_contents
+{
+    return << "MODULE";
+#!perl
+package $colons;
+use strict;
+use warnings;
+
+
+
+=head1 NAME
+
+$colons - ???
+
+=head1 VERSION
+
+Version 0.01 released ???
+
+=cut
+
+our \$VERSION = '0.01';
+
+=head1 SYNOPSIS
+
+    use $colons;
+    do_stuff();
+
+=head1 DESCRIPTION
+
+
+
+=head1 SEE ALSO
+
+L<Foo::Bar>
+
+=head1 AUTHOR
+
+Shawn M Moore, C<< <sartak at gmail.com> >>
+
+=head1 BUGS
+
+No known bugs.
+
+Please report any bugs through RT: email
+C<bug-\L$hyphens\E at rt.cpan.org>, or browse to
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=$hyphens>.
+
+=head1 SUPPORT
+
+You can find this documentation for this module with the perldoc command.
+
+    perldoc $colons
+
+You can also look for information at:
+
+=over 4
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/$hyphens>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/$hyphens>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=$hyphens>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/$hyphens>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2007 Shawn M Moore.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
+
+1;
+
+MODULE
+}
+

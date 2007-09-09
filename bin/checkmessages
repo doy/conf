@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find ~/.gaim/logs/ -mmin -$1 -type f | grep -v .system | xargs tail -n $2

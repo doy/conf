@@ -1,0 +1,8 @@
+#!/bin/bash
+while read line; do
+	line="=$line"
+	ebuild_list="$ebuild_list $line"
+done
+
+echo "emerge $@ $ebuild_list"
+emerge $@ $ebuild_list

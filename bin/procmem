@@ -1,0 +1,67 @@
+#!/bin/bash
+
+if [ "$1" = "--help" -o "$1" = "-h" ]; then
+    echo "Syntax: `basename $0` [pid]..."
+    echo "If no pids are specified, all processes are listed"
+    exit 1
+fi
+
+cd /proc 2> /dev/null || { echo "No /proc directory."; exit 1; }
+
+
+get_cmdline() {
+    local cmd
+    cmd="`tr '\000' ' ' < $1/cmdline`"
+    test -z "$cmd" && cmd="[`tr -d '()' < $1/stat | cut -d' ' -f2`]"
+    echo "$cmd"
+}
+
+get_rss() {
+    grep "^VmRSS:" $1/status | awk '{ print $2 }'
+}
+
+
+# Determine the width of the stdout tty (if it is a tty) for clipping
+width=`stty -F $$/fd/1 size 2> /dev/null | awk '{ print $2 }'`
+
+clip_line() {
+    test -n "$width" && expr substr "$1" 1 "$width" || echo "$1"
+}
+
+
+test -z "$1" && set -- `echo [0-9]* | tr " " "\n" | sort -n`
+
+header=$(printf "%5s %6s %6s %6s %6s %6s  %s\n" \
+PID VSZ DEVMAP LIBMAP ALLOC RSS CMDLINE)
+
+clip_line "$header"
+
+for pid; do
+    totalmap=0
+    devmap=0
+    libmap=0
+    alloc=0
+
+    test -f $pid/maps || continue
+
+    { while read -u 99 range _ _ _ _ lib; do
+        size=$(( -(0x${range/-/-0x}) ))
+        let totalmap+=size
+        case $lib in
+            /dev/*)
+            let devmap+=size
+            ;;
+            "")
+            let alloc+=size
+            ;;
+            *)
+            let libmap+=size
+        esac
+    done; } 99< $pid/maps  # '99<' is a workaround for a stupid bash bug
+
+    output=$(printf "%5d %6d %6d %6d %6d %6d  %s\n" \
+    $pid $((totalmap/1024)) $((devmap/1024)) $((libmap/1024)) \
+    $((alloc/1024)) "`get_rss $pid`" "`get_cmdline $pid`")
+
+    clip_line "$output"
+done

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+A1_MAIN_DIR=/usr/local/share/AlephOne
+A1_SCEN_DIR=/usr/local/share/AlephOneScenarios
+
+if [[ "x$(basename $0)" == "xmarathon" ]]; then
+    if [[ "x$1" == "x--list" ]]; then
+        ls ${A1_SCEN_DIR}
+        exit 0
+    fi
+    scenario=$1
+else
+    scenario=$(basename $0)
+fi
+
+export ALEPHONE_DATA="${A1_MAIN_DIR}:${A1_SCEN_DIR}/${scenario}"
+cd ~/games/marathon
+alephone

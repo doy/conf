@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ "x$1" == "x--show" ]]; then
+    show=1
+    shift
+fi
+
+export TEXINPUTS=".:~/writing:"
+base=${1/.tex/}
+
+pdflatex $base.tex || exit
+if [[ ! -z ${show} ]]; then
+    xpdf $base.pdf
+fi

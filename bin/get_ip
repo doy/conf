@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+my $page = "http://www.lawrencegoetz.com/programs/ipinfo/";
+
+open my $site, "wget -qO- $page|" or die "Could not get web page";
+
+my $next_line_is_ip = 0;
+while (<$site>) {
+    if ($next_line_is_ip == 1) {
+        s/ //g;
+        print $_;
+        last;
+    }
+    $next_line_is_ip = 1 if /Your IP address is/;
+}

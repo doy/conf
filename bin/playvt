@@ -1,0 +1,8 @@
+#!/bin/bash
+
+rate=$2
+if [[ -z "$rate" ]]; then
+    rate=1200
+fi
+
+wget -O- $1 --limit-rate=$rate 2>/dev/null

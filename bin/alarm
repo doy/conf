@@ -1,0 +1,29 @@
+#!/bin/bash
+reset_mixer()
+{
+    amixer set Master $OLDVOL_M $M > /dev/null
+    amixer set PCM $OLDVOL_P $P > /dev/null
+}
+
+set_mixer()
+{
+    OLDVOL_M=`amixer get Master | egrep "$Front Left.*\[.*%\]" | sed s/".*\[\(.*%\)].*"/"\1"/`
+    OLDVOL_P=`amixer get PCM | egrep "$Front Left.*\[.*%\]" | sed s/".*\[\(.*%\)].*"/"\1"/`
+    OLDMUTE_M=`amixer get Master | egrep "$Front Left.*\[.*%\]" | sed s/".*\[\(.*%\)].*\[\(.*\)\]"/"\2"/`
+    OLDMUTE_P=`amixer get PCM | egrep "$Front Left.*\[.*%\]" | sed s/".*\[\(.*%\)].*\[\(.*\)\]"/"\2"/`
+    echo $OLDMUTE_M | grep -q on || M='mute'
+    echo $OLDMUTE_P | grep -q on || P='mute'
+    amixer set Master 100% unmute > /dev/null
+    amixer set PCM 100% unmute > /dev/null
+}
+
+trap reset_mixer 2
+trap reset_mixer 3
+trap reset_mixer 15
+for i in {1..100};do
+    set_mixer
+    mplayer ~/.alarm.mp3 > /dev/null
+    reset_mixer
+    sleep 600
+done
+reset_mixer

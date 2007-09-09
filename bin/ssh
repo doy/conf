@@ -1,0 +1,7 @@
+#!/bin/bash
+
+SSH=/usr/bin/$(basename $0)
+
+keychain -q --timeout 30 ~/.ssh/id_dsa
+. ~/.keychain/${HOSTNAME}-sh
+$SSH $*

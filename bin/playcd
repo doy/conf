@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+    cdda2wav -q -e -d0 -N -B   dev=/dev/cdrom &
+else
+    cdda2wav -q -e -d0 -N -t$1 dev=/dev/cdrom &
+fi
+
+PID=$!
+
+# this program skips a lot
+sudo renice -5 ${PID}
+
+wait ${PID}

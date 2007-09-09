@@ -1,0 +1,8 @@
+#!/bin/bash
+
+name=$1
+shift
+
+eval `dbus-launch`
+export DBUS_SESSION_BUS_ADDRESS
+gaim-remote "aim:goim?screenname=$name&message=$*"
