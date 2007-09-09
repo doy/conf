@@ -10,7 +10,8 @@
 if [[ $- != *i* ]] ; then
 	# Shell is non-interactive.  Be done now!
 	return
-fi # }}}
+fi
+[ -z "$PS1" ] && return # }}}
 # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489 {{{
 if [[ -f ~/.dir_colors ]]; then
 	eval `dircolors -b ~/.dir_colors`
