@@ -72,7 +72,6 @@ alias sporkhack='telnet nethack.nineball.org'
 
 # shell accounts {{{
 alias katron="ssh katron.org"
-alias dk="ssh darcs.katron.org"
 alias arcane="ssh 66.41.105.165"
 alias jsn="ssh noway.ratry.ru"
 alias akrasiac="ssh henzell@crawl.akrasiac.org"
