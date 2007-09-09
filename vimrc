@@ -1,4 +1,5 @@
 " vim:foldmethod=marker commentstring="%s
+" based on Eidolos's .vimrc, at http://sartak.katron.org/vimrc
 
 " General options {{{
 " Miscellaneous {{{
@@ -10,6 +11,9 @@ filetype indent plugin on
 
 " automatically flush to disk when using :make, etc.
 set autowrite
+
+" Gentoo disables modelines by default
+set modeline
 "}}}
 " Display {{{
 " color!
@@ -34,7 +38,7 @@ set laststatus=0
 
 " display as much of the last line as possible if it's really long
 " also display unprintable characters as hex
-set display=lastline,uhex
+set display+=lastline,uhex
 
 " give three lines of context when moving the cursor around
 set scrolloff=3
@@ -60,14 +64,14 @@ let perl_include_pod=1
 
 " I generally don't want to have to space through things.. :)
 set nomore
+
+" tab completion stuff for the command line
+set wildmode=longest,list,full
+
+" word wrapping
+set linebreak
 "}}}
 " Improve power of commands {{{
-" incremental search!
-set incsearch
-
-" make tilde (flip case) an operator
-set tildeop
-
 " backspace over autoindent, end of line (to join lines), and preexisting test
 set backspace=indent,eol,start
 
@@ -93,14 +97,14 @@ set vb t_vb=
 " if you :q with changes it asks you if you want to continue or not
 set confirm
 
-" 100 milliseconds for escape timeout instead of 1000
-set ttimeoutlen=100
+" 50 milliseconds for escape timeout instead of 1000
+set ttimeoutlen=50
 "}}}
 " Indentation {{{
-" no-longer skinny tabs!
-set tabstop=4
+" normal sized tabs!
+set tabstop=8
 
-" set to the same as tabstop (see #4 in :help tabstop)
+" set to what i like (see #2 in :help tabstop)
 set shiftwidth=4
 
 " if it looks like a tab, we can delete it like a tab
@@ -127,16 +131,11 @@ set cinoptions+=b1
 " Folding {{{
 " fold only when I ask for it damnit!
 set foldmethod=marker
-
-" close a fold when I leave it
-set foldclose=all
 "}}}
 "}}}
 
 " Colors {{{
-" miscellaneous {{{
-set bg=light
-" }}}
+colorscheme peachpuff
 " word completion menu {{{
 highlight Pmenu      ctermfg=grey  ctermbg=darkblue
 highlight PmenuSel   ctermfg=red   ctermbg=darkblue
@@ -149,7 +148,7 @@ highlight WildMenu ctermfg=grey ctermbg=darkblue
 highlight Folded     ctermbg=black ctermfg=darkgreen
 "}}}
 " hlsearch {{{
-highlight Search NONE ctermfg=lightred
+highlight Search NONE ctermfg=red
 "}}}
 "}}}
 
@@ -161,74 +160,76 @@ autocmd BufReadPost *
 \  endif
 "}}}
 " Skeletons {{{
-autocmd BufNewFile *.pl silent 0read ~/.vim/skeletons/perl.pl     | normal G
-autocmd BufNewFile *.pm silent 0read ~/.vim/skeletons/perl.pm     | normal G3k
-autocmd BufNewFile *.c  silent 0read ~/.vim/skeletons/c.c         | normal 4j$
-autocmd BufNewFile *.hs silent 0read ~/.vim/skeletons/haskell.hs  | normal Gk$
-"}}}
+autocmd BufNewFile *.pl     silent 0read ~/.vim/skeletons/perl | normal Gdd
+autocmd BufNewFile *.cpp    silent 0read ~/.vim/skeletons/cpp  | normal Gddk
+autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c    | normal Gddk
+autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex  | normal Gddk
+autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/make | normal $
+" }}}
+" Filetypes for when detection sucks {{{
+autocmd BufNewFile,BufReadPost *.tex silent set filetype=tex 
+" }}}
 " Auto +x {{{
 au BufWritePost *.sh !chmod +x %
 au BufWritePost *.pl !chmod +x %
-"}}}
-" Automatically invoke darcs record on writing conf {{{
-autocmd BufWritePost ~/.vimrc !cd /home/sartak/devel/conf/ && darcs record
-autocmd BufWritePost ~/devel/conf/vimrc !cd /home/sartak/devel/conf/ && darcs record
-
-autocmd BufWritePost ~/.zshrc !cd /home/sartak/devel/conf/ && darcs record
-autocmd BufWritePost ~/devel/conf/zshrc !cd /home/sartak/devel/conf/ && darcs record
-
-autocmd BufWritePost ~/.screenrc !cd /home/sartak/devel/conf/ && darcs record
-autocmd BufWritePost ~/devel/conf/screenrc !cd /home/sartak/devel/conf/ && darcs record
 "}}}
 " Perl :make does a syntax check {{{
 autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
 autocmd FileType perl setlocal errorformat=%f:%l:%m
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
 "}}}
+" Automatically distribute my conf files to the servers I use {{{
+" public web copy {{{
+autocmd BufWritePost ~/.vimrc !scp % tozt.jjaro.net:~/public_html/conf/vimrc
+autocmd BufWritePost ~/.vim/* !scp % tozt.jjaro.net:%:p:~:s?.vim?public_html/conf/vim?
+autocmd BufWritePost ~/.screenrc !scp % tozt.jjaro.net:~/public_html/conf/screenrc
+autocmd BufWritePost ~/.inputrc !scp % tozt.jjaro.net:~/public_html/conf/inputrc
+autocmd BufWritePost ~/bin/* !scp % tozt.jjaro.net:%:p:~:s?bin?public_html/conf/bin?
+" }}}
+" tozt {{{
+autocmd BufWritePost ~/.vimrc !scp % tozt.jjaro.net:~/
+autocmd BufWritePost ~/.vim/* !scp % tozt.jjaro.net:%:p:~:h
+autocmd BufWritePost ~/.screenrc !scp % tozt.jjaro.net:~/
+autocmd BufWritePost ~/.inputrc !scp % tozt.jjaro.net:~/
+autocmd BufWritePost ~/bin/* !scp % tozt.jjaro.net:%:p:~:h
+" }}}
+" demogorgon {{{
+autocmd BufWritePost ~/.vimrc !scp % demogorgon:~/
+autocmd BufWritePost ~/.vim/* !scp % demogorgon:%:p:~:h
+autocmd BufWritePost ~/.screenrc !scp % demogorgon:~/
+autocmd BufWritePost ~/.inputrc !scp % demogorgon:~/
+autocmd BufWritePost ~/bin/* !scp % demogorgon:%:p:~:h
+" }}}
+" rounder {{{
+autocmd BufWritePost ~/.vimrc !scp % rounder:~/
+autocmd BufWritePost ~/.vim/* !scp % rounder:%:p:~:h
+autocmd BufWritePost ~/.screenrc !scp % rounder:~/
+autocmd BufWritePost ~/.inputrc !scp % rounder:~/
+autocmd BufWritePost ~/bin/* !scp % rounder:%:p:~:h
+" }}}
+" }}}
 "}}}
 
 " Insert-mode remappings/abbreviations {{{
+" Arrow keys, etc {{{
+imap <up> <C-o>gk
+imap <down> <C-o>gj
+imap <home> <C-o>g<home>
+imap <end> <C-o>g<end>
+" }}}
 " Hit <C-a> in insert mode after a bad paste (thanks absolon) {{{
 inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
 "}}}
-" Words I misspell.. {{{
-iabbrev lamdba lambda
-"}}}
 
 " Normal-mode remappings {{{
-" spacebar (in command mode) inserts a single character before the cursor
-nmap <Space> i <Esc>r
-
 " have Y behave analogously to D rather than to dd
 nmap Y y$
 
 nnoremap \\ \
 nmap \/ :nohl<CR>
 nmap \s :syntax sync fromstart<CR>
-nmap \m :set syn=mason<CR>:syntax sync fromstart<CR>
-nmap \n :set invnumber<CR>
-nmap \c :make<CR>
-
-" darcs convenience mappings {{{
-nmap \da  :execute 'w  <bar> !darcs add %'<CR>
-nmap \dA  :execute 'wa <bar> !darcs amend-record'<CR>
-nmap \dr  :execute 'wa <bar> !darcs record'<CR>
-nmap \dR  :execute 'w  <bar> !darcs record %'<CR>
-nmap \dn  :execute 'wa <bar> !darcs whatsnew   <bar> less'<CR>
-nmap \dN  :execute 'w  <bar> !darcs whatsnew % <bar> less'<CR>
-nmap \dd  :execute 'wa <bar> !darcs diff -u    <bar> less'<CR>
-nmap \dD  :execute 'w  <bar> !darcs diff -u %  <bar> less'<CR>
-nmap \dc  :execute '!darcs changes             <bar> less'<CR>
-nmap \dqm :execute '!darcs query manifest      <bar> less'<CR>
-nmap \dt  :execute '!darcs tag'<CR>
-nmap \dp  :execute '!darcs push'<CR>
-nmap \du  :execute '!darcs unrecord'<CR>
-nmap \db  :execute "w <bar> :execute '!darcs revert %'   <bar> :execute 'e'"<CR>
-nmap \dB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :execute 'e'"<CR>
-"}}}
-
-nmap <Right> :bn<CR>
-nmap <Left>  :bp<CR>
+autocmd FileType help nnoremap <CR> <C-]>
+autocmd FileType help nnoremap <BS> <C-T>
 
 " damnit cbus, you've won me over
 vnoremap < <gv
@@ -260,80 +261,39 @@ endfunction
 map <F11> :call <SID>spell()<CR>
 imap <F11> <C-o>:<BS>call <SID>spell()<CR>
 "}}}
-"}}}
-
-" Text object ('i,' and 'a,') for function parameters {{{
-" Notes:
-" * "i," can't be used to select several parameters with several uses of
-" "i," ; use "a," instead (-> va,a,a,). This is because of single
-" letter parameters.
-" However, "v2i," works perfectly.
-" * Vim7+ only
-" * The following should be resistant to &magic, and other mappings
-onoremap <silent> i, :<c-u>call <sid>SelectParam(1,0)<cr>
-xnoremap <silent> i, :<c-u>call <sid>SelectParam(1,1)<cr><esc>gv
-onoremap <silent> a, :<c-u>call <sid>SelectParam(0,0)<cr>
-xnoremap <silent> a, :<c-u>call <sid>SelectParam(0,1)<cr><esc>gv
-
-function! s:SelectParam(inner, visual)
- let pos = getpos('.')
- if a:visual ==1 && s:CurChar("'>") =~ '[(,]'
-   normal! gvl
- else
-   let b = searchpair('\V(\zs','\V,\zs','\V)','bcW','s:Skip()')
-   if 0 == b
-     throw "Not on a parameter"
-   endif
-   normal! v
- endif
- let cnt = v:count <= 0 ? 1 : v:count
-
- while cnt > 0
-   let cnt -= 1
-   let e = searchpair('\V(', '\V,','\V)', 'W','s:Skip()')
-   if 0 == e
-     exe "normal! \<esc>"
-     call setpos('.', pos)
-     throw "Not on a parameter2"
-   endif
-   if cnt > 0
-     normal! l
-   endif
- endwhile
- if a:inner == 1
-   normal! h
- endif
-endfunction
-
-function! s:CurChar(char)
- let c = getline(a:char)[col(a:char)-1]
- return c
-endfunction
-
-func! s:Skip()
- return synIDattr(synID(line('.'), col('.'), 0),'name') =~?
-       \ 'string\|comment\|character\|doxygen'
-endfun
-" }}}
-
-" Plugin configuration {{{
-" Rainbowy parens, braces, and brackets {{{
-let g:rainbow         = 1
-let g:rainbow_nested  = 1
-let g:rainbow_paren   = 1
-let g:rainbow_brace   = 1
-let g:rainbow_bracket = 1
-"autocmd BufReadPost * source $HOME/.vim/rainbow_paren.vim
-"autocmd BufNewFile  * source $HOME/.vim/rainbow_paren.vim
-"}}}
-" YankRing {{{
-"let g:yankring_n_keys = 'yy,dd,cc,yw,dw,cw,ye,de,ce,yE,dE,cE,yiw,diw,ciw,yaw,daw,caw,y$,d$,c$,Y,D,C,yG,dG,cG,ygg,dgg,cgg,yi{,di{,ci{,ya{,da{,ca{,yip,dip,cip,yap,dap,cap,yi(,di(,ci(,ya(,da(,ca(,yi/,di/,ci/,ya/,da/,ca/,yi[,di[,ci[,ya[,da[,ca[,yW,dW,cW,yit,dit,cit,yat,dat,cat,yi<,di<,ci<,ya<,da<,ca<'
-let g:yankring_n_keys = 'yy,dd,yw,dw,ye,de,yE,dE,yiw,diw,yaw,daw,y$,d$,Y,D,yG,dG,ygg,dgg,yi{,di{,ya{,da{,yip,dip,yap,dap,yi(,di(,ya(,da(,yi/,di/,ya/,da/,yi[,di[,ya[,da[,yW,dW,yit,dit,yat,dat,yi<,di<,ya<,da<'
-
-function! YRRunAfterMaps()
-    nnoremap <silent> Y :YRYankCount 'y$'<CR>
-endfunction
+" Arrow keys, etc, again {{{
+map <up> gk
+map <down> gj
+map <home> g<home>
+map <end> g<end>
 " }}}
 "}}}
-" }}}
 
+" Plugin settings {{{
+" Enhanced Commentify {{{
+let g:EnhCommentifyBindInInsert = 'No'
+let g:EnhCommentifyRespectIndent = 'Yes'
+" }}}
+" Rainbow {{{
+let g:rainbow = 1
+let g:rainbow_paren = 1
+let g:rainbow_brace = 1
+" why is this necessary? shouldn't just putting it in the plugin dir work?
+autocmd BufNewFile,BufReadPost * source ~/.vim/plugin/rainbow_paren.vim
+" }}}
+" Taglist {{{
+let s:session_file = './.tlist_session'
+let TlistIncWinWidth = 0
+let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Use_Horiz_Window = 1
+let Tlist_Compact_Format = 1
+let Tlist_Close_On_Select = 1
+let Tlist_Display_Prototype = 1
+nnoremap <silent> <F8> :TlistToggle<CR>
+" if the current file isn't below the current directory, :. doesn't modify %
+if file_readable(s:session_file) && expand("%:.") !~ '^/'
+    autocmd VimEnter * TlistDebug | exec 'TlistSessionLoad ' . s:session_file
+    autocmd VimLeave * call delete(s:session_file) | exec 'TlistSessionSave ' . s:session_file
+endif
+" }}}
+" }}}
