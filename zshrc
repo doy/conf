@@ -81,9 +81,7 @@ alias home='ssh $HOMEIP'
 # }}}
 
 # shortcuts {{{
-alias tdA="todo -f children"
 alias dwn="darcs whatsnew"
-alias emacs="emacs -nw"
 alias darcsify="darcs init && darcs add \$(darcs whatsnew -ls | awk '/^a\ / {print \$2}') && darcs record -a -m'Initial import'"
 alias dpl="darcs pull"
 alias dps="darcs push"
