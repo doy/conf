@@ -80,6 +80,7 @@ alias dp="darcs pull && darcs push"
 alias dr="darcs record"
 alias dar="darcs amend-record"
 alias db="darcs revert"
+alias dqm="darcs query manifest"
 alias starcraft="cd /home/sartak/.wine/drive_c/Program\ Files/Starcraft && sudo wine StarCraft.exe"
 alias rtp='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo prove -l -I/opt/rt3/local/lib'
 alias rtpv='PERL5LIB=/opt/rt3/local/lib:/opt/rt3/lib:$PERL5LIB RT_DBA_USER=postgres RT_DBA_PASSWORD='' sudo perl -Ilib -I/opt/rt3/local/lib'
