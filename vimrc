@@ -71,10 +71,6 @@ set tildeop
 " backspace over autoindent, end of line (to join lines), and preexisting test
 set backspace=indent,eol,start
 
-" add the dictionary to tab completion
-set dictionary=/usr/share/dict/words
-set complete+=k
-
 " tab completion in ex mode
 set wildmenu
 
