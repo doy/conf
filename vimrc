@@ -170,9 +170,15 @@ autocmd BufNewFile *.hs silent 0read ~/.vim/skeletons/haskell.hs  | normal Gk$
 au BufWritePost *.sh !chmod +x %
 au BufWritePost *.pl !chmod +x %
 "}}}
-" Automatically invoke darcs record on writing vimrc {{{
+" Automatically invoke darcs record on writing conf {{{
 autocmd BufWritePost ~/.vimrc !cd /home/sartak/devel/conf/ && darcs record
 autocmd BufWritePost ~/devel/conf/vimrc !cd /home/sartak/devel/conf/ && darcs record
+
+autocmd BufWritePost ~/.zshrc !cd /home/sartak/devel/conf/ && darcs record
+autocmd BufWritePost ~/devel/conf/zshrc !cd /home/sartak/devel/conf/ && darcs record
+
+autocmd BufWritePost ~/.screenrc !cd /home/sartak/devel/conf/ && darcs record
+autocmd BufWritePost ~/devel/conf/screenrc !cd /home/sartak/devel/conf/ && darcs record
 "}}}
 " Perl :make does a syntax check {{{
 autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
