@@ -229,15 +229,8 @@ nmap \db  :execute "w <bar> :execute '!darcs revert %'   <bar> :execute 'e'"<CR>
 nmap \dB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :execute 'e'"<CR>
 "}}}
 
-" testing mappings
-autocmd FileType perl nnoremap \t :execute 'wa <bar> !prove -l t 1>/dev/null'<CR>
-autocmd FileType perl nnoremap \T :execute 'wa <bar> !prove -lv t'<CR>
-
 nmap <Right> :bn<CR>
 nmap <Left>  :bp<CR>
-
-autocmd FileType help nnoremap <CR> <C-]>
-autocmd FileType help nnoremap <BS> <C-T>
 
 " damnit cbus, you've won me over
 vnoremap < <gv
