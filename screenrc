@@ -1,8 +1,6 @@
+# .screenrc, based on Eidolos' config at http://sartak.org/conf/
 startup_message off
 nethack on
-
-# change ^A to ^B -- ^B has no real meaning in bash, vim, or nethack.
-escape ^Bb
 
 # no more "bell in window 1", Crassworm!!
 bell_msg ""
@@ -16,3 +14,9 @@ defscrollback 2000
 # quick esc timeout
 maptimeout 50
 
+# use the alternate screen feature (for full-screen curses apps, etc)
+altscreen on
+
+# some keybindings
+bind ^a windowlist -b
+bind ^g screen //group
