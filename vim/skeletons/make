@@ -1,0 +1,26 @@
+BIN =
+OBJ =
+CC = gcc
+INCLUDES =
+DEFINES =
+LIBS =
+PC_LIBS =
+COMMONFLAGS = -Werror -Wall -O0 -g -pipe
+CFLAGS = -c $(INCLUDES) $(DEFINES) $(shell pkg-config $(PC_LIBS) --cflags) $(COMMONFLAGS)
+LDFLAGS = $(shell pkg-config $(PC_LIBS) --libs) $(LIBS) $(COMMONFLAGS)
+
+$(BIN) : $(OBJ)
+	$(CC) $(OBJ) $(LDFLAGS) -o $@
+
+%.o : %.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+clean :
+	rm -f $(OBJ) $(BIN)
+
+dep :
+	makedepend $(INCLUDES) $(DEFINES) -Y *.c *.h *.cpp *.hpp *.def > /dev/null 2>&1
+	rm -f Makefile.bak
+
+run : $(BIN)
+	@./$(BIN)
