@@ -1,0 +1,18 @@
+startup_message off
+nethack on
+
+# change ^A to ^B -- ^B has no real meaning in bash, vim, or nethack.
+escape ^Bb
+
+# no more "bell in window 1", Crassworm!!
+bell_msg ""
+
+# avoid logging in a new user for every term (thanks toft)
+deflogin off
+
+# lines of scrollback!
+defscrollback 2000
+
+# quick esc timeout
+maptimeout 50
+
