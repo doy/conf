@@ -267,16 +267,6 @@ map <down> gj
 map <home> g<home>
 map <end> g<end>
 " }}}
-
-" Plugin configuration {{{
-" Rainbowy parens, braces, and brackets {{{
-let g:rainbow         = 1
-let g:rainbow_nested  = 1
-let g:rainbow_paren   = 1
-let g:rainbow_brace   = 1
-let g:rainbow_bracket = 1
-"autocmd BufReadPost * source $HOME/.vim/rainbow_paren.vim
-"autocmd BufNewFile  * source $HOME/.vim/rainbow_paren.vim
 "}}}
 
 " Plugin settings {{{
