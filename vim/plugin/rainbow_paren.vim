@@ -19,8 +19,7 @@
 "   let g:rainbow_nested = 1
 
 " you probably also want to use something like
-"   autocmd BufReadPost * source /path/to/rainbow_parens.vim
-"   autocmd BufNewFile  * source /path/to/rainbow_parens.vim
+"   autocmd BufWinEnter * runtime plugin/rainbow_parens.vim
 
 if exists("g:rainbow") && g:rainbow != 0
   hi level1c ctermfg=darkcyan
