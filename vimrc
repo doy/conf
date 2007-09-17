@@ -249,8 +249,11 @@ let g:EnhCommentifyRespectIndent = 'Yes'
 let g:rainbow = 1
 let g:rainbow_paren = 1
 let g:rainbow_brace = 1
-" why is this necessary? shouldn't just putting it in the plugin dir work?
-autocmd BufNewFile,BufReadPost * source ~/.vim/plugin/rainbow_paren.vim
+" just loading this directly from the plugin directory fails because language
+" syntax files override the highlighting
+" using BufWinEnter because that is run after modelines are run (so it catches
+" modelines which update highlighting)
+autocmd BufWinEnter * runtime plugin/rainbow_paren.vim
 " }}}
 " Taglist {{{
 let s:session_file = './.tlist_session'
