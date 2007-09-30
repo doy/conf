@@ -160,7 +160,7 @@ autocmd BufReadPost *
 \  endif
 "}}}
 " Skeletons {{{
-autocmd BufNewFile *.pl     silent 0read ~/.vim/skeletons/perl | normal Gdd
+autocmd BufNewFile *.p[lm]  silent 0read ~/.vim/skeletons/perl | normal Gdd
 autocmd BufNewFile *.cpp    silent 0read ~/.vim/skeletons/cpp  | normal Gddk
 autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c    | normal Gddk
 autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex  | normal Gddk
