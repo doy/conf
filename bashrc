@@ -15,8 +15,10 @@ fi
 # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489 {{{
 if [[ -f ~/.dir_colors ]]; then
 	eval `dircolors -b ~/.dir_colors`
-else
+elif [[ -f /etc/DIR_COLORS ]]; then
 	eval `dircolors -b /etc/DIR_COLORS`
+else
+	eval `dircolors -b`
 fi # }}}
 # Change the window title of X terminals {{{
 case ${TERM} in
