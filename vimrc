@@ -56,12 +56,6 @@ set matchtime=2
 " threshold for reporting number of lines changed
 set report=0
 
-" highlight advanced perl vars inside strings
-let perl_extended_vars=1
-
-" POD!
-let perl_include_pod=1
-
 " I generally don't want to have to space through things.. :)
 set nomore
 
@@ -70,6 +64,45 @@ set wildmode=longest,list,full
 
 " word wrapping
 set linebreak
+
+" Language specific features {{{
+" Bash {{{
+" I use bash
+let g:is_bash=1
+" }}}
+" C/C++ {{{
+" highlight end of line whitespace and spaces before tabs
+let c_space_errors=1
+
+" use c syntax for header files, rather than c++
+let c_syntax_for_h=1
+
+" highlight doxygen
+let g:load_doxygen_syntax=1
+" }}}
+" LaTeX {{{
+" I only use LaTeX
+let g:tex_flavor="latex"
+" }}}
+" Perl {{{
+" highlight advanced perl vars inside strings
+let perl_extended_vars=1
+
+" POD!
+let perl_include_pod=1
+
+" color quote marks differently from the actual string
+let perl_string_as_statement=1
+
+" perl needs lots of syncing...
+let perl_sync_dist=1000
+" }}}
+" PostScript {{{
+" highlight more things in postscripts files
+let postscr_fonts=1
+let postscr_encodings=1
+" }}}
+" }}}
 "}}}
 " Improve power of commands {{{
 " backspace over autoindent, end of line (to join lines), and preexisting test
@@ -169,9 +202,6 @@ autocmd BufNewFile *.cpp    silent 0read ~/.vim/skeletons/cpp  | normal Gddk
 autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c    | normal Gddk
 autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex  | normal Gddk
 autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/make | normal $
-" }}}
-" Filetypes for when detection sucks {{{
-autocmd BufNewFile,BufReadPost *.tex silent set filetype=tex 
 " }}}
 " Auto +x {{{
 au BufWritePost *.sh !chmod +x %
