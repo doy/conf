@@ -150,6 +150,10 @@ highlight Folded     ctermbg=black ctermfg=darkgreen
 " hlsearch {{{
 highlight Search NONE ctermfg=red
 "}}}
+" color end of line whitespace {{{
+autocmd BufWinEnter * syn match EOLWS excludenl /[ \t]\+$/
+hi EOLWS ctermbg=red
+" }}}
 "}}}
 
 " Autocommands {{{
