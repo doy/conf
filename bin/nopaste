@@ -1,0 +1,57 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use WWW::Mechanize;
+use Getopt::Long;
+
+my $nick = $ENV{USER};
+my $lang = "C";
+my $desc = "";
+my $tabs = "No";
+my $text = "";
+my $host = "rafb.net/paste";
+
+sub usage {
+    print <<"END_USAGE";
+Usage: $0 <options>
+    Reads paste from STDIN
+
+    Options:
+
+    --nick=NICK       Paste as NICK (default \$USER)
+    --language=       Set the language for syntax highlighting
+    --description=    Set the paste description
+    --tabs=           Set how many spaces a tab should be
+    --host=           Use a different host other than $host
+    
+END_USAGE
+
+    exit(-1);
+}
+
+GetOptions("nick=s"         => \$nick,
+           "language=s"     => \$lang,
+           "description=s"  => \$desc,
+           "tabs=s"         => \$tabs,
+           "host=s"         => \$host)
+or usage();
+
+$text = do { local $/; <> };
+
+my $mech = WWW::Mechanize->new();
+
+$mech->get("http://$host");
+
+$mech->submit_form(
+    form_number => 1,
+    fields      => {
+        nick      => $nick,
+        lang      => $lang,
+        desc      => $desc,
+        cvt_tabs  => $tabs,
+        text      => $text,
+    }
+);
+
+print "Pasted to: " . $mech->uri(), "\n";
