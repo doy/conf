@@ -212,6 +212,9 @@ autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
 autocmd FileType perl setlocal errorformat=%f:%l:%m
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
 "}}}
+" Latex :make converts to pdf {{{
+autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
+" }}}
 "}}}
 
 " Insert-mode remappings/abbreviations {{{
