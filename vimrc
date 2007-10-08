@@ -59,9 +59,6 @@ set report=0
 " I generally don't want to have to space through things.. :)
 set nomore
 
-" some setup to make eol whitespace show up red, but not on the current line
-set cursorline
-
 " tab completion stuff for the command line
 set wildmode=longest,list,full
 
@@ -189,7 +186,6 @@ highlight Search NONE ctermfg=red
 " color end of line whitespace {{{
 autocmd BufWinEnter * syn match EOLWS excludenl /\s\+$/
 hi EOLWS ctermbg=red
-hi CursorLine ctermfg=NONE ctermbg=black cterm=NONE
 " }}}
 "}}}
 
