@@ -184,7 +184,7 @@ highlight Folded     ctermbg=black ctermfg=darkgreen
 highlight Search NONE ctermfg=red
 "}}}
 " color end of line whitespace {{{
-autocmd BufWinEnter * syn match EOLWS excludenl /[ \t]\+$/
+autocmd BufWinEnter * syn match EOLWS excludenl /\s\+$/
 hi EOLWS ctermbg=red
 " }}}
 "}}}
