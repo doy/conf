@@ -42,6 +42,7 @@ alias ncmpc="ncmpc -c"
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
 alias cao="(TERM=rxvt telnet crawl.akrasiac.org)"
+alias cdo="ssh crawl@crawl.develz.org"
 alias scn="(TERM=xterm-color telnet slashem.crash-override.net)"
 alias spork="telnet sporkhack.nineball.org"
 alias cgoban="javaws http://files.gokgs.com/javaBin/cgoban.jnlp"
