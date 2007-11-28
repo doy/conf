@@ -4,10 +4,9 @@ CC = gcc
 INCLUDES =
 DEFINES =
 LIBS =
-PC_LIBS =
 COMMONFLAGS = -Werror -Wall -O0 -g -pipe
-CFLAGS = -c $(INCLUDES) $(DEFINES) $(shell pkg-config $(PC_LIBS) --cflags) $(COMMONFLAGS)
-LDFLAGS = $(shell pkg-config $(PC_LIBS) --libs) $(LIBS) $(COMMONFLAGS)
+CFLAGS = -c $(INCLUDES) $(DEFINES) $(COMMONFLAGS)
+LDFLAGS = $(LIBS) $(COMMONFLAGS)
 
 $(BIN) : $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) -o $@
