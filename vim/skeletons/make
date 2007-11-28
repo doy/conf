@@ -4,7 +4,7 @@ CC = gcc
 INCLUDES =
 DEFINES =
 LIBS =
-COMMONFLAGS = -Werror -Wall -O0 -g -pipe
+COMMONFLAGS = -Werror -Wall -pedantic -O0 -g -pipe
 CFLAGS = -c $(INCLUDES) $(DEFINES) $(COMMONFLAGS)
 LDFLAGS = $(LIBS) $(COMMONFLAGS)
 
