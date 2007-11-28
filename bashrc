@@ -100,6 +100,7 @@ export MANPAGER='vimmanpager'
 export DARCS_SCP='/home/doy/bin/scp'
 export DARCS_SFTP='/home/doy/bin/sftp'
 export PERL5LIB='/home/doy/.perl/'
+export CVS_RSH='ssh'
 # }}}
 # external files {{{
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
