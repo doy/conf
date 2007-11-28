@@ -18,7 +18,7 @@ clean :
 	rm -f $(OBJ) $(BIN)
 
 dep :
-	makedepend $(INCLUDES) $(DEFINES) -Y *.c *.h *.cpp *.hpp *.def > /dev/null 2>&1
+	makedepend $(INCLUDES) $(DEFINES) -Y *.c *.h > /dev/null 2>&1
 	rm -f Makefile.bak
 
 run : $(BIN)
