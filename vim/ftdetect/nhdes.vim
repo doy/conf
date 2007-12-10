@@ -1,1 +1,1 @@
-au! BufRead,BufNewFile *.des set filetype=nhdes
+au! BufRead,BufNewFile *nethack*/*.des set filetype=nhdes
