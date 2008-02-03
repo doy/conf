@@ -1,0 +1,580 @@
+# Section 1: Starting Screen {{{
+name = doy
+#remember_name = false
+#weapon = random
+#book = random
+#chaos_knight = random
+#death_knight = random
+#priest       = random
+#race = random
+#class = random
+#random_pick = false
+#}}}
+# Section 2: File System {{{
+#crawl_dir= <path>
+#morgue_dir = <path>
+#save_dir = <path>
+#sound = <regex>:<path to sound file>
+# }}}
+# Section 3: Lua Files {{{
+lua_file = lua/stash.lua
+lua_file = lua/wield.lua
+lua_file = lua/kills.lua
+lua_file = lua/runrest.lua
+lua_file = lua/gearset.lua
+lua_file = lua/eat.lua
+lua_file = lua/pickup.lua
+lua_file = lua/trapwalk.lua
+# }}}
+# Section 4: Interface {{{
+# Section 4-a: Picking up and Dropping {{{
+autopickup = $?!+"/%)
+# book autopickup is disabled for trog players in pickup.lua, but books are
+# still useful for them (burning, manuals, etc)
+autopickup_exceptions = <([Bb]ook|[Mm]anual)
+#default_autopickup = true
+#safe_autopickup = true
+autopickup_no_burden = true
+#safe_zero_exp = true
+#pickup_thrown = true
+#pickup_dropped = false
+assign_item_slot = backward
+drop_mode = multi
+pickup_mode = multi
+#drop_filter = <regex>
+# }}}
+# Section 4-b: Targeting {{{
+#target_zero_exp = false
+#target_oos = true
+#target_los_first = true
+#confirm_self_target = true
+#default_target = false
+target_unshifted_dirs = true
+# }}}
+# Section 4-c: Passive Sightings {{{
+detected_monster_colour = lightred
+detected_item_colour = green
+#colour_map = true
+#clean_map = false
+# }}}
+# Section 4-d: Branding {{{
+heap_brand = reverse
+friend_brand = hi:yellow
+stab_brand = hi:blue
+may_stab_brand = hi:green
+#stair_item_brand = reverse
+trap_item_brand = reverse
+# }}}
+# Section 4-e: Level Map Functions {{{
+#level_map_cursor_step = 7
+#level_map_title = true
+#item_colour = true
+# }}}
+# Section 4-f: Viewport Display Options {{{
+#view_max_width = 33
+#view_max_height = 17
+#view_lock_x = true
+#view_lock_y = true
+view_lock = false
+#center_on_scroll = false
+#symmetric_scroll = true
+#scroll_margin_x = 2
+#scroll_margin_y = 2
+scroll_margin = 1
+# }}}
+# Section 4-g: Travel and Exploration {{{
+travel_delay = -1
+#travel_avoid_terrain = (shallow water | deep water) ##LUA
+#travel_stop_message = # see bottom
+explore_greedy = true
+#explore_stop = items,stairs,shops,altars,gates
+runrest_ignore_message = You feel.*sick
+runrest_ignore_message = disappears in a puff of smoke
+runrest_ignore_message = engulfed in a cloud of smoke
+runrest_ignore_message = safely over a trap
+runrest_ignore_poison = 2:30
+runrest_ignore_monster = fish:2
+runrest_ignore_monster = swamp worm:3
+runrest_ignore_monster = butterfly:1
+trapwalk_safe_hp = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
+#tc_reachable = blue
+#tc_dangerous = cyan
+#tc_excluded = lightmagenta
+#tc_exclude_circle = red
+# }}}
+# Section 4-h: Stashes {{{
+#stash_tracking = all
+#stash_filter = <list of numbers>
+annotate_item_class = true
+# }}}
+# Section 4-i: Command Enhancements {{{
+#auto_list = true
+#lowercase_invocations = true
+easy_open = true
+#easy_butcher = true
+easy_unequip = false
+#easy_confirm = safe
+#easy_quit_item_prompts = true
+#easy_exit_menu = true
+#default_autoprayer = false
+sort_menus = true : equipped,art,ego,glowing,freshness,>qty,basename
+# }}}
+# Section 4-j: Messages and Display Enhancements {{{
+hp_warning = 40
+#mp_warning = 0
+hp_colour = lightgrey, 99:green, 80:yellow, 40:red
+mp_colour = lightgrey, 99:green, 80:yellow, 40:red
+#terse_hand = true
+delay_message_clear = true
+#always_greet = true
+#menu_colour = # see bottom
+#menu_colour_prefix_id = false
+menu_colour_prefix_class = true
+#message_colour = # see bottom
+#increasing_skill_progress = true
+show_inventory_weights = true
+show_turns = true
+#show_beam = false
+item_stack_summary_minimum = 0
+# }}}
+# Section 4-k: Missiles {{{
+#fire_items_start = c
+#fire_order = launcher, javelin / dart / stone / spear
+# }}}
+# Section 4-l: Message Channels {{{
+channel.god = lightmagenta
+# }}}
+# Section 4-m: Inscriptions {{{
+autoinscribe = distortion:!w
+autoinscribe = deck:!p
+autoinscribe = potion.*mutation:!q
+# }}}
+# Section 4-n: Macro related Options {{{
+#flush.failure = true
+#flush.command = false
+#flush.message = false
+# }}}
+# }}}
+# Section 5: Character Dump {{{
+# Section 5-a: Items and Kills {{{
+#kill_map =
+#dump_kill_places = single
+dump_item_origins = artifacts, ego_arm, ego_weap, jewellery
+dump_item_origin_price = 200
+#dump_message_count = 7
+dump_order  = header,hiscore,stats,inventory,skills,spells,mutations
+dump_order += overview,misc,screenshot,messages,notes,kills,turns_by_place
+dump_order += kills_by_place
+# }}}
+# Section 5-b: Notes {{{
+#use_notes = true
+#user_note_prefix = <string>
+note_items = rune of,acquirement,Orb
+ood_interesting = 5
+note_hp_percent = 5
+#note_skill_levels =
+#note_all_skill_levels = false
+note_skill_max = true
+note_monsters = ^[A-Z],orb of fire,lich
+note_messages = [bB]anish.*Abyss
+#note_all_spells = true
+# }}}
+# }}}
+# Section 6: Miscellaneous {{{
+# Section 6-a: All OS {{{
+#macro_meta_entry = true
+#mouse_input = false
+#colour.OLDCOLOUR = NEWCOLOUR
+wiz_mode = no
+#char_set = ascii
+#cset_ascii =
+#cset_ibm =
+#cset_dec =
+#cset_unicode =
+#cset_any =
+#feature =
+mon_glyph = _ : p
+mon_glyph = shadow : lightgrey
+mon_glyph = oklob plant : lightmagenta
+mon_glyph = Xtahua : lightmagenta
+mon_glyph = acid blob : lightmagenta
+mon_glyph = giant eyeball : cyan
+#classic_item_colours = false
+# }}}
+# Section 6-b: DOS and Windows {{{
+#dos_use_background_intensity = false
+# }}}
+# Section 6-c: Unix {{{
+#background = BLACK
+#use_fake_cursor = false
+# }}}
+# }}}
+# menu_colour {{{
+# Important game items {{{
+menu_colour = lightmagenta:^misc.*rune( of Zot)?
+menu_colour = lightmagenta:^orb.*Zot
+# }}}
+# Artifacts {{{
+# Identified {{{
+menu_colour = magenta:^(weapon|armour|jewellery|staff).*[+-] the
+# }}}
+# Unidentified {{{
+# Weapons {{{
+menu_colour = magenta:^weapon.* ((brightly|faintly) glowing|smoking|twisted)
+menu_colour = magenta:^weapon.* (bloodstained|shimmering|warped|crystal)
+menu_colour = magenta:^weapon.* (jewelled|transparent|encrusted|pitted|slimy)
+menu_colour = magenta:^weapon.* (polished|fine|crude|ancient|ichor-stained)
+menu_colour = magenta:^weapon.* (steaming|shiny|polka-dotted)
+menu_colour = magenta:^weapon.* (golden|purple|bone|serpentine|ruby|chunky)
+menu_colour = magenta:^weapon.* (thin|green|ivory|ephemeral|blackened)
+menu_colour = magenta:^weapon.* (sapphire|rusty|blue|brutal|adamantine|ebony)
+menu_colour = magenta:^weapon.* (mangy|mithril|black|very long|steel|tiny)
+menu_colour = magenta:^weapon.* flaming crossbow
+# }}}
+# Armour {{{
+menu_colour = lightgrey:^armour.* jewelled helm(et)?
+menu_colour = magenta:^armour.* ((brightly|faintly) glowing|smoking|twisted)
+menu_colour = magenta:^armour.* (bloodstained|shimmering|warped|heavily runed)
+menu_colour = magenta:^armour.* (jewelled|transparent|encrusted|pitted|slimy)
+menu_colour = magenta:^armour.* (polished|fine|crude|ancient|ichor-stained)
+menu_colour = magenta:^armour.* (steaming|distressingly furry|plaid|tie-dyed)
+menu_colour = magenta:^armour.* (dull|golden|silk|tattered|round|bronze)
+menu_colour = magenta:^armour.* (fabulously|vibrating|soft|smelly|red|thick)
+menu_colour = magenta:^armour.* (weird-looking|blue|black|dirty|paisley)
+menu_colour = magenta:^armour.* (chartreuse)
+# }}}
+# Jewellery {{{
+menu_colour = magenta:^jewellery.* ((brightly|faintly) glowing|smoking)
+menu_colour = magenta:^jewellery.* (shimmering|warped|crystal|diamond)
+menu_colour = magenta:^jewellery.* (transparent|pitted|slimy|polished|fine)
+menu_colour = magenta:^jewellery.* (crude|ancient|steaming|scintillating)
+menu_colour = magenta:^jewellery.* (sparkling|flickering|glittering)
+menu_colour = magenta:^jewellery.* (black |blood-stained|cast-iron)
+menu_colour = magenta:^jewellery.* (phosphorescent)
+menu_colour = magenta:^jewellery.* an (encrusted|emerald) (ring|amulet)
+menu_colour = magenta:^jewellery.* a (runed|twisted|shiny|ruby) (ring|amulet)
+menu_colour = magenta:^jewellery.* a (sapphire) ring
+menu_colour = magenta:^jewellery.* a (jade) amulet
+# }}}
+# }}}
+# }}}
+# Possible ego items {{{
+menu_colour = lightblue:^weapon.*(runed|glowing)
+menu_colour = lightblue:^armour.*(runed|glowing|embroidered|shiny)
+# }}}
+# Mummies {{{
+: if you.race() == "Mummy" then
+menu_colour = darkgrey:^potion
+: end
+# }}}
+# Emergency items {{{
+menu_colour = cyan:^scroll.*(blinking|teleport|fear)
+menu_colour = cyan:^wand.*(teleport|healing|hasting)
+menu_colour = cyan:^potion.*(heal|berserk|speed|resistance)
+menu_colour = cyan:^misc.*[lL]antern
+# }}}
+# Good items {{{
+menu_colour = magenta:^scroll.*(acquirement)
+menu_colour = magenta:^potion.*(gain (strength|dexterity|intelligence))
+menu_colour = magenta:^potion.*(experience|magic)
+: if not you_undead() then
+menu_colour = magenta:^potion.*(of mutation)
+autopickup_exceptions = <potion.*(of mutation)
+: else
+menu_colour = lightred:^potion.*(of mutation)
+: end
+# }}}
+# Dangerous items {{{
+menu_colour = lightred:^scroll.*(forgetfulness|torment|curse armour)
+autopickup_exceptions = >scroll.*(forgetfulness|torment|curse armour)
+menu_colour = lightred:^scroll.*(immolation|curse weapon)
+autopickup_exceptions = >scroll.*(immolation|curse weapon)
+# autopickup_exceptions for potions and jewellery is handled by pickup.lua
+menu_colour = lightred:^potion.*(slowing|degeneration|poison|confusion)
+menu_colour = lightred:^potion.*(paralysis|decay)
+menu_colour = lightred:^jewellery.*(inaccuracy|hunger)
+# }}}
+# Useless items {{{
+menu_colour = darkgrey:^scroll.*(random uselessness|paper|noise)
+autopickup_exceptions = >scroll.*(random uselessness|paper|noise)
+menu_colour = darkgrey:^potion.*(water)
+: if you.race() == "Mummy" then
+menu_colour = darkgrey:^jewellery.*(sustenance)
+: end
+: if you_undead() then
+menu_colour = darkgrey:^jewellery.*(regeneration|rage)
+: end
+: if string.find(you.race(), "Draconian", 0, true) then
+menu_colour = darkgrey:^jewellery.*(controlled flight)
+autopickup_exceptions = >amulet.*(controlled flight)
+: end
+: if you.race() == "Green Draconian" or you.race() == "Naga" then
+menu_colour = darkgrey:^jewellery.*(poison resistance)
+autopickup_exceptions = >ring.*(poison resistance)
+: end
+< if you.race() == "Naga" or
+     you.race() == "Spriggan" or
+     you.race() == "Vampire" then >
+menu_colour = darkgrey:^jewellery.*(see invis)
+autopickup_exceptions = >ring.*(see invis)
+:end
+: if you.race() == "Spriggan" then
+menu_colour = darkgrey:^jewellery.*(sustenance)
+autopickup_exceptions = >ring.*(sustenance)
+:end
+# need to save and restore after temple if you get trog later
+: if you.god() == "Trog" then
+menu_colour = darkgrey:^jewellery.*(rage|wizardry)
+autopickup_exceptions = >amulet.*(rage)
+autopickup_exceptions = >ring.*(wizardry)
+: end
+# }}}
+# Exceptions {{{
+menu_colour = yellow:^potion.*(porridge|gluggy white)
+# }}}
+# Defaults for normal items {{{
+menu_colour = lightgreen:uncursed.*\(.*(worn|neck|hand|weapon).*\)
+menu_colour = lightred:cursed.*\(.*(worn|neck|hand|weapon).*\)
+menu_colour = white:\(.*(worn|neck|hand|weapon).*\)
+menu_colour = green:uncursed
+menu_colour = red:cursed
+menu_colour = lightgrey:^(scroll|potion|ring|amulet)
+# }}}
+# Food {{{
+# Mummies {{{
+: if you.race() == "Mummy" then
+menu_colour = darkgrey:^food
+: end
+# }}}
+# Spriggans {{{
+: if you.race() == "Spriggan" then
+menu_colour = darkgrey:^food.*chunks? of
+menu_colour = yellow:^food.*(bread ration|snozzcumber|slice of pizza)
+menu_colour = yellow:^food.*(orange|banana|lemon|pear|apple|apricot)
+menu_colour = yellow:^food.*(rambutan|lychee|strawberry|grape|sultana)
+: end
+# }}}
+# Rotten chunk eaters {{{
+: if you.race() == "Ghoul" then
+menu_colour = yellow:^food.*rot.*chunks? of
+< elseif you.race() == "Ogre" or
+         you.race() == "Kobold" or
+         you.race() == "Troll" or
+         you.race() == "Hill Orc" then >
+# color rotten chunks as normal chunks
+: else
+menu_colour = lightred:^food.*rot.*chunks? of
+autopickup_exceptions = >rot.*chunks? of
+: end
+# }}}
+# Carnivores {{{
+: if you.race() == "Kobold" then
+menu_colour = darkgrey:^food.*(bread ration|snozzcumber|slice of pizza)
+menu_colour = darkgrey:^food.*(orange|banana|lemon|pear|apple|apricot)
+menu_colour = darkgrey:^food.*(rambutan|lychee|strawberry|grape|sultana)
+menu_colour = yellow:^food.*chunks? of
+: end
+# }}}
+# Dangerous chunk types {{{
+# Undead {{{
+menu_colour = lightred:^food.*chunks? of.*(ghoul|necrophage|death drake)
+# }}}
+# Mutagen {{{
+menu_colour = magenta:^food.*chunks? of.*(draining|orange brain|great orb)
+menu_colour = magenta:^food.*chunks? of.*(guardian naga|shapeshifter|very ugly)
+# }}}
+# Poison {{{
+menu_colour = lightgreen:^food.*chunks? of.*(ant larva|kobold|beetle)
+menu_colour = lightgreen:^food.*chunks? of.*(brain worm|green draconian)
+menu_colour = lightgreen:^food.*chunks? of.*((black|brown|yellow) snake)
+menu_colour = lightgreen:^food.*chunks? of.*(bee|death yak|slug|amoeba)
+menu_colour = lightgreen:^food.*chunks? of.*(centipede|mite|snail|gila|hydra)
+menu_colour = lightgreen:^food.*chunks? of.*(iron troll|naga|queen|wasp)
+menu_colour = lightgreen:^food.*chunks? of.*(redback|(golden|mottled) dragon)
+menu_colour = lightgreen:^food.*chunks? of.*((orange|green) rat)
+menu_colour = lightgreen:^food.*chunks? of.*(scorpion|soldier ant|spiny|spider)
+# }}}
+# Contaminated {{{
+menu_colour = brown:^food.*chunks? of.*(elf|human|drake|blowfly|cockroach)
+menu_colour = brown:^food.*chunks? of.*((fire|hill|frost|stone) giant)
+menu_colour = brown:^food.*chunks? of.*(mosquito|gnoll|goblin|jackal)
+menu_colour = brown:^food.*chunks? of.*(manticore|minotaur|ogre|orc)
+menu_colour = brown:^food.*chunks? of.*(war dog|warg|((rock|deep) )?troll)
+menu_colour = brown:^food.*chunks? of.*(grey rat|ugly thing|draconian)
+menu_colour = brown:^food.*chunks? of.*((quicksilver|iron|swamp|komodo) dragon)
+menu_colour = brown:^food.*chunks? of.*(mer(folk|maid))
+# }}}
+# }}}
+# {{{ Other
+menu_colour = lightgrey:^food
+# }}}
+# }}}
+# }}}
+# message_colour {{{
+# completely worthless {{{
+message_colour = mute:You start (resting|searching)
+# }}}
+# mostly worthless {{{
+message_colour = darkgrey:Unknown command
+message_colour = darkgrey:disappears in a puff of smoke
+# }}}
+# danger {{{
+message_colour = lightred:You feel drained
+message_colour = lightred:You feel strangely unstable
+# }}}
+# combat clutter (from b0rsuk) {{{
+message_colour = darkgrey:miss(es)? (the|you|it)
+message_colour = darkgrey:but (do no|doesn't do any) damage
+# }}}
+# corpses {{{
+: if you.race() == "Spriggan" or you.race() == "Mummy" then
+message_colour = darkgrey:corpse
+message_colour = darkgrey:chunk
+: else
+# Rotten {{{
+: if you.race() == "Ghoul" then
+message_colour = yellow:rot.*chunks? of
+message_colour = yellow:rot.*corpse
+< elseif you.race() == "Ogre" or
+         you.race() == "Kobold" or
+         you.race() == "Troll" or
+         you.race() == "Hill Orc" then >
+# color rotten chunks as normal chunks
+: else
+message_colour = lightred:rot.*chunks? of
+message_colour = lightred:rot.*corpse
+: end
+# }}}
+# Undead {{{
+message_colour = lightred:chunks? of.*(ghoul|necrophage|death drake)
+message_colour = lightred:(ghoul|necrophage|death drake).*corpse
+# }}}
+# Mutagen {{{
+message_colour = magenta:chunks? of.*(draining|orange brain|great orb)
+message_colour = magenta:chunks? of.*(guardian naga|shapeshifter|very ugly)
+message_colour = magenta:(draining|orange brain|great orb).*corpse
+message_colour = magenta:(guardian naga|shapeshifter|very ugly).*corpse
+# }}}
+# Poison {{{
+message_colour = lightgreen:chunks? of.*(ant larva|kobold|beetle)
+message_colour = lightgreen:chunks? of.*(brain worm|green draconian)
+message_colour = lightgreen:chunks? of.*((black|brown|yellow) snake)
+message_colour = lightgreen:chunks? of.*(bee|death yak|slug|amoeba)
+message_colour = lightgreen:chunks? of.*(centipede|mite|snail|gila|hydra)
+message_colour = lightgreen:chunks? of.*(iron troll|naga|queen|wasp)
+message_colour = lightgreen:chunks? of.*(redback|(golden|mottled) dragon)
+message_colour = lightgreen:chunks? of.*((orange|green) rat)
+message_colour = lightgreen:chunks? of.*(scorpion|soldier ant|spiny|spider)
+message_colour = lightgreen:(ant larva|kobold|beetle).*corpse
+message_colour = lightgreen:(brain worm|green draconian).*corpse
+message_colour = lightgreen:((black|brown|yellow) snake).*corpse
+message_colour = lightgreen:(bee|death yak|slug|amoeba).*corpse
+message_colour = lightgreen:(centipede|mite|snail|gila|hydra).*corpse
+message_colour = lightgreen:(iron troll|naga|queen|wasp).*corpse
+message_colour = lightgreen:(redback|(golden|mottled) dragon).*corpse
+message_colour = lightgreen:((orange|green) rat).*corpse
+message_colour = lightgreen:(scorpion|soldier ant|spiny|spider).*corpse
+# }}}
+# Contaminated {{{
+message_colour = brown:chunks? of.*(elf|human|drake|blowfly|cockroach)
+message_colour = brown:chunks? of.*((fire|hill|frost|stone) giant)
+message_colour = brown:chunks? of.*(mosquito|gnoll|goblin|jackal)
+message_colour = brown:chunks? of.*(manticore|minotaur|ogre|orc)
+message_colour = brown:chunks? of.*(war dog|warg|((rock|deep) )?troll)
+message_colour = brown:chunks? of.*(grey rat|ugly thing|draconian)
+message_colour = brown:chunks? of.*((quicksilver|iron|swamp|komodo) dragon)
+message_colour = brown:chunks? of.*(mer(folk|maid))
+message_colour = brown:(elf|human|drake|blowfly|cockroach).*corpse
+message_colour = brown:((fire|hill|frost|stone) giant).*corpse
+message_colour = brown:(mosquito|gnoll|goblin|jackal).*corpse
+message_colour = brown:(manticore|minotaur|ogre|orc).*corpse
+message_colour = brown:(war dog|warg|((rock|deep) )?troll).*corpse
+message_colour = brown:(grey rat|ugly thing|draconian).*corpse
+message_colour = brown:((quicksilver|iron|swamp|komodo) dragon).*corpse
+message_colour = brown:(mer(folk|maid)).*corpse
+# }}}
+: end
+# }}}
+# }}}
+# travel_stop_message {{{
+# Extras for Ghouls {{{
+: if you.race() == "Ghoul" then
+travel_stop_message = smell.*(rott(ing|en)|decay)
+travel_stop_message = something tasty in your inventory
+: end
+# }}}
+# so you don't leave gifts behind
+travel_stop_message = Something appears
+# to avoid running up on things with dmsl off
+travel_stop_message = You feel less protected from missiles
+# }}}
+# Lua {{{
+# Pick up a butchering weapon if we don't already have one {{{
+# This requires ) to be in the autopickup option line
+< do
+local old_ch_autopickup = ch_autopickup or function() return true end
+local function can_butcher(it)
+    if item.name(it):find("distort", 0, true) then
+        return false
+    end
+    local skill = item.weap_skill(it)
+    -- have to handle polearms separately, since only some of them can butcher
+    if skill == "Polearms" or skill == "Staves" then
+        local butcherable_polearms = {
+            "scythe", "lajatang", "halberd", "bardiche", "glaive"
+        }
+        for _, weap in ipairs(butcherable_polearms) do
+            if item.name(it):find(weap, 0, true) then return true end
+        end
+        return false
+    else
+        return skill:find("Blades", 0, true) or skill == "Axes"
+    end
+end
+function ch_autopickup(it)
+    if item.class(it, true) == "weapon" then
+        local need_blade = true
+        -- Trolls and Ghouls don't need weapons to butcher things, and Mummies
+        -- and Spriggans can't eat chunks. Ideally, we could detect a player
+        -- with the claws mutation here too, but that's not currently possible
+        if you.race() == "Troll" or
+           you.race() == "Ghoul" or
+           you.race() == "Mummy" or
+           you.race() == "Spriggan" then
+            need_blade = false
+        else
+            for _, inv_it in pairs(item.inventory()) do
+                if item.class(inv_it, true) == "weapon" and
+                   can_butcher(inv_it) then
+                    need_blade = false
+                end
+            end
+        end
+        return need_blade and not item.cursed(it) and can_butcher(it)
+    else
+        return old_ch_autopickup(it)
+    end
+end
+end >
+# }}}
+# Don't autopickup in the Abyss {{{
+< do
+local old_ch_autopickup = ch_autopickup or function() return true end
+function ch_autopickup(it)
+    return you.where() ~= "Abyss" and old_ch_autopickup(it)
+end
+end >
+# }}}
+# other thoughts -
+# - offer to drop bad items once they are identified
+# - autobutcher
+# - autosacrifice
+# - move autopickup_exceptions for scrolls into a function
+#   - also, pick up worthless (not dangerous) scrolls only if spellcasting
+#     skill is less than 1, for training
+# - autopickup ego/arts if they are the same type as what we are currently
+#   using
+# - don't autopickup duplicate amulets and non-res rings
+# - modify runrest stuff to ignore fleeing monsters
+# - autoequip and unequip rings of sustenance during interlevel travel
+# }}}
