@@ -99,7 +99,7 @@ export LUA_PATH='/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.
 export MANPAGER='vimmanpager'
 export DARCS_SCP='/home/doy/bin/scp'
 export DARCS_SFTP='/home/doy/bin/sftp'
-export PERL5LIB='/home/doy/.perl/'
+export PERL5LIB='/home/doy/.perl/:/home/doy/.perl/lib/perl5/site_perl/5.8.8/i686-linux/'
 export CVS_RSH='ssh'
 # }}}
 # external files {{{
