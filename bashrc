@@ -51,7 +51,7 @@ alias halflife="wine c:\\Program\ Files\\Sierra\\Half-Life\\hl.exe" # -console b
 alias starcraft="wine c:\\Program\ Files\\Starcraft\\StarCraft.exe"
 # }}}
 # termcast {{{
-alias tc="telnet noway.ratry.ru 37331"
+alias tc="telnet termcast.org"
 # }}}
 # shells {{{
 alias apt='ssh $(wget -O- http://jjaro.net/house/ip 2>/dev/null)'
