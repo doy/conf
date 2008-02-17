@@ -275,13 +275,15 @@ menu_colour = cyan:^misc.*[lL]antern
 # }}}
 # Good items {{{
 menu_colour = magenta:^scroll.*(acquirement)
-menu_colour = magenta:^potion.*(gain (strength|dexterity|intelligence))
 menu_colour = magenta:^potion.*(experience|magic)
 : if not you_undead() then
+menu_colour = magenta:^potion.*(gain (strength|dexterity|intelligence))
 menu_colour = magenta:^potion.*(of mutation)
 autopickup_exceptions = <potion.*(of mutation)
 : else
+menu_colour = lightred:^potion.*(gain (strength|dexterity|intelligence))
 menu_colour = lightred:^potion.*(of mutation)
+autopickup_exceptions = >potion.*(gain (strength|dexterity|intelligence))
 : end
 # }}}
 # Dangerous items {{{
