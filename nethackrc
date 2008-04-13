@@ -58,6 +58,9 @@ OPTIONS=runmode:teleport
 OPTIONS=sortloot:full
 OPTIONS=suppress_alert:3.4.3
 OPTIONS=scores:10 top/3 around/own
+OPTIONS=use_darkgray
+OPTIONS=showbuc
+OPTIONS=hp_monitor
 
 # known B/U/C, in inv
 MENUCOLOR=" \(uncursed\|([-0-9]+:[-0-9]+)\|[+-][0-9]\)"=brown
