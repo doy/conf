@@ -1,5 +1,4 @@
-" based on Eidolos's .vimrc, at http://sartak.katron.org/vimrc
-
+" based on Eidolos's .vimrc, at http://sartak.org/conf/vimrc
 " General options {{{
 " Miscellaneous {{{
 " fuck vi! long live vim!
