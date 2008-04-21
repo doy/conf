@@ -200,10 +200,9 @@ function Base_foldtext(...)
     let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
 
     " format the line count
-    let nlines = printf('%13s',
-    \                   '(' . (v:foldend - v:foldstart + 1) . ' lines) ')
+    let cnt = printf('%13s', '(' . (v:foldend - v:foldstart + 1) . ' lines) ')
 
-    return '+-' . v:folddashes . ' ' . line . nlines
+    return '+-' . v:folddashes . ' ' . line . cnt
 endfunction
 " }}}
 " Latex {{{
@@ -214,8 +213,7 @@ function Latex_foldtext()
 
     " if we get the start of a theorem, format the display nicely
     " XXX: allow the label to be on the following line
-    let matches = matchlist(line,
-    \                       '\\begin{\([^}]*\)}.*\\label{\([^}]*\)}')
+    let matches = matchlist(line, '\\begin{\([^}]*\)}.*\\label{\([^}]*\)}')
     if !empty(matches) && has_key(s:latex_types, matches[1])
         return Base_foldtext(s:latex_types[matches[1]] . ": " . matches[2])
     endif
