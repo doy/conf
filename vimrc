@@ -186,10 +186,20 @@ function Base_foldtext(...)
     " remove comments that we know about
     let comment = split(&commentstring, '%s')
     if comment[0] != ''
-        let line = substitute(line, '\V' . comment[0], ' ', '')
-    endif
-    if comment[1] != ''
-        let line = substitute(line, '\V' . comment[1], ' ', '')
+        let comment_begin = comment[0]
+        let comment_end = ''
+        if len(comment) > 1
+            let comment_end = comment[1]
+        end
+        let pattern = '\V' . comment_begin . '\s\*' . comment_end . '\s\*\$'
+        if line =~ pattern
+            let line = substitute(line, pattern, ' ', '')
+        else
+            let line = substitute(line, '.*\V' . comment_begin, ' ', '')
+            if comment_end != ''
+                let line = substitute(line, '\V' . comment_end, ' ', '')
+            endif
+        endif
     endif
 
     " remove any remaining leading or trailing whitespace
