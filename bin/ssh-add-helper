@@ -5,7 +5,7 @@ use IO::Pty::Easy;
 
 my $pass = `pwsafe -pE ssh.magus`;
 my $pty = IO::Pty::Easy->new;
-$pty->spawn("ssh-add $ARGV[0]");
+$pty->spawn("ssh-add -t 1800 $ARGV[0]");
 $pty->read;
 $pty->write($pass . "\n");
 while (1) {
