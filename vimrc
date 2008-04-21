@@ -328,7 +328,7 @@ function Base_foldtext(...)
 
     " remove the marker that caused this fold from the display
     let foldmarkers = split(&foldmarker, ',')
-    let line = substitute(line, '\V\s\?' . foldmarkers[0] . '\s\?', ' ', '')
+    let line = substitute(line, '\V' . foldmarkers[0], ' ', '')
 
     " remove comments that we know about
     let comment = split(&commentstring, '%s')
