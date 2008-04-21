@@ -234,6 +234,69 @@ function Cpp_foldtext()
     return Base_foldtext(line)
 endfunction
 " }}}
+" Perl {{{
+function Perl_foldtext()
+    let line = getline(v:foldstart)
+
+    let matches = matchlist(line, '^\s*sub \(\w\+\)')
+    if !empty(matches)
+        let linenum = v:foldstart
+        let sub_type = 'sub'
+        let params = []
+        while linenum <= v:foldend
+            let linenum += 1
+            let next_line = getline(linenum)
+            " skip the opening brace and comment lines
+            if next_line =~ '\s*{\s*' || next_line =~ '^\s*#'
+                continue
+            endif
+
+            " handle 'my $var = shift;' type lines
+            let var = '\%(\$\|@\|%\|\*\)\w\+'
+            let shift_line = matchlist(next_line,
+            \   'my\s*\(' . var . '\)\s*=\s*shift\%(\s*||\s*\(.\{-}\)\)\?;')
+            if !empty(shift_line)
+                if shift_line[1] == '$self'
+                    let sub_type = 'method'
+                elseif shift_line[1] == '$class'
+                    let sub_type = 'static method'
+                else
+                    let arg = shift_line[1]
+                    " also catch default arguments
+                    if shift_line[2] != ''
+                        let arg .= ' = ' . shift_line[2]
+                    endif
+                    let params += [l:arg]
+                endif
+                continue
+            endif
+
+            " handle 'my ($a, $b) = @_;' type lines
+            let rest_line = matchlist(next_line, 'my (\(.*\)) = @_;')
+            if !empty(rest_line)
+                let rest_params = split(rest_line[1], ',\s*')
+                let params += rest_params
+                break
+            endif
+
+            " handle 'my %args = @_;' type lines
+            let hash_line = matchlist(next_line, 'my %\w+ = @_;')
+            if !empty(hash_line)
+                let params += ['paramhash']
+                break
+            endif
+
+            " if we haven't continued yet, assume arg unpacking is done
+            break
+        endwhile
+
+        return Base_foldtext(sub_type . ' ' . matches[1] .
+        \                    '(' . join(params, ', ') . ')')
+    endif
+
+    return Base_foldtext(line)
+endfunction
+" }}}
 " }}}
 "}}}
 "}}}
@@ -289,6 +352,7 @@ autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
 " Set up custom folding {{{
 autocmd FileType tex set foldtext=Latex_foldtext()
 autocmd FileType cpp set foldtext=Cpp_foldtext()
+autocmd FileType perl set foldtext=Perl_foldtext()
 " }}}
 "}}}
 
