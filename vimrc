@@ -164,6 +164,9 @@ set cinoptions+=b1
 " Folding {{{
 " fold only when I ask for it damnit!
 set foldmethod=marker
+
+" use my custom fold display function (see bottom)
+set foldtext=Base_foldtext()
 "}}}
 "}}}
 
@@ -214,6 +217,9 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 "}}}
 " Latex :make converts to pdf {{{
 autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
+" }}}
+" Set up custom folding {{{
+autocmd FileType tex set foldtext=Latex_foldtext()
 " }}}
 "}}}
 
@@ -306,5 +312,54 @@ if file_readable(s:session_file) && expand("%:.") !~ '^/'
     autocmd VimEnter * TlistDebug | exec 'TlistSessionLoad ' . s:session_file
     autocmd VimLeave * call delete(s:session_file) | exec 'TlistSessionSave ' . s:session_file
 endif
+" }}}
+" }}}
+
+" Folding {{{
+" Base {{{
+function Base_foldtext(...)
+    " if we're passed in a string, use that as the display, otherwise use the
+    " contents of the line at the start of the fold
+    if a:0 > 0
+        let line = a:1
+    else
+        let line = getline(v:foldstart)
+    endif
+
+    " remove the marker that caused this fold from the display
+    let foldmarkers = split(&foldmarker, ',')
+    let line = substitute(line, '\V\s\?' . foldmarkers[0] . '\s\?', ' ', '')
+
+    " remove any remaining leading or trailing whitespace
+    let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+
+    " align everything, and pad the end of the display with -
+    let line = printf('%-' . (63 - v:foldlevel) . 's', line)
+    let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
+
+    " format the line count
+    let nlines = printf('%12s',
+    \                   '(' . (v:foldend - v:foldstart + 1) . ' lines) ')
+
+    return '+-' . v:folddashes . ' ' . line . nlines
+endfunction
+" }}}
+" Latex {{{
+let s:latex_types = {'thm': 'Theorem', 'cor':  'Corollary',
+                   \ 'lem': 'Lemma',   'defn': 'Definition'}
+function Latex_foldtext()
+    let line = getline(v:foldstart)
+
+    " if we get the start of a theorem, format the display nicely
+    " XXX: allow the label to be on the following line
+    let matches = matchlist(line,
+    \                       '\\begin{\([^}]*\)}.*\\label{\([^}]*\)}')
+    if !empty(matches) && has_key(s:latex_types, matches[1])
+        return Base_foldtext(s:latex_types[matches[1]] . ": " . matches[2])
+    endif
+
+    " otherwise, just strip latex comments from the line
+    return Base_foldtext(substitute(line, '\s\?%\s\?', ' ', ''))
+endfunction
 " }}}
 " }}}
