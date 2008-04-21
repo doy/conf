@@ -300,7 +300,6 @@ endfunction
 " }}}
 "}}}
 "}}}
-
 " Colors {{{
 colorscheme peachpuff
 " word completion menu {{{
@@ -322,7 +321,6 @@ autocmd BufWinEnter * syn match EOLWS excludenl /\s\+$/
 hi EOLWS ctermbg=red
 " }}}
 "}}}
-
 " Autocommands {{{
 " When editing a file, always jump to the last cursor position {{{
 autocmd BufReadPost *
@@ -358,7 +356,6 @@ autocmd FileType cpp  setlocal foldtext=Cpp_foldtext()
 autocmd FileType perl setlocal foldtext=Perl_foldtext()
 " }}}
 "}}}
-
 " Insert-mode remappings/abbreviations {{{
 " Arrow keys, etc {{{
 imap <up> <C-o>gk
@@ -370,7 +367,6 @@ imap <end> <C-o>g<end>
 inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
 "}}}
 " }}}
-
 " Normal-mode remappings {{{
 " have Y behave analogously to D rather than to dd
 nmap Y y$
@@ -418,7 +414,6 @@ map <home> g<home>
 map <end> g<end>
 " }}}
 "}}}
-
 " Plugin settings {{{
 " Enhanced Commentify {{{
 let g:EnhCommentifyBindInInsert = 'No'
@@ -450,4 +445,3 @@ if file_readable(s:session_file) && expand("%:.") !~ '^/'
 endif
 " }}}
 " }}}
-
