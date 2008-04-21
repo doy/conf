@@ -265,7 +265,7 @@ function Perl_foldtext()
     let matches = matchlist(line,
     \   '^\s*\(sub\|around\|before\|after\|guard\)\s*\(\w\+\)')
     if !empty(matches)
-        let linenum = v:foldstart
+        let linenum = v:foldstart - 1
         let sub_type = matches[1]
         let params = []
         while linenum <= v:foldend
@@ -307,33 +307,35 @@ function Perl_foldtext()
             if !empty(rest_line)
                 let rest_params = split(rest_line[1], ',\s*')
                 let params += rest_params
-                let linenum += 1
-                break
+                continue
             endif
 
             " handle 'my @args = @_;' type lines
             let array_line = matchlist(next_line, 'my\s*\(@\w\+\)\s*=\s*@_;')
             if !empty(array_line)
                 let params += [array_line[1]]
-                let linenum += 1
-                break
+                continue
             endif
 
             " handle 'my %args = @_;' type lines
             let hash_line = matchlist(next_line, 'my\s*%\w\+\s*=\s*@_;')
             if !empty(hash_line)
                 let params += ['paramhash']
-                let linenum += 1
-                break
+                continue
             endif
 
-            " if we haven't continued yet, assume arg unpacking is done
-            break
-        endwhile
+            " handle unknown uses of shift
+            if next_line =~ '\%(shift\%(\s*@\)\@!\)'
+                let params += ['$unknown']
+                continue
+            endif
 
-        if join(getline(linenum, v:foldend)) =~ '\%(shift\%(\s*@\)\@!\|@_\)'
-            let params += ['unknown']
-        endif
+            " handle unknown uses of @_
+            if next_line =~ '@_'
+                let params += ['@unknown']
+                continue
+            endif
+        endwhile
 
         return Base_foldtext(sub_type . ' ' . matches[2] .
         \                    '(' . join(params, ', ') . ')')
