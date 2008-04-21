@@ -440,7 +440,7 @@ function s:spell()
     endif
 endfunction
 map <F11> :call <SID>spell()<CR>
-imap <F11> <C-o>:<BS>call <SID>spell()<CR>
+imap <F11> <C-o>:call <SID>spell()<CR>
 "}}}
 " Arrow keys, etc, again {{{
 map <up> gk
