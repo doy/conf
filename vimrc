@@ -324,13 +324,13 @@ function Perl_foldtext()
             endif
 
             " handle unknown uses of shift
-            if next_line =~ '\%(shift\%(\s*@\)\@!\)'
+            if next_line =~ '\%(\<shift\>\%(\s*@\)\@!\)'
                 let params += ['$unknown']
                 continue
             endif
 
             " handle unknown uses of @_
-            if next_line =~ '@_'
+            if next_line =~ '@_\>'
                 let params += ['@unknown']
                 continue
             endif
