@@ -246,8 +246,8 @@ function Perl_foldtext()
         while linenum <= v:foldend
             let linenum += 1
             let next_line = getline(linenum)
-            " skip the opening brace and comment lines
-            if next_line =~ '\s*{\s*' || next_line =~ '^\s*#'
+            " skip the opening brace and comment lines and blank lines
+            if next_line =~ '\s*{\s*' || next_line =~ '^\s*#' || next_line == ''
                 continue
             endif
 
