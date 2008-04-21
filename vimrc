@@ -350,12 +350,12 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
 " }}}
 " Lua needs to have commentstring set {{{
-autocmd FileType lua set commentstring=--%s
+autocmd FileType lua setlocal commentstring=--%s
 " }}}
 " Set up custom folding {{{
-autocmd FileType tex set foldtext=Latex_foldtext()
-autocmd FileType cpp set foldtext=Cpp_foldtext()
-autocmd FileType perl set foldtext=Perl_foldtext()
+autocmd FileType tex  setlocal foldtext=Latex_foldtext()
+autocmd FileType cpp  setlocal foldtext=Cpp_foldtext()
+autocmd FileType perl setlocal foldtext=Perl_foldtext()
 " }}}
 "}}}
 
