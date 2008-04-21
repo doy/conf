@@ -1,4 +1,3 @@
-% vim:foldmethod=marker commentstring=%%%s
 % {{{ header
 \documentclass[letterpaper,11pt]{article}
 \usepackage{jesse}
