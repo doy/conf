@@ -212,10 +212,24 @@ function Latex_foldtext()
     let line = getline(v:foldstart)
 
     " if we get the start of a theorem, format the display nicely
-    " XXX: allow the label to be on the following line
-    let matches = matchlist(line, '\\begin{\([^}]*\)}.*\\label{\([^}]*\)}')
+    let matches = matchlist(line, '\\begin{\([^}]*\)}')
     if !empty(matches) && has_key(s:latex_types, matches[1])
-        return Base_foldtext(s:latex_types[matches[1]] . ": " . matches[2])
+        let type = s:latex_types[matches[1]]
+        let label = ''
+        let linenum = v:foldstart - 1
+        while linenum <= v:foldend
+            let linenum += 1
+            let line = getline(linenum)
+            let matches = matchlist(line, '\\label{\([^}]*\)}')
+            if !empty(matches)
+                let label = matches[1]
+                break
+            endif
+        endwhile
+        if label != ''
+            let label = ": " . label
+        endif
+        return Base_foldtext(type . label)
     endif
 
     return Base_foldtext()
