@@ -339,8 +339,7 @@ autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex.tex  | normal Gddk
 autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/Makefile | normal Gddgg$
 " }}}
 " Auto +x {{{
-au BufWritePost *.sh !chmod +x %
-au BufWritePost *.pl !chmod +x %
+au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
 "}}}
 " Perl :make does a syntax check {{{
 autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
