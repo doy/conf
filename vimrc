@@ -338,6 +338,9 @@ function Perl_foldtext()
             endif
         endwhile
 
+        let params = filter(params[0:-2], 'strpart(v:val, 0, 1) != "@"') +
+        \            [params[-1]]
+
         return Base_foldtext(sub_type . ' ' . matches[2] .
         \                    '(' . join(params, ', ') . ')')
     endif
