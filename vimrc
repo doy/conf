@@ -207,6 +207,7 @@ function Base_foldtext(...)
 
     " align everything, and pad the end of the display with -
     let line = printf('%-' . (62 - v:foldlevel) . 's', line)
+    let line = strpart(line, 0, 62 - v:foldlevel)
     let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
 
     " format the line count
