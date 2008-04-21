@@ -220,6 +220,7 @@ autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
 " }}}
 " Set up custom folding {{{
 autocmd FileType tex set foldtext=Latex_foldtext()
+autocmd FileType cpp set foldtext=Cpp_foldtext()
 " }}}
 "}}}
 
@@ -367,8 +368,20 @@ function Latex_foldtext()
         return Base_foldtext(s:latex_types[matches[1]] . ": " . matches[2])
     endif
 
-    " otherwise, just strip latex comments from the line
-    return Base_foldtext(substitute(line, '\s\?%\s\?', ' ', ''))
+    return Base_foldtext()
+endfunction
+" }}}
+" C++ {{{
+function Cpp_foldtext()
+    let line = getline(v:foldstart)
+
+    let block_open = stridx(line, '/*')
+    let line_open = stridx(line, '//')
+    if block_open == -1 || line_open < block_open
+        return Base_foldtext(substitute(line, '//', ' ', ''))
+    endif
+
+    return Base_foldtext(line)
 endfunction
 " }}}
 " }}}
