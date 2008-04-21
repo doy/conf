@@ -297,6 +297,7 @@ function Perl_foldtext()
             if !empty(rest_line)
                 let rest_params = split(rest_line[1], ',\s*')
                 let params += rest_params
+                let linenum += 1
                 break
             endif
 
@@ -304,6 +305,7 @@ function Perl_foldtext()
             let array_line = matchlist(next_line, 'my\s*\(@\w\+\)\s*=\s*@_;')
             if !empty(array_line)
                 let params += [array_line[1]]
+                let linenum += 1
                 break
             endif
 
@@ -311,12 +313,17 @@ function Perl_foldtext()
             let hash_line = matchlist(next_line, 'my\s*%\w\+\s*=\s*@_;')
             if !empty(hash_line)
                 let params += ['paramhash']
+                let linenum += 1
                 break
             endif
 
             " if we haven't continued yet, assume arg unpacking is done
             break
         endwhile
+
+        if join(getline(linenum, v:foldend)) =~ '\%(shift\%(\s*@\)\@!\|@_\)'
+            let params += ['unknown']
+        endif
 
         return Base_foldtext(sub_type . ' ' . matches[2] .
         \                    '(' . join(params, ', ') . ')')
