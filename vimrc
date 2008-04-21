@@ -300,6 +300,13 @@ function Perl_foldtext()
                 break
             endif
 
+            " handle 'my @args = @_;' type lines
+            let array_line = matchlist(next_line, 'my\s*\(@\w\+\)\s*=\s*@_;')
+            if !empty(array_line)
+                let params += [array_line[1]]
+                break
+            endif
+
             " handle 'my %args = @_;' type lines
             let hash_line = matchlist(next_line, 'my\s*%\w\+\s*=\s*@_;')
             if !empty(hash_line)
