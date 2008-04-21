@@ -331,11 +331,12 @@ autocmd BufReadPost *
 \  endif
 "}}}
 " Skeletons {{{
-autocmd BufNewFile *.p[lm]  silent 0read ~/.vim/skeletons/perl | normal Gdd
-autocmd BufNewFile *.cpp    silent 0read ~/.vim/skeletons/cpp  | normal Gddk
-autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c    | normal Gddk
-autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex  | normal Gddk
-autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/make | normal $
+autocmd BufNewFile *.pl     silent 0read ~/.vim/skeletons/perl.pl  | normal Gdd
+autocmd BufNewFile *.pm     silent 0read ~/.vim/skeletons/perl.pm  | exe 'normal 4G' | silent :.s/Foo/\=expand("%")/ | silent :.s#lib/## | silent :.s#/#::#g | silent :.s/.pm;/;/ | normal Gdd2k
+autocmd BufNewFile *.cpp    silent 0read ~/.vim/skeletons/cpp.cpp  | normal Gddk
+autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c.c      | normal Gddk
+autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex.tex  | normal Gddk
+autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/Makefile | normal Gddgg$
 " }}}
 " Auto +x {{{
 au BufWritePost *.sh !chmod +x %
