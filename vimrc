@@ -330,6 +330,15 @@ function Base_foldtext(...)
     let foldmarkers = split(&foldmarker, ',')
     let line = substitute(line, '\V\s\?' . foldmarkers[0] . '\s\?', ' ', '')
 
+    " remove comments that we know about
+    let comment = split(&commentstring, '%s')
+    if comment[0] != ''
+        let line = substitute(line, '\V' . comment[0], ' ', '')
+    endif
+    if comment[1] != ''
+        let line = substitute(line, '\V' . comment[1], ' ', '')
+    endif
+
     " remove any remaining leading or trailing whitespace
     let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
 
