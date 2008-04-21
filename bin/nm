@@ -3,6 +3,9 @@ use strict;
 use warnings;
 
 die "usage: $0 [module-name]" unless @ARGV == 1;
+
+chdir "$ENV{HOME}/coding" or die "Unable to chdir $ENV{HOME}/coding";
+
 my $name = shift;
 
 my ($colons, $hyphens);
@@ -19,10 +22,10 @@ else
 
 my @parts = split '-', $hyphens;
 my $dir = "lib/" . join('/', @parts[0..$#parts-1]);
-system("mkdir $hyphens");
+system("mkdir $hyphens") and die "Unable to mkdir $hyphens: $!";
 chdir $hyphens;
-system("mkdir -p $dir");
-system("mkdir t");
+system("mkdir -p $dir") and die "Unable to mkdir $dir: $!";
+system("mkdir t") and die "Unable to mkdir t: $!";
 
 open my $handle, '>', "$dir/$parts[-1].pm"
     or die "Unable to open $dir/$parts[-1].pm for writing: $!";
@@ -44,67 +47,21 @@ open $handle, '>', "Makefile.PL"
 print {$handle} makefile_contents();
 close $handle;
 
-open $handle, '>', "README"
-    or die "Unable to open README for writing: $!";
-print {$handle} readme_contents();
-close $handle;
-
 open $handle, '>', "Changes"
     or die "Unable to open Changes for writing: $!";
 print {$handle} changes_contents();
 close $handle;
 
-#system('darcs init && darcs add $(darcs whatsnew -ls | perl -ple "s/^a //") && darcs record -a -m"Initial import of '.$colons.'"');
+# get inc/ but not Makefile and META.yml
+system('perl Makefile.PL && rm Makefile META.yml');
 
-sub readme_contents
-{
-    return << "README";
-$hyphens 0.01
+system('darcs init && darcs add $(darcs whatsnew -ls | perl -ple "s/^a //") && darcs record -a -m"Initial import of '.$colons.'"');
+system("darcs put tozt.net:public_html/code/$hyphens");
 
-$colons is
-
-MAJOR CHANGES
-    0.01: first version
-
-INSTALLATION
-
-To install this module, run the following commands:
-
-    perl Makefile.PL
-    make
-    make test
-    make install
-
-SUPPORT AND DOCUMENTATION
-
-After installing, you can find documentation for this module with the perldoc
-command.
-
-    perldoc $colons
-
-You can also look for information at:
-
-    Search CPAN
-        http://search.cpan.org/dist/$hyphens
-
-    CPAN Request Tracker:
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=$hyphens
-
-    AnnoCPAN, annotated CPAN documentation:
-        http://annocpan.org/dist/$hyphens
-
-    CPAN Ratings:
-        http://cpanratings.perl.org/d/$hyphens
-
-COPYRIGHT AND LICENSE
-
-Copyright (C) 2007 Shawn M Moore
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-README
-}
+open $handle, '>>', "_darcs/prefs/boring"
+    or die "Unable to open _darcs/prefs/boring for writing: $!";
+print {$handle} boring_contents();
+close $handle;
 
 sub changes_contents
 {
@@ -116,6 +73,20 @@ Revision history for $hyphens
         First version, released on an unsuspecting world.
 
 CHANGES
+}
+
+sub boring_contents
+{
+    return << 'BORING';
+(^|/)blib($|/)
+(^|/)log/.
+(^|/)inc($|/)
+(^|/)etc/site_config\.yml$
+(^|/)Makefile$
+(^|/)Makefile\.old$
+(^|/)META\.yml$
+(^|/)pm_to_blib$
+BORING
 }
 
 sub makefile_contents
@@ -202,14 +173,14 @@ L<Foo::Bar>
 
 =head1 AUTHOR
 
-Shawn M Moore, C<< <sartak at gmail.com> >>
+Jesse Luehrs, C<< <jluehrs2 at uiuc.edu> >>
 
 =head1 BUGS
 
 No known bugs.
 
 Please report any bugs through RT: email
-C<bug-\L$hyphens\E at rt.cpan.org>, or browse to
+C<bug-\L$hyphens\E at rt.cpan.org>, or browse
 L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=$hyphens>.
 
 =head1 SUPPORT
@@ -242,7 +213,7 @@ L<http://search.cpan.org/dist/$hyphens>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2007 Shawn M Moore.
+Copyright 2008 Jesse Luehrs.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
