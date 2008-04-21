@@ -238,10 +238,11 @@ endfunction
 function Perl_foldtext()
     let line = getline(v:foldstart)
 
-    let matches = matchlist(line, '^\s*sub \(\w\+\)')
+    let matches = matchlist(line,
+    \   '^\s*\(sub\|around\|before\|after\|guard\)\s*\(\w\+\)')
     if !empty(matches)
         let linenum = v:foldstart
-        let sub_type = 'sub'
+        let sub_type = matches[1]
         let params = []
         while linenum <= v:foldend
             let linenum += 1
@@ -257,10 +258,16 @@ function Perl_foldtext()
             \   'my\s*\(' . var . '\)\s*=\s*shift\%(\s*||\s*\(.\{-}\)\)\?;')
             if !empty(shift_line)
                 if shift_line[1] == '$self'
-                    let sub_type = 'method'
+                    if sub_type == 'sub'
+                        let sub_type = ''
+                    endif
+                    let sub_type .= ' method'
                 elseif shift_line[1] == '$class'
-                    let sub_type = 'static method'
-                else
+                    if sub_type == 'sub'
+                        let sub_type = ''
+                    endif
+                    let sub_type .= ' static method'
+                elseif shift_line[1] != '$orig'
                     let arg = shift_line[1]
                     " also catch default arguments
                     if shift_line[2] != ''
@@ -290,7 +297,7 @@ function Perl_foldtext()
             break
         endwhile
 
-        return Base_foldtext(sub_type . ' ' . matches[1] .
+        return Base_foldtext(sub_type . ' ' . matches[2] .
         \                    '(' . join(params, ', ') . ')')
     endif
 
