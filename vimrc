@@ -165,8 +165,78 @@ set cinoptions+=b1
 " fold only when I ask for it damnit!
 set foldmethod=marker
 
-" use my custom fold display function (see bottom)
+" use my custom fold display function
 set foldtext=Base_foldtext()
+
+" foldtext overrides {{{
+" Base {{{
+function Base_foldtext(...)
+    " if we're passed in a string, use that as the display, otherwise use the
+    " contents of the line at the start of the fold
+    if a:0 > 0
+        let line = a:1
+    else
+        let line = getline(v:foldstart)
+    endif
+
+    " remove the marker that caused this fold from the display
+    let foldmarkers = split(&foldmarker, ',')
+    let line = substitute(line, '\V' . foldmarkers[0], ' ', '')
+
+    " remove comments that we know about
+    let comment = split(&commentstring, '%s')
+    if comment[0] != ''
+        let line = substitute(line, '\V' . comment[0], ' ', '')
+    endif
+    if comment[1] != ''
+        let line = substitute(line, '\V' . comment[1], ' ', '')
+    endif
+
+    " remove any remaining leading or trailing whitespace
+    let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
+
+    " align everything, and pad the end of the display with -
+    let line = printf('%-' . (62 - v:foldlevel) . 's', line)
+    let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
+
+    " format the line count
+    let nlines = printf('%13s',
+    \                   '(' . (v:foldend - v:foldstart + 1) . ' lines) ')
+
+    return '+-' . v:folddashes . ' ' . line . nlines
+endfunction
+" }}}
+" Latex {{{
+let s:latex_types = {'thm': 'Theorem', 'cor':  'Corollary',
+                   \ 'lem': 'Lemma',   'defn': 'Definition'}
+function Latex_foldtext()
+    let line = getline(v:foldstart)
+
+    " if we get the start of a theorem, format the display nicely
+    " XXX: allow the label to be on the following line
+    let matches = matchlist(line,
+    \                       '\\begin{\([^}]*\)}.*\\label{\([^}]*\)}')
+    if !empty(matches) && has_key(s:latex_types, matches[1])
+        return Base_foldtext(s:latex_types[matches[1]] . ": " . matches[2])
+    endif
+
+    return Base_foldtext()
+endfunction
+" }}}
+" C++ {{{
+function Cpp_foldtext()
+    let line = getline(v:foldstart)
+
+    let block_open = stridx(line, '/*')
+    let line_open = stridx(line, '//')
+    if block_open == -1 || line_open < block_open
+        return Base_foldtext(substitute(line, '//', ' ', ''))
+    endif
+
+    return Base_foldtext(line)
+endfunction
+" }}}
+" }}}
 "}}}
 "}}}
 
@@ -316,72 +386,3 @@ endif
 " }}}
 " }}}
 
-" Folding {{{
-" Base {{{
-function Base_foldtext(...)
-    " if we're passed in a string, use that as the display, otherwise use the
-    " contents of the line at the start of the fold
-    if a:0 > 0
-        let line = a:1
-    else
-        let line = getline(v:foldstart)
-    endif
-
-    " remove the marker that caused this fold from the display
-    let foldmarkers = split(&foldmarker, ',')
-    let line = substitute(line, '\V' . foldmarkers[0], ' ', '')
-
-    " remove comments that we know about
-    let comment = split(&commentstring, '%s')
-    if comment[0] != ''
-        let line = substitute(line, '\V' . comment[0], ' ', '')
-    endif
-    if comment[1] != ''
-        let line = substitute(line, '\V' . comment[1], ' ', '')
-    endif
-
-    " remove any remaining leading or trailing whitespace
-    let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-
-    " align everything, and pad the end of the display with -
-    let line = printf('%-' . (62 - v:foldlevel) . 's', line)
-    let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
-
-    " format the line count
-    let nlines = printf('%13s',
-    \                   '(' . (v:foldend - v:foldstart + 1) . ' lines) ')
-
-    return '+-' . v:folddashes . ' ' . line . nlines
-endfunction
-" }}}
-" Latex {{{
-let s:latex_types = {'thm': 'Theorem', 'cor':  'Corollary',
-                   \ 'lem': 'Lemma',   'defn': 'Definition'}
-function Latex_foldtext()
-    let line = getline(v:foldstart)
-
-    " if we get the start of a theorem, format the display nicely
-    " XXX: allow the label to be on the following line
-    let matches = matchlist(line,
-    \                       '\\begin{\([^}]*\)}.*\\label{\([^}]*\)}')
-    if !empty(matches) && has_key(s:latex_types, matches[1])
-        return Base_foldtext(s:latex_types[matches[1]] . ": " . matches[2])
-    endif
-
-    return Base_foldtext()
-endfunction
-" }}}
-" C++ {{{
-function Cpp_foldtext()
-    let line = getline(v:foldstart)
-
-    let block_open = stridx(line, '/*')
-    let line_open = stridx(line, '//')
-    if block_open == -1 || line_open < block_open
-        return Base_foldtext(substitute(line, '//', ' ', ''))
-    endif
-
-    return Base_foldtext(line)
-endfunction
-" }}}
-" }}}
