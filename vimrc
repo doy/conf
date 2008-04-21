@@ -343,11 +343,11 @@ function Base_foldtext(...)
     let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
 
     " align everything, and pad the end of the display with -
-    let line = printf('%-' . (63 - v:foldlevel) . 's', line)
+    let line = printf('%-' . (62 - v:foldlevel) . 's', line)
     let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
 
     " format the line count
-    let nlines = printf('%12s',
+    let nlines = printf('%13s',
     \                   '(' . (v:foldend - v:foldstart + 1) . ' lines) ')
 
     return '+-' . v:folddashes . ' ' . line . nlines
