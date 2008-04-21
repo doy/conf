@@ -1,4 +1,3 @@
-" vim:foldmethod=marker commentstring="%s
 " based on Eidolos's .vimrc, at http://sartak.katron.org/vimrc
 
 " General options {{{
