@@ -280,12 +280,12 @@ function Perl_foldtext()
             let shift_line = matchlist(next_line,
             \   'my\s*\(' . var . '\)\s*=\s*shift\%(\s*||\s*\(.\{-}\)\)\?;')
             if !empty(shift_line)
-                if shift_line[1] == '$self'
+                if shift_line[1] == '$self' && empty(params)
                     if sub_type == 'sub'
                         let sub_type = ''
                     endif
                     let sub_type .= ' method'
-                elseif shift_line[1] == '$class'
+                elseif shift_line[1] == '$class' && empty(params)
                     if sub_type == 'sub'
                         let sub_type = ''
                     endif
