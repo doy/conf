@@ -349,6 +349,9 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 " Latex :make converts to pdf {{{
 autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
 " }}}
+" Lua needs to have commentstring set {{{
+autocmd FileType lua set commentstring=--%s
+" }}}
 " Set up custom folding {{{
 autocmd FileType tex set foldtext=Latex_foldtext()
 autocmd FileType cpp set foldtext=Cpp_foldtext()
