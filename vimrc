@@ -301,15 +301,30 @@ function Latex_foldtext() " {{{
     " format list items nicely {{{
     let matches = matchlist(line, '\\item\%(\[\([^]]*\)\]\)\?')
     if !empty(matches)
-        let item_name = []
-        let item_index = 0
+        if matches[1] == ''
+            let item_name = [0]
+        else
+            let item_name = [matches[1]]
+        endif
+        let item_depth = 0
         let nesting = 0
         let type = ''
         for linenum in range(v:foldstart - 1, 0, -1)
             let line = getline(linenum)
             if line =~ '\\item'
                 if nesting == 0
-                    let item_index += 1
+                    let label = matchstr(line, '\\item\[\zs[^]]*\ze\]')
+                    if len(item_name) == item_depth
+                        if label != ''
+                            let item_name += [label]
+                        else
+                            let item_name += [0]
+                        endif
+                    else
+                        if type(item_name[item_depth]) == type(0)
+                            let item_name[item_depth] += 1
+                        endif
+                    endif
                 endif
             elseif line =~ '\\begin{document}'
                 break
@@ -324,8 +339,7 @@ function Latex_foldtext() " {{{
                         let item_name = item_name[0:-2]
                         break
                     endif
-                    let item_name += [item_index]
-                    let item_index = -1
+                    let item_depth += 1
                 endif
             elseif line =~ '\\end'
                 let nesting += 1
@@ -333,13 +347,12 @@ function Latex_foldtext() " {{{
         endfor
         let item_name = reverse(item_name)
         for i in range(len(item_name))
-            let item_name[i] = s:enumeration(i, item_name[i])
+            if type(item_name[i]) != type('')
+                let item_name[i] = s:enumeration(i, item_name[i])
+            endif
         endfor
         let type = toupper(strpart(type, 0, 1)) . strpart(type, 1)
         let line = type . ': ' . join(item_name, '.')
-        if matches[1] != ''
-            let line .= ' [' . matches[1] . ']'
-        endif
         return Base_foldtext(line)
     endif
     " }}}
