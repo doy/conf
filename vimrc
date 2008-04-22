@@ -321,7 +321,7 @@ function Latex_foldtext() " {{{
                             let item_name += [0]
                         endif
                     else
-                        if type(item_name[item_depth]) == type(0)
+                        if type(item_name[item_depth]) == type(0) && label == ''
                             let item_name[item_depth] += 1
                         endif
                     endif
