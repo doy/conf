@@ -169,19 +169,18 @@ set foldtext=Base_foldtext()
 " foldtext overrides {{{
 " Base {{{
 function Base_foldtext(...)
-    " if we're passed in a string, use that as the display, otherwise use the
-    " contents of the line at the start of the fold
+    " use the argument for display if possible, otherwise the current line {{{
     if a:0 > 0
         let line = a:1
     else
         let line = getline(v:foldstart)
     endif
-
-    " remove the marker that caused this fold from the display
+    " }}}
+    " remove the marker that caused this fold from the display {{{
     let foldmarkers = split(&foldmarker, ',')
     let line = substitute(line, '\V' . foldmarkers[0], ' ', '')
-
-    " remove comments that we know about
+    " }}}
+    " remove comments that vim knows about {{{
     let comment = split(&commentstring, '%s')
     if comment[0] != ''
         let comment_begin = comment[0]
@@ -199,18 +198,18 @@ function Base_foldtext(...)
             endif
         endif
     endif
-
-    " remove any remaining leading or trailing whitespace
+    " }}}
+    " remove any remaining leading or trailing whitespace {{{
     let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
-
-    " align everything, and pad the end of the display with -
+    " }}}
+    " align everything, and pad the end of the display with - {{{
     let line = printf('%-' . (62 - v:foldlevel) . 's', line)
     let line = strpart(line, 0, 62 - v:foldlevel)
     let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
-
-    " format the line count
+    " }}}
+    " format the line count {{{
     let cnt = printf('%13s', '(' . (v:foldend - v:foldstart + 1) . ' lines) ')
-
+    " }}}
     return '+-' . v:folddashes . ' ' . line . cnt
 endfunction
 " }}}
@@ -341,20 +340,20 @@ endfunction " }}}
 " C++ {{{
 function Cpp_foldtext()
     let line = getline(v:foldstart)
-
+    " strip out // comments {{{
     let block_open = stridx(line, '/*')
     let line_open = stridx(line, '//')
     if block_open == -1 || line_open < block_open
         return Base_foldtext(substitute(line, '//', ' ', ''))
     endif
-
+    " }}}
     return Base_foldtext(line)
 endfunction
 " }}}
 " Perl {{{
 function Perl_foldtext()
     let line = getline(v:foldstart)
-
+    " format sub names with their arguments {{{
     let matches = matchlist(line,
     \   '^\s*\(sub\|around\|before\|after\|guard\)\s*\(\w\+\)')
     if !empty(matches)
@@ -436,7 +435,7 @@ function Perl_foldtext()
         return Base_foldtext(sub_type . ' ' . matches[2] .
         \                    '(' . join(params, ', ') . ')')
     endif
-
+    " }}}
     return Base_foldtext(line)
 endfunction
 " }}}
