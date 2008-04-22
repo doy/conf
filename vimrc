@@ -321,6 +321,7 @@ function Latex_foldtext() " {{{
                     if type == ''
                         let type = new_type
                     elseif type != new_type
+                        let item_name = item_name[0:-2]
                         break
                     endif
                     let item_name += [item_index]
