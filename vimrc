@@ -298,36 +298,44 @@ function Latex_foldtext() " {{{
         return Base_foldtext(type . label)
     endif
     " }}}
-    " format enumeration items nicely {{{
+    " format list items nicely {{{
     let matches = matchlist(line, '\\item\%(\[\(.*\)\]\)\?')
     if !empty(matches)
         let item_name = []
         let item_index = 0
         let nesting = 0
+        let type = ''
         for linenum in range(v:foldstart - 1, 0, -1)
             let line = getline(linenum)
             if line =~ '\\item'
                 if nesting == 0
                     let item_index += 1
                 endif
-            elseif line =~ '\\begin{enumeration}'
+            elseif line =~ '\\begin{document}'
+                break
+            elseif line =~ '\\begin'
                 if nesting > 0
                     let nesting -= 1
                 else
+                    let new_type = matchstr(line, '\\begin{\zs[^}]*\ze}')
+                    if type == ''
+                        let type = new_type
+                    elseif type != new_type
+                        break
+                    endif
                     let item_name += [item_index]
                     let item_index = -1
                 endif
-            elseif line =~ '\\end{enumeration}'
+            elseif line =~ '\\end'
                 let nesting += 1
-            elseif line =~ '\\begin{document}'
-                break
             endif
         endfor
         let item_name = reverse(item_name)
         for i in range(len(item_name))
             let item_name[i] = s:enumeration(i, item_name[i])
         endfor
-        let line = 'Item: ' . join(item_name, '.')
+        let type = toupper(strpart(type, 0, 1)) . strpart(type, 1)
+        let line = type . ': ' . join(item_name, '.')
         if matches[1] != ''
             let line .= ' [' . matches[1] . ']'
         endif
