@@ -345,7 +345,10 @@ function Latex_foldtext() " {{{
                 let nesting += 1
             endif
         endfor
-        let item_name = reverse(item_name)
+        " XXX: vim crashes if i just reverse the actual list
+        " should be fixed in patch 7.1.287
+        "let item_name = reverse(item_name)
+        let item_name = reverse(deepcopy(item_name))
         for i in range(len(item_name))
             if type(item_name[i]) != type('')
                 let item_name[i] = s:enumeration(i, item_name[i])
