@@ -217,10 +217,68 @@ endfunction
 " Latex {{{
 let s:latex_types = {'thm': 'Theorem', 'cor':  'Corollary',
                    \ 'lem': 'Lemma',   'defn': 'Definition'}
-function Latex_foldtext()
-    let line = getline(v:foldstart)
+function s:lower_letter(i) " {{{
+    return tolower(s:upper_letter(a:i))
+endfunction " }}}
+function s:roman_numeral(i) " {{{
+    let numeral = ''
+    let chars = 'ivxlcdm'
+    let i = a:i
+    for base in [0, 2, 4]
+        let c1 = strpart(chars, base, 1)
+        let c5 = strpart(chars, base + 1, 1)
+        let c10 = strpart(chars, base + 2, 1)
+        let digit = i % 10
+        if digit == 1
+            let numeral = c1 . numeral
+        elseif digit == 2
+            let numeral = c1 . c1 . numeral
+        elseif digit == 3
+            let numeral = c1 . c1 . c1 . numeral
+        elseif digit == 4
+            let numeral = c1 . c5 . numeral
+        elseif digit == 5
+            let numeral = c5 . numeral
+        elseif digit == 6
+            let numeral = c5 . c1 . numeral
+        elseif digit == 7
+            let numeral = c5 . c1 . c1 . numeral
+        elseif digit == 8
+            let numeral = c5 . c1 . c1 . c1 . numeral
+        elseif digit == 9
+            let numeral = c1 . c10 . numeral
+        endif
+        let i = i / 10
+        if i == 0
+            break
+        end
+    endfor
 
-    " if we get the start of a theorem, format the display nicely
+    return repeat('m', i) . numeral
+endfunction " }}}
+function s:upper_letter(i) " {{{
+    if a:i < 26
+        return nr2char(char2nr('A') + a:i - 1)
+    else
+        return 'ERROR'
+    endif
+endfunction " }}}
+function s:enumeration(depth, index) " {{{
+    if a:depth == 0
+        return a:index + 1
+    elseif a:depth == 1
+        return '(' . s:lower_letter(a:index + 1) . ')'
+    elseif a:depth == 2
+        return s:roman_numeral(a:index + 1)
+    elseif a:depth == 3
+        return s:upper_letter(a:index + 1)
+    else
+        return 'Error: invalid depth'
+    endif
+endfunction " }}}
+function Latex_foldtext() " {{{
+    let line = getline(v:foldstart)
+    " format theorems/etc nicely {{{
     let matches = matchlist(line, '\\begin{\([^}]*\)}')
     if !empty(matches) && has_key(s:latex_types, matches[1])
         let type = s:latex_types[matches[1]]
@@ -240,9 +298,45 @@ function Latex_foldtext()
         endif
         return Base_foldtext(type . label)
     endif
-
-    return Base_foldtext()
-endfunction
+    " }}}
+    " format enumeration items nicely {{{
+    let matches = matchlist(line, '\\item\%(\[\(.*\)\]\)\?')
+    if !empty(matches)
+        let item_name = []
+        let item_index = 0
+        let nesting = 0
+        for linenum in range(v:foldstart - 1, 0, -1)
+            let line = getline(linenum)
+            if line =~ '\\item'
+                if nesting == 0
+                    let item_index += 1
+                endif
+            elseif line =~ '\\begin{enumeration}'
+                if nesting > 0
+                    let nesting -= 1
+                else
+                    let item_name += [item_index]
+                    let item_index = -1
+                endif
+            elseif line =~ '\\end{enumeration}'
+                let nesting += 1
+            elseif line =~ '\\begin{document}'
+                break
+            endif
+        endfor
+        let item_name = reverse(item_name)
+        for i in range(len(item_name))
+            let item_name[i] = s:enumeration(i, item_name[i])
+        endfor
+        let line = 'Item: ' . join(item_name, '.')
+        if matches[1] != ''
+            let line .= ' [' . matches[1] . ']'
+        endif
+        return Base_foldtext(line)
+    endif
+    " }}}
+    return Base_foldtext(line)
+endfunction " }}}
 " }}}
 " C++ {{{
 function Cpp_foldtext()
