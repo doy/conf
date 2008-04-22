@@ -299,17 +299,12 @@ function Latex_foldtext() " {{{
     endif
     " }}}
     " format list items nicely {{{
-    let matches = matchlist(line, '\\item\%(\[\([^]]*\)\]\)\?')
-    if !empty(matches)
-        if matches[1] == ''
-            let item_name = [0]
-        else
-            let item_name = [matches[1]]
-        endif
+    if line =~ '\\item'
+        let item_name = []
         let item_depth = 0
         let nesting = 0
         let type = ''
-        for linenum in range(v:foldstart - 1, 0, -1)
+        for linenum in range(v:foldstart, 0, -1)
             let line = getline(linenum)
             if line =~ '\\item'
                 if nesting == 0
