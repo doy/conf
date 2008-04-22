@@ -256,7 +256,7 @@ function s:roman_numeral(i) " {{{
     return repeat('m', i) . numeral
 endfunction " }}}
 function s:upper_letter(i) " {{{
-    if a:i < 26
+    if a:i <= 26
         return nr2char(char2nr('A') + a:i - 1)
     else
         return 'ERROR'
