@@ -299,6 +299,9 @@ function Latex_foldtext() " {{{
     endif
     " }}}
     " format list items nicely {{{
+    " XXX: nesting different types of lists doesn't give quite the correct
+    " result - an enumerate inside an itemize inside an enumerate should use
+    " (a), but here it will go back to using 1.
     if line =~ '\\item'
         let item_name = []
         let item_depth = 0
