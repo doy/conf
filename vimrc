@@ -299,7 +299,7 @@ function Latex_foldtext() " {{{
     endif
     " }}}
     " format list items nicely {{{
-    let matches = matchlist(line, '\\item\%(\[\(.*\)\]\)\?')
+    let matches = matchlist(line, '\\item\%(\[\([^]]*\)\]\)\?')
     if !empty(matches)
         let item_name = []
         let item_index = 0
