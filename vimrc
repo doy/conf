@@ -610,3 +610,56 @@ if file_readable(s:session_file) && expand("%:.") !~ '^/'
 endif
 " }}}
 " }}}
+" Text objects {{{
+" / for regex {{{
+function Textobj_regex(inner, operator)
+    let pos = getpos('.')
+    let objstart = 0
+    let objlength = 0
+
+    let line = strpart(getline('.'), 0, pos[2])
+    let lines = getline(1, pos[1] - 1) + [line]
+    let linenum = pos[1]
+    for line in reverse(lines)
+        let objstart = match(line, '.*\zs\\\@<!/')
+        if objstart != -1
+            let objlength += strlen(line) - objstart
+            break
+        endif
+        let linenum -= 1
+        let objlength += strlen(line) + 1
+    endfor
+    let objstart += a:inner
+    let objlength -= a:inner
+    let objstartline = linenum
+
+    let line = strpart(getline('.'), pos[2] - 1)
+    let lines = [line] + getline(pos[1] + 1, line('$'))
+    let linenum = pos[1]
+    for line in lines
+        let objend = match(line, '\\\@<!/')
+        if objend != -1
+            let objlength += objend
+            break
+        endif
+        let linenum += 1
+        let objlength += strlen(line) + 1
+    endfor
+    let objlength -= a:inner
+
+    call cursor(objstartline, objstart + 1)
+    let objcmd = "normal! ".a:operator.objlength." "
+    exe objcmd
+    if a:operator == 'c'
+        normal l
+        startinsert
+    elseif a:operator == 'v'
+        normal h
+    endif
+endfunction
+onoremap <silent>a/ <Esc>:<C-U>call Textobj_regex(0, v:operator)<CR>
+onoremap <silent>i/ <Esc>:<C-U>call Textobj_regex(1, v:operator)<CR>
+xnoremap <silent>a/ <Esc>:<C-U>call Textobj_regex(0, 'v')<CR>
+xnoremap <silent>i/ <Esc>:<C-U>call Textobj_regex(1, 'v')<CR>
+" }}}
+" }}}
