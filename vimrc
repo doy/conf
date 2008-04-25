@@ -662,4 +662,23 @@ onoremap <silent>i/ <Esc>:<C-U>call Textobj_regex(1, v:operator)<CR>
 xnoremap <silent>a/ <Esc>:<C-U>call Textobj_regex(0, 'v')<CR>
 xnoremap <silent>i/ <Esc>:<C-U>call Textobj_regex(1, 'v')<CR>
 " }}}
+" f for folds {{{
+function Textobj_fold(inner, operator, count)
+    if a:inner == 1
+        let pos = getpos('.')
+        exe 'normal! '.a:count.'[zyyp'
+        call setpos('.', pos)
+    endif
+
+    exe 'normal! '.a:count.']z'.a:operator.'[z'
+
+    if a:inner == 0
+        normal! dd
+    endif
+endfunction
+onoremap <silent>af <Esc>:<C-U>call Textobj_fold(0, v:operator, v:prevcount)<CR>
+onoremap <silent>if <Esc>:<C-U>call Textobj_fold(1, v:operator, v:prevcount)<CR>
+xnoremap <silent>af <Esc>:<C-U>call Textobj_fold(0, 'v', v:prevcount)<CR>
+xnoremap <silent>if <Esc>:<C-U>call Textobj_fold(1, 'v', v:prevcount)<CR>
+" }}}
 " }}}
