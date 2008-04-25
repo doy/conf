@@ -657,10 +657,10 @@ function Textobj_regex(inner, operator)
         normal h
     endif
 endfunction
-onoremap <silent>a/ <Esc>:<C-U>call Textobj_regex(0, v:operator)<CR>
-onoremap <silent>i/ <Esc>:<C-U>call Textobj_regex(1, v:operator)<CR>
-xnoremap <silent>a/ <Esc>:<C-U>call Textobj_regex(0, 'v')<CR>
-xnoremap <silent>i/ <Esc>:<C-U>call Textobj_regex(1, 'v')<CR>
+onoremap <silent>a/ <Esc>:call Textobj_regex(0, v:operator)<CR>
+onoremap <silent>i/ <Esc>:call Textobj_regex(1, v:operator)<CR>
+xnoremap <silent>a/ <Esc>:call Textobj_regex(0, 'v')<CR>
+xnoremap <silent>i/ <Esc>:call Textobj_regex(1, 'v')<CR>
 " }}}
 " f for folds {{{
 function Textobj_fold(inner, operator, count)
@@ -678,9 +678,9 @@ function Textobj_fold(inner, operator, count)
         normal! $
     endif
 endfunction
-onoremap <silent>af <Esc>:<C-U>call Textobj_fold(0, v:operator, v:prevcount)<CR>
-onoremap <silent>if <Esc>:<C-U>call Textobj_fold(1, v:operator, v:prevcount)<CR>
-xnoremap <silent>af <Esc>:<C-U>call Textobj_fold(0, 'v', v:prevcount)<CR>
-xnoremap <silent>if <Esc>:<C-U>call Textobj_fold(1, 'v', v:prevcount)<CR>
+onoremap <silent>af <Esc>:call Textobj_fold(0, v:operator, v:prevcount)<CR>
+onoremap <silent>if <Esc>:call Textobj_fold(1, v:operator, v:prevcount)<CR>
+xnoremap <silent>af <Esc>:call Textobj_fold(0, 'v', v:prevcount)<CR>
+xnoremap <silent>if <Esc>:call Textobj_fold(1, 'v', v:prevcount)<CR>
 " }}}
 " }}}
