@@ -651,10 +651,10 @@ function Textobj_regex(inner, operator)
     let objcmd = "normal! ".a:operator.objlength." "
     exe objcmd
     if a:operator == 'c'
-        normal l
+        normal! l
         startinsert
     elseif a:operator == 'v'
-        normal h
+        normal! h
     endif
 endfunction
 onoremap <silent>a/ <Esc>:call Textobj_regex(0, v:operator)<CR>
