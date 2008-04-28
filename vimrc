@@ -671,9 +671,20 @@ function Textobj_regex(inner, count)
     let lines = [line] + getline(pos[1] + 1, line('$'))
     let linenum = pos[1]
     for line in lines
-        let objend = match(line, '\\\@<!/')
-        if objend != -1
-            let objlength += objend
+        let objend = match(line, '\\\@<!/') + 1
+        if objend != 0
+            if linenum == pos[1]
+                " have to account for the possibility of a split escape
+                " sequence
+                if objend == 1 && getline(pos[1])[pos[2] - 2] == '\'
+                    let objend = match(line, '\\\@<!/', 1) + 1
+                    if objend == 0
+                        let linenum += 1
+                        continue
+                    endif
+                endif
+                let objend += pos[2] - 1
+            endif
             break
         endif
         let linenum += 1
