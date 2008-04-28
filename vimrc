@@ -653,7 +653,7 @@ function Textobj_regex(inner, count)
     let pos = getpos('.')
     let objstart = 0
 
-    let line = strpart(getline('.'), 0, pos[2])
+    let line = strpart(getline(pos[1]), 0, pos[2])
     let lines = getline(1, pos[1] - 1) + [line]
     let linenum = pos[1]
     for line in reverse(lines)
@@ -667,7 +667,7 @@ function Textobj_regex(inner, count)
     let objstart += a:inner
     let objstartline = linenum
 
-    let line = strpart(getline('.'), pos[2] - 1)
+    let line = strpart(getline(pos[1]), pos[2] - 1)
     let lines = [line] + getline(pos[1] + 1, line('$'))
     let linenum = pos[1]
     for line in lines
