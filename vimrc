@@ -697,24 +697,18 @@ endfunction
 call Textobj('/', 'Textobj_regex')
 " }}}
 " f for folds {{{
-function Textobj_fold(inner, operator, count)
-    exe 'normal! '.a:count.'[z'
-    let startpos = line('.') + a:inner
-    normal! ]z
-    let endpos = line('.') - a:inner
-    exe 'normal! '.startpos.'G'
-    exe 'normal! '.a:operator.endpos.'G'
+function Textobj_fold(inner, count)
+    let pos = getpos('.')
 
-    if a:operator == 'c'
-        normal! l
-        startinsert
-    elseif a:operator == 'v'
-        normal! $
-    endif
+    exe 'normal! '.a:count.'[z'
+    let startline = line('.') + a:inner
+    normal! ]z
+    let endline = line('.') - a:inner
+
+    call setpos('.', pos)
+
+    return [startline, 1, endline, strlen(getline(endline))]
 endfunction
-onoremap <silent>af <Esc>:call Textobj_fold(0, v:operator, v:prevcount)<CR>
-onoremap <silent>if <Esc>:call Textobj_fold(1, v:operator, v:prevcount)<CR>
-xnoremap <silent>af <Esc>:call Textobj_fold(0, 'v', v:prevcount)<CR>
-xnoremap <silent>if <Esc>:call Textobj_fold(1, 'v', v:prevcount)<CR>
+call Textobj('f', 'Textobj_fold')
 " }}}
 " }}}
