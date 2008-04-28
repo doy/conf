@@ -649,10 +649,9 @@ function Textobj(char, callback)
 endfunction
 " }}}
 " / for regex {{{
-function Textobj_regex(inner, operator)
+function Textobj_regex(inner, count)
     let pos = getpos('.')
     let objstart = 0
-    let objlength = 0
 
     let line = strpart(getline('.'), 0, pos[2])
     let lines = getline(1, pos[1] - 1) + [line]
@@ -660,14 +659,12 @@ function Textobj_regex(inner, operator)
     for line in reverse(lines)
         let objstart = match(line, '.*\zs\\\@<!/')
         if objstart != -1
-            let objlength += strlen(line) - objstart
+            let objstart += 1
             break
         endif
         let linenum -= 1
-        let objlength += strlen(line) + 1
     endfor
     let objstart += a:inner
-    let objlength -= a:inner
     let objstartline = linenum
 
     let line = strpart(getline('.'), pos[2] - 1)
@@ -680,24 +677,13 @@ function Textobj_regex(inner, operator)
             break
         endif
         let linenum += 1
-        let objlength += strlen(line) + 1
     endfor
-    let objlength -= a:inner
+    let objend -= a:inner
+    let objendline = linenum
 
-    call cursor(objstartline, objstart + 1)
-    let objcmd = "normal! ".a:operator.objlength." "
-    exe objcmd
-    if a:operator == 'c'
-        normal! l
-        startinsert
-    elseif a:operator == 'v'
-        normal! h
-    endif
+    return [objstartline, objstart, objendline, objend]
 endfunction
-onoremap <silent>a/ <Esc>:call Textobj_regex(0, v:operator)<CR>
-onoremap <silent>i/ <Esc>:call Textobj_regex(1, v:operator)<CR>
-xnoremap <silent>a/ <Esc>:call Textobj_regex(0, 'v')<CR>
-xnoremap <silent>i/ <Esc>:call Textobj_regex(1, 'v')<CR>
+call Textobj('/', 'Textobj_regex')
 " }}}
 " f for folds {{{
 function Textobj_fold(inner, operator, count)
