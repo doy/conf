@@ -611,6 +611,43 @@ endif
 " }}}
 " }}}
 " Text objects {{{
+" Text object creation {{{
+let g:text_object_number = 0
+function Textobj(char, callback)
+    let g:text_object_number += 1
+    function Textobj_{g:text_object_number}(inner, operator, count, callback)
+        let [startline, startcol, endline, endcol] = function(a:callback)(a:inner, a:count)
+        if startline == endline
+            let objlength = endcol - startcol + 1
+        else
+            let lines = getline(startline + 1, endline - 1)
+            let lines = [strpart(getline(startline), startcol - 1)] +
+            \           lines +
+            \           [strpart(getline(endline), 0, endcol)]
+            let objlength = 0
+            for line in lines
+                let objlength += strlen(line) + 1
+            endfor
+            let objlength -= 1
+        endif
+        call cursor(startline, startcol)
+        exe 'normal! '.a:operator.objlength.' '
+
+        if a:operator == 'c'
+            normal! l
+            startinsert
+        elseif a:operator == 'v'
+            normal! h
+        endif
+    endfunction
+
+    let cbname = '"' . substitute(a:callback, '^s:', '<SID>', '') . '"'
+    exe 'onoremap <silent>a'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(0, v:operator, v:prevcount, '.cbname.')<CR>'
+    exe 'onoremap <silent>i'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(1, v:operator, v:prevcount, '.cbname.')<CR>'
+    exe 'xnoremap <silent>a'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(0, "v", v:prevcount, '.cbname.')<CR>'
+    exe 'xnoremap <silent>i'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(1, "v", v:prevcount, '.cbname.')<CR>'
+endfunction
+" }}}
 " / for regex {{{
 function Textobj_regex(inner, operator)
     let pos = getpos('.')
