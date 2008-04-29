@@ -662,14 +662,13 @@ function Textobj_regex(inner, count)
     let lines = getline(1, pos[1] - 1) + [line]
     let linenum = pos[1]
     for line in reverse(lines)
-        let objstart = match(line, '.*\zs\\\@<!/')
-        if objstart != -1
-            let objstart += 1
+        let objstart = match(line, '.*\zs\\\@<!/') + 1
+        if objstart != 0
             break
         endif
         let linenum -= 1
     endfor
-    if objstart == -1
+    if objstart == 0
         throw 'no-match'
     endif
     let objstart += a:inner
