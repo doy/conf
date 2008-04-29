@@ -616,7 +616,11 @@ let g:text_object_number = 0
 function Textobj(char, callback)
     let g:text_object_number += 1
     function Textobj_{g:text_object_number}(inner, operator, count, callback)
-        let [startline, startcol, endline, endcol] = function(a:callback)(a:inner, a:count)
+        try
+            let [startline, startcol, endline, endcol] = function(a:callback)(a:inner, a:count)
+        catch /no-match/
+            return
+        endtry
         if startline == endline
             let objlength = endcol - startcol + 1
         else
