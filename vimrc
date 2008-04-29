@@ -669,6 +669,9 @@ function Textobj_regex(inner, count)
         endif
         let linenum -= 1
     endfor
+    if objstart == -1
+        throw 'no-match'
+    endif
     let objstart += a:inner
     let objstartline = linenum
 
@@ -694,6 +697,9 @@ function Textobj_regex(inner, count)
         endif
         let linenum += 1
     endfor
+    if objend == 0
+        throw 'no-match'
+    endif
     let objend -= a:inner
     let objendline = linenum
 
