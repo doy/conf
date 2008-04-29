@@ -708,5 +708,26 @@ function Textobj_fold(inner, count)
 endfunction
 call Textobj('f', 'Textobj_fold')
 " }}}
+" , for function arguments {{{
+function Textobj_arg(inner, count)
+    let line = getline('.')
+    let curcol = col('.')
+    let argbegin = matchend(strpart(line, 0, curcol), '.*\%(,\s*\|(\)') + 1
+    let argend = match(strpart(line, curcol), '\zs.\?\%(,\|)\)') + curcol + 1
+
+    if a:inner == 0
+        if line[argend] == ')' && line[argbegin - 2] != '('
+            let argbegin -= 1
+            let argbegin = match(strpart(line, 0, argbegin), '\s*$')
+        elseif line[argend] != ')'
+            let argend += 1
+            let argend += matchend(strpart(line, argend), '^\s*')
+        endif
+    endif
+
+    return [line('.'), argbegin, line('.'), argend]
+endfunction
+call Textobj(',', 'Textobj_arg')
+" }}}
 " }}}
 " }}}
