@@ -791,7 +791,7 @@ function Textobj_arg(inner, count)
                 let argbegin = strlen(startline)
             endif
         elseif endline[argend] != ')'
-            let argend += matchend(strpart(endline, argend + 1), '^\s*')
+            let argend += matchend(strpart(endline, argend + 1), '^\s*') + 1
         endif
         if argend == strlen(endline)
             let argend = 0
