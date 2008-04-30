@@ -683,11 +683,17 @@ function Textobj_regex(inner, count)
             if linenum == pos[1]
                 " have to account for the possibility of a split escape
                 " sequence
-                if objend == 1 && getline(pos[1])[pos[2] - 2] == '\'
-                    let objend = match(line, '\\\@<!/', 1) + 1
-                    if objend == 0
-                        let linenum += 1
-                        continue
+                if objend == 1
+                    if getline(pos[1])[pos[2] - 2] == '\'
+                        let objend = match(line, '\\\@<!/', 1) + 1
+                        if objend == 0
+                            let linenum += 1
+                            continue
+                        endif
+                    else
+                        " if we're sitting on a /, don't do anything, since it's
+                        " impossible to know which direction to look
+                        throw 'no-match'
                     endif
                 endif
                 let objend += pos[2] - 1
