@@ -744,10 +744,11 @@ function Textobj_arg(inner, count)
     for line in reverse(lines)
         let argbegin = matchend(line, '.*\%(,\s*\|(\)') + 1
         if argbegin != 0
-            if argbegin > strlen(line)
+            while argbegin > strlen(line)
                 let linenum += 1
-                let argbegin = matchend(getline(linenum), '^\s*') + 1
-            endif
+                let line = getline(linenum)
+                let argbegin = matchend(line, '^\s*') + 1
+            endwhile
             break
         endif
         let linenum -= 1
