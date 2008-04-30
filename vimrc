@@ -736,6 +736,17 @@ call Textobj('f', 'Textobj_fold')
 " , for function arguments {{{
 function Textobj_arg(inner, count)
     let pos = getpos('.')
+    let curchar = getline(pos[1])[pos[2] - 1]
+    if curchar == ','
+        exe "normal! \<BS>"
+        let pos = getpos('.')
+        let curchar = getline(pos[1])[pos[2] - 1]
+    endif
+    while curchar =~ '\s'
+        normal! W
+        let pos = getpos('.')
+        let curchar = getline(pos[1])[pos[2] - 1]
+    endwhile
 
     let line = strpart(getline(pos[1]), 0, pos[2])
     let lines = getline(1, pos[1] - 1) + [line]
