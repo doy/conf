@@ -782,6 +782,11 @@ function Textobj_arg(inner, count)
     if a:inner == 0
         let endline = getline(argendline)
         let startline = getline(argstartline)
+        if argend >= strlen(endline)
+            let argend = 0
+            let argendline += 1
+            let endline = getline(argendline)
+        endif
         if endline[argend] == ')' && startline[argbegin - 2] != '('
             let argbegin = match(strpart(startline, 0, argbegin - 1), '\s*$')
             while argbegin == 0
