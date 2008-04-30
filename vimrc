@@ -791,6 +791,18 @@ function Textobj_arg(inner, count)
             endwhile
         elseif endline[argend] != ')'
             let argend += matchend(strpart(endline, argend + 1), '^\s*') + 1
+            if startline[argbegin - 2] == '('
+                for line in [strpart(endline, argend)] +
+                \           getline(argendline + 1, line('$'))
+                    let argincr = matchend(line, '\s*\ze\S')
+                    if argincr != -1
+                        let argend += argincr
+                        break
+                    endif
+                    let argendline += 1
+                    let argend = 0
+                endfor
+            endif
         endif
         if argend == strlen(endline)
             let argend = 0
