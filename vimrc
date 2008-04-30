@@ -618,7 +618,7 @@ function Textobj(char, callback)
     function Textobj_{g:text_object_number}(inner, operator, count, callback)
         try
             let pos = getpos('.')
-            let [startline, startcol, endline, endcol] = function(a:callback)(a:inner, a:count)
+            sandbox let [startline, startcol, endline, endcol] = function(a:callback)(a:inner, a:count)
         catch /no-match/
             return
         finally
