@@ -774,12 +774,14 @@ function Textobj_arg(inner, count)
     let argendline = linenum
 
     if a:inner == 0
-        if line[argend] == ')' && line[argbegin - 2] != '('
+        let endline = getline(argendline)
+        let startline = getline(argstartline)
+        if endline[argend] == ')' && startline[argbegin - 2] != '('
             let argbegin -= 1
-            let argbegin = match(strpart(line, 0, argbegin), '\s*$')
-        elseif line[argend] != ')'
+            let argbegin = match(strpart(startline, 0, argbegin), '\s*$')
+        elseif endline[argend] != ')'
             let argend += 1
-            let argend += matchend(strpart(line, argend), '^\s*')
+            let argend += matchend(strpart(endline, argend), '^\s*')
         endif
     endif
 
