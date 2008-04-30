@@ -730,10 +730,48 @@ call Textobj('f', 'Textobj_fold')
 " }}}
 " , for function arguments {{{
 function Textobj_arg(inner, count)
-    let line = getline('.')
-    let curcol = col('.')
-    let argbegin = matchend(strpart(line, 0, curcol), '.*\%(,\s*\|(\)') + 1
-    let argend = match(strpart(line, curcol), '\zs.\?\%(,\|)\)') + curcol + 1
+    let pos = getpos('.')
+
+    let line = strpart(getline(pos[1]), 0, pos[2])
+    let lines = getline(1, pos[1] - 1) + [line]
+    let linenum = pos[1]
+    for line in reverse(lines)
+        let argbegin = matchend(line, '.*\%(,\s*\|(\)') + 1
+        if argbegin != 0
+            if argbegin > strlen(line)
+                let linenum += 1
+                let argbegin = matchend(getline(linenum), '^\s*') + 1
+            endif
+            break
+        endif
+        let linenum -= 1
+    endfor
+    if argbegin == 0
+        throw 'no-match'
+    endif
+    let argstartline = linenum
+
+    let line = strpart(getline(pos[1]), pos[2] - 1)
+    let lines = [line] + getline(pos[1] + 1, line('$'))
+    let linenum = pos[1]
+    for line in lines
+        let argend = match(line, '\zs.\?\%(,\|)\)') + 1
+        if argend != 0
+            if linenum == pos[1]
+                let argend += pos[2] - 1
+            endif
+            if argend == 1 && getline(linenum)[argend - 1] == ')'
+                let linenum -= 1
+                let argend = strlen(getline(linenum))
+            endif
+            break
+        endif
+        let linenum += 1
+    endfor
+    if argend == 0
+        throw 'no-match'
+    endif
+    let argendline = linenum
 
     if a:inner == 0
         if line[argend] == ')' && line[argbegin - 2] != '('
@@ -745,7 +783,7 @@ function Textobj_arg(inner, count)
         endif
     endif
 
-    return [line('.'), argbegin, line('.'), argend]
+    return [argstartline, argbegin, argendline, argend]
 endfunction
 call Textobj(',', 'Textobj_arg')
 " }}}
