@@ -653,11 +653,10 @@ function Textobj(char, callback)
         endif
     endfunction
 
-    let cbname = '"' . substitute(a:callback, '^s:', '<SID>', '') . '"'
-    exe 'onoremap <silent>a'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(0, v:operator, v:prevcount, '.cbname.')<CR>'
-    exe 'onoremap <silent>i'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(1, v:operator, v:prevcount, '.cbname.')<CR>'
-    exe 'xnoremap <silent>a'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(0, "v", v:prevcount, '.cbname.')<CR>'
-    exe 'xnoremap <silent>i'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(1, "v", v:prevcount, '.cbname.')<CR>'
+    exe 'onoremap <silent>a'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(0, v:operator, v:prevcount, "'.a:callback.'")<CR>'
+    exe 'onoremap <silent>i'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(1, v:operator, v:prevcount, "'.a:callback.'")<CR>'
+    exe 'xnoremap <silent>a'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(0, "v", v:prevcount, "'.a:callback.'")<CR>'
+    exe 'xnoremap <silent>i'.a:char.' <Esc>:call Textobj_'.g:text_object_number.'(1, "v", v:prevcount, "'.a:callback.'")<CR>'
 endfunction
 " }}}
 " Text objects {{{
