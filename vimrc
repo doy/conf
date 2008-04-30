@@ -637,6 +637,11 @@ function Textobj(char, callback)
             endfor
             let objlength -= 1
         endif
+        if startcol > strlen(getline(startline))
+            let startcol = 1
+            let startline += 1
+            let objlength -= 1
+        endif
         call cursor(startline, startcol)
         exe 'normal! '.a:operator.objlength.' '
 
