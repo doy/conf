@@ -662,7 +662,6 @@ endfunction
 " / for regex {{{
 function Textobj_regex(inner, count)
     let pos = getpos('.')
-    let objstart = 0
 
     let line = strpart(getline(pos[1]), 0, pos[2])
     let lines = getline(1, pos[1] - 1) + [line]
