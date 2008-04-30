@@ -738,15 +738,16 @@ function Textobj_arg(inner, count)
     let pos = getpos('.')
     let curchar = getline(pos[1])[pos[2] - 1]
     if curchar == ','
-        exe "normal! \<BS>"
-        let pos = getpos('.')
-        let curchar = getline(pos[1])[pos[2] - 1]
-    endif
-    while curchar =~ '\s'
+        if getline(pos[1])[pos[2] - 2] =~ '\s'
+            normal! gE
+        else
+            exe "normal! \<BS>"
+        endif
+        return Textobj_arg(a:inner, a:count)
+    elseif curchar =~ '\s'
         normal! W
-        let pos = getpos('.')
-        let curchar = getline(pos[1])[pos[2] - 1]
-    endwhile
+        return Textobj_arg(a:inner, a:count)
+    endif
 
     let line = strpart(getline(pos[1]), 0, pos[2])
     let lines = getline(1, pos[1] - 1) + [line]
