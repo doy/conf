@@ -634,7 +634,13 @@ function Textobj(char, callback)
             endfor
             let objlength -= 1
         endif
+        if endcol == 0
+            normal! J
+        endif
         call cursor(startline, startcol)
+        if startcol > strlen(getline(startline))
+            normal! J
+        endif
         exe 'normal! '.a:operator.objlength.' '
 
         if a:operator == 'c'
