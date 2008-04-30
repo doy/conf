@@ -804,7 +804,7 @@ function Textobj_arg(inner, count)
                 endfor
             endif
         endif
-        if argend == strlen(endline)
+        if argend >= strlen(endline)
             let argend = 0
             let argendline += 1
         endif
