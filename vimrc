@@ -537,8 +537,8 @@ inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
 nmap Y y$
 
 nnoremap \\ \
-nmap \/ :nohl<CR>
-nmap \s :syntax sync fromstart<CR>
+nmap <silent>\/ :nohl<CR>
+nmap <silent>\s :syntax sync fromstart<CR>
 autocmd FileType help nnoremap <CR> <C-]>
 autocmd FileType help nnoremap <BS> <C-T>
 
