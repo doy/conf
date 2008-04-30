@@ -810,6 +810,12 @@ function Textobj_arg(inner, count)
             endif
         endif
         if argend >= strlen(endline)
+            if argendline == argstartline
+                let newbegin = matchend(strpart(endline, 0, argbegin), '.*,')
+                if newbegin != -1
+                    let argbegin = newbegin + 1
+                endif
+            endif
             let argend = 0
             let argendline += 1
         endif
