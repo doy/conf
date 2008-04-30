@@ -617,9 +617,12 @@ function Textobj(char, callback)
     let g:text_object_number += 1
     function Textobj_{g:text_object_number}(inner, operator, count, callback)
         try
+            let pos = getpos('.')
             let [startline, startcol, endline, endcol] = function(a:callback)(a:inner, a:count)
         catch /no-match/
             return
+        finally
+            call setpos('.', pos)
         endtry
         if startline == endline
             let objlength = endcol - startcol + 1
@@ -719,12 +722,10 @@ call Textobj('/', 'Textobj_regex')
 " }}}
 " f for folds {{{
 function Textobj_fold(inner, count)
-    let pos = getpos('.')
     exe 'normal! '.a:count.'[z'
     let startline = line('.') + a:inner
     normal! ]z
     let endline = line('.') - a:inner
-    call setpos('.', pos)
 
     return [startline, 1, endline, strlen(getline(endline))]
 endfunction
