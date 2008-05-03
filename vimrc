@@ -33,10 +33,12 @@ set showmode
 set showcmd
 
 " a - terse messages (like [+] instead of [Modified]
+" o - don't show both reading and writing messages if both occur at once
 " t - truncate file names
-" I - no intro message when starting vim fileless
 " T - truncate messages rather than prompting to press enter
-set shortmess=atIT
+" W - don't show [w] when writing
+" I - no intro message when starting vim fileless
+set shortmess=aotTWI
 
 " no extra status lines
 set laststatus=0
