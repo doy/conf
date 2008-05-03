@@ -21,7 +21,7 @@ syntax on
 set ruler
 
 " display more information in the ruler
-set rulerformat=%40(%=%h%m%r%w%<\ (%n)\ %-14.(%l,%c%V%)\ %P%)
+set rulerformat=%40(%=%t%h%m%r%w%<\ (%n)\ %-14.(%l,%c%V%)\ %P%)
 
 " current mode in status line
 set showmode
