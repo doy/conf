@@ -20,6 +20,9 @@ syntax on
 " lines, cols in status line
 set ruler
 
+" display more information in the ruler
+set rulerformat=%40(%=%m%r%w%y%<\ (%n)\ %-14.14(%l,%c%V%)\ %P%)
+
 " current mode in status line
 set showmode
 
@@ -29,7 +32,8 @@ set showcmd
 " a - terse messages (like [+] instead of [Modified]
 " t - truncate file names
 " I - no intro message when starting vim fileless
-set shortmess=atI
+" T - truncate messages rather than prompting to press enter
+set shortmess=atIT
 
 " no extra status lines
 set laststatus=0
