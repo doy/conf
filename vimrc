@@ -10,6 +10,9 @@ filetype indent plugin on
 " automatically flush to disk when using :make, etc.
 set autowrite
 
+" automatically read in external changes if we haven't modified the buffer
+set autoread
+
 " Gentoo disables modelines by default
 set modeline
 "}}}
