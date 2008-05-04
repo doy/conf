@@ -72,6 +72,9 @@ set wildmode=longest,list,full
 " word wrapping
 set linebreak
 
+" only show a menu for completion, never a preview window or things like that
+set completeopt=menuone
+
 " Language specific features {{{
 " Bash {{{
 " I use bash
