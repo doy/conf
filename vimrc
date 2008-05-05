@@ -510,6 +510,7 @@ autocmd BufNewFile *.cpp    silent 0read ~/.vim/skeletons/cpp.cpp  | normal Gddk
 autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c.c      | normal Gddk
 autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex.tex  | normal Gddk
 autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/Makefile | normal Gddgg$
+autocmd BufNewFile Makefile.PL silent 0read ~/.vim/skeletons/Makefile.PL | normal Gdd6G$
 " }}}
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
