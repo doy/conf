@@ -539,6 +539,21 @@ autocmd FileType perl setlocal foldtext=Perl_foldtext()
 " }}}
 "}}}
 " Remappings {{{
+" Change the completion function easily {{{
+nmap <silent>\cn :call SetSuperTabCompletionType("<C-P>")<CR>
+nmap <silent>\cl :call SetSuperTabCompletionType("<C-X><C-L>")<CR>
+nmap <silent>\ck :call SetSuperTabCompletionType("<C-X><C-N>")<CR>
+nmap <silent>\cd :call SetSuperTabCompletionType("<C-X><C-K>")<CR>
+nmap <silent>\ct :call SetSuperTabCompletionType("<C-X><C-T>")<CR>
+nmap <silent>\ci :call SetSuperTabCompletionType("<C-X><C-I>")<CR>
+nmap <silent>\c] :call SetSuperTabCompletionType("<C-X><C-]>")<CR>
+nmap <silent>\cf :call SetSuperTabCompletionType("<C-X><C-F>")<CR>
+nmap <silent>\cd :call SetSuperTabCompletionType("<C-X><C-D>")<CR>
+nmap <silent>\cv :call SetSuperTabCompletionType("<C-X><C-V>")<CR>
+nmap <silent>\cu :call SetSuperTabCompletionType("<C-X><C-U>")<CR>
+nmap <silent>\co :call SetSuperTabCompletionType("<C-X><C-O>")<CR>
+nmap <silent>\cs :call SetSuperTabCompletionType("<C-X>s")<CR>
+" }}}
 " Help file remappings for easy navigation {{{
 autocmd FileType help nnoremap <buffer> <CR> <C-]>
 autocmd FileType help nnoremap <buffer> <BS> <C-T>
