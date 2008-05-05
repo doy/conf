@@ -538,31 +538,15 @@ autocmd FileType cpp  setlocal foldtext=Cpp_foldtext()
 autocmd FileType perl setlocal foldtext=Perl_foldtext()
 " }}}
 "}}}
-" Insert-mode remappings/abbreviations {{{
-" Arrow keys, etc {{{
-imap <up> <C-o>gk
-imap <down> <C-o>gj
-imap <home> <C-o>g<home>
-imap <end> <C-o>g<end>
-" }}}
-" Hit <C-a> in insert mode after a bad paste (thanks absolon) {{{
-inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
-"}}}
-" }}}
-" Normal-mode remappings {{{
-" have Y behave analogously to D rather than to dd
-nmap Y y$
-
-nnoremap \\ \
-nmap <silent>\/ :nohl<CR>
-nmap <silent>\n :set invnumber<CR>
-nmap <silent>\s :syntax sync fromstart<CR>
+" Remappings {{{
+" Help file remappings for easy navigation {{{
 autocmd FileType help nnoremap <buffer> <CR> <C-]>
 autocmd FileType help nnoremap <buffer> <BS> <C-T>
-
-" damnit cbus, you've won me over
+" }}}
+" Keep the current selection when indenting (thanks cbus) {{{
 vnoremap < <gv
 vnoremap > >gv
+" }}}
 " Painless spell checking (F11) {{{
 function s:spell()
     if !exists("s:spell_check") || s:spell_check == 0
@@ -578,11 +562,34 @@ endfunction
 map <F11> :call <SID>spell()<CR>
 imap <F11> <C-o>:call <SID>spell()<CR>
 "}}}
-" Arrow keys, etc, again {{{
+" Arrow keys {{{
 map <up> gk
 map <down> gj
 map <home> g<home>
 map <end> g<end>
+imap <up> <C-o>gk
+imap <down> <C-o>gj
+imap <home> <C-o>g<home>
+imap <end> <C-o>g<end>
+" }}}
+" Hit <C-a> in insert mode after a bad paste (thanks absolon) {{{
+inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
+"}}}
+" Miscellaneous {{{
+" have Y behave analogously to D rather than to dd
+nmap Y y$
+
+" easily cancel hitting \ once
+nnoremap \\ \
+
+" clear the search highlight
+nmap <silent>\/ :nohl<CR>
+
+" toggle line numbers
+nmap <silent>\n :set invnumber<CR>
+
+" manually resync the syntax highlighting
+nmap <silent>\s :syntax sync fromstart<CR>
 " }}}
 "}}}
 " Plugin settings {{{
