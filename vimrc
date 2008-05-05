@@ -1,7 +1,7 @@
 " based on Eidolos's .vimrc, at http://sartak.org/conf/vimrc
+
 " General options {{{
 " Miscellaneous {{{
-" fuck vi! long live vim!
 set nocompatible
 
 " indentation FTW.. also plugins FTW! heh
@@ -511,7 +511,7 @@ autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c.c      | normal Gddk
 autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex.tex  | normal Gddk
 autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/Makefile | normal Gddgg$
 autocmd BufNewFile Makefile.PL silent 0read ~/.vim/skeletons/Makefile.PL | normal Gdd6G$
-" }}}
+"}}}
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
 "}}}
