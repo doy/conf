@@ -129,6 +129,12 @@ set isfname+=:
 
 " tab completion stuff for the command line
 set wildmode=longest,list,full
+
+" allow word completions from the system word list
+set dictionary+=/usr/share/dict/words
+
+" complete from the dictionary also
+set complete+=k
 "}}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
