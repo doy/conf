@@ -15,7 +15,7 @@ set autoread
 
 " Gentoo disables modelines by default
 set modeline
-"}}}
+" }}}
 " Display {{{
 " color!
 syntax on
@@ -110,7 +110,7 @@ let postscr_fonts=1
 let postscr_encodings=1
 " }}}
 " }}}
-"}}}
+" }}}
 " Improve power of commands {{{
 " backspace over autoindent, end of line (to join lines), and preexisting test
 set backspace=indent,eol,start
@@ -135,7 +135,7 @@ set dictionary+=/usr/share/dict/words
 
 " complete from the dictionary also
 set complete+=k
-"}}}
+" }}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
 set hidden
@@ -148,7 +148,7 @@ set confirm
 
 " 50 milliseconds for escape timeout instead of 1000
 set ttimeoutlen=50
-"}}}
+" }}}
 " Indentation {{{
 " normal sized tabs!
 set tabstop=8
@@ -176,12 +176,12 @@ set cinoptions+=b1,:0,l1,g0,(0,W1
 
 " reindent whenever 'break;' is typed
 set cinkeys+==break;
-"}}}
+" }}}
 " Folding {{{
 " fold only when I ask for it damnit!
 set foldmethod=marker
-"}}}
-"}}}
+" }}}
+" }}}
 " Colors {{{
 colorscheme peachpuff
 " word completion menu {{{
@@ -191,26 +191,26 @@ highlight PmenuSbar  ctermbg=cyan
 highlight PmenuThumb ctermfg=red
 
 highlight WildMenu ctermfg=grey ctermbg=darkblue
-"}}}
+" }}}
 " folding {{{
 highlight Folded     ctermbg=black ctermfg=darkgreen
-"}}}
+" }}}
 " hlsearch {{{
 highlight Search NONE ctermfg=red
-"}}}
+" }}}
 " color end of line whitespace {{{
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 hi EOLWS ctermbg=red
 " }}}
-"}}}
+" }}}
 " Autocommands {{{
 " When editing a file, always jump to the last cursor position {{{
 autocmd BufReadPost *
 \  if line("'\"") > 0 && line("'\"") <= line("$") |
 \    exe "normal g`\"" |
 \  endif
-"}}}
+" }}}
 " Skeletons {{{
 autocmd BufNewFile *.pl     silent 0read ~/.vim/skeletons/perl.pl  | normal Gdd
 autocmd BufNewFile *.pm     silent 0read ~/.vim/skeletons/perl.pm  | exe 'normal 4G' | silent :.s/Foo/\=expand("%")/ | silent :.s#lib/## | silent :.s#/#::#g | silent :.s/.pm;/;/ | normal Gdd2k
@@ -219,22 +219,22 @@ autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c.c      | normal Gddk
 autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex.tex  | normal Gddk
 autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/Makefile | normal Gddgg$
 autocmd BufNewFile Makefile.PL silent 0read ~/.vim/skeletons/Makefile.PL | normal Gdd6G$
-"}}}
+" }}}
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
-"}}}
+" }}}
 " Perl :make does a syntax check {{{
 autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
 autocmd FileType perl setlocal errorformat=%f:%l:%m
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
-"}}}
+" }}}
 " Latex :make converts to pdf {{{
 autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
 " }}}
 " Lua needs to have commentstring set {{{
 autocmd FileType lua setlocal commentstring=--%s
 " }}}
-"}}}
+" }}}
 " Remappings {{{
 " Change the completion function easily {{{
 nmap <silent>\cn :call SuperTabSetCompletionType("< <BS>C-P>")<CR>
@@ -273,7 +273,7 @@ function s:spell()
 endfunction
 map <F11> :call <SID>spell()<CR>
 imap <F11> <C-o>:call <SID>spell()<CR>
-"}}}
+" }}}
 " Arrow keys {{{
 map <up> gk
 map <down> gj
@@ -286,7 +286,7 @@ imap <end> <C-o>g<end>
 " }}}
 " Hit <C-a> in insert mode after a bad paste (thanks absolon) {{{
 inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
-"}}}
+" }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nmap Y y$
@@ -303,7 +303,7 @@ nmap <silent>\n :set invnumber<CR>
 " manually resync the syntax highlighting
 nmap <silent>\s :syntax sync fromstart<CR>
 " }}}
-"}}}
+" }}}
 " Plugin settings {{{
 " Enhanced Commentify {{{
 let g:EnhCommentifyBindInInsert = 'No'
