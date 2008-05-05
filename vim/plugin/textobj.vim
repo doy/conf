@@ -1,4 +1,5 @@
 " Text object creation {{{
+" XXX: use virtualedit here, it should greatly simplify things
 let s:text_object_number = 0
 function Textobj(char, callback)
     let s:text_object_number += 1
