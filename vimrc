@@ -172,7 +172,9 @@ set autoindent
 set smartindent
 
 " align break with case in a switch
-set cinoptions+=b1
+set cinoptions+=b1,:0,l1,g0,(0,W1
+
+set cinkeys+==break;
 "}}}
 " Folding {{{
 " fold only when I ask for it damnit!
