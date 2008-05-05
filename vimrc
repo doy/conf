@@ -165,9 +165,6 @@ set autoindent
 " braces affect autoindentation
 set smartindent
 
-" figure out indent when ; is pressed
-set cinkeys+=;
-
 " align break with case in a switch
 set cinoptions+=b1
 "}}}
