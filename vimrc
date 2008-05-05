@@ -563,18 +563,6 @@ autocmd FileType help nnoremap <buffer> <BS> <C-T>
 " damnit cbus, you've won me over
 vnoremap < <gv
 vnoremap > >gv
-" Make the tab key useful {{{
-function TabWrapper()
-  if strpart(getline('.'), 0, col('.')-1) =~ '^\s*$'
-    return "\<Tab>"
-  elseif exists('&omnifunc') && &omnifunc != ''
-    return "\<C-X>\<C-O>"
-  else
-    return "\<C-N>"
-  endif
-endfunction
-imap <Tab> <C-R>=TabWrapper()<CR>
-"}}}
 " Painless spell checking (F11) {{{
 function s:spell()
     if !exists("s:spell_check") || s:spell_check == 0
@@ -626,6 +614,11 @@ if file_readable(s:session_file) && expand("%:.") !~ '^/'
     autocmd VimEnter * TlistDebug | exec 'TlistSessionLoad ' . s:session_file
     autocmd VimLeave * call delete(s:session_file) | exec 'TlistSessionSave ' . s:session_file
 endif
+" }}}
+" SuperTab {{{
+"let g:SuperTabDefaultCompletionTypeDiscovery = "&omnifunc:<C-X><C-O>,&completefunc:<C-X><C-U>,&spelllang:<C-X>s"
+let g:SuperTabDefaultCompletionTypeDiscovery = "&omnifunc:<C-X><C-O>,&completefunc:<C-X><C-U>"
+let g:SuperTabMidWordCompletion = 0
 " }}}
 " Textobj {{{
 let g:Textobj_regex_enable = 1
