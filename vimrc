@@ -540,19 +540,19 @@ autocmd FileType perl setlocal foldtext=Perl_foldtext()
 "}}}
 " Remappings {{{
 " Change the completion function easily {{{
-nmap <silent>\cn :call SetSuperTabCompletionType("<C-P>")<CR>
-nmap <silent>\cl :call SetSuperTabCompletionType("<C-X><C-L>")<CR>
-nmap <silent>\ck :call SetSuperTabCompletionType("<C-X><C-N>")<CR>
-nmap <silent>\cd :call SetSuperTabCompletionType("<C-X><C-K>")<CR>
-nmap <silent>\ct :call SetSuperTabCompletionType("<C-X><C-T>")<CR>
-nmap <silent>\ci :call SetSuperTabCompletionType("<C-X><C-I>")<CR>
-nmap <silent>\c] :call SetSuperTabCompletionType("<C-X><C-]>")<CR>
-nmap <silent>\cf :call SetSuperTabCompletionType("<C-X><C-F>")<CR>
-nmap <silent>\cd :call SetSuperTabCompletionType("<C-X><C-D>")<CR>
-nmap <silent>\cv :call SetSuperTabCompletionType("<C-X><C-V>")<CR>
-nmap <silent>\cu :call SetSuperTabCompletionType("<C-X><C-U>")<CR>
-nmap <silent>\co :call SetSuperTabCompletionType("<C-X><C-O>")<CR>
-nmap <silent>\cs :call SetSuperTabCompletionType("<C-X>s")<CR>
+nmap <silent>\cn :call SuperTabSetCompletionType("< <BS>C-P>")<CR>
+nmap <silent>\cl :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-L>")<CR>
+nmap <silent>\ck :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-N>")<CR>
+nmap <silent>\cd :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-K>")<CR>
+nmap <silent>\ct :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-T>")<CR>
+nmap <silent>\ci :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-I>")<CR>
+nmap <silent>\c] :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-]>")<CR>
+nmap <silent>\cf :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-F>")<CR>
+nmap <silent>\cm :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-D>")<CR>
+nmap <silent>\cv :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-V>")<CR>
+nmap <silent>\cu :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-U>")<CR>
+nmap <silent>\co :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-O>")<CR>
+nmap <silent>\cs :call SuperTabSetCompletionType("< <BS>C-X>s")<CR>
 " }}}
 " Help file remappings for easy navigation {{{
 autocmd FileType help nnoremap <buffer> <CR> <C-]>
