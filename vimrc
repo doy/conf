@@ -335,8 +335,6 @@ if file_readable(s:session_file) && expand("%:.") !~ '^/'
 endif
 " }}}
 " SuperTab {{{
-"let g:SuperTabDefaultCompletionTypeDiscovery = "&omnifunc:<C-X><C-O>,&completefunc:<C-X><C-U>,&spelllang:<C-X>s"
-let g:SuperTabDefaultCompletionTypeDiscovery = "&omnifunc:<C-X><C-O>,&completefunc:<C-X><C-U>"
 let g:SuperTabMidWordCompletion = 0
 " }}}
 " Textobj {{{
