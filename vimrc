@@ -171,9 +171,10 @@ set autoindent
 " braces affect autoindentation
 set smartindent
 
-" align break with case in a switch
+" configure cindent for my coding style
 set cinoptions+=b1,:0,l1,g0,(0,W1
 
+" reindent whenever 'break;' is typed
 set cinkeys+==break;
 "}}}
 " Folding {{{
