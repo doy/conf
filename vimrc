@@ -66,9 +66,6 @@ set report=0
 " I generally don't want to have to space through things.. :)
 set nomore
 
-" tab completion stuff for the command line
-set wildmode=longest,list,full
-
 " word wrapping
 set linebreak
 
@@ -129,6 +126,9 @@ set viminfo=!,'1000,f1,/1000,:1000,<1000,@1000,h,n~/.viminfo
 
 " add : as a file-name character (mostly for Perl's mod::ules)
 set isfname+=:
+
+" tab completion stuff for the command line
+set wildmode=longest,list,full
 "}}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
