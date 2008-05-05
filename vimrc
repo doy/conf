@@ -548,6 +548,7 @@ nmap Y y$
 
 nnoremap \\ \
 nmap <silent>\/ :nohl<CR>
+nmap <silent>\n :set invnumber<CR>
 nmap <silent>\s :syntax sync fromstart<CR>
 autocmd FileType help nnoremap <buffer> <CR> <C-]>
 autocmd FileType help nnoremap <buffer> <BS> <C-T>
