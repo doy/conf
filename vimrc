@@ -287,6 +287,9 @@ imap <end> <C-o>g<end>
 " Hit <C-a> in insert mode after a bad paste (thanks absolon) {{{
 inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
 " }}}
+" Ctags {{{
+nmap \t :silent !ctags -a %<CR><C-L>
+" }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nmap Y y$
