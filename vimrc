@@ -293,6 +293,28 @@ inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
 " Ctags {{{
 nmap \t :silent !ctags -a %<CR><C-L>
 " }}}
+" Nopaste {{{
+function s:nopaste(visual)
+    if a:visual
+        silent exe "normal gv!nopaste\<CR>"
+    else
+        let pos = getpos('.')
+        silent exe "normal gg!Gnopaste\<CR>"
+    endif
+    silent normal "+yy
+    let @+ = matchstr(@+, 'http://.*')
+    let @* = @+
+    silent undo
+    if a:visual
+        normal gv
+    else
+        call setpos('.', pos)
+    endif
+    echo @+
+endfunction
+nmap <silent> \p :call <SID>nopaste(0)<CR>
+vmap <silent> \p :<C-U>call <SID>nopaste(1)<CR>
+" }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nmap Y y$
