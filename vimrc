@@ -256,6 +256,9 @@ autocmd FileType lua setlocal include=\\s*require\\s*
 autocmd FileType lua setlocal includeexpr=substitute(v:fname,'\\.','/','g').'.lua'
 autocmd FileType lua exe "setlocal path=" . system("lua -e 'local fpath = \"\" for path in package.path:gmatch(\"[^;]*\") do if path:match(\"\?\.lua$\") then fpath = fpath .. path:gsub(\"\?\.lua$\", \"\") .. \",\" end end print(fpath:gsub(\",,\", \",.,\"):sub(0, -2))'")
 " }}}
+" Vim {{{
+autocmd FileType vim setlocal keywordprg=:help
+" }}}
 " }}}
 " }}}
 " Remappings {{{
