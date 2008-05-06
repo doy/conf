@@ -15,6 +15,9 @@ set autoread
 
 " Gentoo disables modelines by default
 set modeline
+
+" always join with just one space, even between sentences
+set nojoinspaces
 " }}}
 " Display {{{
 " color!
