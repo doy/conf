@@ -302,7 +302,6 @@ function s:nopaste(visual)
         silent exe "normal gg!Gnopaste\<CR>"
     endif
     silent normal "+yy
-    let @+ = matchstr(@+, 'http://.*')
     let @* = @+
     silent undo
     if a:visual
