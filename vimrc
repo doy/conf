@@ -234,6 +234,11 @@ autocmd FileType perl setlocal errorformat=%f:%l:%m
 
 " look up words in perldoc rather than man for K
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
+
+" treat use lines as include lines (for tab completion, etc)
+autocmd FileType perl setlocal include=\\s*use\\s*\\zs[[:alnum:]_:]\\+\\ze;
+autocmd FileType perl setlocal includeexpr=substitute(v:fname,'::','/','g').'.pm'
+autocmd FileType perl setlocal path=~/.perl,/usr/lib/perl5/vendor_perl/5.8.8,/usr/lib/perl5/vendor_perl,/usr/lib/perl5/site_perl/5.8.8,/usr/lib/perl5/site_perl,/usr/lib/perl5/5.8.8,/usr/local/lib/site_perl,.
 " }}}
 " Latex {{{
 " :make converts to pdf
