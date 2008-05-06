@@ -239,6 +239,9 @@ autocmd FileType perl setlocal errorformat=%f:%l:%m
 autocmd FileType perl setlocal keywordprg=perldoc\ -f
 
 " treat use lines as include lines (for tab completion, etc)
+" XXX: it would be really sweet to make gf work with this, but unfortunately
+" that checks the filename directly first, so things like 'use Moose' bring
+" up the $LIB/Moose/ directory, since it exists, before evaluating includeexpr
 autocmd FileType perl setlocal include=\\s*use\\s*
 autocmd FileType perl setlocal includeexpr=substitute(v:fname,'::','/','g').'.pm'
 autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", @INC;'") . ",lib"
