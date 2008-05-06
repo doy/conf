@@ -234,6 +234,9 @@ autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
 " Lua needs to have commentstring set {{{
 autocmd FileType lua setlocal commentstring=--%s
 " }}}
+" Update ctags after writing {{{
+autocmd BufWritePost * if filereadable('tags') | silent exe "!ctags -a %" | redraw | endif
+" }}}
 " }}}
 " Remappings {{{
 " Change the completion function easily {{{
