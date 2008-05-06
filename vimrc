@@ -251,7 +251,7 @@ autocmd FileType lua setlocal commentstring=--%s
 " treat require lines as include lines (for tab completion, etc)
 autocmd FileType lua setlocal include=\\s*require\\s*
 autocmd FileType lua setlocal includeexpr=substitute(v:fname,'\\.','/','g').'.lua'
-autocmd FileType lua setlocal path=/usr/local/share/lua/5.1,.
+autocmd FileType lua exe "setlocal path=" . system("lua -e 'local fpath = \"\" for path in package.path:gmatch(\"[^;]*\") do if path:match(\"\?\.lua$\") then fpath = fpath .. path:gsub(\"\?\.lua$\", \"\") .. \",\" end end print(fpath:gsub(\",,\", \",.,\"):sub(0, -2))'")
 " }}}
 " }}}
 " }}}
