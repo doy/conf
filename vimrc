@@ -223,19 +223,26 @@ autocmd BufNewFile Makefile.PL silent 0read ~/.vim/skeletons/Makefile.PL | norma
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
 " }}}
-" Perl :make does a syntax check {{{
-autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
-autocmd FileType perl setlocal errorformat=%f:%l:%m
-autocmd FileType perl setlocal keywordprg=perldoc\ -f
-" }}}
-" Latex :make converts to pdf {{{
-autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
-" }}}
-" Lua needs to have commentstring set {{{
-autocmd FileType lua setlocal commentstring=--%s
-" }}}
 " Update ctags after writing {{{
 autocmd BufWritePost * if filereadable('tags') | silent exe "!ctags -a %" | redraw | endif
+" }}}
+" Language specific things {{{
+" Perl {{{
+" :make does a syntax check
+autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
+autocmd FileType perl setlocal errorformat=%f:%l:%m
+
+" look up words in perldoc rather than man for K
+autocmd FileType perl setlocal keywordprg=perldoc\ -f
+" }}}
+" Latex {{{
+" :make converts to pdf
+autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
+" }}}
+" Lua {{{
+" set commentstring
+autocmd FileType lua setlocal commentstring=--%s
+" }}}
 " }}}
 " }}}
 " Remappings {{{
