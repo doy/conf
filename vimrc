@@ -241,7 +241,7 @@ autocmd FileType perl setlocal keywordprg=perldoc\ -f
 " treat use lines as include lines (for tab completion, etc)
 autocmd FileType perl setlocal include=\\s*use\\s*\\zs[[:alnum:]_:]\\+\\ze;
 autocmd FileType perl setlocal includeexpr=substitute(v:fname,'::','/','g').'.pm'
-autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", @INC;'")
+autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", @INC;'") . ",lib"
 " }}}
 " Latex {{{
 " :make converts to pdf
