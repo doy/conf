@@ -73,6 +73,9 @@ function luado { # thanks rici
     shift
     lua /dev/fd/3 $* 4<&0- <<<$e 3<&0- 0<&4-
 }
+function setfont {
+    printf '\e]710;%s\007' "$1"
+}
 # }}}
 # }}}
 # bash configuration {{{
