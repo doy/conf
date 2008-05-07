@@ -29,10 +29,14 @@ function Textobj(char, callback)
             let objlength -= 1
         endif
         call cursor(startline, startcol)
-        exe 'normal! '.a:operator.objlength.' '
+        if a:operator == 'c'
+            let operator = 'd'
+        else
+            let operator = a:operator
+        end
+        exe 'normal! '.operator.objlength.' '
 
         if a:operator == 'c'
-            normal! l
             startinsert
         elseif a:operator == 'v'
             exe "normal! \<BS>"
