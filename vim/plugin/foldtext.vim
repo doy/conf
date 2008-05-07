@@ -9,7 +9,7 @@ function Foldtext_base(...)
     " }}}
     " remove the marker that caused this fold from the display {{{
     let foldmarkers = split(&foldmarker, ',')
-    let line = substitute(line, '\V' . foldmarkers[0], ' ', '')
+    let line = substitute(line, '\V' . foldmarkers[0] . '\%(\d\+\)\?', ' ', '')
     " }}}
     " remove comments that vim knows about {{{
     let comment = split(&commentstring, '%s')
