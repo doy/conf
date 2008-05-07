@@ -23,10 +23,14 @@ function Textobj(char, callback)
         endif
         let whichwrap = &whichwrap
         set whichwrap+=s
+        let virtualedit = &virtualedit
         if startcol > strlen(getline(startline))
             let startcol = 1
             let startline += 1
             let objlength -= 1
+        endif
+        if endcol == 0
+            set virtualedit=onemore
         endif
         call cursor(startline, startcol)
         if a:operator == 'c'
@@ -42,6 +46,7 @@ function Textobj(char, callback)
             exe "normal! \<BS>"
         endif
         let &whichwrap = whichwrap
+        let &virtualedit = virtualedit
     endfunction
 
     exe 'onoremap <silent>a'.a:char.' <Esc>:call <SID>textobj_'.s:text_object_number.'(0, v:operator, v:prevcount, "'.a:callback.'")<CR>'
