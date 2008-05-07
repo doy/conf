@@ -32,6 +32,9 @@ function Textobj(char, callback)
         if endcol == 0
             set virtualedit=onemore
         endif
+        if a:operator == 'v'
+            let objlength -= 1
+        endif
         call cursor(startline, startcol)
         if a:operator == 'c'
             let operator = 'd'
@@ -42,8 +45,6 @@ function Textobj(char, callback)
 
         if a:operator == 'c'
             startinsert
-        elseif a:operator == 'v'
-            exe "normal! \<BS>"
         endif
         let &whichwrap = whichwrap
         let &virtualedit = virtualedit
