@@ -15,15 +15,11 @@ function Textobj(char, callback)
         if startline == endline
             let objlength = endcol - startcol + 1
         else
-            let lines = getline(startline + 1, endline - 1)
-            let lines = [strpart(getline(startline), startcol - 1)] +
-            \           lines +
-            \           [strpart(getline(endline), 0, endcol)]
             let objlength = 0
-            for line in lines
-                let objlength += strlen(line) + 1
-            endfor
-            let objlength -= 1
+            if endline - startline > 1
+                exe 'let objlength += '.join(map(getline(startline + 1, endline - 1), 'strlen(v:val) + 1'), '+')
+            endif
+            let objlength += endcol + strlen(getline(startline)) - startcol + 2
         endif
         let whichwrap = &whichwrap
         set whichwrap+=s
