@@ -34,8 +34,8 @@ function Foldtext_base(...)
     let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
     " }}}
     " align everything, and pad the end of the display with - {{{
-    let line = printf('%-' . (62 - v:foldlevel) . 's', line)
-    let line = strpart(line, 0, 62 - v:foldlevel)
+    let alignment = &columns - 18 - v:foldlevel
+    let line = strpart(printf('%-' . alignment . 's', line), 0, alignment)
     let line = substitute(line, '\%( \)\@<= \%( *$\)\@=', '-', 'g')
     " }}}
     " format the line count {{{
