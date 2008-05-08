@@ -251,6 +251,10 @@ autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", 
 autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
 " }}}
 " Lua {{{
+" :make does a syntax check
+autocmd FileType lua setlocal makeprg=luac\ -p\ %
+autocmd FileType lua setlocal errorformat=luac:\ %f:%l:\ %m
+
 " set commentstring
 autocmd FileType lua setlocal commentstring=--%s
 
