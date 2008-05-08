@@ -248,7 +248,11 @@ autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", 
 " }}}
 " Latex {{{
 " :make converts to pdf
-autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
+if strlen(system('which xpdf'))
+    autocmd FileType tex setlocal makeprg=(pdflatex\ %\ &&\ xpdf\ $(echo\ %\ \\\|\ sed\ \'s/\\(\\.[^.]*\\)\\?$/.pdf/\'))
+else
+    autocmd FileType tex setlocal makeprg=pdflatex\ %
+endif
 " see :help errorformat-LaTeX
 autocmd FileType tex setlocal errorformat=
     \%E!\ LaTeX\ %trror:\ %m,
