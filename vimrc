@@ -249,6 +249,34 @@ autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", 
 " Latex {{{
 " :make converts to pdf
 autocmd FileType tex setlocal makeprg=~/bin/latexpdf\ --show\ %
+autocmd FileType tex setlocal errorformat=
+    \%E!\ LaTeX\ %trror:\ %m,
+    \%E!\ %m,
+    \%+WLaTeX\ %.%#Warning:\ %.%#line\ %l%.%#,
+    \%+W%.%#\ at\ lines\ %l--%*\\d,
+    \%WLaTeX\ %.%#Warning:\ %m,
+    \%Cl.%l\ %m,
+    \%+C\ \ %m.,
+    \%+C%.%#-%.%#,
+    \%+C%.%#[]%.%#,
+    \%+C[]%.%#,
+    \%+C%.%#%[{}\\]%.%#,
+    \%+C<%.%#>%.%#,
+    \%C\ \ %m,
+    \%-GSee\ the\ LaTeX%m,
+    \%-GType\ \ H\ <return>%m,
+    \%-G\ ...%.%#,
+    \%-G%.%#\ (C)\ %.%#,
+    \%-G(see\ the\ transcript%.%#),
+    \%-G\\s%#,
+    \%+O(%f)%r,
+    \%+P(%f%r,
+    \%+P\ %\\=(%f%r,
+    \%+P%*[^()](%f%r,
+    \%+P[%\\d%[^()]%#(%f%r,
+    \%+Q)%r,
+    \%+Q%*[^()])%r,
+    \%+Q[%\\d%*[^()])%r
 " }}}
 " Lua {{{
 " :make does a syntax check
