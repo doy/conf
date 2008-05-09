@@ -358,6 +358,11 @@ nmap \t :silent !ctags -a %<CR><C-L>
 " }}}
 " Nopaste {{{
 function s:nopaste(visual)
+    let nopaste_services = $NOPASTE_SERVICES
+    if &filetype == 'tex'
+        let $NOPASTE_SERVICES = "Mathbin ".$NOPASTE_SERVICES
+    endif
+
     if a:visual
         silent exe "normal gv!nopaste\<CR>"
     else
@@ -372,6 +377,7 @@ function s:nopaste(visual)
     else
         call setpos('.', pos)
     endif
+    let $NOPASTE_SERVICES = nopaste_services
     echo @+
 endfunction
 nmap <silent> \p :call <SID>nopaste(0)<CR>
