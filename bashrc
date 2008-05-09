@@ -105,6 +105,7 @@ export DARCS_SFTP='/home/doy/bin/sftp'
 export PERL5LIB='/home/doy/.perl/:/home/doy/.perl/lib/perl5/site_perl/5.8.8/i686-linux/'
 export CVS_RSH='ssh'
 export TEXINPUTS=".:~/writing:"
+export NOPASTE_SERVICES="PastebinCom Rafb Husk"
 # }}}
 # external files {{{
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
