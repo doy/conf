@@ -106,6 +106,7 @@ export PERL5LIB='/home/doy/.perl/:/home/doy/.perl/lib/perl5/site_perl/5.8.8/i686
 export CVS_RSH='ssh'
 export TEXINPUTS=".:~/writing:"
 export NOPASTE_SERVICES="PastebinCom Rafb Husk"
+export NOPASTE_NICK=$USER
 # }}}
 # external files {{{
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
