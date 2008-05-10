@@ -1,0 +1,64 @@
+! rxvt-unicode {{{
+URxvt*visualBell:true
+URxvt*background:black
+URxvt*foreground:lightgrey
+URxvt*shading:50
+URxvt*saveLines:4096
+URxvt*cursorColor:green
+URxvt*pointerColor:yellow
+URxvt*pointerColor2:black
+URxvt*borderWidth:1
+URxvt*scrollTtyOutput:false
+URxvt*scrollTtyKeypress:true
+URxvt*scrollBar_right:true
+URxvt*scrollBar:false
+URxvt*font:7x14
+URxvt*boldFont:7x14
+URxvt*perl-ext-common:default,matcher
+URxvt*urlLauncher: dillo
+! }}}
+! xterm {{{
+xterm*visualBell:true
+xterm*loginShell:true
+xterm*background:black
+xterm*foreground:lightgrey
+!xterm*transparent:true
+xterm*shading:50
+xterm*saveLines:4096
+xterm*cursorColor:green
+xterm*colorMode:true
+xterm*pointerColor:yellow
+xterm*pointerColor2:yellow
+xterm*borderWidth:1
+!xterm*truetintingType:true
+!xterm*fading:80
+xterm*scrollTtyOutput:false
+xterm*scrollBar_right:true
+xterm*scrollBar:false
+! }}}
+! aterm {{{
+aterm*visualBell:true
+aterm*loginShell:true
+aterm*background:black
+aterm*foreground:lightgrey
+!aterm*transparent:true
+aterm*shading:50
+aterm*saveLines:4096
+aterm*cursorColor:green
+aterm*pointerColor:yellow
+aterm*pointerColor2:yellow
+aterm*borderWidth:1
+!aterm*truetintingType:true
+!aterm*fading:80
+aterm*scrollTtyOutput:true
+aterm*scrollBar_right:true
+aterm*scrollBar:false
+aterm*boldFont:7x14
+! }}}
+! emacs {{{
+emacs*background:black
+emacs*foreground:green
+! }}}
+! misc {{{
+Xft.dpi:96
+! }}}
