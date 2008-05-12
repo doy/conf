@@ -38,7 +38,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias bc="bc -l"
 alias ncmpc="ncmpc -c"
-alias truecrypt="truecrypt -t"
+alias truecrypt="sudo truecrypt -t"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
