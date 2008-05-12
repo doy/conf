@@ -62,10 +62,6 @@ alias turing="(TERM=rxvt ssh jluehrs2@turing.cse.uiuc.edu)"
 alias csil="(TERM=rxvt ssh jluehrs2@csil-core7.cs.uiuc.edu)"
 alias ews="ssh jluehrs2@remlnx.ews.uiuc.edu"
 # }}}
-# vpn {{{
-alias vpnoff="vpnclient connect UIUCnet-offcampus"
-alias vpnon="vpnclient connect UIUCnet-oncampus"
-# }}}
 # other {{{
 alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.3) Gecko/20070404 Firefox/2.0.0.3"'
 alias getsong="mpc | head -n1"
