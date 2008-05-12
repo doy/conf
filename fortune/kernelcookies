@@ -1,0 +1,581 @@
+/* Only Sun can take such nice parts and fuck up the programming interface
+ * like this.  Good job guys...
+ */
+        linux-2.6.6/drivers/net/sunhme.c
+%
+/* This card is _fucking_ hot... */
+        linux-2.6.6/drivers/net/sunhme.c
+%
+If you don't see why, please stay the fuck away from my code.
+        Rusty, in linux-2.6.6/Documentation/DocBook/kernel-locking.tmpl        
+%
+/* Fuck, we are miserable poor guys... */
+        linux-2.6.6/net/xfrm/xfrm_algo.c
+%
+/* Ugly, ugly fucker. */
+        linux-2.6.6/include/linux/netfilter_ipv4/ipt_limit.h
+%
+/* XXX: where the fuck is ->f_vfsmnt? */
+        linux-2.6.6/fs/intermezzo/vfs.c
+%
+        if(ct<0)
+                ct=2;        /* Shit happens.. */
+        linux-2.6.6/drivers/net/wan/z85230.c
+%
+/* Remember: "Different name, same old buggy as shit hardware." */
+        linux-2.6.6/drivers/net/sunhme.c
+%
+/* This is total bullshit: */
+        linux-2.6.6/drivers/video/sis/init301.c
+%
+/* The HME is the biggest piece of shit I have ever seen. */
+        linux-2.6.6/drivers/scsi/esp.h
+%
+/* Sun, you just can't beat me, you just can't.  Stop trying,
+ * give up.  I'm serious, I am going to kick the living shit
+ * out of you, game over, lights out.
+ */
+         linux-2.6.6/arch/sparc/lib/checksum.S
+%
+printk("WE HAVE A BUG HERE!!! stk=0x%p\n", stk);
+        linux-2.6.6/drivers/block/cciss_scsi.c
+%
+printk("%s: huh ? Who issued this format command ?\n")
+        linux-2.6.6/drivers/block/ps2esdi.c
+%
+printk("whoops, seeking 0\n");
+        linux-2.6.6/drivers/block/swim3.c
+%
+printk("GSCD: magic ...\n");
+        linux-2.6.6/drivers/cdrom/gscd.c
+%
+printk(" (Read error)");        /* Bitch about the problem. */
+        linux-2.6.6/drivers/cdrom/mcd.c
+%
+printk(" Speed now 1x");        /* Pull my finger! */
+        linux-2.6.6/drivers/cdrom/mcd.c
+%
+printk("%s: confused, missing data\n", drive->name);
+        linux-2.6.6/drivers/ide/ide-cd.c
+%
+printk(KERN_ERR "ide: huh? queue was plugged!\n");
+        linux-2.6.6/drivers/ide/ide-io.c:
+%
+printk ("%s: This looks like a LART board to me.\n",module_name);
+        linux-2.6.6/drivers/mtd/devices/lart.c
+%
+panic("Damn it Jim! I'm a doctor, not a programmer! "
+                "Oh, wait a sec, I am a programmer. "
+                "And, who's Jim?!?!\n"
+                "Arrgghh! We've done it again!\n");
+        linux-2.6.6/drivers/message/fusion/mptlan.c
+%
+/* panic??  These should never occur in our application. */
+        linux-2.6.6/drivers/scsi/aic7xxx/aiclib.c
+%
+panic("This never returns");
+        linux-2.6.6/kernel/power/swsusp.c
+%
+panic("do_trap: can't hit this");
+        linux-2.6.6/arch/i386/mm/extable.c
+%
+panic("Alas, I survived.\n");
+        linux-2.6.6/arch/ppc64/kernel/rtas.c
+%
+tracer_panic("I'm tracing myself and I can't get out");
+        linux-2.6.6/arch/um/kernel/tt/syscall_user.c
+%
+panic("Halt failed!");
+        linux-2.6.6/arch/sparc/kernel/process.c
+%
+panic("smp_callin() AAAAaaaaahhhh....\n");
+        linux-2.6.6/arch/parisc/kernel/smp.c
+%
+panic("If this is a 64-bit machine, please try a 64-bit kernel.\n");
+        linux-2.6.6/arch/parisc/kernel/inventory.c
+%
+panic("Yeee, unsupported cache architecture.");
+        linux-2.6.6/arch/mips/mm/cache.c
+%
+panic("\n");
+        linux-2.6.6/arch/mips/tx4927/common/tx4927_irq.c
+%
+panic("%s called.  This Does Not Happen (TM).", __FUNCTION__);
+        linux-2.6.6/arch/mips/mm-64/tlb-dbg-r4k.c
+%
+panic("No information about myself?");
+        linux-2.6.6/arch/mips/sgi-ip27/ip27-timer.c
+%
+panic("%s: CORRUPTED BTREE OR SOMETHING", __FUNCTION__);
+        linux-2.6.6/fs/xfs/xfs_bmap.c
+%
+printk (KERN_ERR "%s: Oops - your private data area is hosed!\n", ...)
+        linux-2.6.6/drivers/net/ewrk3.c
+%
+rio_dprintk (RIO_DEBUG_ROUTE, "LIES! DAMN LIES! %d LIES!\n",Lies);
+        linux-2.6.6/drivers/char/rio/rioroute.c
+%
+printk("NONONONOO!!!!\n");
+        linux-2.6.6/drivers/atm/zatm.c
+%
+printk("@#*$!!!!  (%08x)\n", ...)
+        linux-2.6.6/drivers/atm/zatm.c
+%
+fs_dprintk (FS_DEBUG_IRQ, "Iiiin-coming (0)!!!!\n");
+        linux-2.6.6/drivers/atm/firestream.c
+%
+fs_dprintk (FS_DEBUG_INIT, "Ha! Initialized OK!\n");
+        linux-2.6.6/drivers/atm/firestream.c
+%
+DPRINTK("strange things happen ...\n");
+        linux-2.6.6/drivers/atm/eni.c
+%
+DPRINTK("doing direct send\n"); /* @@@ well, this doesn't work anyway */
+        linux-2.6.6/drivers/atm/eni.c
+%
+printk(CARDNAME": Bad Craziness - sent packet while busy.\n" );
+        linux-2.6.6/drivers/net/smc9194.c
+%
+printk(KERN_DEBUG "%s: Done reprogramming Xilinx, %d bits, good luck!\n",...);
+        linux-2.6.6/drivers/net/wan/lmc/lmc_main.c
+%
+printk(KERN_WARNING "Hey who turned the DMA off?\n");
+        linux-2.6.6/drivers/net/wan/z85230.c
+%
+printk(KERN_DEBUG "%s: Flex. Ttttt...\n", DRV_NAME);
+        linux-2.6.6/drivers/net/wan/dscc4.c
+%
+printk(KERN_DEBUG "%s: BUG... transmitter died. Kicking it.\n",...)
+        linux-2.6.6/drivers/net/acenic.c
+%
+printk(KERN_ERR "%s: Something Wicked happened! %4.4x.\n",...);
+        linux-2.6.6/drivers/net/sundance.c
+%
+printk ("Kicking board.\n");
+        linux-2.6.6/drivers/net/lp486e.c
+%
+DPRINTK("Last time you were disconnected, how about now?\n");
+        linux-2.6.6/drivers/net/tokenring/ibmtr.c
+%
+DPRINTK("FAILURE, CAPUT\n");
+        linux-2.6.6/drivers/net/tokenring/ibmtr.c
+%
+printk(KERN_WARNING "%s: Thanks, I feel much better now!\n", dev->name);
+        linux-2.6.6/drivers/net/de620.c
+%
+dprintk("kick_rx: maybe kicking\n");
+        linux-2.6.6/drivers/net/ns83820.c
+%
+Dprintk("oh dear, we are idle\n");
+        linux-2.6.6/drivers/net/ns83820.c
+%
+printk(KERN_DEBUG "%s: burped during tx load.\n", dev->name)
+        linux-2.6.6/drivers/net/3c501.c
+%
+printk(KERN_DEBUG "%s: I'm broken.\n", dev->name);
+        linux-2.6.6/drivers/net/plip.c
+%
+printk("%s: TDR is ga-ga (status %04x)\n", ...);
+        linux-2.6.6/drivers/net/eexpress.c
+%
+printk("3c505 is sulking\n");
+        linux-2.6.6/drivers/net/3c505.c
+%
+printk(KERN_ERR "happy meal: Fry guys.");
+        linux-2.6.6/drivers/net/sunhme.c
+%
+printk(KERN_ERR "happy meal: Transceiver and a coke please.");
+        linux-2.6.6/drivers/net/sunhme.c
+%
+printk("Churning and Burning -");
+        linux-2.6.6/drivers/char/lcd.c
+%
+printk(KERN_CRIT PFX "Reboot didn't ?????\n");
+    linux-2.6.6/drivers/char/watchdog/softdog.c
+%
+printk (KERN_DEBUG "Somebody wants the port\n");
+        linux-2.6.6/drivers/parport/parport_pc.c
+%
+printk(KERN_WARNING MYNAM ": (time to go bang on somebodies door)\n");
+        linux-2.6.6/drivers/message/fusion/mptctl.c
+%
+printk(KERN_WARNING MYNAM ": (bad VooDoo)\n");
+        linux-2.6.6/drivers/message/fusion/mptctl.c
+%
+printk(KERN_INFO MYNAM ": English readable SCSI-3 strings enabled :-)\n");
+        linux-2.6.6/drivers/message/fusion/mptbase.c
+%
+printk("NULL POINTER IDIOT\n");
+        linux-2.6.6/drivers/media/dvb/dvb-core/dvb_filter.c
+%
+dprintk(5, KERN_DEBUG "Jotti is een held!\n");
+        linux-2.6.6/drivers/media/video/zoran_card.c
+%
+printk ("scsi%d : Oh no Mr. Bill!\n", host->host_no);
+        linux-2.6.6/drivers/scsi/53c7xx.c
+%
+printk(KERN_ERR "scsi%d: !!BINGO!! Falcon has no lock in NCR5380_abort\n", ...)
+        linux-2.6.6/drivers/scsi/atari_NCR5380.c
+%
+printk(KERN_CRIT "Whee.. Swapped out page in kernel page table\n");
+        linux-2.6.6/mm/vmalloc.c
+%
+printk("ip6t_hook: happy cracking.\n");
+        linux-2.6.6/net/ipv6/netfilter/ip6table_filter.c
+%
+printk("HAL2: Whee?! Open door and go away!\n");
+        linux-2.6.6/sound/oss/hal2.c
+%
+printk("----------- [cut here ] --------- [please bite here ] ---------\n");
+        linux-2.6.6/arch/x86_64/kernel/traps.
+%
+printk (KERN_ALERT "You are screwed! " ...);
+        linux-2.6.6/arch/i386/kernel/efi.c
+%
+printk("you lose buddy boy...\n");
+        linux-2.6.6/arch/sparc/kernel/traps.c
+%
+printk ("Barf\n");
+        linux-2.6.6/arch/v850/kernel/module.c
+%
+printk(KERN_EMERG "PCI: Tell willy he's wrong\n");
+        linux-2.6.6/arch/parisc/kernel/pci.c
+%
+printk(KERN_ERR "Danger Will Robinson: failed to re-trigger IRQ%d\n", irq);
+        linux-2.6.6/arch/arm/common/sa1111.c
+%
+printk("; crashing the system because you wanted it\n");
+        linux-2.6.6/fs/hpfs/super.c
+%
+printk("??? No FDIV bug? Lucky you...\n");
+        linux-2.2.16/include/asm-i386/bugs.h
+%
+/* These are the most dangerous and useful defines. They do printk() during
+ * the interrupt processing routine(s), so if you manage to get "flooded" by
+ * irq's, start thinking about the "Power off/on" button...
+ */
+        linux-2.2.16/drivers/sbus/char/aurora.h
+%
+panic("floppy: Port bolixed.");
+        linux-2.2.16/include/asm-sparc/floppy.h
+%
+panic("sun_82072_fd_inb: How did I get here?");
+        linux-2.2.16/include/asm-sparc/floppy.h
+%
+#define BB_STAT2_TMP_INTR    0x10    /* My Penguins are burning. 
+Are you able to smell it? */
+        linux-2.2.16/include/asm-sparc/obio.h
+%
+printk(KERN_ERR "msp3400: chip reset failed, penguin on i2c bus?\n");
+        linux-2.2.16/drivers/char/msp3400.c
+%
+panic("esp_handle: current_SC == penguin within interrupt!");
+        linux-2.2.16/drivers/scsi/esp.c
+%
+/* Host controller interrupts must not be running while calling this
+ * function or the penguins will get angry. */
+        linux-2.2.16/drivers/usb/ohci.c
+%
+/* Identify the flock of penguins.  */
+        linux-2.2.16/arch/alpha/kernel/setup.c
+%
+die_if_kernel("Whee... Hello Mr. Penguin", current->tss.kregs);
+        linux-2.2.16/arch/sparc/kernel/traps.c
+%
+die_if_kernel("Penguin instruction from Penguin mode??!?!", regs);
+        linux-2.2.16/arch/sparc/kernel/traps.c
+%
+die_if_kernel("Kernel gets FloatingPenguinUnit disabled trap", regs);
+        linux-2.2.16/arch/sparc/kernel/traps.c
+%
+/* When we have more time, we can teach the penguin to say 
+ * "By your command" or "Activating turbo boost, Michael".
+ */
+        linux-2.2.16/arch/sparc/prom/sun4prom.c
+%
+printk("Entering UltraSMPenguin Mode...\n");
+        linux-2.2.16/arch/sparc64/kernel/smp.c
+%
+panic("Attempted to kill the idle task!");
+        linux-2.2.16/kernel/exit.c
+%
+panic("kmem_cache_init(): Offsets are wrong - I've been messed with!");
+        linux-2.2.16/mm/slab.c
+%
+panic("Detected a card I can't drive - whoops\n");
+        linux-2.2.16/drivers/net/daynaport.c
+%
+panic("mother...");
+        linux-2.2.16/drivers/block/cpqarray.c
+%
+panic("Foooooooood fight!");
+        linux-2.2.16/drivers/scsi/aha1542.c
+%
+panic("Unable to find empty mailbox for aha1542.\n");
+        linux-2.2.16/drivers/scsi/aha1542.c
+%
+panic("aha1740.c"); /* Goodbye */
+        linux-2.2.16/drivers/scsi/aha1740.c
+%
+panic("esp: what could it be... I wonder...");
+        linux-2.2.16/drivers/scsi/esp.c
+%
+panic ("Splunge!");
+        linux-2.2.16/drivers/scsi/psi240i.c
+%
+panic("huh?\n");
+        linux-2.2.16/arch/i386/kernel/smp.c
+%
+panic("Tell me what a watchpoint trap is, and I'll then 
+deal with such a beast...");
+        linux-2.2.16/arch/arch/sparc/kernel/traps.c
+%
+panic("Oh boy, that early out of memory?");
+        linux-2.2.16/arch/mips/mm/init.c
+%
+panic("CPU too expensive - making holiday in the ANDES!");
+        linux-2.2.16/arch/mips/kernel/traps.c
+%
+panic("IRQ, you lose...");
+        linux-2.2.16/arch/mips/sgi/kernel/indy_int.c
+%
+panic("Lucy in the sky....");
+        linux-2.2.16/arch/sparc64/kernel/starfire.c
+%
+printk("Illegal format on cdrom.  Pester manufacturer.\n"); 
+        linux-2.2.16/fs/isofs/inode.c
+%
+printk(KERN_WARNING "%s: Short circuit detected on the lobe\n",
+dev->name);
+        linux-2.4.0-test2/drivers/net/tokenring/lanstreamer.c
+%
+/*
+ * Hash table gook..
+ */
+        linux-2.4.0-test2/fs/buffer.c
+%
+/* After several hours of tedious analysis, the following hash
+ * function won.  Do not mess with it... -DaveM
+ */
+        linux-2.2.16/fs/buffer.c
+%
+/*
+ * We used to try various strange things. Let's not.
+ */
+        linux-2.2.16/fs/buffer.c
+%
+#if 0
+        linux-2.2.16/fs/buffer.c
+%
+/*
+ * For moronic filesystems that do not allow holes in file.
+ * We may have to extend the file.
+ */
+        linux-2.4.0-test2/fs/buffer.c
+%
+printk(KERN_WARNING "Warning: defective CD-ROM (volume sequence
+number). Enabling \"cruft\" mount option.\n");
+        linux-2.2.16/fs/isofs/inode.c
+%
+printk(KERN_WARNING "Multi-volume CD somehow got mounted.\n");
+        linux-2.2.16/fs/isofs/inode.c
+%
+/* Fuck me gently with a chainsaw... */
+        linux-2.0.38/arch/sparc/kernel/ptrace.c
+%
+/* Binary compatibility is good American knowhow fuckin' up. */
+        linux-2.2.16/arch/sparc/kernel/sunos_ioctl.c
+%
+/* Am I fucking pedantic or what? */
+        linux-2.2.16/drivers/scsi/qlogicpti.h
+%
+/* vsprintf.c -- Lars Wirzenius & Linus Torvalds. */
+ *
+ * Wirzenius wrote this portably, Torvalds fucked it up :-)
+ */
+        linux-2.2.16/lib/vsprintf.c
+%
+printk("Penguin %d is stuck in the bottle.\n", i);
+        linux-2.0.38/arch/sparc/kernel/smp.c
+%
+prom_printf("Detected PenguinPages, getting out of here.\n");
+        linux-2.0.38/arch/sparc/mm/srmmu.c
+%
+panic("Aarggh: attempting to free lock with active wait queue - shoot Andy");
+        linux-2.0.38/fs/locks.c
+%
+panic("bad_user_access_length executed (not cool, dude)");
+        linux-2.0.38/kernel/panic.c
+%
+/*
+ *   Should be panic but... (Why are BSD people panic obsessed ??)
+ */
+        linux-2.0.38/net/ipv4/ip_fw.c
+%
+/* Nobody will ever see this message :-) */
+panic("Cannot initialize video hardware\n");
+        linux-2.0.38/arch/m68k/atari/atafb.c
+%
+printk("ufs_read_super: fucking Sun blows me\n");
+        linux-2.0.38/fs/ufs/ufs_super.c
+%
+printk("autofs: Out of inode numbers -- what the heck did you do??\n"); 
+        linux-2.0.38/fs/autofs/root.c
+%
+HARDFAIL("Not enough magic.");
+        linux-2.4.0-test2/drivers/block/nbd.c
+%
+#ifdef STUPIDLY_TRUST_BROKEN_PCMD_ENA_BIT
+        linux-2.4.0-test2/drivers/ide/cmd640.c
+%
+if (user_specified)
+    /* Didn't work, but the user is convinced this is the
+     * place. */
+        linux-2.4.0-test2/drivers/parport/parport_pc.c
+%
+printk("VFS: Busy inodes after unmount. "
+        "Self-destruct in 5 seconds.  Have a nice day...\n");
+        linux-2.3.99-pre8/fs/super.c
+%
+# Basic IBM dingbats, some of which will never have a purpose clear
+# to mankind
+        linux-2.4.0/drivers/char/cp437.uni
+%
+# Okay, what on Earth is this one supposed to be used for?
+        linux-2.4.0/drivers/char/cp437.uni
+%
+/* Fuck.  The f-word is here so you can grep for it :-)  */
+        linux-2.4.3/include/asm-mips/mmu_context.h
+%
+/* Thanks to Rob `CmdrTaco' Malda for not influencing this code in any
+ * way.
+ */
+        linux-2.4.3/net/core/netfilter.c
+%
+/* James M doesn't say fuck enough. */
+        linux-2.4.3/net/core/netfilter.c
+%
+/* So there I am, in the middle of my `netfilter-is-wonderful'
+   talk in Sydney, and someone asks `What happens if you try
+   to enlarge a 64k packet here?'.  I think I said something
+   eloquent like `fuck'. */
+        linux-2.4.3/net/ipv4/netfilter/ip_nat_ftp.c
+%
+panic ("No CPUs found.  System halted.\n");
+        linux-2.4.3/arch/parisc/kernel/setup.c
+%
+printk("HPFS: Grrrr... Kernel memory corrupted ... going on, but 
+        it'll crash very soon :-(\n");
+        linux-2.4.3/fs/hpfs/super.c
+%
+printk("; corrupted filesystem mounted read/write - your computer 
+        will explode within 20 seconds ... but you wanted it so!\n");
+        linux-2.4.3/fs/hpfs/super.c
+%
+printk("What? oldfid != cii->c_fid. Call 911.\n");
+        linux-2.4.3/fs/coda/cnode.c
+%
+printk("Cool stuff's happening!\n")
+        linux-2.4.3/fs/jffs/intrep.c
+%
+printk("MASQUERADE: No route: Rusty's brain broke!\n");
+        linux-2.4.3/net/ipv4/netfilter/ipt_MASQUERADE.c
+%
+printk("CPU[%d]: Sending penguins to jail...",smp_processor_id());
+        linux-2.4.8/arch/sparc64/kernel/smp.c
+%
+printk("CPU[%d]: Giving pardon to imprisoned penguins\n", smp_processor_id());
+        linux-2.4.8/arch/sparc64/kernel/smp.c
+%
+printk("CPU[%d]: Sending penguins to jail...",smp_processor_id());
+ [... 20 lines ...]
+printk("CPU[%d]: Giving pardon to imprisoned penguins\n", smp_processor_id());
+        linux-2.4.8/arch/sparc64/kernel/smp.c
+%
+/* Welcome to Sun Microsystems, can I take your order please? */
+/* Would you like fries with that? */
+/* Anything else? */
+/* Fifty-two cents is your change, have a nice day. */
+/* Would you like to try our SMCC Delux? */
+/* We have a special on GNU/Viking hardware bugs today. */
+/* Will that be all? */
+/* Don't forget your vik_1137125_wa.  Have a nice day. */
+/* We're consolidating our STB products, it's your lucky day. */
+/* Come back next week when we are "Sun Microelectronics". */
+/* Remember: "Different name, same old buggy as shit hardware." */
+	linux-2.6.6/drivers/net/sunhme.c
+%
+printk (KERN_INFO "NM256: Congratulations. You're not running Eunice.\n");
+	linux-2.6.19/sound/oss/nm256_audio.c
+%
+printk (KERN_ERR "NM256: Fire in the hole! Unknown status 0x%x\n", ...);
+	linux-2.6.19/sound/oss/nm256_audio.c
+%
+printk(KERN_DEBUG "adintr: Why?\n");
+	linux-2.6.19/sound/oss/ad1848.c
+%
+snd_printk(KERN_ERR "Unable to scan for card signature in video RAM\n");
+	linux-2.6.19/sound/pci/nm256/nm256.c
+	(Note what source file this is in -- Ed.)
+%
+printk("Pretending it's a 3/80, but very afraid...\n");
+	linux-2.6.19/arch/m68k/sun3x/prom.c
+%
+printk("IOP: oh my god, they killed the ISM IOP!\n");
+	linux-2.6.19/arch/m68k/mac/iop.c
+%
+fprintf (stderr, "Not ELF nor a.out. Don't blame me.\n");
+	linux-2.6.19/arch/sparc64/boot/piggyback.c
+%
+printk("starfire_translate: Are you kidding me?\n");
+	linux-2.6.19/arch/sparc64/kernel/starfire.c
+%
+raw_printk("Oops: bitten by watchdog\n");
+	linux-2.6.19/arch/cris/arch-v32/kernel/time.c
+%
+printk(KERN_CRIT "How did I get here?\n");
+	linux-2.6.19/arch/mips/kernel/syscall.c
+%
+printk(KERN_EMERG "This is not a software problem!\n");
+	linux-2.6.19/arch/x86_64/kernel/mce.c
+%
+prom_printf("No VAC. Get some bucks and buy a real computer.");
+	linux-2.6.19/arch/sparc/mm/sun4c.c
+%
+printk ("scsi%d : danger Will Robinson!\n", ...);
+	linux-2.6.19/drivers/scsi/53c7xx.c
+%
+printk("sim710.c irq nasty\n");
+	linux-2.6.19/drivers/scsi/sim710.c
+%
+/* if it speaks printer language, it's
+ * probably a printer */
+	linux-2.6.19/drivers/parport/probe.c
+%
+printk(KERN_ERR "BIGMAC: Would you like that for here or to go?\n");
+	linux-2.6.19/drivers/net/sunbmac.c
+%
+printk("%s: Boo!\n", dev->name);
+	linux-2.6.19/drivers/net/depca.c
+%
+printk(KERN_ERR "happy meal: Eieee, rx config register gets greasy fries.\n");
+	linux-2.6.19/drivers/net/sunhme.c
+%
+printk(KERN_ERR "happy meal: Transceiver BigMac ATTACK!");
+	linux-2.6.19/drivers/net/sunhme.c
+%
+printk(KERN_ERR "happy meal: Receiver BigMac ATTACK!");
+	linux-2.6.19/drivers/net/sunhme.c
+%
+printk(KERN_WARNING "GSCD: DMA kann ich noch nicht!\n");
+	linux-2.6.19/drivers/cdrom/gscd.c
+	(Do we have i18n'ed messages now? -- Ed.)
+%
+printk(KERN_ERR "i82092aa: Oops, you did something we didn't think of.\n");
+	linux-2.6.19/drivers/pcmcia/i82092.c
+%
+dprintk("NFSD: laundromat service - starting\n");
+	linux-2.6.19/fs/nfsd/nfs4state.c
+%
+printk("ip6t_hook: happy cracking.\n");
+	linux-2.6.19/net/ipv6/netfilter/ip6table_filter.c

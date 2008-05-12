@@ -114,5 +114,5 @@ export NOPASTE_NICK=$USER
 [ -f ~/.keychain/${HOSTNAME}-sh ] && source ~/.keychain/${HOSTNAME}-sh
 # }}}
 # fortune {{{
-fortune -n300 -s ~/.fortune tao dune kernelcookies house-harkonnen firefly calvin children-of-dune hitchhiker dune-messiah house-atreides heretics-of-dune chapterhouse-dune god-emperor perl | grep -v -E "^$"
+fortune -n300 -s ~/.fortune | grep -v -E "^$"
 # }}}
