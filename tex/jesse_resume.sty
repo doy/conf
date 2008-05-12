@@ -1,0 +1,65 @@
+% vim:foldmarker=<<<,>>>
+% This work is licensed under the Creative Commons
+% Attribution-NonCommercial-ShareAlike License. To view a copy of this license,
+% visit http://creativecommons.org/licenses/by-nc-sa/1.0/ or send a letter to
+% Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
+% This file is adapted from Todd Courtesan's resume, at
+% http://www.courtesan.com/todd/resume.html
+
+% <<< packages
+\RequirePackage{latexsym,amsmath,amssymb,charter,jesse_macros}
+\usepackage[empty]{fullpage}
+\usepackage{color}
+% >>>
+
+% <<< dimensions/margins
+\textheight=9.0in
+\raggedbottom
+\raggedright
+\addtolength{\oddsidemargin}{-0.375in}
+\addtolength{\evensidemargin}{0.375in}
+\addtolength{\textwidth}{0.5in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{0.75in}
+% >>>
+
+% <<< other definitions
+\definecolor{mygrey}{gray}{0.90}
+\setlength{\tabcolsep}{0in}
+% >>>
+
+% <<< Custom commands
+% <<< \resitem
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+% >>>
+
+% <<< \resheading
+\newcommand{\resheading}[1]{
+    {\large \colorbox{mygrey}{
+        \begin{minipage}
+            {\textwidth}
+            {\textbf{#1 \vphantom{p\^{E}}}}
+        \end{minipage}
+    }}
+}
+% >>>
+
+% \ressubheading <<<
+\newcommand{\ressubheading}[4]{
+    \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & #2 \\
+        \textit{#3} & \textit{#4} \\
+    \end{tabular*}
+    \vspace{-6pt}
+}
+% >>>
+
+% \resshortsubheading <<<
+\newcommand{\resshortsubheading}[2]{
+    \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & #2 \\
+    \end{tabular*}
+    \vspace{-6pt}
+}
+% >>>
+% >>>

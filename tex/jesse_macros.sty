@@ -1,0 +1,104 @@
+% vim:foldmarker=<<<,>>>
+% <<< headers
+\def\headers#1#2#3{\lhead{#1}\chead{#2}\rhead{#3}}
+% >>>
+
+% <<< Blackboard bold
+\DeclareSymbolFont{AMSb}{U}{msb}{m}{n}
+\DeclareMathSymbol{\N}{\mathbin}{AMSb}{"4E}
+\DeclareMathSymbol{\Z}{\mathbin}{AMSb}{"5A}
+\DeclareMathSymbol{\R}{\mathbin}{AMSb}{"52}
+\DeclareMathSymbol{\Q}{\mathbin}{AMSb}{"51}
+\DeclareMathSymbol{\I}{\mathbin}{AMSb}{"49}
+\DeclareMathSymbol{\C}{\mathbin}{AMSb}{"43}
+% >>>
+
+% <<< jeff's algorithm/code stuff
+% <<< algorithm environment
+\def\begin@lgo{\begin{minipage}{1in}\begin{tabbing}
+    \quad\=\qquad\=\qquad\=\qquad\=\qquad\=\qquad\=\qquad\=\kill}
+\def\end@lgo{\end{tabbing}\end{minipage}}
+
+\newenvironment{algorithm}
+    {\begin{tabular}{|l|}\hline\begin@lgo}
+    {\end@lgo\\\hline\end{tabular}}
+
+\def\beginc@de{\noindent\begin{center}\begin{minipage}{1in}\tt
+    \begin{tabbing}~~~~\=~~~~\=~~~~\=~~~~\=~~~~\=~~~~\=~~~~\=\kill}
+\def\endc@de{\end{tabbing}\end{minipage}\end{center}}
+
+\newenvironment{code}{\beginc@de}{\endc@de}
+% >>>
+
+% <<< algorithm definitions that handle highlighting and indentation
+\def\algoname#1{\textbf{\textsc{#1}}}
+\def\algotitle#1{\+\underline{\algoname{#1}}}
+\def\cif{\+\textbf{if} }
+\def\cthen{\textbf{then} }
+\def\celse{\+\textbf{else} }
+\def\creturn{\-\textbf{return} }
+\def\cwhile{\+\textbf{while} }
+\def\cdo{\textbf{do} }
+\def\cfor{\+\textbf{for} }
+\def\cbreak{\-\textbf{break} }
+% >>>
+% >>>
+
+% <<< more jeff's stuff for easier grouping symbols
+% <<< small grouping symbols
+\def\floor#1{\lfloor #1 \rfloor}
+\def\ceil#1{\lceil #1 \rceil}
+\def\seq#1{\langle #1 \rangle}
+\def\set#1{\{ #1 \}}
+\def\abs#1{\mathopen| #1 \mathclose|}    % use instead of $|x|$ 
+\def\norm#1{\mathopen\| #1 \mathclose\|} % use instead of $\|x\|$ 
+\def\indic#1{\big[#1\big]}               % indicator variable; Iverson notation
+                                         % e.g., Kronecker delta = [x=0]
+% >>>
+
+% <<< large grouping symbols
+\def\Floor#1{\left\lfloor #1 \right\rfloor}
+\def\Ceil#1{\left\lceil #1 \right\rceil}
+\def\Seq#1{\left\langle #1 \right\rangle}
+\def\Set#1{\left\{ #1 \right\}}
+\def\Abs#1{\left| #1 \right|}
+\def\Norm#1{\left\| #1 \right\|}
+\def\Paren#1{\left( #1 \right)}     % need better macro name!
+\def\Brack#1{\left[ #1 \right]}     % need better macro name!
+\def\Indic#1{\left[ #1 \right]}     % indicator variable; Iverson notation
+% >>>
+% >>>
+
+% <<< displaystyle operators (also from jeff)
+\def\Frac#1#2{{\displaystyle\frac{#1}{#2}}}
+\def\Sum{\sum\limits}
+\def\Prod{\prod\limits}
+\def\Union{\bigcup\limits}
+\def\Inter{\bigcap\limits}
+\def\Lor{\bigvee\limits}
+\def\Land{\bigwedge\limits}
+\def\Lim{\lim\limits}
+\def\Max{\max\limits}
+\def\Min{\min\limits}
+% >>>
+
+% <<< cs421 stuff
+% <<< conversion symbols
+\def\alphaconv{\hspace{0.7em}\alpha\hspace{-1.4em}\longrightarrow}
+\def\betared{\hspace{0.7em}\beta\hspace{-1.4em}\longrightarrow}
+\def\etared{\hspace{0.7em}\eta\hspace{-1.4em}\longrightarrow}
+\def\l#1#2{\lambda #1.#2}
+% >>>
+
+% <<< prof gunter's macros for type inference
+\def\type#1#2#3{#1\vdash #2:#3}
+% >>>
+% >>>
+
+% <<< proof macros
+\def\iff#1#2{\begin{itemize}\item[\em If:]#1\item[\em Only if:]#2\end{itemize}}
+% >>>
+
+% <<< other symbols
+\def\nsubset{\hspace{0.4em}/\hspace{-0.9em}\subset}
+% >>>
