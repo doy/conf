@@ -108,6 +108,7 @@ export NOPASTE_SERVICES="PastebinCom Rafb Husk"
 export NOPASTE_NICK=$USER
 # }}}
 # external files {{{
+[ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
 [ -f ~/.dbus_bus_address ] && source ~/.dbus_bus_address && export DBUS_SESSION_BUS_ADDRESS
 [ -f ~/.keychain/${HOSTNAME}-sh ] && source ~/.keychain/${HOSTNAME}-sh
