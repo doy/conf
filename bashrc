@@ -103,7 +103,7 @@ export DARCS_SCP='/home/doy/bin/scp'
 export DARCS_SFTP='/home/doy/bin/sftp'
 export PERL5LIB='/home/doy/.perl/:/home/doy/.perl/lib/perl5/site_perl/5.8.8/i686-linux/'
 export CVS_RSH='ssh'
-export TEXINPUTS=".:~/writing:"
+export TEXINPUTS=".:~/conf/tex:"
 export NOPASTE_SERVICES="PastebinCom Rafb Husk"
 export NOPASTE_NICK=$USER
 # }}}
