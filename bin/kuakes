@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sleep 5
 for num in {1..7}; do
     urxvt -pe "kuake<F$num>" -fn 6x10 -g 94x24 -name urxvt-kuake &
     sleep 0.2
