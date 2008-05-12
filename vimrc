@@ -250,6 +250,8 @@ autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", 
 " :make converts to pdf
 if strlen(system('which xpdf')) && strlen(expand('$DISPLAY'))
     autocmd FileType tex setlocal makeprg=(pdflatex\ %\ &&\ xpdf\ $(echo\ %\ \\\|\ sed\ \'s/\\(\\.[^.]*\\)\\?$/.pdf/\'))
+elseif strlen(system('which evince')) && strlen(expand('$DISPLAY'))
+    autocmd FileType tex setlocal makeprg=(pdflatex\ %\ &&\ evince\ $(echo\ %\ \\\|\ sed\ \'s/\\(\\.[^.]*\\)\\?$/.pdf/\'))
 else
     autocmd FileType tex setlocal makeprg=pdflatex\ %
 endif
