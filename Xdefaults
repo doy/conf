@@ -17,6 +17,23 @@ URxvt*boldFont:7x14
 URxvt*perl-ext-common:default,matcher
 URxvt*urlLauncher: dillo
 ! }}}
+! rxvt {{{
+Rxvt*visualBell:true
+Rxvt*background:black
+Rxvt*foreground:lightgrey
+Rxvt*shading:50
+Rxvt*saveLines:4096
+Rxvt*cursorColor:green
+Rxvt*pointerColor:yellow
+Rxvt*pointerColor2:black
+Rxvt*borderWidth:1
+Rxvt*scrollTtyOutput:false
+Rxvt*scrollTtyKeypress:true
+Rxvt*scrollBar_right:true
+Rxvt*scrollBar:false
+Rxvt*font:7x14
+Rxvt*boldFont:7x14
+! }}}
 ! xterm {{{
 xterm*visualBell:true
 xterm*loginShell:true
