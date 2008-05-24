@@ -60,7 +60,12 @@ if exists("g:rainbow") && g:rainbow != 0
       " regex metachars (like what is done for brackets)
 
       if exists("g:rainbow_paren") && g:rainbow_paren != 0
-        call s:DoSyn(i, a:count, "(", ")", "a")
+        " ocaml uses (* *) for comments; these shouldn't be highlighted
+        if &filetype == "ocaml"
+          call s:DoSyn(i, a:count, "(\\*\\@!", "\\*\\@<!)", "a")
+        else
+          call s:DoSyn(i, a:count, "(", ")", "a")
+        endif
       endif
 
       if exists("g:rainbow_brace") && g:rainbow_brace != 0
