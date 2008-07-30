@@ -42,7 +42,7 @@ alias truecrypt="sudo truecrypt -t"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
-alias cao="(TERM=rxvt telnet crawl.akrasiac.org)"
+alias cao="(TERM=rxvt /usr/bin/ssh -i ~/.ssh/cao_key joshua@crawl.akrasiac.org)"
 alias cdo="ssh crawl@proxy.develz.org"
 alias scn="(TERM=xterm-color telnet slashem.crash-override.net)"
 alias spork="telnet sporkhack.nineball.org"
