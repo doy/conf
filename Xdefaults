@@ -15,7 +15,8 @@ URxvt*scrollBar:false
 URxvt*font:7x14
 URxvt*boldFont:7x14
 URxvt*perl-ext-common:default,matcher
-URxvt*urlLauncher: dillo
+URxvt*matcher.button:3
+URxvt.urlLauncher:firefox
 ! }}}
 ! rxvt {{{
 Rxvt*visualBell:true
