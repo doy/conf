@@ -5,7 +5,7 @@ if ps aux | grep urxvtd | grep -q -v grep; then
 else
     urxvtd -q -o -f
 fi
-sleep 5
+sleep 10
 for num in {1..7}; do
     urxvtc -pe "kuake<F$num>" -fn 6x10 -g 94x24 -name urxvt-kuake &
     sleep 0.2
