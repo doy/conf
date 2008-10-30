@@ -58,7 +58,6 @@ alias tc="telnet termcast.org"
 alias apt='ssh $(wget -O- http://jjaro.net/house/ip 2>/dev/null)'
 alias jjaro="ssh jjaro.net"
 alias tozt="ssh tozt.net"
-alias turing="(TERM=rxvt ssh jluehrs2@turing.cse.uiuc.edu)"
 alias csil="(TERM=rxvt ssh jluehrs2@csil-core7.cs.uiuc.edu)"
 alias ews="ssh jluehrs2@remlnx.ews.uiuc.edu"
 alias henzell="ssh henzell@crawl.akrasiac.org"
