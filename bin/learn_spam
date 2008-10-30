@@ -1,9 +1,26 @@
 #!/bin/bash
 
-MAILDIR=~/Mail
+MAILDIR=~/Maildir
+OPTS="--no-sync"
 
-echo -n "Learning spam..."
-find ${MAILDIR} -mindepth 1 -type d -iname '*spam*' -exec echo \; -exec echo "  From directory" {} \; -exec sa-learn --showdots --spam {}/* \;
+if [[ "$1" == "-q" ]]; then
+    OPTS="$OPTS"
+    PRINT=""
+    OUTFILE="/dev/null"
+else
+    OPTS="$OPTS --showdots"
+    PRINT="\n  From directory %p\n"
+    OUTFILE="/dev/stdout"
+fi
 
-echo -n "Learning ham..."
-find ${MAILDIR} -mindepth 1 -type d ! -iname '*spam*' ! -iname '*inbox*' ! -iname '*sent*' ! -iname '*trash*' ! -iname '*draft*' ! -iname '*school mail*' -exec echo \; -exec echo "  From directory" {} \; -exec sa-learn --showdots --ham {}/* \;
+if [[ ! "$1" == "-q" ]]; then
+    echo -n "Learning ham..."
+fi
+nice find $MAILDIR -type d ! -iwholename '*spam*' ! -iwholename '*sent*' ! -iwholename '*trash*' ! -iwholename '*draft*' ! -iwholename '*queue*' -name cur -printf "$PRINT" -exec sa-learn $OPTS --ham '{}' \; > $OUTFILE
+
+if [[ ! "$1" == "-q" ]]; then
+    echo -n "Learning spam..."
+fi
+nice find $MAILDIR -type d -iwholename '*spam*' -name cur -printf "$PRINT" -exec sa-learn $OPTS --spam '{}' \; > $OUTFILE
+
+nice sa-learn --sync > $OUTFILE
