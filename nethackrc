@@ -1,8 +1,8 @@
 # define character
-OPTIONS=role:wiz
-OPTIONS=race:elf
-OPTIONS=gender:fem
-OPTIONS=align:cha
+#OPTIONS=role:wiz
+#OPTIONS=race:elf
+#OPTIONS=gender:fem
+#OPTIONS=align:cha
 
 OPTIONS=autodig,autopickup,!autoquiver
 OPTIONS=checkpoint
