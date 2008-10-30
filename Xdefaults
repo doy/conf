@@ -73,10 +73,3 @@ aterm*scrollBar_right:true
 aterm*scrollBar:false
 aterm*boldFont:7x14
 ! }}}
-! emacs {{{
-emacs*background:black
-emacs*foreground:green
-! }}}
-! misc {{{
-Xft.dpi:96
-! }}}
