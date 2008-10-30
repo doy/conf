@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use IO::Pty::Easy;
 
-my $pass = `pwsafe -pE ssh.$HOSTNAME`;
+my $pass = `pwsafe -pE ssh.$ENV{HOSTNAME}`;
 my $pty = IO::Pty::Easy->new;
 $pty->spawn("ssh-add -t 1800 $ARGV[0]");
 $pty->read;
