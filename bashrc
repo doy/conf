@@ -119,6 +119,7 @@ export MPD_HOST=demogorgon
 export LUA_CPATH='/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?/init.so;./?.so'
 export LUA_PATH='/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;?.lua'
 export MANPAGER='/home/doy/bin/vimmanpager'
+export EDITOR='/usr/bin/vim'
 export DARCS_SCP='/home/doy/bin/scp'
 export DARCS_SFTP='/home/doy/bin/sftp'
 export PERL5LIB='/home/doy/.perl/:/home/doy/.perl/lib/perl5/site_perl/5.8.8/i686-linux/'
