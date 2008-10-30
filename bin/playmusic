@@ -1,7 +1,0 @@
-while read line; do
-    nline=`echo $line | sed s/'^\#.*'//g`
-    [ -z "$nline" ] && continue
-    echo $nline
-    echo $nline | grep -q '.mp3' && mpg123 "$nline" && continue
-    echo $nline | grep -q '.ogg' && ogg123 "$nline" && continue
-done

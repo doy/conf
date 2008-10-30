@@ -1,3 +1,0 @@
-#!/bin/bash
-
-strace $* 2>&1 | grep -E '^open\(' | grep -v ENOENT | grep -v O_DIRECTORY | cut -f2 -d"\"" | grep -vE '^/proc/' | grep -v '^/sys/' | grep -v '^/dev/'

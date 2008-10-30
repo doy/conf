@@ -73,6 +73,30 @@ function luado { # thanks rici
 function setfont {
     printf '\e]710;%s\007' "$1"
 }
+function checkmessages {
+    find ~/.purple/logs/ -mmin -$1 -type f | grep -v .system | xargs tail -n $2
+}
+function lastaim {
+    pushd ~/.purple/logs/aim/thedoyster/$1 > /dev/null
+    less $(ls | tail -n1)
+    popd > /dev/null
+}
+function mem_usage {
+    ps -eo size,ucmd | sort -rn | head -n$([ -z "$1" ] && echo 20 || echo $1)
+}
+function installed_kernel_modules {
+    find /lib/modules/$([ -z "$1" ] && echo $(uname -r) || echo $1)/ \
+        -iname '*.ko' | sed 's:.*/\(.*\)\.ko:\1:'
+}
+function opened_files {
+    strace $* 2>&1 | grep -E '^open\('   | \
+                     grep -v ENOENT      | \
+                     grep -v O_DIRECTORY | \
+                     cut -f2 -d"\"" | \
+                     grep -vE '^/proc/'  | \
+                     grep -v '^/sys/'    | \
+                     grep -v '^/dev/'
+}
 # }}}
 # }}}
 # bash configuration {{{
