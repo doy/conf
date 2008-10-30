@@ -14,13 +14,15 @@ remember_name            = true
 #good_random             = true
 # }}}
 # Section 2: File System {{{
-#crawl_dir  = <path>
+#crawl_dir  = /home/doy/coding/src/stone_soup-trunk/crawl-ref/source
 #morgue_dir = morgue
 #save_dir   = saves
 #macro_dir  = settings/
 #sound      = <regex>:<path to sound file>
 # }}}
 # Section 3: Lua Files {{{
+lua_file = lua/chnkdata.lua
+lua_file = lua/safechnk.lua
 lua_file = lua/stash.lua
 lua_file = lua/wield.lua
 lua_file = lua/kills.lua
@@ -33,6 +35,8 @@ lua_file = lua/trapwalk.lua
 # Section 4: Interface {{{
 # Section 4-a: Picking up and Dropping {{{
 #autopickup             = $?!+"/%
+autopickup_exceptions = <potion.*mutation
+autopickup_exceptions = <scroll.*torment
 # XXX: hack, since i can't disable ae excludes
 #include                = autopickup_exceptions.txt
 # Contents of autopickup_exceptions.txt {{{
@@ -41,7 +45,7 @@ ae = <curare-tipped
 ae = useless_item
 ae = inedible
 # XXX: disabled
-#ae = dangerous_item
+ae = dangerous_item
 ae = amulet of (inaccuracy|the gourmand|controlled flight|warding)
 ae = amulet of (resist .*|clarity|rage|conservation)
 ae = ring of (see invisible|levitation|poison resistance|hunger)
@@ -120,16 +124,20 @@ explore_stop          += stairs,shops,altars,gates
 #tc_exclude_circle     = red
 include                = travel_stoppers.txt
 travel_stop_message    = duration:
+travel_stop_message    = turns to flee
 # XXX: catch more 'about to expire' messages here
 runrest_ignore_message = pray:
 runrest_ignore_message = You feel.*sick
 runrest_ignore_message = disappears in a puff of smoke
 runrest_ignore_message = engulfed in a cloud of smoke
 runrest_ignore_message = safely over a trap
+runrest_ignore_message = merges.*into the air
+runrest_ignore_message = forms.*from the air
 runrest_ignore_poison  = 2:30
 runrest_ignore_monster = fish:2
 runrest_ignore_monster = butterfly:1
 runrest_ignore_monster = swamp worm:3
+runrest_ignore_monster = lava worm:3
 #trap_prompt           = true
 trapwalk_safe_hp = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
 #rest_wait_both        = false
@@ -151,6 +159,7 @@ annotate_item_dropped = true
 #swap_when_safe         = true
 #easy_quit_item_prompts = true
 #easy_exit_menu         = true
+auto_eat_chunks         = true
 sort_menus = true : equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
 # }}}
 # Section 4-j: Messages and Display Enhancements {{{
@@ -166,28 +175,36 @@ show_gold_turns               = true
 item_stack_summary_minimum    = 1
 #list_rotten                  = true
 #mlist_min_height             = 5
-#msg_max_height               = 10
+msg_max_height                = 30
 #mlist_allow_alternate_layout = false
 #mlist_targetting             = false
 #classic_hud                  = false
 menu_colour_prefix_class      = true
+# XXX: this priority order needs tweaking - especially the stuff that's marked
+# as lightgrey now
+menu_colour                   = white:\s\+\s
+menu_colour                   = white:\s\#\s
 menu_colour                   = magenta:artefact
 menu_colour                   = cyan:emergency_item
 menu_colour                   = cyan:potion.*berserk rage
 menu_colour                   = cyan:scroll.*fog
 menu_colour                   = yellow:gluggy white potion
+menu_colour                   = lightgrey:potion.*(restore abilities|might)
 menu_colour                   = magenta:good_item
+menu_colour                   = magenta:potion.*mutation
+menu_colour                   = lightred:dangerous_item
 menu_colour                   = pickup:magenta:god gift
-menu_colour                   = white:\w \+
-menu_colour                   = white:\w \#
-menu_colour                   = white:equipped
 include                       = standard_colours.txt
+$evil                        := brown
 include                       = food_colouring.txt
 include                       = menu_colours.txt
+menu_colour                   = white:equipped
 message_colour                = mute:You start (searching|resting)
 message_colour                = mute:Done searching
+message_colour                = mute:Your legs become a tail as you enter
 include                       = messages.txt
 force_more_message            = You are starting to lose your buoyancy
+force_more_message            = Space (bends|warps horribly) around
 force_more_message            = danger:
 #msg_condense_repeats         = true
 # }}}
@@ -234,8 +251,8 @@ dump_order            += turns_by_place,kills_by_place
 user_note_prefix       = doy:
 note_items             = rune of,acquirement,Orb
 note_monsters          = ^[A-Z],orb of fire,lich
-ood_interesting        = 5
-rare_interesting       = 5
+ood_interesting        = 6
+rare_interesting       = 9
 note_hp_percent        = 5
 note_skill_levels      = 1,8,15,21,27
 #note_all_skill_levels = false
@@ -262,11 +279,13 @@ wiz_mode              = yes
 #cset_any             =
 #feature              =
 mon_glyph             = _ : p
-mon_glyph             = shadow : lightgrey
 mon_glyph             = oklob plant : lightmagenta
 mon_glyph             = Xtahua : lightmagenta
 mon_glyph             = acid blob : lightmagenta
 mon_glyph             = giant eyeball : cyan
+mon_glyph             = greater mummy : lightmagenta
+mon_glyph             = ancient lich : lightmagenta
+mon_glyph             = curse skull : lightmagenta
 # }}}
 # Section 6-b: DOS and Windows {{{
 #dos_use_background_intensity = false
