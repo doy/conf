@@ -91,7 +91,7 @@ else
 fi
 # }}}
 # environment {{{
-export MPD_HOST=Rounder
+export MPD_HOST=demogorgon
 export LUA_CPATH='/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?/init.so;./?.so'
 export LUA_PATH='/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;?.lua'
 export MANPAGER='/home/doy/bin/vimmanpager'
