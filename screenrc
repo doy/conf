@@ -9,7 +9,7 @@ bell_msg ""
 deflogin off
 
 # lines of scrollback!
-defscrollback 2000
+defscrollback 4096
 
 # quick esc timeout
 maptimeout 50
