@@ -106,7 +106,7 @@ shopt -s checkwinsize
 shopt -s histappend
 set -o vi
 export HISTCONTROL=ignoredups
-export PATH="~/.bin/marathon:~/.bin/nethack:~/.bin:${PATH}"
+export PATH="~/.bin/marathon:~/.bin/nethack:~/.bin:${PATH}:/usr/local/sbin:/usr/local/bin"
 export PS1='$(_tmp=$(printf %03d $?); echo "${_tmp/*[1-9]*/\[\033[1;31;40m\]$_tmp\[\033[m\]}" "\[\033[01;33m\][\t] \[\033[01;32m\]\u@\h\[\033[01;34m\] \W $\[\033[00m\] ")'
 if [[ -z "$PROMPT_COMMAND" ]]; then
     export PROMPT_COMMAND='history -a'
