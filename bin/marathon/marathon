@@ -1,7 +1,7 @@
 #!/bin/bash
 
 A1_MAIN_DIR=/usr/local/share/AlephOne
-A1_SCEN_DIR=/usr/local/share/AlephOneScenarios
+A1_SCEN_DIR=~/games/marathon/AlephOneScenarios
 
 if [[ "x$(basename $0)" == "xmarathon" ]]; then
     if [[ "x$1" == "x--list" ]]; then
