@@ -1,0 +1,61 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $total = 0;
+
+sub duration
+{
+  use integer;
+  my $seconds = int shift;  
+
+#  my $days = $seconds / (24 * 60 * 60);
+#  $seconds %= 24 * 60 * 60;
+  my $hours = $seconds / (60 * 60);
+  $seconds %= 60 * 60;
+  my $minutes = $seconds / 60;
+  $seconds %= 60;
+
+  my $out = ' ';
+#  $out .= $days . 'd ' if $days;
+  $out .= $hours . 'h ' if $hours;
+  $out .= $minutes . 'm ' if $minutes;
+  $out .= $seconds . 's ' if $seconds || $out eq ' ';
+
+  return substr($out, 1);
+}
+
+my @files;
+
+for (@ARGV)
+{
+  if (-d $_)
+  {
+    my $dir = $_;
+    opendir(DIR, $dir);
+    push @files, map {"$dir/$_"} sort grep {!/^\.+$/} readdir DIR;
+    closedir DIR;
+  }
+  else
+  {
+    push @files, $_;
+  }
+}
+
+for (@files)
+{
+  my $cat = "cat";
+  $cat = "bzcat" if /\.bz2$/;
+  my $time = `$cat $_ | timettyrec`;
+  $time =~ s/.*\n// if $time =~ y/\n/\n/ > 1;
+  if ($time !~ /^\d/)
+  {
+    print "$_ isn't being timed correctly. Skipping.\n";
+    next;
+  }
+  $total += $time;
+  $time = duration($time) . "\n";
+  print ((@files>1?"$_: ":"").$time);
+}
+
+print "total: " . duration($total) . "\n" if @files > 1;

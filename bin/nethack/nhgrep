@@ -1,0 +1,91 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Term::TtyRec::Plus;
+use Getopt::Long;
+
+my $full_frame = 0;
+my $hide_time  = 0;
+my $hide_turn  = 0;
+my $hide_dlvl  = 0;
+my $hide_frame = 0;
+my $hide_file  = @ARGV <= 1 ? 1 : 0;
+my $concat     = 1;
+my $first_only = 0;
+
+GetOptions
+(
+  full_frame => \$full_frame,
+  time       => \$hide_time,
+  turn       => \$hide_turn,
+  dlvl       => \$hide_dlvl,
+  file       => \$hide_file,
+  number     => \$hide_frame,
+  concat     => \$concat,
+  1          => \$first_only,
+  first      => \$first_only,
+);
+
+my $regex = shift;
+
+sub serialize
+{
+  my $seconds = int shift;
+  my $hours = int($seconds / 3600);
+  $seconds %= 3600;
+  my $minutes = int($seconds / 60);
+  $seconds %= 60;
+
+  return sprintf '%dh%dm%ds', $hours, $minutes, $seconds if $hours;
+  return sprintf '%dm%ds', $minutes, $seconds if $minutes;
+  return "${seconds}s";
+}
+
+my ($turn, $dlvl, $time, $frame) = ('?', '?', 0, 0);
+
+FILE: for my $file (@ARGV)
+{
+  my $ttp = Term::TtyRec::Plus->new(infile => $file);
+
+  if (not $concat)
+  {
+    $turn  = '?';
+    $dlvl  = '?';
+    $time  = 0;
+    $frame = 0;
+  }
+
+  FRAME: while (my $frame_ref = $ttp->next_frame())
+  {
+    $time += $frame_ref->{diff};
+    ++$frame;
+
+    if ($frame_ref->{data} =~ / T:(\d+)/)
+    {
+      $turn = $1;
+    }
+
+    if ($frame_ref->{data} =~ /(Dlvl:\d+|Home \d+)/)
+    {
+      ($dlvl = $1) =~ s/://g;
+    }
+
+    $frame_ref->{data} =~ s/\e/\\e/g;
+    if ($frame_ref->{data} =~ s/($regex)/\e[1;31m$1\e[0m/go)
+    {
+      my @out;
+
+      push @out, $file            if not $hide_file;
+      push @out, "T$turn"         if not $hide_turn;
+      push @out, $dlvl            if not $hide_dlvl;
+      push @out, serialize($time) if not $hide_time;
+      push @out, $frame           if not $hide_frame;
+
+      push @out, $full_frame ? $frame_ref->{data} : $1;
+
+      print join(':', @out), "\n";
+      next FILE if $first_only;
+    }
+  }
+}
+

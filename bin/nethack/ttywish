@@ -1,0 +1,193 @@
+#!/usr/bin/perl -l
+
+# Copyright (c) 2006 Shawn M Moore
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy 
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights 
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+# copies of the Software, and to permit persons to whom the Software is 
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in 
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# ttywish 1.4 - searches a NetHack ttyrec for wish strings
+# It should handle backspaces, long wishes which span two lines, ^P, and
+# "For what do you wish? hits!"
+# There may be more holes, please notify me if you discover one!
+
+# originally based on Simon Tatham's ttygrep
+# http://www.chiark.greenend.org.uk/~sgtatham/ipbt/
+
+# changelog:
+#   1.1  add support for piping input into ttywish
+#   1.2  better fix for ^P
+#   1.3  fix problem with ttyrecs without showturns
+#   1.4  add realtime (-r) -- defaults to 10 sec threshold like timettyrec
+#        arg for suppression of turns (-t)
+
+use strict;
+use warnings;
+
+my $threshold = 10; # seconds
+
+sub timeify
+{
+  my $seconds = int(shift);
+
+  my $minutes = int($seconds / 60);
+  $seconds %= 60;
+  my $hours = int($minutes / 60);
+  $minutes %= 60;
+  my $days = int($hours / 24);
+  $hours %= 24;
+
+  my $ret = '';
+  $ret .= "${days}d "    if $days;
+  $ret .= "${hours}h "   if $hours;
+  $ret .= "${minutes}m " if $minutes;
+  $ret .= "${seconds}s " if $seconds;
+  return substr($ret, 0, -1);
+}
+
+if (defined($ARGV[0]) && ($ARGV[0] eq '--help' || $ARGV[0] eq '-h'))
+{
+  print STDERR "Usage: $0 [-rt] [<file> [<file> [<file> ...]]]";
+  exit 1;
+}
+
+my $wish;
+my $turn;
+my $include_turn = 1;
+my $include_time = 0;
+my $time = 0;
+my $prev;
+
+# poor man's argument parsing, this should be handled by a (core) module
+@ARGV = grep 
+{
+  if ($_ eq '-r') 
+  { 
+    $include_time = 1; 
+    0 
+  } 
+  elsif ($_ eq '-t')
+  {
+    $include_turn = 0;
+    0 
+  } 
+  elsif (/^-(?:rt|tr)$/)
+  {
+    $include_time = 1;
+    $include_turn = 0;
+    0
+  }
+  else 
+  { 
+    1
+  }
+} @ARGV;
+
+push @ARGV, '-' if @ARGV == 0;
+
+TTYREC: foreach my $file (@ARGV)
+{
+  my $handle;
+
+  # if we're reading from one only, don't bother telling the user
+  my $file_prefix = @ARGV == 1 ? "" : "$file:";
+  if ($file eq '-')
+  {
+    $handle = *STDIN;
+  }
+  else
+  {
+    open $handle, '<', $file or die "$0: Unable to open '$file': $!";
+  }
+  my $frame = 0;
+
+  while ((my $hgot = read $handle, my $hdr, 12))
+  {
+    next TTYREC if $hgot == 0; # clean EOF
+    if ($hgot < 12)
+    {
+      print STDERR "Unexpected EOF in '$file' frame $frame header (expected 12 bytes, got $hgot)";
+      next TTYREC;
+    }
+
+    my @hdr = unpack "VVV", $hdr;
+
+    my $timestamp = $hdr[0] + $hdr[1] / 1_000_000;
+    if (defined($prev))
+    {
+      my $diff = $timestamp - $prev;
+      $diff = $threshold if $diff > $threshold;
+      $time += $diff;
+    }
+    $prev = $timestamp;
+
+    my $dgot = read $handle, my ($data), $hdr[2];
+
+    if ($dgot < $hdr[2])
+    {
+      print STDERR "Unexpected EOF in '$file' frame $frame data (expected $hdr[2] bytes, got $dgot)";
+      next TTYREC;
+    }
+    
+    ($turn) = $1 if $data =~ / T:(\d+)/;
+
+    if ($data =~ /\e\[HFor what do you wish/)
+    {
+      # try to get rid of "For what do you wish? hits!"
+      unless ($data =~ /\e\[HFor what do you wish\? \s*[^\e]/)
+      {
+        $wish = '';
+      }
+    }
+    elsif (defined($wish))
+    {
+      # this handles very long wishes which wrap to the next line
+      $data =~ s/\e\[K\e\[K\r/ /g;
+
+      DATA: foreach (split //, $data)
+      {
+        if ($_ eq "\e")
+        {
+          my $time_out = $include_time ? timeify($time) . ':' : '';
+          my $turn_out = $include_turn && defined($turn) ? "T$turn:" : '';
+          my $space = $time_out eq '' && $turn_out eq '' ? '' : ' ';
+          $wish =~ s/\s*$//;
+          $wish =~ s/ \n//g;
+
+          print $file_prefix . $turn_out . $time_out . $space . $wish;
+
+          undef $wish;
+          last DATA;
+        }
+
+        if ($_ eq "\b")
+        {
+          chop $wish;
+        }
+        else
+        {
+          $wish .= $_;
+        }
+      }
+    }
+
+    ++$frame;
+  }
+}
+
+
+

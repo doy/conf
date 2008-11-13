@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+if (@ARGV != 3)
+{
+  die "usage: $0 start end ttyrec\n";
+}
+
+my $frame = 0;
+my $DEC   = 0;
+my $start = shift || 1;
+my $end   = shift || -1;
+my $prev  = '';
+my $handle;
+
+open($handle, '<', $ARGV[0]) or die "Unable to open '$ARGV[0]': $!";
+
+while ((my $hgot = read($handle, my $hdr, 12)) > 0)
+{
+  ++$frame;
+
+  die "Unexpected EOF in '$ARGV[0]' frame $frame header (expected 12 bytes, got $hgot)" if $hgot < 12;
+
+  my @hval = unpack "VVV", $hdr;
+  my $dlen = $hval[2];
+  my $dgot = read $handle, my ($data), $dlen;
+
+  die "Unexpected EOF in '$ARGV[0]' frame $frame data (expected $dlen bytes, got $dgot)" if $dgot < $dlen;
+
+  $DEC = 1 if $data =~ /\e\)0/;
+
+  if ($frame < $start)
+  {
+    # we can modify $data because we're not printing it anyway
+    $prev = '' if $data =~ s/.*\e\[2J//;
+    $prev .= $data;
+  }
+
+  if ($frame == $start && $frame > 1)
+  {
+    $data = "\e\[2J" . $prev . $data;
+    $data = "\e)0"   . $data if $DEC;
+  }
+
+  $hval[2] = length($data);
+  $hdr = pack "VVV", @hval;
+
+  print "$hdr$data" if $frame >= $start && ($end == -1 || $frame <= $end);
+}
+
