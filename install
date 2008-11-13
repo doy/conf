@@ -3,6 +3,7 @@
 confdir=$(dirname $0)
 files="bash_logout
        bashrc
+       conkyrc
        crawlrc
        gtkrc
        inputrc
@@ -11,6 +12,7 @@ files="bash_logout
        vimrc
        Xdefaults
        bin
+       irssi
        fortune
        vim"
 
