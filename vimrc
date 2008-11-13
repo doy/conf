@@ -302,6 +302,9 @@ autocmd FileType lua exe "setlocal path=" . system("lua -e 'local fpath = \"\" f
 autocmd FileType vim setlocal keywordprg=:help
 " }}}
 " }}}
+" Misc {{{
+autocmd BufWritePost .conkyrc silent exe "!killall -HUP conky"
+" }}}
 " }}}
 " Remappings {{{
 " Change the completion function easily {{{

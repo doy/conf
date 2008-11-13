@@ -1,0 +1,67 @@
+default_color      white
+color0             black
+color1             lightgrey
+color2             8844ee
+color3             22ccff
+color4             ddaa00
+
+alignment          top_right
+
+background         yes
+double_buffer      yes
+own_window         no
+out_to_console     no
+
+update_interval    1
+cpu_avg_samples    2
+net_avg_samples    2
+top_cpu_separate   no
+no_buffers         yes
+
+draw_graph_borders no
+#draw_outline      yes
+draw_shades        no
+font               6x10
+gap_x              4
+gap_y              4
+short_units        yes
+use_spacer         left
+
+TEXT
+${alignc}${color}${nodename} - ${sysname} ${kernel} on ${machine}
+${color1}Uptime:${color}    ${uptime}
+${color1}CPU Temp:${color}  ${ibm_temps 0}C
+${color1}GPU Temp:${color}  ${ibm_temps 3}C
+${color1}Battery:${color}   ${battery} (${battery_time}) ${battery_bar}
+${color1}Fan Speed:${color} ${ibm_fan}RPM
+${color}${hr}
+${color1}CPU Usage:${color} 1:${cpu cpu1}% ${cpubar cpu1}
+${color1}          ${color} 2:${cpu cpu2}% ${cpubar cpu2}
+${color0}${cpugraph cpu0 000000 5000a0}
+${color}${hr}
+${color1}RAM: ${color} ${mem}/${memmax} ${membar}
+${color1}Swap:${color} ${swap}/${swapmax} ${swapbar}${if_gw}
+${color}${hr}
+${color1}Networking: ${color}${gw_iface} (${texeci 3600 get_ip})${color1}${if_up eth0}
+ eth0:  ${color}${addr eth0}${color1}
+   Down:${color2}${downspeed eth0}k/s${color}         Up:${color3}${upspeed eth0}k/s
+${color0}${downspeedgraph eth0 32,120 ff0000 0000ff} ${alignr}${color0}${upspeedgraph eth0 32,120 0000ff ff0000}${color1}${endif}${if_up wlan0}
+ wlan0: ${color}${addr wlan0} - ${wireless_essid wlan0} - ${wireless_bitrate wlan0} - ${wireless_link_bar wlan0}
+   Down:${color2}${downspeed wlan0}k/s${color}         Up:${color3}${upspeed wlan0}k/s
+${color0}${downspeedgraph wlan0 32,120 ff0000 0000ff} ${alignr}${color0}${upspeedgraph wlan0 32,120 0000ff ff0000}${color1}${endif}${endif}
+${color}${hr}
+${color1}File systems:
+ /     ${color}${fs_used /}/${fs_size /} ${fs_bar /}${color1}
+ /home ${color}${fs_used /home}/${fs_size /home} ${fs_bar /home}
+   Read:${color2}${diskio_read sda}${color}       Write:${color3}${diskio_write sda}
+${color0}${diskiograph_read sda 32,120 ff0000 0000ff} ${alignr}${color0}${diskiograph_write sda 32,120 0000ff ff0000}
+${color}${hr}
+${color1}Processes:${color} ${processes}  ${color1}Running:${color} ${running_processes}
+${color}Name              PID    CPU%   MEM%
+${color4} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color1} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color1} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color}Mem usage
+${color4} ${top_mem name 1} ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
+${color1} ${top_mem name 2} ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
+${color1} ${top_mem name 3} ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
