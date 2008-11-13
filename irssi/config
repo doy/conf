@@ -257,6 +257,7 @@ settings = {
     nicklist_width = "13";
     chanact_chop_status = "yes";
     bitlbee_typing_allwin = "yes";
+    chanact_display = "$H$N$T$M$C$S";
   };
   "fe-text" = { autostick_split_windows = "no"; };
   "irc/core" = { usermode = "+i"; };

@@ -185,6 +185,7 @@ sub remake() {
 
 		my $name = $win->get_active_name;
 		my $active = $win->{active};
+                my $type = '*';
 
 		!ref($win) && next;
 
@@ -192,6 +193,7 @@ sub remake() {
                 $name eq "bots" && next;
                 $name eq "hilight" && next;
 
+                $type = '!' if $name eq "(status)";
 		# (status) is an awfull long name, so make it short to 'S'
 		# some people don't like it, so make it configurable
 		if (Irssi::settings_get_bool('chanact_chop_status')
@@ -218,7 +220,11 @@ sub remake() {
 			} elsif ($nick->{halfop}) {
 				$mode = "%";
 			}
+                        $type = substr($name, 0, 1);
 		}
+                elsif ($active->{type} eq "QUERY") {
+                        $type = '?';
+                }
 
 		# find the right color
 		if ($win->{data_level} == 1) {
@@ -250,7 +256,7 @@ sub remake() {
 			$display = Irssi::settings_get_str('chanact_display'); 
 		}
 
-		$actString .= expand($display,"C",$name,"N",$number,"M",$mode,"H",$hilight,"S","}{sb_background}").$separator;
+		$actString .= expand($display,"T",$type,"C",$name,"N",$number,"M",$mode,"H",$hilight,"S","}{sb_background}").$separator;
 	}
 
 	# assemble the final string
