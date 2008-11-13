@@ -138,6 +138,8 @@ set dictionary+=/usr/share/dict/words
 
 " complete from the dictionary also
 set complete+=k
+
+set noincsearch
 " }}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
