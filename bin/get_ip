@@ -6,9 +6,10 @@ open my $site, "wget -qO- $page|" or die "Could not get web page";
 
 my $next_line_is_ip = 0;
 while (<$site>) {
+    s/[\r\n]+$//;
     if ($next_line_is_ip == 1) {
         s/ //g;
-        print $_;
+        print $_, "\n";
         last;
     }
     $next_line_is_ip = 1 if /Your IP address is/;
