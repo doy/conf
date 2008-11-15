@@ -20,7 +20,15 @@ function install() {
     if [[ -e "$2" && ! -h "$2" ]]; then
         mv "$2" "$2.bak"
     fi
-    ln -sf "$confdir/$1" "$2"
+    target="$confdir/$1"
+    tmp=$(dirname $2)
+    if [[ "$tmp" != '.' ]]; then
+        for i in ${tmp//\// }; do
+            target="../$target"
+        done
+    fi
+    mkdir -p $(dirname $2)
+    ln -sf "$target" "$2"
 }
 
 for file in $files; do
