@@ -1,0 +1,51 @@
+# vim:syntax=perl:
+
+package main;
+# this is for Perl's Devel::REPL. it goes in ~/.re.pl/repl.rc
+
+use lib 'lib';
+
+no warnings 'redefine';
+
+use List::Util qw(first max maxstr min minstr reduce shuffle sum);
+use List::MoreUtils ':all';
+use Scalar::Util qw(blessed weaken isweak tainted);
+use Scalar::Defer qw(lazy defer force);
+use Carp::Clan qw(verbose Devel::REPL:: Moose:: Lexical::Persistence::);
+
+*fold = \&reduce;
+
+sub say { print @_, "\n" }
+
+my @plugins = (
+    'ReadLineHistory',            # history saved across sessions
+    'Colors',                     # colorize return value and errors
+    'FancyPrompt',                # provide an irb-like prompt
+    'Refresh',                    # refresh before every eval
+    'Interrupt',                  # improve handling of ^C
+    'OutputCache',                # access previous results
+    'Nopaste',                    # paste session with #nopaste
+    'PPI',                        # PPI dumping of Perl code
+    'MultiLine::PPI',             # allow multiple lines
+
+    'CompletionDriver::Keywords', # substr, while, etc
+    'CompletionDriver::LexEnv',   # current environment
+    'CompletionDriver::Globals',  # global variables
+    'CompletionDriver::INC',      # loading new modules
+    'CompletionDriver::Methods',  # class method completion
+    'CompletionDriver::Turtles',  # turtle command completion
+);
+
+$_REPL->load_plugin($_) for @plugins;
+$_REPL->fancy_prompt(sub { '> ' } );
+$_REPL->fancy_continuation_prompt(sub { '>' x ($_[0]->line_depth+1) . ' ' });
+
+# if at ~/work/foo/bar, load ~/.re.pl/work-foo-bar as well!
+my $cd = $ENV{PWD};
+$cd =~ s{^(/(?:Users|home)/[^/]+)/}{} and do {
+    my $homedir = $1;
+    $cd =~ s{/}{-}g;
+    my $proj = "$homedir/.re.pl/$cd";
+    $Devel::REPL::Script::CURRENT_SCRIPT->apply_script($proj, 0);
+};
+
