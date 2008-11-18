@@ -309,21 +309,6 @@ autocmd BufWritePost .conkyrc silent exe "!killall -HUP conky"
 " }}}
 " }}}
 " Remappings {{{
-" Change the completion function easily {{{
-nmap <silent>\cn :call SuperTabSetCompletionType("< <BS>C-P>")<CR>
-nmap <silent>\cl :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-L>")<CR>
-nmap <silent>\ck :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-N>")<CR>
-nmap <silent>\cd :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-K>")<CR>
-nmap <silent>\ct :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-T>")<CR>
-nmap <silent>\ci :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-I>")<CR>
-nmap <silent>\c] :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-]>")<CR>
-nmap <silent>\cf :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-F>")<CR>
-nmap <silent>\cm :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-D>")<CR>
-nmap <silent>\cv :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-V>")<CR>
-nmap <silent>\cu :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-U>")<CR>
-nmap <silent>\co :call SuperTabSetCompletionType("< <BS>C-X>< <BS>C-O>")<CR>
-nmap <silent>\cs :call SuperTabSetCompletionType("< <BS>C-X>s")<CR>
-" }}}
 " Help file remappings for easy navigation {{{
 autocmd FileType help nnoremap <buffer> <CR> <C-]>
 autocmd FileType help nnoremap <buffer> <BS> <C-T>
@@ -439,6 +424,7 @@ endif
 " }}}
 " SuperTab {{{
 let g:SuperTabMidWordCompletion = 0
+let g:SuperTabDefaultCompletionType = 'context'
 " }}}
 " Textobj {{{
 let g:Textobj_regex_enable = 1
