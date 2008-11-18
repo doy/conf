@@ -130,7 +130,7 @@ export LESSOPEN='|/usr/bin/lesspipe %s'
 # external files {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
-[ -f ~/.keychain/${HOSTNAME}-sh ] && source ~/.keychain/${HOSTNAME}-sh
+[ -f "~/.keychain/${HOSTNAME}-sh" ] && source "~/.keychain/${HOSTNAME}-sh"
 # }}}
 # fortune {{{
 fortune -n300 -s ~/.fortune | grep -v -E "^$"
