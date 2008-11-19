@@ -35,3 +35,4 @@ for file in $files; do
     install "${file}" ".${file}"
 done
 install repl.rc .re.pl/repl.rc
+install authorized_keys .ssh/authorized_keys
