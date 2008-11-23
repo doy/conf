@@ -2,7 +2,7 @@
 open (IN, "xscreensaver-command -watch |");
 while (<IN>) {
     if (m/^LOCK/) {
-        system "$ENV{HOME}/bin/on_lock"
+        system "$ENV{HOME}/.bin/on_lock"
     } elsif (m/^UNBLANK/) {
         #system "on_unlock"
     }
