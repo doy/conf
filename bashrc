@@ -97,6 +97,9 @@ function opened_files {
                      grep -v '^/sys/'    | \
                      grep -v '^/dev/'
 }
+function alert {
+    echo "DISPLAY=$DISPLAY xmessage -center -default okay $1" | at $2
+}
 # }}}
 # }}}
 # bash configuration {{{
