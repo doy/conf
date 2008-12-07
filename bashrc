@@ -39,7 +39,7 @@ alias mv="mv -i"
 alias bc="bc -l"
 alias ncmpc="ncmpc -c"
 alias truecrypt="sudo truecrypt -t"
-alias darcs="rlwrap darcs"
+alias darcs="ssh-key-unlock && rlwrap darcs"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
