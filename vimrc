@@ -306,6 +306,7 @@ autocmd FileType vim setlocal keywordprg=:help
 " }}}
 " Misc {{{
 autocmd BufWritePost .conkyrc silent exe "!killall -HUP conky"
+autocmd QuickFixCmdPost * copen 3
 " }}}
 " }}}
 " Remappings {{{
