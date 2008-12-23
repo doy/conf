@@ -115,7 +115,7 @@ function s:textobj_regex(inner, count)
 endfunction
 " }}}
 " f for folds {{{
-function s:textobj_fold(inner, count)
+function Textobj_fold(inner, count)
     if foldlevel(line('.')) == 0
         throw 'no-match'
     endif
@@ -128,7 +128,7 @@ function s:textobj_fold(inner, count)
 endfunction
 " }}}
 " , for function arguments {{{
-function s:textobj_arg(inner, count)
+function Textobj_arg(inner, count)
     let pos = getpos('.')
     let curchar = getline(pos[1])[pos[2] - 1]
     if curchar == ','
