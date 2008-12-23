@@ -1,12 +1,12 @@
 " Text object creation {{{
 " XXX: use virtualedit here, it should greatly simplify things
 let s:text_object_number = 0
-function Textobj(char, callback)
+function Textobj(char, callback, ...)
     let s:text_object_number += 1
     function s:textobj_{s:text_object_number}(inner, operator, count, callback)
         try
             let pos = getpos('.')
-            sandbox let [startline, startcol, endline, endcol] = function(a:callback)(a:inner, a:count)
+            sandbox let [startline, startcol, endline, endcol] = call(a:callback, [a:inner, a:count] + a:000)
         catch /no-match/
             return
         finally
