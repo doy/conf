@@ -231,14 +231,3 @@ function Textobj_arg(inner, count)
 endfunction
 " }}}
 " }}}
-" Text object creation {{{
-if exists("g:Textobj_regex_enable") && g:Textobj_regex_enable
-    call Textobj('/', "<SID>textobj_regex")
-endif
-if exists("g:Textobj_fold_enable") && g:Textobj_fold_enable
-    call Textobj('f', "<SID>textobj_fold")
-endif
-if exists("g:Textobj_arg_enable") && g:Textobj_arg_enable
-    call Textobj(',', "<SID>textobj_arg")
-endif
-" }}}
