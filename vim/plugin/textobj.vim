@@ -3,7 +3,7 @@
 let s:text_object_number = 0
 function Textobj(char, callback, ...)
     let s:text_object_number += 1
-    function s:textobj_{s:text_object_number}(inner, operator, count, callback)
+    function s:textobj_{s:text_object_number}(inner, operator, count, callback, ...)
         try
             let pos = getpos('.')
             sandbox let [startline, startcol, endline, endcol] = call(a:callback, [a:inner, a:count] + a:000)
@@ -50,10 +50,10 @@ function Textobj(char, callback, ...)
         let &virtualedit = virtualedit
     endfunction
 
-    exe 'onoremap <silent>a'.a:char.' <Esc>:call <SID>textobj_'.s:text_object_number.'(0, v:operator, v:prevcount, "'.a:callback.'")<CR>'
-    exe 'onoremap <silent>i'.a:char.' <Esc>:call <SID>textobj_'.s:text_object_number.'(1, v:operator, v:prevcount, "'.a:callback.'")<CR>'
-    exe 'xnoremap <silent>a'.a:char.' <Esc>:call <SID>textobj_'.s:text_object_number.'(0, "v", v:prevcount, "'.a:callback.'")<CR>'
-    exe 'xnoremap <silent>i'.a:char.' <Esc>:call <SID>textobj_'.s:text_object_number.'(1, "v", v:prevcount, "'.a:callback.'")<CR>'
+    exe 'onoremap <silent>a'.a:char.' <Esc>:call call("<SID>textobj_'.s:text_object_number.'", [0, v:operator, v:prevcount, "'.a:callback.'"] + '.string(a:000).')<CR>'
+    exe 'onoremap <silent>i'.a:char.' <Esc>:call call("<SID>textobj_'.s:text_object_number.'", [1, v:operator, v:prevcount, "'.a:callback.'"] + '.string(a:000).')<CR>'
+    exe 'xnoremap <silent>a'.a:char.' <Esc>:call call("<SID>textobj_'.s:text_object_number.'", [0, "v", v:prevcount, "'.a:callback.'"] + '.string(a:000).')<CR>'
+    exe 'xnoremap <silent>i'.a:char.' <Esc>:call call("<SID>textobj_'.s:text_object_number.'", [1, "v", v:prevcount, "'.a:callback.'"] + '.string(a:000).')<CR>'
 endfunction
 " }}}
 " Text object definitions {{{
