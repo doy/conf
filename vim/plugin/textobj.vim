@@ -57,15 +57,15 @@ function Textobj(char, callback, ...)
 endfunction
 " }}}
 " Text object definitions {{{
-" / for regex {{{
-function s:textobj_regex(inner, count)
+" arbitrary paired symbols (/ for regex, etc) {{{
+function Textobj_paired(inner, count, char)
     let pos = getpos('.')
 
     let line = strpart(getline(pos[1]), 0, pos[2])
     let lines = getline(1, pos[1] - 1) + [line]
     let linenum = pos[1]
     for line in reverse(lines)
-        let objstart = match(line, '.*\zs\\\@<!/') + 1
+        let objstart = match(line, '.*\zs\\\@<!'.a:char) + 1
         if objstart != 0
             break
         endif
@@ -81,21 +81,21 @@ function s:textobj_regex(inner, count)
     let lines = [line] + getline(pos[1] + 1, line('$'))
     let linenum = pos[1]
     for line in lines
-        let objend = match(line, '\\\@<!/') + 1
+        let objend = match(line, '\\\@<!'.a:char) + 1
         if objend != 0
             if linenum == pos[1]
                 " have to account for the possibility of a split escape
                 " sequence
                 if objend == 1
                     if getline(pos[1])[pos[2] - 2] == '\'
-                        let objend = match(line, '\\\@<!/', 1) + 1
+                        let objend = match(line, '\\\@<!'.a:char, 1) + 1
                         if objend == 0
                             let linenum += 1
                             continue
                         endif
                     else
-                        " if we're sitting on a /, don't do anything, since it's
-                        " impossible to know which direction to look
+                        " if we're sitting on a char, don't do anything, since
+                        " it's impossible to know which direction to look
                         throw 'no-match'
                     endif
                 endif
