@@ -231,3 +231,8 @@ function Textobj_arg(inner, count)
 endfunction
 " }}}
 " }}}
+" Text object loading {{{
+for object in g:Textobj_defs
+    call call('Textobj', object)
+endfor
+" }}}

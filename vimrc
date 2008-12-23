@@ -428,9 +428,11 @@ let g:SuperTabMidWordCompletion = 0
 let g:SuperTabDefaultCompletionType = 'context'
 " }}}
 " Textobj {{{
-call Textobj('/', "Textobj_paired", '/')
-call Textobj('f', "Textobj_fold")
-call Textobj(',', "Textobj_arg")
+let g:Textobj_defs = [
+   \['/', 'Textobj_paired', '/'],
+   \['f', 'Textobj_fold'],
+   \[',', 'Textobj_arg'],
+\]
 " }}}
 " Foldtext {{{
 let g:Foldtext_enable = 1
