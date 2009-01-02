@@ -145,8 +145,6 @@ set dictionary+=/usr/share/dict/words
 set complete+=k
 
 set noincsearch
-
-"set undofile
 " }}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
