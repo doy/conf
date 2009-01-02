@@ -3,3 +3,4 @@ use strict;
 use warnings;
 
 
+:startinsert

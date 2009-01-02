@@ -1,7 +1,9 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-package Foo;
+:exe "normal ipackage ".substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g').";\<CR>"
 
 
 1;
+:normal 5Go
+:startinsert

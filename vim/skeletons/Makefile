@@ -23,3 +23,5 @@ dep :
 
 run : $(BIN)
 	@./$(BIN)
+:normal ggA 
+:startinsert!
