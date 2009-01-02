@@ -193,7 +193,7 @@ set foldmethod=marker
 " }}}
 " }}}
 " Colors {{{
-colorscheme peachpuff
+set bg=light
 " word completion menu {{{
 highlight Pmenu      ctermfg=grey  ctermbg=darkblue
 highlight PmenuSel   ctermfg=red   ctermbg=darkblue
