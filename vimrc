@@ -358,6 +358,24 @@ endfunction
 map <F11> :call <SID>spell()<CR>
 imap <F11> <C-o>:call <SID>spell()<CR>
 " }}}
+" diff between current file and its original state {{{
+function s:difforig()
+    vert new
+    set bt=nofile
+    read #
+    normal 0d_
+    diffthis
+    wincmd p
+    diffthis
+endfunction
+function s:diffstop()
+    diffoff!
+    wincmd t
+    quit
+endfunction
+nmap <silent> ds :call <SID>difforig()<CR>
+nmap <silent> de :call <SID>diffstop()<CR>
+" }}}
 " Arrow keys {{{
 map <up> gk
 map <down> gj
