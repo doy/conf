@@ -344,6 +344,23 @@ autocmd QuickFixCmdPost * copen 3
 autocmd FileType help nnoremap <buffer> <CR> <C-]>
 autocmd FileType help nnoremap <buffer> <BS> <C-T>
 " }}}
+" darcs convenience mappings {{{
+nmap \da  :execute 'w  <bar> !darcs add %'<CR>
+nmap \dA  :execute 'wa <bar> !darcs amend-record'<CR>
+nmap \dr  :execute 'wa <bar> !darcs record'<CR>
+nmap \dR  :execute 'w  <bar> !darcs record %'<CR>
+nmap \dn  :execute 'wa <bar> !darcs whatsnew   <bar> less'<CR>
+nmap \dN  :execute 'w  <bar> !darcs whatsnew % <bar> less'<CR>
+nmap \dd  :execute 'wa <bar> !darcs diff -u    <bar> less'<CR>
+nmap \dD  :execute 'w  <bar> !darcs diff -u %  <bar> less'<CR>
+nmap \dc  :execute '!darcs changes             <bar> less'<CR>
+nmap \dqm :execute '!darcs query manifest      <bar> less'<CR>
+nmap \dt  :execute '!darcs tag'<CR>
+nmap \dp  :execute '!darcs push'<CR>
+nmap \du  :execute '!darcs unrecord'<CR>
+nmap \db  :execute "w <bar> :execute '!darcs revert %'   <bar> :silent execute 'e'"<CR>
+nmap \dB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :silent execute 'e'"<CR>
+"}}}
 " Keep the current selection when indenting (thanks cbus) {{{
 vnoremap < <gv
 vnoremap > >gv
