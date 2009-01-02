@@ -217,13 +217,36 @@ autocmd BufReadPost *
 \  endif
 " }}}
 " Skeletons {{{
-autocmd BufNewFile *.pl     silent 0read ~/.vim/skeletons/perl.pl  | normal Gdd
-autocmd BufNewFile *.pm     silent 0read ~/.vim/skeletons/perl.pm  | exe 'normal 4G' | silent :.s/Foo/\=expand("%")/ | silent :.s#lib/## | silent :.s#/#::#g | silent :.s/.pm;/;/ | normal Gdd2k
-autocmd BufNewFile *.cpp    silent 0read ~/.vim/skeletons/cpp.cpp  | normal Gddk
-autocmd BufNewFile *.c      silent 0read ~/.vim/skeletons/c.c      | normal Gddk
-autocmd BufNewFile *.tex    silent 0read ~/.vim/skeletons/tex.tex  | normal Gddk
-autocmd BufNewFile Makefile silent 0read ~/.vim/skeletons/Makefile | normal Gddgg$
-autocmd BufNewFile Makefile.PL silent 0read ~/.vim/skeletons/Makefile.PL | normal Gdd6G$
+function s:read_skeleton(pattern)
+    " the skeleton file should be a file in ~/.vim/skeletons that matches the
+    " glob pattern of files that it should be loaded for
+    let skeleton_file = glob("~/.vim/skeletons/".a:pattern)
+    " read leaves a blank line at the top of the file
+    exe "silent read ".skeleton_file." | normal ggdd"
+    let lines = getline(1, "$")
+    normal ggdG
+    for line in lines
+        " lines starting with :: will start with a literal :
+        if line =~ '^::'
+            let line = ":normal i\<C-o>i" . strpart(line, 1) . "\<CR>"
+        endif
+        " lines not starting with a : will just be appended literally
+        if line !~ '^:'
+            let line = ":normal i\<C-o>i" . line . "\<CR>"
+        endif
+        exe line
+    endfor
+    " remove the last extra newline we added
+    let pos = getpos('.')
+    normal Gdd
+    call setpos('.', pos)
+endfunction
+function s:skeleton(pattern)
+    exe "autocmd BufNewFile ".a:pattern." silent call s:read_skeleton(\"".a:pattern."\")"
+endfunction
+for skel in ['*.pl', '*.pm', '*.cpp', '*.c', '*.tex', 'Makefile', 'Makefile.PL']
+    call s:skeleton(skel)
+endfor
 " }}}
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
