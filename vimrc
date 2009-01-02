@@ -379,10 +379,11 @@ map <F11> :call <SID>spell()<CR>
 imap <F11> <C-o>:call <SID>spell()<CR>
 " }}}
 " diff between current file and its original state {{{
-function s:difforig()
+function s:diffstart(read_cmd)
+    let s:foldmethod = &foldmethod
     vert new
     set bt=nofile
-    read #
+    exe a:read_cmd
     normal 0d_
     diffthis
     wincmd p
@@ -392,8 +393,13 @@ function s:diffstop()
     diffoff!
     wincmd t
     quit
+    let &foldmethod = s:foldmethod
 endfunction
-nmap <silent> ds :call <SID>difforig()<CR>
+function s:vcs_orig(file)
+    return system('darcs show contents ' . a:file)
+endfunction
+nmap <silent> ds :call <SID>diffstart('read #')<CR>
+nmap <silent> dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#")), "\n", 1)) <bar> normal Gdd')<CR>
 nmap <silent> de :call <SID>diffstop()<CR>
 " }}}
 " Arrow keys {{{
