@@ -18,6 +18,11 @@ set modeline
 
 " always join with just one space, even between sentences
 set nojoinspaces
+
+" vim has pretty nice mouse support, in terminals that support it
+if has('mouse')
+    set mouse=a
+endif
 " }}}
 " Display {{{
 " color!
