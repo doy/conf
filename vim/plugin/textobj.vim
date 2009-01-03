@@ -235,4 +235,5 @@ endfunction
 for object in g:Textobj_defs
     call call('Textobj', object)
 endfor
+unlet object
 " }}}
