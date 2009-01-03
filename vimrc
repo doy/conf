@@ -374,9 +374,9 @@ endfunction
 function s:vcs_orig(file)
     " XXX: would be nice to use a:file rather than # here...
     let dir = expand('#:p:h')
-    if filewritable(dir . '/.svn')
+    if filewritable(dir . '/.svn') == 2
         return system('svn cat ' . a:file)
-    elseif filewritable(dir . '/CVS')
+    elseif filewritable(dir . '/CVS') == 2
         return system("AFILE=" . a:file . "; MODFILE=`tempfile`; DIFF=`tempfile`; cp $AFILE $MODFILE && cvs diff -u $AFILE > $DIFF; patch -R $MODFILE $DIFF 2>&1 > /dev/null && cat $MODFILE; rm $MODFILE $DIFF")
     elseif finddir('_darcs', dir . ';') =~ '_darcs'
         return system('darcs show contents ' . a:file)
