@@ -255,9 +255,16 @@ endfunction
 function s:skeleton(pattern)
     exe "autocmd BufNewFile ".a:pattern." silent call s:read_skeleton(\"".a:pattern."\")"
 endfunction
-for skel in ['*.pl', '*.pm', '*.cpp', '*.c', '*.tex', '*.t', 'Makefile', 'Makefile.PL']
-    call s:skeleton(skel)
-endfor
+call map([
+    \'*.pl',
+    \'*.pm',
+    \'*.cpp',
+    \'*.c',
+    \'*.tex',
+    \'*.t',
+    \'Makefile',
+    \'Makefile.PL'
+\], 's:skeleton(v:val)')
 " }}}
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
