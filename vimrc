@@ -92,9 +92,6 @@ set mousehide
 let g:is_bash=1
 " }}}
 " C/C++ {{{
-" highlight end of line whitespace and spaces before tabs
-let c_space_errors=1
-
 " use c syntax for header files, rather than c++
 let c_syntax_for_h=1
 
