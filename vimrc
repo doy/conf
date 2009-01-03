@@ -371,7 +371,7 @@ nmap \dp  :execute '!darcs push'<CR>
 nmap \du  :execute '!darcs unrecord'<CR>
 nmap \db  :execute "w <bar> :execute '!darcs revert %'   <bar> :silent execute 'e'"<CR>
 nmap \dB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :silent execute 'e'"<CR>
-"}}}
+" }}}
 " Keep the current selection when indenting (thanks cbus) {{{
 vnoremap < <gv
 vnoremap > >gv
