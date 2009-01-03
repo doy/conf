@@ -239,13 +239,13 @@ function s:read_skeleton(pattern)
     for line in lines
         " lines starting with :: will start with a literal :
         if line =~ '^::'
-            let line = ":normal i\<C-o>i" . strpart(line, 1) . "\<CR>"
-        endif
+            call append(line('$') - 1, strpart(line, 1))
         " lines not starting with a : will just be appended literally
-        if line !~ '^:'
-            let line = ":normal i\<C-o>i" . line . "\<CR>"
+        elseif line !~ '^:'
+            call append(line('$') - 1, line)
+        else
+            exe line
         endif
-        exe line
     endfor
     " remove the last extra newline we added
     let pos = getpos('.')
