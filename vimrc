@@ -413,6 +413,8 @@ function s:vcs_orig(file)
         return system("AFILE=" . a:file . "; MODFILE=`tempfile`; DIFF=`tempfile`; cp $AFILE $MODFILE && cvs diff -u $AFILE > $DIFF; patch -R $MODFILE $DIFF 2>&1 > /dev/null && cat $MODFILE; rm $MODFILE $DIFF")
     elseif finddir('_darcs', '.;') =~ '_darcs'
         return system('darcs show contents ' . a:file)
+    elseif finddir('.git', '.;') =~ '.git'
+        return system('git show HEAD:' . a:file)
     else
         throw 'No vcs found'
     endif
