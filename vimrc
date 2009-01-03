@@ -331,16 +331,16 @@ imap <F11> <C-o>:call <SID>spell()<CR>
 " diff between current file and its original state {{{
 let s:foldmethod = &foldmethod
 let s:foldenable = &foldenable
-let s:diffstarted = 0
+let s:diffwindow = 0
 function s:diffstart(read_cmd)
-    if s:diffstarted
+    if s:diffwindow != 0
         return
     endif
     let s:foldmethod = &foldmethod
     let s:foldenable = &foldenable
-    let s:diffstarted = 1
     let filetype = &filetype
     vert new
+    let s:diffwindow = winnr()
     set bt=nofile
     try
         exe a:read_cmd
@@ -359,17 +359,18 @@ function s:diffstart(read_cmd)
     normal zM
 endfunction
 function s:diffstop()
-    diffoff!
-    if winnr('$') != 1
-        wincmd t
-        quit
+    if s:diffwindow == 0
+        return
     endif
+    diffoff!
+    exe s:diffwindow . 'wincmd w'
+    quit
     let &foldmethod = s:foldmethod
     let &foldenable = s:foldenable
     if &foldenable
         normal zv
     endif
-    let s:diffstarted = 0
+    let s:diffwindow = 0
 endfunction
 function s:vcs_orig(file)
     " XXX: would be nice to use a:file rather than # here...
