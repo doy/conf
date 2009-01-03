@@ -83,6 +83,9 @@ set linebreak
 " only show a menu for completion, never a preview window or things like that
 set completeopt=menuone
 
+" hide the mouse in the gui while typing
+set mousehide
+
 " Language specific features {{{
 " Bash {{{
 " I use bash
