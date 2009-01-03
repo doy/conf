@@ -415,8 +415,8 @@ function s:vcs_orig(file)
         throw 'No vcs found'
     endif
 endfunction
-nmap <silent> ds :call <SID>diffstart('read #')<CR>
-nmap <silent> dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#")), "\n", 1)) <bar> normal Gdd')<CR>
+nmap <silent> ds :call <SID>diffstart('read # <bar> normal ggdd')<CR>
+nmap <silent> dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#")), "\n", 1)) <bar> normal Gdddd')<CR>
 nmap <silent> de :call <SID>diffstop()<CR>
 " }}}
 " Arrow keys {{{
