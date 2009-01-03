@@ -23,6 +23,9 @@ set nojoinspaces
 if has('mouse')
     set mouse=a
 endif
+
+" don't move the cursor to the start of the line when changing buffers
+set nostartofline
 " }}}
 " Display {{{
 " color!
@@ -158,6 +161,9 @@ set confirm
 
 " 50 milliseconds for escape timeout instead of 1000
 set ttimeoutlen=50
+
+" send more data to the terminal in a way that makes the screen update faster
+set ttyfast
 " }}}
 " Indentation {{{
 " normal sized tabs!
