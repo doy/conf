@@ -148,6 +148,8 @@ set dictionary+=/usr/share/dict/words
 set complete+=k
 
 set noincsearch
+
+let mapleader = ';'
 " }}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
