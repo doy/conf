@@ -402,6 +402,8 @@ function s:diffstart(read_cmd)
     diffthis
     wincmd p
     diffthis
+    " why does this not happen automatically?
+    normal zM
 endfunction
 function s:diffstop()
     diffoff!
@@ -411,6 +413,9 @@ function s:diffstop()
     endif
     let &foldmethod = s:foldmethod
     let &foldenable = s:foldenable
+    if &foldenable
+        normal zv
+    endif
 endfunction
 function s:vcs_orig(file)
     if filewritable('.svn')
