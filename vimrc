@@ -317,9 +317,14 @@ imap <F11> <C-o>:call <SID>spell()<CR>
 " diff between current file and its original state {{{
 let s:foldmethod = &foldmethod
 let s:foldenable = &foldenable
+let s:diffstarted = 0
 function s:diffstart(read_cmd)
+    if s:diffstarted
+        return
+    endif
     let s:foldmethod = &foldmethod
     let s:foldenable = &foldenable
+    let s:diffstarted = 1
     vert new
     set bt=nofile
     try
@@ -348,6 +353,7 @@ function s:diffstop()
     if &foldenable
         normal zv
     endif
+    let s:diffstarted = 0
 endfunction
 function s:vcs_orig(file)
     " XXX: would be nice to use a:file rather than # here...
