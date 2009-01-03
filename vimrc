@@ -297,14 +297,15 @@ autocmd QuickFixCmdPost * copen 3
 " darcs convenience mappings {{{
 nmap <Leader>da  :execute 'w  <bar> !darcs add %'<CR>
 nmap <Leader>dA  :execute 'wa <bar> !darcs amend-record'<CR>
-nmap <Leader>dr  :execute 'wa <bar> !darcs record'<CR>
-nmap <Leader>dR  :execute 'w  <bar> !darcs record %'<CR>
-nmap <Leader>dn  :execute 'wa <bar> !darcs whatsnew   <bar> less'<CR>
-nmap <Leader>dN  :execute 'w  <bar> !darcs whatsnew % <bar> less'<CR>
-nmap <Leader>dd  :execute 'wa <bar> !darcs diff -u    <bar> less'<CR>
-nmap <Leader>dD  :execute 'w  <bar> !darcs diff -u %  <bar> less'<CR>
-nmap <Leader>dc  :execute '!darcs changes             <bar> less'<CR>
-nmap <Leader>dqm :execute '!darcs query manifest      <bar> less'<CR>
+nmap <Leader>dr  :execute 'w  <bar> !darcs record %'<CR>
+nmap <Leader>dR  :execute 'wa <bar> !darcs record'<CR>
+nmap <Leader>dn  :execute 'w  <bar> !darcs whatsnew % <bar> less'<CR>
+nmap <Leader>dN  :execute 'wa <bar> !darcs whatsnew   <bar> less'<CR>
+nmap <Leader>dd  :execute 'w  <bar> !darcs diff -u %  <bar> less'<CR>
+nmap <Leader>dD  :execute 'wa <bar> !darcs diff -u    <bar> less'<CR>
+nmap <Leader>dc  :execute '!darcs changes %           <bar> less'<CR>
+nmap <Leader>dC  :execute '!darcs changes             <bar> less'<CR>
+nmap <Leader>dm  :execute '!darcs query manifest      <bar> less'<CR>
 nmap <Leader>dt  :execute '!darcs tag'<CR>
 nmap <Leader>dp  :execute '!darcs push'<CR>
 nmap <Leader>du  :execute '!darcs unrecord'<CR>
