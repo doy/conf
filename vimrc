@@ -210,23 +210,23 @@ else
 endif
 " }}}
 " word completion menu {{{
-highlight Pmenu      ctermfg=grey  ctermbg=darkblue
-highlight PmenuSel   ctermfg=red   ctermbg=darkblue
-highlight PmenuSbar  ctermbg=cyan
-highlight PmenuThumb ctermfg=red
+highlight Pmenu      ctermfg=grey  ctermbg=darkblue guifg=grey guibg=darkblue
+highlight PmenuSel   ctermfg=red   ctermbg=darkblue guifg=red  guibg=darkblue
+highlight PmenuSbar  ctermbg=cyan                   guibg=cyan
+highlight PmenuThumb ctermfg=red                    guifg=red
 
-highlight WildMenu ctermfg=grey ctermbg=darkblue
+highlight WildMenu   ctermfg=grey  ctermbg=darkblue guifg=grey guibg=darkblue
 " }}}
 " folding {{{
-highlight Folded     ctermbg=black ctermfg=darkgreen
+highlight Folded ctermbg=black ctermfg=darkgreen guibg=black guifg=green
 " }}}
 " hlsearch {{{
-highlight Search NONE ctermfg=red
+highlight Search NONE ctermfg=red guifg=red
 " }}}
 " color end of line whitespace {{{
 autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-hi EOLWS ctermbg=red
+highlight EOLWS ctermbg=red guibg=red
 " }}}
 " }}}
 " Autocommands {{{
