@@ -293,21 +293,21 @@ autocmd QuickFixCmdPost * copen 3
 " }}}
 " Remappings {{{
 " darcs convenience mappings {{{
-nmap \da  :execute 'w  <bar> !darcs add %'<CR>
-nmap \dA  :execute 'wa <bar> !darcs amend-record'<CR>
-nmap \dr  :execute 'wa <bar> !darcs record'<CR>
-nmap \dR  :execute 'w  <bar> !darcs record %'<CR>
-nmap \dn  :execute 'wa <bar> !darcs whatsnew   <bar> less'<CR>
-nmap \dN  :execute 'w  <bar> !darcs whatsnew % <bar> less'<CR>
-nmap \dd  :execute 'wa <bar> !darcs diff -u    <bar> less'<CR>
-nmap \dD  :execute 'w  <bar> !darcs diff -u %  <bar> less'<CR>
-nmap \dc  :execute '!darcs changes             <bar> less'<CR>
-nmap \dqm :execute '!darcs query manifest      <bar> less'<CR>
-nmap \dt  :execute '!darcs tag'<CR>
-nmap \dp  :execute '!darcs push'<CR>
-nmap \du  :execute '!darcs unrecord'<CR>
-nmap \db  :execute "w <bar> :execute '!darcs revert %'   <bar> :silent execute 'e'"<CR>
-nmap \dB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :silent execute 'e'"<CR>
+nmap <Leader>da  :execute 'w  <bar> !darcs add %'<CR>
+nmap <Leader>dA  :execute 'wa <bar> !darcs amend-record'<CR>
+nmap <Leader>dr  :execute 'wa <bar> !darcs record'<CR>
+nmap <Leader>dR  :execute 'w  <bar> !darcs record %'<CR>
+nmap <Leader>dn  :execute 'wa <bar> !darcs whatsnew   <bar> less'<CR>
+nmap <Leader>dN  :execute 'w  <bar> !darcs whatsnew % <bar> less'<CR>
+nmap <Leader>dd  :execute 'wa <bar> !darcs diff -u    <bar> less'<CR>
+nmap <Leader>dD  :execute 'w  <bar> !darcs diff -u %  <bar> less'<CR>
+nmap <Leader>dc  :execute '!darcs changes             <bar> less'<CR>
+nmap <Leader>dqm :execute '!darcs query manifest      <bar> less'<CR>
+nmap <Leader>dt  :execute '!darcs tag'<CR>
+nmap <Leader>dp  :execute '!darcs push'<CR>
+nmap <Leader>du  :execute '!darcs unrecord'<CR>
+nmap <Leader>db  :execute "w <bar> :execute '!darcs revert %'   <bar> :silent execute 'e'"<CR>
+nmap <Leader>dB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :silent execute 'e'"<CR>
 " }}}
 " Keep the current selection when indenting (thanks cbus) {{{
 vnoremap < <gv
@@ -405,7 +405,7 @@ imap <end> <C-o>g<end>
 inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
 " }}}
 " Ctags {{{
-nmap \t :silent !ctags -a %<CR><C-L>
+nmap <Leader>t :silent !ctags -a %<CR><C-L>
 " }}}
 " Nopaste {{{
 function s:nopaste(visual)
@@ -431,24 +431,24 @@ function s:nopaste(visual)
     let $NOPASTE_SERVICES = nopaste_services
     echo @+
 endfunction
-nmap <silent> \p :call <SID>nopaste(0)<CR>
-vmap <silent> \p :<C-U>call <SID>nopaste(1)<CR>
+nmap <silent> <Leader>p :call <SID>nopaste(0)<CR>
+vmap <silent> <Leader>p :<C-U>call <SID>nopaste(1)<CR>
 " }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nmap Y y$
 
 " easily cancel hitting \ once
-nnoremap \\ \
+nnoremap <Leader><Leader> <Leader>
 
 " clear the search highlight
-nmap <silent>\/ :nohl<CR>
+nmap <silent><Leader>/ :nohl<CR>
 
 " toggle line numbers
-nmap <silent>\n :set invnumber<CR>
+nmap <silent><Leader>n :set invnumber<CR>
 
 " manually resync the syntax highlighting
-nmap <silent>\s :syntax sync fromstart<CR>
+nmap <silent><Leader>s :syntax sync fromstart<CR>
 " }}}
 " }}}
 " Plugin settings {{{
