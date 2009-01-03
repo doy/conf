@@ -381,7 +381,7 @@ function s:vcs_orig(file)
     elseif finddir('.git', dir . ';') =~ '.git'
         return system('git show HEAD:' . a:file)
     else
-        throw 'No vcs found'
+        throw 'No VCS directory found'
     endif
 endfunction
 nmap <silent> ds :call <SID>diffstart('read # <bar> normal ggdd')<CR>
