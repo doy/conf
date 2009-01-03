@@ -381,6 +381,7 @@ imap <F11> <C-o>:call <SID>spell()<CR>
 " diff between current file and its original state {{{
 function s:diffstart(read_cmd)
     let s:foldmethod = &foldmethod
+    let s:foldenable = &foldenable
     vert new
     set bt=nofile
     exe a:read_cmd
@@ -394,6 +395,7 @@ function s:diffstop()
     wincmd t
     quit
     let &foldmethod = s:foldmethod
+    let &foldenable = s:foldenable
 endfunction
 function s:vcs_orig(file)
     return system('darcs show contents ' . a:file)
