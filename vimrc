@@ -379,6 +379,8 @@ map <F11> :call <SID>spell()<CR>
 imap <F11> <C-o>:call <SID>spell()<CR>
 " }}}
 " diff between current file and its original state {{{
+let s:foldmethod = &foldmethod
+let s:foldenable = &foldenable
 function s:diffstart(read_cmd)
     let s:foldmethod = &foldmethod
     let s:foldenable = &foldenable
