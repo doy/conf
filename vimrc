@@ -202,7 +202,13 @@ set foldmethod=marker
 " }}}
 " }}}
 " Colors {{{
-colorscheme peachpuff
+" default colorscheme {{{
+if has("gui_running")
+    colorscheme torte
+else
+    colorscheme peachpuff
+endif
+" }}}
 " word completion menu {{{
 highlight Pmenu      ctermfg=grey  ctermbg=darkblue
 highlight PmenuSel   ctermfg=red   ctermbg=darkblue
