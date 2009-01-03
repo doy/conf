@@ -225,6 +225,14 @@ autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
 " }}}
+" fonts {{{
+if has('win32') || has('win64') || has('win32unix')
+    " is this right?
+    set guifont=Lucida\ Console\ 10
+elseif has('unix')
+    set guifont=Monospace\ 8
+endif
+" }}}
 " }}}
 " Autocommands {{{
 " When editing a file, always jump to the last cursor position {{{
