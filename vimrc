@@ -86,6 +86,9 @@ set completeopt=menuone
 " hide the mouse in the gui while typing
 set mousehide
 
+" fold only when I ask for it damnit!
+set foldmethod=marker
+
 " Language specific features {{{
 " Bash {{{
 " I use bash
@@ -194,10 +197,6 @@ set cinoptions+=b1,:0,l1,g0,(0,W1
 
 " reindent whenever 'break;' is typed
 set cinkeys+==break;
-" }}}
-" Folding {{{
-" fold only when I ask for it damnit!
-set foldmethod=marker
 " }}}
 " }}}
 " Colors {{{
