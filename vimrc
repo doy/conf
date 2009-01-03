@@ -395,7 +395,9 @@ function s:diffstart(read_cmd)
     try
         exe a:read_cmd
     catch /.*/
-        echoerr v:exception
+        echohl ErrorMsg
+        echo v:exception
+        echohl NONE
         call s:diffstop()
         return
     endtry
