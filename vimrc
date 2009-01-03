@@ -339,6 +339,7 @@ function s:diffstart(read_cmd)
     let s:foldmethod = &foldmethod
     let s:foldenable = &foldenable
     let s:diffstarted = 1
+    let filetype = &filetype
     vert new
     set bt=nofile
     try
@@ -350,6 +351,7 @@ function s:diffstart(read_cmd)
         call s:diffstop()
         return
     endtry
+    let &filetype = filetype
     diffthis
     wincmd p
     diffthis
