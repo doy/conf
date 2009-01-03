@@ -394,8 +394,10 @@ function s:diffstart(read_cmd)
 endfunction
 function s:diffstop()
     diffoff!
-    wincmd t
-    quit
+    if winnr('$') != 1
+        wincmd t
+        quit
+    endif
     let &foldmethod = s:foldmethod
     let &foldenable = s:foldenable
 endfunction
