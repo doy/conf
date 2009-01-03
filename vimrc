@@ -409,6 +409,8 @@ endfunction
 function s:vcs_orig(file)
     if filewritable('.svn')
         return system('svn cat ' . a:file)
+    elseif filewritable('CVS')
+        return system("AFILE=" . a:file . "; MODFILE=`tempfile`; DIFF=`tempfile`; cp $AFILE $MODFILE && cvs diff -u $AFILE > $DIFF; patch -R $MODFILE $DIFF 2>&1 > /dev/null && cat $MODFILE; rm $MODFILE $DIFF")
     elseif finddir('_darcs', '.;') =~ '_darcs'
         return system('darcs show contents ' . a:file)
     else
