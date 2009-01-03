@@ -386,8 +386,13 @@ function s:diffstart(read_cmd)
     let s:foldenable = &foldenable
     vert new
     set bt=nofile
-    exe a:read_cmd
-    normal 0d_
+    try
+        exe a:read_cmd
+    catch /.*/
+        echoerr v:exception
+        call s:diffstop()
+        return
+    endtry
     diffthis
     wincmd p
     diffthis
@@ -402,7 +407,13 @@ function s:diffstop()
     let &foldenable = s:foldenable
 endfunction
 function s:vcs_orig(file)
-    return system('darcs show contents ' . a:file)
+    if filewritable('.svn')
+        return system('svn cat ' . a:file)
+    elseif finddir('_darcs', '.;') =~ '_darcs'
+        return system('darcs show contents ' . a:file)
+    else
+        throw 'No vcs found'
+    endif
 endfunction
 nmap <silent> ds :call <SID>diffstart('read #')<CR>
 nmap <silent> dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#")), "\n", 1)) <bar> normal Gdd')<CR>
