@@ -272,89 +272,12 @@ au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
 " Update ctags after writing {{{
 autocmd BufWritePost * if filereadable('tags') | silent exe "!ctags -a %" | redraw | endif
 " }}}
-" Language specific things {{{
-" Perl {{{
-" :make does a syntax check
-autocmd FileType perl setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
-autocmd FileType perl setlocal errorformat=%f:%l:%m
-
-" look up words in perldoc rather than man for K
-autocmd FileType perl setlocal keywordprg=perldoc\ -f
-
-" treat use lines as include lines (for tab completion, etc)
-" XXX: it would be really sweet to make gf work with this, but unfortunately
-" that checks the filename directly first, so things like 'use Moose' bring
-" up the $LIB/Moose/ directory, since it exists, before evaluating includeexpr
-autocmd FileType perl setlocal include=\\s*use\\s*
-autocmd FileType perl setlocal includeexpr=substitute(v:fname,'::','/','g').'.pm'
-autocmd FileType perl exe "setlocal path=" . system("perl -e 'print join \",\", @INC;'") . ",lib"
-" }}}
-" Latex {{{
-" :make converts to pdf
-if strlen(system('which xpdf')) && strlen(expand('$DISPLAY'))
-    autocmd FileType tex setlocal makeprg=(cd\ %:h\ &&\ pdflatex\ %:t\ &&\ xpdf\ $(echo\ %:t\ \\\|\ sed\ \'s/\\(\\.[^.]*\\)\\?$/.pdf/\'))
-elseif strlen(system('which evince')) && strlen(expand('$DISPLAY'))
-    autocmd FileType tex setlocal makeprg=(cd\ %:h\ &&\ pdflatex\ %:t\ &&\ evince\ $(echo\ %:t\ \\\|\ sed\ \'s/\\(\\.[^.]*\\)\\?$/.pdf/\'))
-else
-    autocmd FileType tex setlocal makeprg=(cd\ %:h\ &&\ pdflatex\ %:t)
-endif
-" see :help errorformat-LaTeX
-autocmd FileType tex setlocal errorformat=
-    \%E!\ LaTeX\ %trror:\ %m,
-    \%E!\ %m,
-    \%+WLaTeX\ %.%#Warning:\ %.%#line\ %l%.%#,
-    \%+W%.%#\ at\ lines\ %l--%*\\d,
-    \%WLaTeX\ %.%#Warning:\ %m,
-    \%Cl.%l\ %m,
-    \%+C\ \ %m.,
-    \%+C%.%#-%.%#,
-    \%+C%.%#[]%.%#,
-    \%+C[]%.%#,
-    \%+C%.%#%[{}\\]%.%#,
-    \%+C<%.%#>%.%#,
-    \%C\ \ %m,
-    \%-GSee\ the\ LaTeX%m,
-    \%-GType\ \ H\ <return>%m,
-    \%-G\ ...%.%#,
-    \%-G%.%#\ (C)\ %.%#,
-    \%-G(see\ the\ transcript%.%#),
-    \%-G\\s%#,
-    \%+O(%f)%r,
-    \%+P(%f%r,
-    \%+P\ %\\=(%f%r,
-    \%+P%*[^()](%f%r,
-    \%+P[%\\d%[^()]%#(%f%r,
-    \%+Q)%r,
-    \%+Q%*[^()])%r,
-    \%+Q[%\\d%*[^()])%r
-" }}}
-" Lua {{{
-" :make does a syntax check
-autocmd FileType lua setlocal makeprg=luac\ -p\ %
-autocmd FileType lua setlocal errorformat=luac:\ %f:%l:\ %m
-
-" set commentstring
-autocmd FileType lua setlocal commentstring=--%s
-
-" treat require lines as include lines (for tab completion, etc)
-autocmd FileType lua setlocal include=\\s*require\\s*
-autocmd FileType lua setlocal includeexpr=substitute(v:fname,'\\.','/','g').'.lua'
-autocmd FileType lua exe "setlocal path=" . system("lua -e 'local fpath = \"\" for path in package.path:gmatch(\"[^;]*\") do if path:match(\"\?\.lua$\") then fpath = fpath .. path:gsub(\"\?\.lua$\", \"\") .. \",\" end end print(fpath:gsub(\",,\", \",.,\"):sub(0, -2))'")
-" }}}
-" Vim {{{
-autocmd FileType {vim,help} setlocal keywordprg=:help
-" }}}
-" }}}
 " Misc {{{
 autocmd BufWritePost .conkyrc silent exe "!killall -HUP conky"
 autocmd QuickFixCmdPost * copen 3
 " }}}
 " }}}
 " Remappings {{{
-" Help file remappings for easy navigation {{{
-autocmd FileType help nnoremap <buffer> <CR> <C-]>
-autocmd FileType help nnoremap <buffer> <BS> <C-T>
-" }}}
 " darcs convenience mappings {{{
 nmap \da  :execute 'w  <bar> !darcs add %'<CR>
 nmap \dA  :execute 'wa <bar> !darcs amend-record'<CR>
