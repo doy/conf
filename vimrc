@@ -146,6 +146,13 @@ set wildmode=longest,list,full
 
 set noincsearch
 
+if has("autocmd") && exists("+omnifunc")
+    autocmd FileType *
+                \   if &omnifunc == "" |
+                \           setlocal omnifunc=syntaxcomplete#Complete |
+                \   endif
+endif
+
 let mapleader = ';'
 " }}}
 " Make vim less whiny {{{
