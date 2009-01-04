@@ -1,11 +1,39 @@
 " :make converts to pdf
-if strlen(system('which xpdf')) && strlen(expand('$DISPLAY'))
-    setlocal makeprg=(cd\ %:h\ &&\ pdflatex\ %:t\ &&\ xpdf\ $(echo\ %:t\ \\\|\ sed\ \'s/\\(\\.[^.]*\\)\\?$/.pdf/\'))
-elseif strlen(system('which evince')) && strlen(expand('$DISPLAY'))
-    setlocal makeprg=(cd\ %:h\ &&\ pdflatex\ %:t\ &&\ evince\ $(echo\ %:t\ \\\|\ sed\ \'s/\\(\\.[^.]*\\)\\?$/.pdf/\'))
-else
-    setlocal makeprg=(cd\ %:h\ &&\ pdflatex\ %:t)
+setlocal makeprg=(cd\ /tmp\ &&\ pdflatex\ --halt-on-error\ %:p)
+
+" xpdf needs to be manually refreshed when the file changes
+function s:xpdf()
+    let pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
+    let processes = split(system('ps xo args'), '\n')
+    for process in processes
+        if process =~ 'xpdf -remote localhost'
+            call system('xpdf -remote localhost -reload')
+            return
+        endif
+    endfor
+    call system('xpdf -remote localhost ' . pdf . ' &')
+endfunction
+" evince treats opening the same file twice as meaning 'reload'
+function s:evince()
+    let pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
+    system('evince ' . pdf . ' &')
+endfunction
+" don't load the pdf if the make failed
+function s:make_errors()
+    let qf = getqflist()
+    for line in qf
+        if line['type'] == 'E'
+            return 1
+        endif
+    endfor
+    return 0
+endfunction
+if executable('xpdf') && strlen(expand('$DISPLAY'))
+    autocmd QuickFixCmdPost make if !s:make_errors() | call s:xpdf()   | endif
+elseif executable('evince') && strlen(expand('$DISPLAY'))
+    autocmd QuickFixCmdPost make if !s:make_errors() | call s:evince() | endif
 endif
+
 " see :help errorformat-LaTeX
 setlocal errorformat=
     \%E!\ LaTeX\ %trror:\ %m,
