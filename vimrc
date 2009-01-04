@@ -449,7 +449,7 @@ vmap <silent> <Leader>p :<C-U>call <SID>nopaste(1)<CR>
 " have Y behave analogously to D rather than to dd
 nmap Y y$
 
-" easily cancel hitting \ once
+" easily cancel hitting the leader key once
 nnoremap <Leader><Leader> <Leader>
 
 " clear the search highlight
