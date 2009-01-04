@@ -144,12 +144,6 @@ set isfname+=:
 " tab completion stuff for the command line
 set wildmode=longest,list,full
 
-" allow word completions from the system word list
-set dictionary+=/usr/share/dict/words
-
-" complete from the dictionary also
-set complete+=k
-
 set noincsearch
 
 let mapleader = ';'
