@@ -260,12 +260,14 @@ function s:read_skeleton(pattern)
         " lines starting with :: will start with a literal :
         if line =~ '^::'
             call append(line('$'), strpart(line, 1))
+            normal G
             if remove_extra_line
                 normal ggdd
             endif
         " lines not starting with a : will just be appended literally
         elseif line !~ '^:'
             call append(line('$'), line)
+            normal G
             if remove_extra_line
                 normal ggdd
             endif
