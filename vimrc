@@ -252,20 +252,28 @@ function s:read_skeleton(pattern)
     let lines = getline(1, "$")
     normal ggdG
     for line in lines
+        " sigh... this is *so* dumb
+        let remove_extra_line = 0
+        if line('$') == 1 && col('$') == 1
+            let remove_extra_line = 1
+        endif
         " lines starting with :: will start with a literal :
         if line =~ '^::'
-            call append(line('$') - 1, strpart(line, 1))
+            call append(line('$'), strpart(line, 1))
+            if remove_extra_line
+                normal ggdd
+            endif
         " lines not starting with a : will just be appended literally
         elseif line !~ '^:'
-            call append(line('$') - 1, line)
+            call append(line('$'), line)
+            if remove_extra_line
+                normal ggdd
+            endif
         else
             exe line
         endif
     endfor
-    " remove the last extra newline we added
-    let pos = getpos('.')
-    normal Gdd
-    call setpos('.', pos)
+    redraw
 endfunction
 function s:skeleton(pattern)
     exe "autocmd BufNewFile ".a:pattern." silent call s:read_skeleton(\"".a:pattern."\")"
