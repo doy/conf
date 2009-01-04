@@ -3,7 +3,7 @@ setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
 setlocal errorformat=%f:%l:%m
 
 " look up words in perldoc rather than man for K
-function s:perldoc(visual)
+function! s:perldoc(visual)
     if a:visual
         let oldreg = @a
         normal `<"ay`>gv

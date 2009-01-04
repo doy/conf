@@ -2,7 +2,7 @@
 setlocal makeprg=(cd\ /tmp\ &&\ pdflatex\ --halt-on-error\ %:p)
 
 " xpdf needs to be manually refreshed when the file changes
-function s:xpdf()
+function! s:xpdf()
     let pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
     let processes = split(system('ps xo args'), '\n')
     for process in processes
@@ -14,12 +14,12 @@ function s:xpdf()
     call system('xpdf -remote localhost ' . pdf . ' &')
 endfunction
 " evince treats opening the same file twice as meaning 'reload'
-function s:evince()
+function! s:evince()
     let pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
     system('evince ' . pdf . ' &')
 endfunction
 " don't load the pdf if the make failed
-function s:make_errors()
+function! s:make_errors()
     let qf = getqflist()
     for line in qf
         if line['type'] == 'E'
@@ -28,11 +28,14 @@ function s:make_errors()
     endfor
     return 0
 endfunction
+augroup _tex
+autocmd!
 if executable('xpdf') && strlen(expand('$DISPLAY'))
     autocmd QuickFixCmdPost make if !s:make_errors() | call s:xpdf()   | endif
 elseif executable('evince') && strlen(expand('$DISPLAY'))
     autocmd QuickFixCmdPost make if !s:make_errors() | call s:evince() | endif
 endif
+augroup END
 
 " see :help errorformat-LaTeX
 setlocal errorformat=
