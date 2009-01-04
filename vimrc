@@ -375,7 +375,7 @@ function s:diffstop()
     endif
     diffoff!
     exe s:diffwindow . 'wincmd w'
-    quit
+    bdelete
     let &foldmethod = s:foldmethod
     let &foldenable = s:foldenable
     if &foldenable
