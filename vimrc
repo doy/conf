@@ -450,6 +450,34 @@ endfunction
 nmap <silent> <Leader>p :call <SID>nopaste(0)<CR>
 vmap <silent> <Leader>p :<C-U>call <SID>nopaste(1)<CR>
 " }}}
+" better version of keywordprg {{{
+function Help(visual, iskeyword, command)
+    let iskeyword = &iskeyword
+    for kw in a:iskeyword
+        exe 'set iskeyword+=' . kw
+    endfor
+    if a:visual
+        let oldreg = @a
+        normal `<"ay`>gv
+        let word = @a
+        let @a = oldreg
+    else
+        let word = expand('<cword>')
+    endif
+    let &iskeyword = iskeyword
+    exe &helpheight . 'new'
+    exe 'call ' . a:command . '("' . word . '")'
+    set bt=nofile
+    set nobuflisted
+endfunction
+function s:man(word)
+    exe 'read! man -P"col -b" ' . a:word
+    normal ggdd
+    set ft=man
+endfunction
+nmap <silent>K :call Help(0, [], '<SID>man')<CR>
+vmap <silent>K :call Help(1, [], '<SID>man')<CR>
+" }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nmap Y y$
