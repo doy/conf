@@ -19,7 +19,4 @@ endfunction
 nmap <silent>K :call Help(0, [':'], '<SID>perldoc')<CR>
 vmap <silent>K :call Help(1, [':'], '<SID>perldoc')<CR>
 
-" treat use lines as include lines (for tab completion, etc)
-" XXX: it would be really sweet to make gf work with this, but unfortunately
-" that checks the filename directly first, so things like 'use Moose' bring
-" up the $LIB/Moose/ directory, since it exists, before evaluating includeexpr
+nmap <silent>gf :exe v:count . 'find ' . substitute(expand('<cfile>'), '::', '/', 'g') . '.pm'<CR>
