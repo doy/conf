@@ -20,3 +20,5 @@ nmap <silent>K :call Help(0, [':'], '<SID>perldoc')<CR>
 vmap <silent>K :call Help(1, [':'], '<SID>perldoc')<CR>
 
 nmap <silent>gf :exe v:count . 'find ' . substitute(expand('<cfile>'), '::', '/', 'g') . '.pm'<CR>
+" XXX: <cfile> is wrong here, need to do something like i do for Help
+"vmap <silent>gf :exe v:count . 'find ' . substitute(expand('<cfile>'), '::', '/', 'g') . '.pm'<CR>
