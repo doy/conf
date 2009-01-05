@@ -473,7 +473,7 @@ function Help(visual, iskeyword, command)
     set nomodifiable
 endfunction
 function s:man(word)
-    exe 'read! man -P"col -b" ' . a:word
+    exe 'silent read! man -P"col -b" ' . a:word
     normal ggdd
     set ft=man
 endfunction
