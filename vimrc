@@ -469,6 +469,7 @@ function Help(visual, iskeyword, command)
     exe 'call ' . a:command . '("' . word . '")'
     set bt=nofile
     set nobuflisted
+    set nomodifiable
 endfunction
 function s:man(word)
     exe 'read! man -P"col -b" ' . a:word
