@@ -420,6 +420,8 @@ inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
 " }}}
 " Ctags {{{
 nmap <Leader>t :silent !ctags -a %<CR><C-L>
+nmap <CR> <C-]>
+nmap <BS> <C-T>
 " }}}
 " Nopaste {{{
 function s:nopaste(visual)
