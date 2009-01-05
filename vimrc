@@ -229,8 +229,7 @@ highlight EOLWS ctermbg=red guibg=red
 " }}}
 " fonts {{{
 if has('win32') || has('win64') || has('win32unix')
-    " is this right?
-    set guifont=Lucida\ Console\ 10
+    set guifont=Lucida_Console
 elseif has('unix')
     set guifont=Monospace\ 8
 endif
