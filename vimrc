@@ -466,6 +466,7 @@ function Help(visual, iskeyword, command)
     endif
     let &iskeyword = iskeyword
     exe &helpheight . 'new'
+    set modifiable
     exe 'call ' . a:command . '("' . word . '")'
     set bt=nofile
     set nobuflisted
