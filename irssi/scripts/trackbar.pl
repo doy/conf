@@ -81,6 +81,7 @@ use strict;
 use 5.6.1;
 use Irssi;
 use Irssi::TextUI;
+use POSIX qw(strftime);
 
 my $VERSION = "1.4";
 
@@ -176,6 +177,18 @@ Irssi::signal_add_first( 'session save' => sub {
 	}
 );
 
+sub goto_trackbar {
+    
+    my $window = Irssi::active_win();
+    my $line = $window->view()->get_bookmark('trackbar');
+
+    if ($line) {
+        $window->command("scrollback goto ". strftime("%d %H:%M:%S", localtime($line->{'info'}->{'time'})));
+    } else {
+        $window->printformat(MSGLEVEL_CLIENTCRAP, 'trackbar_not_found');
+    }
+}
+
 sub cmd_mark {
     my $window = Irssi::active_win();
 #    return unless defined $window;
@@ -186,4 +199,17 @@ sub cmd_mark {
     Irssi::command("redraw");    
 }
 
+sub trackbar_runsub {
+    
+    my ($data, $server, $item) = @_;
+    $data =~ s/\s+$//g;
+    
+    if ($data) {
+        Irssi::command_runsub('trackbar', $data, $server, $item);
+    } else {
+        goto_trackbar();
+    }
+}
+
+Irssi::command_bind('trackbar', 'trackbar_runsub');
 Irssi::command_bind('mark',   'cmd_mark');
