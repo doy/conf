@@ -138,7 +138,7 @@ set wildignore+=.log,.out,.o
 " remember lotsa fun stuff
 set viminfo=!,'1000,f1,/1000,:1000,<1000,@1000,h,n~/.viminfo
 
-" add : as a file-name character (mostly for Perl's mod::ules)
+" add : as a file-name character (allow gf to work with http://foo.bar/)
 set isfname+=:
 
 " tab completion stuff for the command line
