@@ -16,6 +16,7 @@ files="abcde.conf
        bin
        irssi
        fortune
+       ncmpc
        terminfo
        vim"
 
