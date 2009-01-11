@@ -39,3 +39,8 @@ for file in $files; do
 done
 install repl.rc .re.pl/repl.rc
 install authorized_keys .ssh/authorized_keys
+
+cd .bin
+find -type f -exec chmod a+x '{}' \;
+ln -sf ssh scp
+ln -sf ssh sftp
