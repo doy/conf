@@ -23,6 +23,9 @@ function install() {
     if [[ -e "$2" && ! -h "$2" ]]; then
         mv "$2" "$2.bak"
     fi
+    if [[ -d "$2" && -h "$2" ]]; then
+        rm -f "$2"
+    fi
     target="$confdir/$1"
     tmp=$(dirname $2)
     if [[ "$tmp" != '.' ]]; then
