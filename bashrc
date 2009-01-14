@@ -102,6 +102,9 @@ function opened_files {
 function alert {
     echo "DISPLAY=$DISPLAY xmessage -center -default okay $1" | at $2
 }
+function nopaste_moose {
+    nopaste --chan=#moose --services=Shadowcat --desc="$1"
+}
 # }}}
 # }}}
 # bash configuration {{{
