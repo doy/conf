@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-:exe "normal ipackage ".substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g').";\<CR>"
+:exe "call append(line('.'), 'package ".substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g').";')"
 
 
 1;
