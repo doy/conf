@@ -244,6 +244,7 @@ autocmd BufReadPost *
 " }}}
 " Skeletons {{{
 function s:read_skeleton(pattern)
+    set modifiable
     " the skeleton file should be a file in ~/.vim/skeletons that matches the
     " glob pattern of files that it should be loaded for
     let skeleton_file = glob("~/.vim/skeletons/".a:pattern)
