@@ -285,19 +285,6 @@ windows = {
     sticky = "yes";
     parent = "1";
   };
-  17 = { name = "all"; sticky = "yes"; parent = "1"; };
-  7 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "##crawl";
-        tag = "freenode";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
   3 = {
     items = (
       {
@@ -315,21 +302,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#rodney";
-        tag = "freenode";
-      }
-    );
-    sticky = "yes";
-    parent = "1";
-  };
-  19 = { sticky_refnum = "yes"; name = "bots"; sticky = "yes"; };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#alephone";
-        tag = "freenode";
+        name = "#moose";
+        tag = "perl";
       }
     );
     sticky = "yes";
@@ -347,9 +321,90 @@ windows = {
     sticky = "yes";
     parent = "1";
   };
-  18 = { name = "hilight"; sticky = "yes"; parent = "19"; };
+  6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##crawl";
+        tag = "freenode";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  11 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "&bitlbee";
+        tag = "localhost";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  12 = {
+    items = (
+      {
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "sazzyanjali";
+        tag = "localhost";
+      }
+    );
+  };
+  13 = {
+    items = (
+      {
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "cb4nova";
+        tag = "localhost";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  14 = {
+    items = (
+      {
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "hyposomnileptic";
+        tag = "localhost";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  15 = {
+    items = (
+      {
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "skltte";
+        tag = "localhost";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  16 = {
+    items = (
+      {
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "starlifesage";
+        tag = "localhost";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
+  21 = { name = "all"; sticky = "yes"; parent = "1"; };
+  22 = { name = "bots"; sticky = "yes"; parent = "1"; };
+  23 = { name = "hilight"; sticky = "yes"; parent = "1"; };
 };
-mainwindows = {
-  1 = { first_line = "6"; lines = "17"; };
-  19 = { first_line = "0"; lines = "6"; };
-};
+mainwindows = { 1 = { first_line = "1"; lines = "34"; }; };
