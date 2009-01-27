@@ -67,9 +67,9 @@ chatnets = {
 channels = (
   { name = "##nethack-elite"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#interhack"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#rodney"; chatnet = "freenode"; autojoin = "yes"; },
+  #  { name = "#rodney"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#netmonster"; chatnet = "EFNet"; autojoin = "yes"; },
-  { name = "#alephone"; chatnet = "freenode"; autojoin = "yes"; },
+  #  { name = "#alephone"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "##crawl"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
