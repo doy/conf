@@ -18,6 +18,7 @@ URxvt*perl-ext-common:default,matcher
 URxvt*matcher.button:3
 URxvt*keysym.C-Return: perl:matcher
 URxvt.urlLauncher:firefox
+URxvt*14755_52:false
 ! }}}
 ! rxvt {{{
 Rxvt*visualBell:true
