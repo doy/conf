@@ -13,6 +13,7 @@ export EDITOR='/usr/bin/vim'
 export DARCS_SSH='/home/doy/.bin/ssh'
 export DARCS_SCP='/home/doy/.bin/scp'
 export DARCS_SFTP='/home/doy/.bin/sftp'
+export GIT_SSH='/home/doy/.bin/ssh'
 export PERL5LIB='/home/doy/.perl/:/home/doy/.perl/lib/perl5/site_perl/5.10.0/i686-linux/'
 export CVS_RSH='ssh'
 export TEXINPUTS=".:~/conf/tex:"
