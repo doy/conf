@@ -1,4 +1,9 @@
-if [[ -n "$(which tput)" && "$(__tmp=$(tput setf 0); echo $?)" == "0" ]]; then
+function test_tput {
+    local tmp
+    [[ -x "$(which tput)" ]] || return 1
+    tmp=$(tput setf 0)
+}
+if test_tput; then
     GRAY=$(tput setf 8)
     BLACK=$(tput setf 0)
     RED=$(tput setf 4)
