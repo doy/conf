@@ -205,7 +205,7 @@ function _set_vcs {
     __vcs="(${vcs:0:1}${vcs_dirty})"
 }
 export PROMPT_COMMAND="_set_error;_set_vcs;$PROMPT_COMMAND"
-export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W\[${CYAN}\]\$__vcs \[${HIBLUE}\]$\[${NORM}\] "
+export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W\[${CYAN}\]\$__vcs \[${HIBLUE}\]\\$\[${NORM}\] "
 # }}}
 # }}}
 # external files {{{
