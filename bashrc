@@ -142,8 +142,7 @@ else
 fi
 # prompt {{{
 function _set_error {
-    __error=$?
-    __error=$(printf %03d $__error)
+    __error=$(printf %03d $?)
     if [[ $__error -ne 0 ]]; then
         __error_color=$HIRED
     else
