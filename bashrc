@@ -149,8 +149,63 @@ function _set_error {
         __error_color=$NORM
     fi
 }
-export PROMPT_COMMAND="_set_error;$PROMPT_COMMAND"
-export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W $\[${NORM}\] "
+function _set_vcs {
+    local vcs
+    local vcs_dirty
+    __vcs=''
+    function _find_upwards {
+        local pwd
+        pwd=$(pwd)
+        while [[ -n "$pwd" ]]; do
+            if [[ -d "$pwd/$1" ]]; then
+                return 0
+            fi
+            pwd=${pwd%/*}
+        done
+        return 1
+    }
+    function _find_svn {
+        [[ -d '.svn' ]] || return 1
+        vcs='svn'
+    }
+    function _find_darcs {
+        if _find_upwards '_darcs'; then
+            vcs='darcs'
+            return 0
+        fi
+        return 1
+    }
+    function _find_git {
+        if _find_upwards '.git'; then
+            vcs='git'
+            return 0
+        fi
+        return 1
+    }
+
+    _find_svn || _find_darcs || _find_git
+
+    case "$vcs" in
+        svn)
+            vcs_dirty=$([[ -n "$(svn status)" ]]; echo $?)
+        ;;
+        darcs)
+            vcs_dirty=$(darcs whatsnew > /dev/null 2>&1; echo $?)
+        ;;
+        git)
+            vcs_dirty=$(git status -a > /dev/null 2>&1; echo $?)
+        ;;
+        *) return 0 ;;
+    esac
+    if [[ "$vcs_dirty" -eq 0 ]]; then
+        vcs_dirty='*'
+    else
+        vcs_dirty=''
+    fi
+    __vcs="(${vcs}${vcs_dirty})"
+}
+export PROMPT_COMMAND="_set_error;_set_vcs;$PROMPT_COMMAND"
+export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W\[${CYAN}\]\$__vcs \[${HIBLUE}\]$\[${NORM}\] "
 # }}}
 # }}}
 # external files {{{
