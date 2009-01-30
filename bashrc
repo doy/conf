@@ -135,12 +135,24 @@ shopt -s histappend
 set -o vi
 export HISTCONTROL=ignoredups
 export PATH="~/.bin/marathon:~/.bin/nethack:~/.bin:${PATH}:/usr/local/sbin:/usr/local/bin"
-export PS1='$(_tmp=$(printf %03d $?); echo "${_tmp/*[1-9]*/\['${HIRED}'\]$_tmp}" "\['${HIYELLOW}'\][\t] \['${HIGREEN}'\]\u@\h\['${HIBLUE}'\] \W $\['${NORM}'\] ")'
 if [[ -z "$PROMPT_COMMAND" ]]; then
     export PROMPT_COMMAND='history -a'
 else
     export PROMPT_COMMAND="${PROMPT_COMMAND};history -a"
 fi
+# prompt {{{
+function _set_error {
+    __error=$?
+    __error=$(printf %03d $__error)
+    if [[ $__error -ne 0 ]]; then
+        __error_color=$HIRED
+    else
+        __error_color=$NORM
+    fi
+}
+export PROMPT_COMMAND="_set_error;$PROMPT_COMMAND"
+export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W $\[${NORM}\] "
+# }}}
 # }}}
 # external files {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
