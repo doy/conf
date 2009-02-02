@@ -19,10 +19,10 @@ key end = 360,  36,  'G'
 key screen-help = '1',  265,  8
 
 ## Pause
-key pause = 'p'
+key pause = 'p',  32
 
 ## Stop
-key stop = 's',  263
+key stop = 's',  263,  127
 
 ## Next track
 key next = 62,  'l'
@@ -41,6 +41,9 @@ key volume-up = 43,  259
 
 ## Decrease volume
 key volume-down = 45,  258
+
+## Select/deselect song in playlist
+key select = 46
 
 ## Locate song in browser
 key locate = 'F'
