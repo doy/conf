@@ -17,7 +17,7 @@ syn keyword TAEBlevelhigh ERROR CRITICAL EMERGENCY
             \ contained
 syn match   TAEBinfo      /^.\{-}\]/
             \ contains=TAEBturn,TAEBtime,TAEBmsgtype
-syn match   TAEBtime      /.\{-}:/
+syn match   TAEBtime      /\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d/
             \ display nextgroup=TAEBmsgtype skipwhite contained
 syn match   TAEBturn      /^<T\(-\|\d\+\)>/
             \ display nextgroup=TAEBtime skipwhite contained
