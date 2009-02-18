@@ -214,6 +214,7 @@ export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
 [ -f "~/.keychain/${HOSTNAME}-sh" ] && source "~/.keychain/${HOSTNAME}-sh"
 source ~/.bash/cdhist.sh
+source ~/.bash/j.sh
 # }}}
 # fortune {{{
 fortune -n300 -s ~/.fortune | grep -v -E "^$"
