@@ -22,13 +22,13 @@
 "   autocmd BufWinEnter * runtime plugin/rainbow_parens.vim
 
 if exists("g:rainbow") && g:rainbow != 0
-  hi level1c ctermfg=darkcyan    guifg=darkcyan
-  hi level2c ctermfg=darkgreen   guifg=darkgreen
-  hi level3c ctermfg=darkyellow  guifg=darkyellow
-  hi level4c ctermfg=darkblue    guifg=darkblue
-  hi level5c ctermfg=darkmagenta guifg=darkmagenta
+  hi level1c ctermfg=darkcyan    guifg=cyan
+  hi level2c ctermfg=darkgreen   guifg=green
+  hi level3c ctermfg=darkyellow  guifg=yellow
+  hi level4c ctermfg=darkblue    guifg=blue
+  hi level5c ctermfg=darkmagenta guifg=magenta
   " this color is never nested, it only appears on the outermost layer
-  hi level6c ctermfg=darkred     guifg=darkred
+  hi level6c ctermfg=darkred     guifg=red
 
   " helper function
   func s:DoSyn(cur, top, left, right, uniq)
