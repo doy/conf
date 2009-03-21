@@ -17,6 +17,8 @@ export GIT_SSH='/home/doy/.bin/ssh'
 export PERL5LIB='/home/doy/.perl:/home/doy/.perl/lib/perl5/site_perl/5.10.0/i686-linux'
 export CVS_RSH='ssh'
 export TEXINPUTS=".:~/conf/tex:"
+export NHBOT_DARCS_AUTHOR="doy@tozt.net"
+export NHBOT_PUBLIC_REPO_BASE="http://tozt.net/code/"
 [ -x /usr/bin/lesspipe ] && export LESSOPEN='|/usr/bin/lesspipe %s'
 [ -x /usr/bin/lesspipe.sh ] && export LESSOPEN='|/usr/bin/lesspipe.sh %s'
 # }}}
