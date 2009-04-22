@@ -137,6 +137,8 @@ shopt -s checkwinsize
 shopt -s histappend
 set -o vi
 export HISTCONTROL=ignoredups
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
 export PATH="~/.bin/marathon:~/.bin/nethack:~/.bin:${PATH}:/usr/local/sbin:/usr/local/bin"
 if [[ -z "$PROMPT_COMMAND" ]]; then
     export PROMPT_COMMAND='history -a'
