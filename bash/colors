@@ -1,6 +1,6 @@
 function test_tput {
     local tmp
-    [[ -x "$(which tput)" ]] || return 1
+    [[ -x "$(which tput 2>/dev/null)" ]] || return 1
     tmp=$(tput setf 0)
 }
 if test_tput; then
