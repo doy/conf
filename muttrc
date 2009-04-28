@@ -1,0 +1,17 @@
+set folder="imap://doy@mail.tozt.net"
+set spoolfile="imap://doy@mail.tozt.net/INBOX"
+set record="=Sent"
+set postponed="=Drafts"
+unset imap_passive
+set imap_check_subscribed
+set timeout=60
+set mail_check=60
+set header_cache=~/.mutt_cache
+set message_cachedir=~/.mutt_cache
+set net_inc=5
+set move=no
+bind index G imap-fetch-mail
+macro index S <save-message>=spam<enter><enter>
+ignore *
+unignore from date subject to cc reply-to list-id x-mailing-list x-spam-status
+hdr_order from date to cc reply-to list-id x-mailing-list x-spam-status subject

@@ -8,6 +8,7 @@ files="abcde.conf
        crawlrc
        gtkrc
        inputrc
+       muttrc
        nethackrc
        screenrc
        vimrc
