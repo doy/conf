@@ -154,6 +154,10 @@ if has("autocmd") && exists("+omnifunc")
 endif
 
 let mapleader = ';'
+
+if exists("+undofile")
+    set undofile
+endif
 " }}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
