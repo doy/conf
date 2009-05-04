@@ -20,6 +20,8 @@ vim/plugin/matchit.vim
 - distributed with vim
 vim/plugin/rainbow_paren.vim
 - by Sartak, Michael R Geddes, etc
+vim/plugin/snippetsEmu.vim vim/after/ftplugin/*snippets.vim
+- http://www.vim.org/scripts/script.php?script_id=1318
 vim/plugin/supertab.vim
 - http://www.vim.org/scripts/script.php?script_id=1643
 vim/plugin/surround.vim
