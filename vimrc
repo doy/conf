@@ -144,6 +144,7 @@ set isfname+=:
 " tab completion stuff for the command line
 set wildmode=longest,list,full
 
+" don't jump to search results until i actually do the search
 set noincsearch
 
 " always make the help window cover the entire screen
