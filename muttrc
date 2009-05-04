@@ -11,7 +11,7 @@ set message_cachedir=~/.mutt_cache
 set net_inc=5
 set move=no
 bind index G imap-fetch-mail
-macro index S <save-message>=spam<enter><enter>
+macro index S <read-thread><save-message>=spam<enter><enter>
 ignore *
 unignore from date subject to cc reply-to list-id x-mailing-list x-spam-status
 hdr_order from date to cc reply-to list-id x-mailing-list x-spam-status subject
