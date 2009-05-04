@@ -34,5 +34,7 @@ vim/syntax/levdes.vim
 - Darshan Shaligram
 vim/syntax/nhdes.vim
 - http://bilious.homelinux.org/~paxed/nethack/nhdes.vim
+vim/syntax/perl.vim
+- http://www.vim.org/scripts/script.php?script_id=2526
 bin/nethack/* (other than combine_ttyrecs, devnull, mark_asc, and termcast)
 - various #nethack people (jilles, paxed, Sartak, etc?)
