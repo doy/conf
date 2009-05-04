@@ -1,0 +1,38 @@
+bash/j.sh
+- git://github.com/rupa/j.git
+bash/cdhist.sh
+- git://github.com/kana/config.git
+bin/colors
+- http://www.linuxfocus.org/English/May2004/article335.shtml
+bin/procmem
+- http://www.xfree86.org/pipermail/forum/2003-April/003370.html
+bin/vimmanpager
+- gentoo/eclass/vim.eclass, somewhere in the middle
+repl.rc
+- http://sartak.org/conf/repl.rc
+vimrc
+- originally based on http://sartak.org/conf/vimrc
+vim/plugin/EnhancedCommentify.vim vim/ftplugin/*enhcomm.vim
+- http://www.vim.org/scripts/script.php?script_id=23
+vim/plugin/NERD_tree.vim
+- http://www.vim.org/scripts/script.php?script_id=1658
+vim/plugin/matchit.vim
+- distributed with vim
+vim/plugin/rainbow_paren.vim
+- by Sartak, Michael R Geddes, etc
+vim/plugin/supertab.vim
+- http://www.vim.org/scripts/script.php?script_id=1643
+vim/plugin/surround.vim
+- http://www.vim.org/scripts/script.php?script_id=1697
+vim/plugin/taglist.vim
+- http://www.vim.org/scripts/script.php?script_id=273
+vim/syntax/conkyrc.vim
+- based on http://www.vim.org/scripts/script.php?script_id=1367
+vim/syntax/hiveminder.vim
+- http://www.vim.org/scripts/script.php?script_id=2106
+vim/syntax/levdes.vim
+- Darshan Shaligram
+vim/syntax/nhdes.vim
+- http://bilious.homelinux.org/~paxed/nethack/nhdes.vim
+bin/nethack/* (other than combine_ttyrecs, devnull, mark_asc, and termcast)
+- various #nethack people (jilles, paxed, Sartak, etc?)
