@@ -146,6 +146,9 @@ set wildmode=longest,list,full
 
 set noincsearch
 
+" always make the help window cover the entire screen
+set helpheight=9999
+
 if has("autocmd") && exists("+omnifunc")
     autocmd FileType *
                 \   if &omnifunc == "" |
