@@ -8,6 +8,12 @@ bin/procmem
 - http://www.xfree86.org/pipermail/forum/2003-April/003370.html
 bin/vimmanpager
 - gentoo/eclass/vim.eclass, somewhere in the middle
+irssi/{autowrap,bitlbee*,hilightwin,nickcolor,nicklist,thistory}.pl
+- http://scripts.irssi.org/
+irssi/chanact.pl
+- originally from http://scripts.irssi.org/, with modifications by Sartak
+irssi/trackbar.pl
+- originally from http://scripts.irssi.org/, with modifications by soliton
 repl.rc
 - http://sartak.org/conf/repl.rc
 vimrc
