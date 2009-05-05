@@ -8,7 +8,7 @@
 export MPD_HOST=bishamon
 export LUA_CPATH='/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?/init.so;./?.so'
 export LUA_PATH='/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;?.lua'
-export MANPAGER='~/.bin/vimmanpager'
+export MANPAGER="${HOME}/.bin/vimmanpager"
 export EDITOR='/usr/bin/vim'
 export DARCS_SSH='~/.bin/ssh'
 export DARCS_SCP='~/.bin/scp'
