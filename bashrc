@@ -157,6 +157,7 @@ function _set_error {
 function _set_vcs {
     local vcs
     local vcs_dirty
+    local vcs_branch
     __vcs=''
     function _find_upwards {
         local pwd
@@ -193,12 +194,19 @@ function _set_vcs {
     case "$vcs" in
         svn)
             vcs_dirty=$([[ -n "$(svn status | grep -v '^?')" ]]; echo $?)
+            vcs_branch=
         ;;
         darcs)
             vcs_dirty=$(darcs whatsnew > /dev/null 2>&1; echo $?)
+            vcs_branch=
         ;;
         git)
             vcs_dirty=$(git status -a > /dev/null 2>&1; echo $?)
+            vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null)
+            vcs_branch=${vcs_branch#refs/heads/}
+            if [[ "x$vcs_branch" == "xmaster" ]]; then
+                vcs_branch=''
+            fi
         ;;
         *) return 0 ;;
     esac
@@ -207,7 +215,10 @@ function _set_vcs {
     else
         vcs_dirty=''
     fi
-    __vcs="(${vcs:0:1}${vcs_dirty})"
+    if [[ -n "$vcs_branch" ]]; then
+        vcs_branch=":$vcs_branch"
+    fi
+    __vcs="(${vcs:0:1}${vcs_dirty}${vcs_branch})"
 }
 export PROMPT_COMMAND="_set_error;_set_vcs;$PROMPT_COMMAND"
 export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W\[${CYAN}\]\$__vcs \[${HIBLUE}\]\\$\[${NORM}\] "
