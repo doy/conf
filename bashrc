@@ -227,7 +227,6 @@ export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h
 # external files {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
-[ -f "~/.keychain/${HOSTNAME}-sh" ] && source "~/.keychain/${HOSTNAME}-sh"
 source ~/.bash/cdhist.sh
 source ~/.bash/j.sh
 # }}}
