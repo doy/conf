@@ -1,0 +1,8 @@
+[user]
+	email = doy@tozt.net
+	name = Jesse Luehrs
+[alias]
+	pushall = !git push origin master && git push github master
+[github]
+	user = doy
+	token = 5df7a7841fd64ddc83c63342765f1747
