@@ -192,7 +192,7 @@ function _set_vcs {
 
     case "$vcs" in
         svn)
-            vcs_dirty=$([[ -n "$(svn status)" ]]; echo $?)
+            vcs_dirty=$([[ -n "$(svn status | grep -v '^?')" ]]; echo $?)
         ;;
         darcs)
             vcs_dirty=$(darcs whatsnew > /dev/null 2>&1; echo $?)
