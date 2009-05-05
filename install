@@ -6,6 +6,7 @@ files="abcde.conf
        bashrc
        conkyrc
        crawlrc
+       gitconfig
        gtkrc
        inputrc
        muttrc
