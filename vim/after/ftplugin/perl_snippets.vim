@@ -7,6 +7,18 @@ endif
 
 source ~/.vim/after/ftplugin/moose_snippets.vim
 
+call Snippet('if', [
+            \"if (<{cond}>) {",
+            \    "<{}>",
+            \"}"])
+call Snippet('elsif', [
+            \"elsif (<{cond}>) {",
+            \    "<{}>",
+            \"}"])
+call Snippet('else', [
+            \"else {",
+            \    "<{}>",
+            \"}"])
 call Snippet('for', [
             \"for my $<{var}> (<{list}>) {",
             \    "<{}>",
