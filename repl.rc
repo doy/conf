@@ -1,8 +1,8 @@
 # vim:syntax=perl:
-
-package main;
-# this is for Perl's Devel::REPL. it goes in ~/.re.pl/repl.rc
-
+#
+#package main;
+## this is for Perl's Devel::REPL. it goes in ~/.re.pl/repl.rc
+#
 use lib 'lib';
 
 no warnings 'redefine';
@@ -11,7 +11,7 @@ use List::Util qw(first max maxstr min minstr reduce shuffle sum);
 use List::MoreUtils ':all';
 use Scalar::Util qw(blessed weaken isweak tainted);
 use Scalar::Defer qw(lazy defer force);
-use Carp::Clan qw(verbose Devel::REPL:: Moose:: Lexical::Persistence::);
+use Carp::Clan qw(verbose Devel::REPL:: Moose:: Class::MOP:: Lexical::Persistence::);
 
 *fold = \&reduce;
 
@@ -27,7 +27,9 @@ my @plugins = (
     'Nopaste',                    # paste session with #nopaste
     'PPI',                        # PPI dumping of Perl code
     'MultiLine::PPI',             # allow multiple lines
+    'LoadClass',                  # automatically load unloaded classes
 
+    'Completion',
     'CompletionDriver::Keywords', # substr, while, etc
     'CompletionDriver::LexEnv',   # current environment
     'CompletionDriver::Globals',  # global variables
@@ -38,7 +40,7 @@ my @plugins = (
 
 $_REPL->load_plugin($_) for @plugins;
 $_REPL->fancy_prompt(sub { '> ' } );
-$_REPL->fancy_continuation_prompt(sub { '>' x ($_[0]->line_depth+1) . ' ' });
+$_REPL->fancy_continuation_prompt(sub { '> ' . ('    ' x $_[0]->line_depth) });
 
 # if at ~/work/foo/bar, load ~/.re.pl/work-foo-bar as well!
 my $cd = $ENV{PWD};
