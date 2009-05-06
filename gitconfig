@@ -3,6 +3,7 @@
 	name = Jesse Luehrs
 [alias]
 	pushall = !git push origin master && git push github master
+	amend = commit --amend
 [github]
 	user = doy
 [color]
