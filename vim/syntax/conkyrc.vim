@@ -22,10 +22,10 @@ syn keyword ConkyrcSetting
       \ net_avg_samples override_utf8_locale own_window own_window_transparent
       \ own_window_class own_window_hints own_window_title own_window_type
       \ own_window_colour pad_percents stippled_borders total_run_times
-      \ update_interval uppercase use_spacer use_xft out_to_console pop3
-      \ short_units xftalpha xftfont
+      \ temperature_unit update_interval uppercase use_spacer use_xft
+      \ out_to_console pop3 short_units xftalpha xftfont
 
-syn keyword ConkyrcConstant yes no top_left top_right top_middle bottom_left bottom_right bottom_middle middle_left middle_right tl tr tm bl br bm ml mr none right left
+syn keyword ConkyrcConstant yes no top_left top_right top_middle bottom_left bottom_right bottom_middle middle_left middle_right tl tr tm bl br bm ml mr none right left fahrenheit celcius
 
 syn match ConkyrcNumber /\S\@<!\d\+\(\.\d\+\)\?\(\S\@!\|}\@=\)/
       \ nextgroup=ConkyrcNumber,ConkyrcColour skipwhite
