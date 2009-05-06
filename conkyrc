@@ -26,13 +26,14 @@ gap_x              4
 gap_y              4
 short_units        yes
 use_spacer         left
+temperature_unit   fahrenheit
 
 TEXT
 ${alignc}${color}${nodename} - ${sysname} ${kernel} on ${machine}
 ${alignc}${time %T   %a %b %d}
 ${color1}Uptime:${color}    ${uptime}
-${color1}CPU Temp:${color}  ${ibm_tempsf 0}F
-${color1}GPU Temp:${color}  ${ibm_tempsf 3}F
+${color1}CPU Temp:${color}  ${ibm_temps 0}F
+${color1}GPU Temp:${color}  ${ibm_temps 3}F
 ${color1}Battery:${color}   ${battery} (${battery_time}) ${battery_bar}
 ${color1}Fan Speed:${color} ${ibm_fan}RPM
 ${color}${hr}
