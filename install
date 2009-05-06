@@ -7,6 +7,7 @@ files="abcde.conf
        conkyrc
        crawlrc
        gitconfig
+       gitignore
        gtkrc
        inputrc
        muttrc
