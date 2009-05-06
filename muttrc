@@ -5,7 +5,8 @@ set record="=Sent"
 set postponed="=Drafts"
 
 # personal settings
-set alternates="jluehrs2@(uiuc|illinois).edu"
+# mutt on tozt doesn't support this
+#set alternates="jluehrs2@(uiuc|illinois).edu"
 
 # imap settings
 set imap_passive=no
@@ -25,6 +26,7 @@ set confirmappend=no
 set include
 set reverse_name
 set fast_reply
+set reply_to=no
 
 # display
 set pager_stop
