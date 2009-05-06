@@ -9,5 +9,6 @@
 	diff = auto
 	status = auto
 	branch = auto
+	interactive = auto
 [core]
 	excludesfile = /home/doy/.gitignore
