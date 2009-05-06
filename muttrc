@@ -35,7 +35,7 @@ set beep=no
 
 # macros
 bind index G imap-fetch-mail
-macro index S <read-thread><save-message>=spam
+macro index S <read-thread><save-message>=spam<enter>
 
 # header display
 ignore *
