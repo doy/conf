@@ -250,8 +250,6 @@ autocmd BufReadPost *
 \    exe "normal g`\"" |
 \  endif
 " }}}
-" Skeletons {{{
-" }}}
 " Auto +x {{{
 au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
 " }}}
