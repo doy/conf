@@ -1,16 +1,21 @@
 " See http://www.vim.org/scripts/script.php?script_id=1318
-" Written by Sartak, feel free to add your own!
+" Written by Sartak and doy, feel free to add your own!
 
 if !exists('loaded_snippet') || &cp
     finish
 endif
 
-function RemoveEmptySuperClass()
+function! RemoveEmptySuperClass()
     s/^extends '<{}>';\n//e
     return @z
 endfun
 
-function Snippet(abbr, str)
+function! RemoveEmptyLine()
+    s/^\s*<{}>\s*\n//e
+    return @z
+endfun
+
+function! Snippet(abbr, str)
     if type(a:str) == type([])
         return Snippet(a:abbr, join(a:str, "\n"))
     endif
@@ -23,7 +28,7 @@ function Snippet(abbr, str)
     exec 'Snippet '.a:abbr.' '.str
 endfunction
 
-function SnippetFile(filename)
+function! SnippetFile(filename)
     let abbr = fnamemodify(a:filename, ':t:r')
     let str = readfile(a:filename)
     return Snippet(abbr, str)
@@ -45,14 +50,14 @@ call Snippet('has', [
             \"has <{attr}> => (",
             \    "is  => '<{rw}>',",
             \    "isa => '<{Str}>',",
-            \    "<{}>",
+            \    "<{options:RemoveEmptyLine()}>",
             \");"])
 call Snippet('hasl', [
             \"has <{attr}> => (",
             \    "is         => '<{rw}>',",
             \    "isa        => '<{Str}>',",
             \    "lazy_build => 1,",
-            \    "<{}>",
+            \    "<{options:RemoveEmptyLine()}>",
             \");",
             \"",
             \"sub _build_<{attr}> {",
@@ -66,7 +71,7 @@ call Snippet('sub', [
             \"}"])
 call Snippet('around', [
             \"around <{name}> => sub {",
-            \    "my $orig = shift;",
+            \    "my $<{next}> = shift;",
             \    "my $self = shift;",
             \    "<{}>",
             \"};"])
