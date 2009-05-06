@@ -1,0 +1,18 @@
+:0
+{
+    :0c:
+    $folder
+
+    :0
+    * LASTFOLDER ?? /\/[^/]+$
+    { tail=$MATCH }
+
+    file_read_base="${folder}cur/${tail}"
+    file_new=$LASTFOLDER
+    # pretty hackish, but what can you do
+    file_cur="${file_read_base}*"
+    file_read="${file_read_base}:2,S"
+    TRAP="mv $file_new $file_read 2>/dev/null || mv $file_cur $file_read 2>/dev/null"
+
+    HOST
+}

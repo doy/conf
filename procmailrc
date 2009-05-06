@@ -1,0 +1,350 @@
+# vars {{{
+#VERBOSE=yes
+UIUC=(uiuc|illinois|uillinois)
+# }}}
+# spam {{{
+# at least two of these conditions have to match (this is a bit more
+# permissive than perhaps it should be, but i don't think it will catch
+# any false positives
+:0
+* -1^0
+*  1^0 ^Subject:.*Daily error monitoring report
+*  1^0 ^Subject: INSOMNIACS.*(left the list|error report from)
+*  1^0 ^From.*LISTSERV@LISTSERV.ILLINOIS.EDU
+*  1^0 ^Subject:.*Luairc-commits moderator request
+*  1^0 ^TO_luairc-commits-owner@lists.luaforge.net
+{
+    folder=${DEFAULT}.Trash/
+    SWITCHRC=$HOME/.procmail/mark_as_read
+}
+
+:0
+* ^X-Spam-Flag: YES
+{
+    folder=$SPAM
+    SWITCHRC=$HOME/.procmail/mark_as_read
+}
+# }}}
+# filters {{{
+# mailing lists/trackers {{{
+:0: # crawl {{{
+* ^Subject:.*crawl-ref
+* ^From.*sourceforge.*
+.mailing\ lists.crawl/
+# catches dpeg and jpeg
+:0:
+* ^From.*ploog@mi.fu-berlin.de
+.mailing\ lists.crawl/
+# }}}
+:0: # hiveminder-api {{{
+* ^TO_hiveminder-api@googlegroups.com
+.mailing\ lists.hiveminder/
+# }}}
+:0: # aleph one {{{
+* ^TO_marathon-devel@lists.sourceforge.net
+.old.mailing\ lists.alephone/
+# }}}
+:0: # trace bundy {{{
+* ^TO_.*trace@tracebundy.com
+.old.mailing\ lists.trace\ bundy/
+# }}}
+:0: # nomic {{{
+* ^TO_netmonster-nomic@googlegroups.com
+.mailing\ lists.nomic/
+# }}}
+# }}}
+# school {{{
+# acm {{{
+:0
+*$ ^TO_.*@acm.${UIUC}.edu
+{
+    :0: # gamebuilders {{{
+    * ^TO_gamebuilders
+    .old.acm.gamebuilders/
+    # }}}
+    :0: # gb-dev {{{
+    * ^TO_gb-dev
+    .old.acm.gb-dev/
+    # }}}
+    :0: # job list {{{
+    * ^TO_jobs-l
+    .school.acm.job\ list/
+    # }}}
+    :0: # lug {{{
+    * ^TO_lug-l
+    .old.acm.lug/
+    # }}}
+    :0: # sigembedded {{{
+    * ^TO_sigembedded-l
+    .old.acm.sigembedded/
+    # }}}
+    :0: # sigmusic {{{
+    * ^TO_sigmusic-l
+    .old.acm.sigmusic/
+    # }}}
+    :0: # sigops {{{
+    * ^TO_sigops-l
+    .old.acm.sigops/
+    # }}}
+    :0: # sigsoft {{{
+    * ^TO_sigsoft-l
+    .old.acm.sigsoft/
+    # }}}
+    :0: # sigunix {{{
+    * ^TO_sigunix-l
+    .old.acm.sigunix/
+    # }}}
+    :0:
+    .school.acm/
+}
+# }}}
+# clubs {{{
+:0: # falling illini {{{
+* ^TO_fallingillini-club@fallingillini.org
+.school.clubs.falling\ illini/
+# }}}
+:0: # inline {{{
+* ^TO_INSOMNIACS-L@LISTSERV.ILLINOIS.EDU
+.school.clubs.inline\ insomniacs/
+# }}}
+:0: # dance {{{
+* 1^0 ^From.*@isalsa2.org
+* 1^0 ^From.*@mamboitaliano.us
+* 1^0 ^From.*jim@ks.uiuc.edu
+.old.clubs.dance/
+# }}}
+:0: # listserv {{{
+* ^TO_cites-listserv-owners@illinois.edu
+.school.clubs/
+# }}}
+:0: # iurso {{{
+* ^From.*iurso@${UIUC}.edu
+.school.clubs/
+# }}}
+# }}}
+:0 # massmail {{{
+*$ ^TO_everybody@${UIUC}.edu
+{
+    :0:
+    * 1^0 ^Subject: MASSMAIL
+    * 1^0 B ?? ^This Message sent via MASSMAIL\.
+    .school.massmail/
+}
+# }}}
+:0: # study abroad {{{
+* ^TO_STUDYABROAD-L@LISTSERV.ILLINOIS.EDU
+.old.study\ abroad/
+# }}}
+:0: # housing {{{
+* 1^0 ^From.*@jsmapts.com
+* 1^0 ^From.*@rentpayment.com
+.school.housing/
+# }}}
+# }}}
+# websites {{{
+:0: # 30 boxes {{{
+* ^From.*@30boxes.com
+.old.websites.organization.30boxes/
+# }}}
+:0: # campusfood {{{
+* ^From.*@campusfood.com
+.websites.shopping.food/
+# }}}
+:0: # couchsurfing {{{
+* ^From.*noreply@couchsurfing.com
+.websites.community.couchsurfing/
+# }}}
+:0: # cpan {{{
+* ^TO_DOY@cpan.org
+.websites.projects.cpan/
+:0:
+* ^TO_cpan-testers@perl.org
+.websites.cpan/
+:0:
+* ^From.*upload@pause.fiz-chemie.de
+.websites.cpan/
+:0:
+* ^From.*@rt.cpan.org
+.websites.cpan/
+# }}}
+:0: # facebook {{{
+* ^From.*@facebookmail.com
+.websites.community.facebook/
+# }}}
+:0: # hiveminder {{{
+* 1^0 ^X-Hiveminder
+* 1^0 ^X-Twittersendername: Hiveminder
+.websites.organization.hiveminder/
+# }}}
+:0: # last.fm {{{
+* ^From.*no-reply@(mailer.)last.fm
+.websites.community.lastfm/
+# }}}
+:0: # livejournal {{{
+* ^From.*@livejournal.com
+.websites.community.lj/
+# }}}
+:0: # luaforge {{{
+* ^Sender:.*www-data@luaforge.net
+.websites.projects.luaforge/
+# }}}
+:0: # jott {{{
+* ^From.*notify@jott.com
+.old.websites.organization.jott/
+# }}}
+:0: # aerlingus {{{
+* ^From.*@aerlingus.chtah.com
+.websites.travel.airlines/
+# }}}
+:0: # babeland {{{
+* ^From.*@babeland.com
+.websites.shopping.babeland/
+# }}}
+:0: # sky europe {{{
+* ^From.*skyeurope.com
+.websites.travel.airlines/
+# }}}
+:0: # dynadot {{{
+* ^From.*@dynadot.com
+.websites.other.dynadot/
+# }}}
+:0: # sg {{{
+* ^From.*@suicidegirls.com
+.websites.fun.sg/
+# }}}
+:0: # wegottickets {{{
+* ^From.*@wegottickets.com
+.websites.fun.concerts/
+# }}}
+:0: # greeka {{{
+* ^From.*@greeka.com
+.websites.travel/
+# }}}
+:0: # summitonline {{{
+* ^From.*@summitonline.com
+.websites.shopping.skating/
+# }}}
+:0: # kongregate {{{
+* ^From.*@kongregate.com
+.websites.fun.kongregate/
+# }}}
+:0: # newegg {{{
+* ^From.*@newegg.com
+.websites.shopping.newegg/
+# }}}
+:0: # easyjet {{{
+* ^From.*@mail.easyjet.com
+.websites.travel.airlines/
+# }}}
+:0: # amazon {{{
+* ^From.*@amazon.com
+.websites.shopping.amazon/
+# }}}
+:0: # wachovia {{{
+* ^From.*wachovia.com
+.websites.money.loans/
+# }}}
+:0: # codeweavers {{{
+* ^From.*@codeweavers.com
+.websites.projects/
+# }}}
+:0: # boingo {{{
+* ^From.*@boingo.*.com
+.websites.travel.internet/
+# }}}
+:0: # personal {{{
+* 1^0 ^From.*jimluehrs@yahoo.com
+* 1^0 ^From.*hipkit124@aol.com
+* 1^0 ^From.*forcol@aol.com
+* 1^0 ^From.*rangerjack@mchsi.com
+* 1^0 ^From.*dcress@western.edu
+* 1^0 ^From.*Roawendy@aol.com
+* 1^0 ^From.*judemag58@yahoo.com
+.personal/
+# }}}
+:0: # hostelworld {{{
+* ^From.*@hostelworld.com
+.websites.travel.hostels/
+# }}}
+:0: # achewood {{{
+* ^From.*@achewood.com
+.websites.fun.webcomics/
+# }}}
+:0: # paypal {{{
+* ^From.*paypal.com
+.websites.money.paypal/
+# }}}
+:0: # everydns {{{
+* ^From.*@everydns.net
+.websites.other.everydns/
+# }}}
+:0: # scuba diving {{{
+* 1^0 ^From.*webmaster@padi.com
+* 1^0 ^From.*padi@padidiver.com
+* 1^0 ^From.*info@naxosdiving.com
+.websites.fun.scuba\ diving/
+# }}}
+:0: # ticketmaster {{{
+* ^From.*@.*ticketmaster.com
+.websites.fun.concerts/
+# }}}
+:0: # livenation {{{
+* ^From.*@.*livenationent.com
+.websites.fun.concerts/
+# }}}
+:0: # sourceforge {{{
+* ^From.*@.*sourceforge.net
+.websites.projects.sourceforge/
+# }}}
+:0: # frozen perl {{{
+* 1^0 ^From.*root@mongueurs.net
+* 1^0 ^From.*YET ANOTHER SOCIETY
+* 1^0 ^TO_frozen-perl-2009@googlegroups.com
+* 1^0 ^From.*leonard@umn.edu
+.mailing\ lists.frozen\ perl/
+# }}}
+:0: # aes {{{
+* ^From.*elabs7.com
+.websites.money.loans/
+# }}}
+:0: # youtube {{{
+* ^From.*service@youtube.com
+.websites.community.youtube/
+# }}}
+:0: # redoctane {{{
+* ^From.*orders@redoctane.com
+.websites.shopping.redoctane/
+# }}}
+# }}}
+# work {{{
+:0
+*$ 1^0 ^TO_hydro-lab@${UIUC}.edu
+*$ 1^0 ^TO_.*@aquifer.geology.${UIUC}.edu
+*$ 1^0 ^From.*uihrcomm@${UIUC}.edu
+*$ 1^0 ^TO_sese-(everyone|all-faculty)@earth.${UIUC}.edu
+*$ 1^0 ^From.*mkt@ad.${UIUC}.edu
+*$ 1^0 ^From.*phays@${UIUC}.edu
+*$ 1^0 ^From.*@.*sursls.org
+*$ 1^0 ^From.*bethke@${UIUC}.edu
+*$ 1^0 ^From.*tom@rockware.com
+*$ 1^0 ^From.*hatchel@ad.${UIUC}.edu
+*$ 1^0 ^From.*jbarrett@cyrus.psych.${UIUC}.edu
+*$ 1^0 ^From.*dyar@earth.${UIUC}.edu
+{
+    :0: # commits {{{
+    *  ^Subject: commit - revision
+    *$ ^From.*@aquifer.geology.${UIUC}.edu
+    .work.commits/
+    # }}}
+    :0:
+    .work/
+}
+# }}}
+# defaults {{{
+:0: # school catch-all {{{
+*$ 1^0 ^TO_.*@${UIUC}.edu
+*$ 1^0 ^From.*eweek@${UIUC}.edu
+.school/
+# }}}
+# }}}
+# }}}

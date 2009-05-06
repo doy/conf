@@ -11,6 +11,7 @@ files="abcde.conf
        inputrc
        muttrc
        nethackrc
+       procmailrc
        screenrc
        vimrc
        Xdefaults
@@ -19,6 +20,7 @@ files="abcde.conf
        irssi
        fortune
        ncmpc
+       procmail
        terminfo
        vim"
 
