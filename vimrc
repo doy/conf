@@ -257,7 +257,7 @@ au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
 autocmd BufWritePost * if filereadable('tags') | silent exe "!ctags -a %" | redraw | endif
 " }}}
 " Misc {{{
-autocmd BufWritePost .conkyrc silent exe "!killall -HUP conky"
+autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
 autocmd QuickFixCmdPost * copen 3
 " }}}
 " }}}
