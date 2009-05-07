@@ -539,4 +539,20 @@ let g:Skeleton_patterns = [
     \'Makefile.PL'
 \]
 " }}}
+" snippetsEmu {{{
+function HighlightSnipTags()
+    if &ft == 'perl'
+        " this is something of a hack, but... there's only so much you can do
+        " with vim syntax stuff
+        let extra = ' containedin=.*Var.*,.*Error'
+    else
+        let extra = ''
+    endif
+    exe 'syn match SnipTag /<{.\{-}}>/ contains=SnipTagInner'.extra
+    syn match SnipTagInner /<{\zs.\{-}\ze}>/ contained
+    hi link SnipTag Comment
+    hi link SnipTagInner Type
+endfunction
+autocmd BufWinEnter * call HighlightSnipTags()
+" }}}
 " }}}
