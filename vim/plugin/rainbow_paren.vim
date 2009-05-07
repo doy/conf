@@ -22,13 +22,20 @@
 "   autocmd BufWinEnter * runtime plugin/rainbow_parens.vim
 
 if exists("g:rainbow") && g:rainbow != 0
-  hi level1c ctermfg=darkcyan    guifg=cyan
-  hi level2c ctermfg=darkgreen   guifg=green
-  hi level3c ctermfg=darkyellow  guifg=yellow
-  hi level4c ctermfg=darkblue    guifg=blue
-  hi level5c ctermfg=darkmagenta guifg=magenta
+  if &ft == 'perl'
+    " wow, this is a huge huge hack, but indentation is broken without it
+    " see $VIMRUNTIME/indent/perl.vim:125-162
+    let s:basename = 'perlSubFoldRainbowLevel'
+  else
+    let s:basename = 'level'
+  endif
+  exe 'hi '.s:basename.'1c ctermfg=darkcyan    guifg=cyan'
+  exe 'hi '.s:basename.'2c ctermfg=darkgreen   guifg=green'
+  exe 'hi '.s:basename.'3c ctermfg=darkyellow  guifg=yellow'
+  exe 'hi '.s:basename.'4c ctermfg=darkblue    guifg=blue'
+  exe 'hi '.s:basename.'5c ctermfg=darkmagenta guifg=magenta'
   " this color is never nested, it only appears on the outermost layer
-  hi level6c ctermfg=darkred     guifg=red
+  exe 'hi '.s:basename.'6c ctermfg=darkred     guifg=red'
 
   " helper function
   func s:DoSyn(cur, top, left, right, uniq)
@@ -37,7 +44,7 @@ if exists("g:rainbow") && g:rainbow != 0
       let uniq = ""
     endif
 
-    let cmd = 'syn region level'.uniq.a:cur.' transparent fold matchgroup=level'.a:cur.'c start=/'.a:left.'/ end=/'.a:right.'/ contains=TOP'
+    let cmd = 'syn region '.s:basename.uniq.a:cur.' transparent fold matchgroup='.s:basename.a:cur.'c start=/'.a:left.'/ end=/'.a:right.'/ contains=TOP'
 
     let i = a:cur
 
@@ -46,7 +53,7 @@ if exists("g:rainbow") && g:rainbow != 0
     endif
 
     while i <= a:top
-      let cmd = cmd . ',level' . uniq . i
+      let cmd = cmd . ',' . s:basename . uniq . i
       let i = i + 1
     endwhile
     exe cmd
