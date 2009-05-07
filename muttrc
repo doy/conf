@@ -32,6 +32,7 @@ set reply_to=no
 set pager_stop
 set tilde
 set beep=no
+set beep_new
 
 # macros
 bind index G imap-fetch-mail
