@@ -41,3 +41,9 @@ call Snippet('st', [
             \"sort { $a->[1] <{cmp}> $b->[1] }",
             \"map { [$_, <{function}>] }",
             \"<{list}>"])
+call Snippet('tbl', [
+            \"local $Test::Builder::Level = $Test::Builder::Level + 1;",
+            \"<{}>"])
+call Snippet('ccl', [
+            \"local $Carp::CarpLevel = Carp::CarpLevel + 1;",
+            \"<{}>"])
