@@ -82,7 +82,7 @@ syn match perlStatementFiles		"-[rwxoRWXOezsfdlpSbctugkTBMAC]\>"
 syn match perlStatementFlow		"\<\%(caller\|die\|dump\|eval\|exit\|wantarray\)\>"
 syn match perlStatementInclude		"\<require\>"
 syn match perlStatementInclude		"\<\%(use\|no\)\s\+\%(\%(attributes\|attrs\|autouse\|base\|big\%(int\|num\|rat\)\|blib\|bytes\|charnames\|constant\|diagnostics\|encoding\%(::warnings\)\=\|feature\|fields\|filetest\|if\|integer\|less\|lib\|locale\|mro\|open\|ops\|overload\|re\|sigtrap\|sort\|strict\|subs\|threads\%(::shared\)\=\|utf8\|vars\|version\|vmsish\|warnings\%(::register\)\=\)\>\)\="
-syn match perlStatementProc		"\<\%(alarm\|blessed\|confess\|class_has\|exec\|fork\|get\%(pgrp\|ppid\|priority\)\|has\|inner\|is\|kill\|mutable\|pipe\|set\%(pgrp\|priority\)\|sleep\|super\|system\|times\|wait\%(pid\)\=\)\>"
+syn match perlStatementProc		"\<\%(alarm\|exec\|fork\|get\%(pgrp\|ppid\|priority\)\|kill\|pipe\|set\%(pgrp\|priority\)\|sleep\|system\|times\|wait\%(pid\)\=\)\>"
 syn match perlStatementSocket		"\<\%(acept\|bind\|connect\|get\%(peername\|sock\%(name\|opt\)\)\|listen\|recv\|send\|setsockopt\|shutdown\|socket\%(pair\)\=\)\>"
 syn match perlStatementIPC		"\<\%(msg\%(ctl\|get\|rcv\|snd\)\|sem\%(ctl\|get\|op\)\|shm\%(ctl\|get\|read\|write\)\)\>"
 syn match perlStatementNetwork		"\<\%(\%(end\|[gs]et\)\%(host\|net\|proto\|serv\)ent\|get\%(\%(host\|net\)by\%(addr\|name\)\|protoby\%(name\|number\)\|servby\%(name\|port\)\)\)\>"
@@ -347,30 +347,11 @@ else
     syn match perlSubAttributes "" contained nextgroup=perlSubError
     syn match perlSubAttributes ":\_s*" contained nextgroup=@perlSubAttrMaybe
 endif
-
 syn match perlSubPrototypeError "(\%(\_s*\%(\%(\\\%([$@%&*]\|\[[$@%&*]\+\]\)\|[$&*]\|[@%]\%(\_s*)\)\@=\|;\%(\_s*[)$@%&*\\]\)\@=\|_\%(\_s*[);]\)\@=\)\_s*\)*\)\@>\zs\_[^)]\+" contained
 syn match perlSubPrototype +(\_[^)]*)\_s*\|+ nextgroup=perlSubAttributes contained contains=perlSubPrototypeError
 syn match perlSubName +\%(\h\|::\|'\w\)\%(\w\|::\|'\w\)*\_s*\|+ contained nextgroup=perlSubPrototype
 
-syn match perlMethodName +\%(\h\|::\|'\w\)\%(\w\|::\|'\w\)*\_s*\|+ contained
-
 syn match perlFunction +\<sub\>\_s*+ nextgroup=perlSubName
-
-syn match perlFunction +\<class\>\_s*+ nextgroup=perlPackageRef
-
-syn match perlFunction +\<role\>\_s*+ nextgroup=perlPackageRef
-
-syn match perlFunction +\<extends\>\_s*+ nextgroup=perlPackageRef
-
-syn match perlFunction +\<with\>\_s*+ nextgroup=perlPackageRef
-
-syn match perlFunction +\<method\>\_s*+ nextgroup=perlMethodName
-
-syn match perlFunction +\<before\>\_s*+ nextgroup=perlMethodName
-syn match perlFunction +\<after\>\_s*+ nextgroup=perlMethodName
-syn match perlFunction +\<around\>\_s*+ nextgroup=perlMethodName
-syn match perlFunction +\<override\>\_s*+ nextgroup=perlMethodName
-syn match perlFunction +\<augment\>\_s*+ nextgroup=perlMethodName
 
 if !exists("perl_no_scope_in_variables")
    syn match  perlFunctionPRef	"\h\w*::" contained
@@ -382,9 +363,6 @@ endif
 " The => operator forces a bareword to the left of it to be interpreted as
 " a string
 syn match  perlString "\<\I\i*\%(\s*=>\)\@="
-
-"hilite Moose roles
-syn match perlString "\<Any\>\|\<Item\>\|\<Bool\>\|\<Maybe\>\|\<Undef\>\|\<Defined\>\|\<Value\>\|\<Num\>\|\<Int\>\|\<Str\>\|\<ClassName\>\|\<Ref\>\|\<ScalarRef\>\|\<ArrayRef\>\|\<HashRef\>\|\<CodeRef\>\|\<RegexpRef\>\|\<GlobRef\>\|\<FileHandle\>\|\<Object\>\|\<Role\>"
 
 " All other # are comments, except ^#!
 syn match  perlComment		"#.*" contains=perlTodo
@@ -416,8 +394,6 @@ if exists("perl_fold")
   endif
   if !exists("perl_nofold_subs")
     syn region perlSubFold     start="^\z(\s*\)\<sub\>.*[^};]$" end="^\z1}\s*\%(#.*\)\=$" transparent fold keepend
-    syn region perlSubFold     start="^\z(\s*\)\<class\>.*[^};]$" end="^\z1}\s*\%(#.*\)\=$" transparent fold keepend
-    syn region perlSubFold     start="^\z(\s*\)\<method\>.*[^};]$" end="^\z1}\s*\%(#.*\)\=$" transparent fold keepend
     syn region perlSubFold start="^\z(\s*\)\<\%(BEGIN\|END\|CHECK\|INIT\|UNITCHECK\)\>.*[^};]$" end="^\z1}\s*$" transparent fold keepend
   endif
 
@@ -454,7 +430,6 @@ HiLink perlRepeat		Repeat
 HiLink perlOperator		Operator
 HiLink perlFunction		Keyword
 HiLink perlSubName		Function
-HiLink perlMethodName		Function
 HiLink perlSubPrototype		Type
 HiLink perlSubAttributes	PreProc
 HiLink perlSubAttributesCont	perlSubAttributes
@@ -537,8 +512,6 @@ delcommand HiLink
 if !exists("perl_no_sync_on_sub")
   syn sync match perlSync	grouphere NONE "^\s*\<package\s"
   syn sync match perlSync	grouphere NONE "^\s*\<sub\>"
-  syn sync match perlSync	grouphere NONE "^\s*\<method\>"
-  syn sync match perlSync	grouphere NONE "^\s*\<class\>"
   syn sync match perlSync	grouphere NONE "^}"
 endif
 
