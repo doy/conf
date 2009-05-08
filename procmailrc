@@ -52,6 +52,10 @@ UIUC=(uiuc|illinois|uillinois)
 * ^TO_netmonster-nomic@googlegroups.com
 .mailing\ lists.nomic/
 # }}}
+:0: # moose {{{
+* ^TO_moose@perl.org
+mailing\ lists.moose/
+# }}}
 # }}}
 # school {{{
 # acm {{{
