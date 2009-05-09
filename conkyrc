@@ -46,7 +46,7 @@ ${color1}Swap:${color} ${swap}/${swapmax} ${swapbar}${if_gw}
 ${color}${hr}
 ${color1}Networking: ${color}${gw_iface} (${texeci 3600 get_ip})${if_up eth0}
  eth0:  ${color}${addr eth0}${color1}
-   Down:${color2}${downspeed eth0}k/s${color}         Up:${color3}${upspeed eth0}k/s
+   Down:${color2}${downspeed eth0}/s${color}         Up:${color3}${upspeed eth0}/s
 ${color0}${downspeedgraph eth0 32,120 ff0000 0000ff} ${alignr}${color0}${upspeedgraph eth0 32,120 0000ff ff0000}${color1}${endif}${if_up wlan0}
  wlan0: ${color}${addr wlan0} - ${wireless_essid wlan0}
    ${color1}Wireless: ${color}${wireless_bitrate wlan0} - ${wireless_link_bar wlan0}
