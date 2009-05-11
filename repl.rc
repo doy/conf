@@ -51,6 +51,7 @@ $_REPL->fancy_continuation_prompt(sub {
   . color('yellow') . '(' . $self->line_depth . ')'
   . color('reset') . '> '
 });
+$Devel::REPL::Plugin::Packages::PKG_SAVE = 'main';
 
 # if at ~/work/foo/bar, load ~/.re.pl/work-foo-bar as well!
 my $cd = $ENV{PWD};
