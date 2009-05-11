@@ -12,6 +12,7 @@ use List::MoreUtils ':all';
 use Scalar::Util qw(blessed weaken isweak tainted);
 use Scalar::Defer qw(lazy defer force);
 use Carp::Clan qw(verbose Devel::REPL:: Moose:: Class::MOP:: Lexical::Persistence::);
+use Term::ANSIColor;
 
 *fold = \&reduce;
 
@@ -39,8 +40,17 @@ my @plugins = (
 );
 
 $_REPL->load_plugin($_) for @plugins;
-$_REPL->fancy_prompt(sub { '> ' } );
-$_REPL->fancy_continuation_prompt(sub { '> ' . ('    ' x $_[0]->line_depth) });
+$_REPL->fancy_prompt(sub {
+    my $self = shift;
+    color('blue') . $self->current_package
+  . color('reset') . '> '
+} );
+$_REPL->fancy_continuation_prompt(sub {
+    my $self = shift;
+    color('blue') . $self->current_package
+  . color('yellow') . '(' . $self->line_depth . ')'
+  . color('reset') . '> '
+});
 
 # if at ~/work/foo/bar, load ~/.re.pl/work-foo-bar as well!
 my $cd = $ENV{PWD};
