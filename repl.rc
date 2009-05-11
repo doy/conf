@@ -43,13 +43,14 @@ $_REPL->load_plugin($_) for @plugins;
 $_REPL->fancy_prompt(sub {
     my $self = shift;
     color('blue') . $self->current_package
+  . color('green') . '(0)'
   . color('reset') . '> '
 } );
 $_REPL->fancy_continuation_prompt(sub {
     my $self = shift;
     color('blue') . $self->current_package
   . color('yellow') . '(' . $self->line_depth . ')'
-  . color('reset') . '> '
+  . color('reset') . '> ' . (' ' x ($self->line_depth * 2))
 });
 $Devel::REPL::Plugin::Packages::PKG_SAVE = 'main';
 
