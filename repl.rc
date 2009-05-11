@@ -53,6 +53,18 @@ $_REPL->fancy_continuation_prompt(sub {
 });
 $Devel::REPL::Plugin::Packages::PKG_SAVE = 'main';
 
+$_REPL->meta->add_around_method_modifier(line_needs_continuation => sub {
+    my $orig = shift;
+    my $self = shift;
+    my ($line) = @_;
+    my $ret = $self->$orig(@_);
+    if (!$ret) {
+        (my $last_line = $line) =~ s/.*\n//s;
+        print { $self->out_fh } "\r\b\r", $self->prompt, $last_line, "     \n";
+    }
+    return $ret;
+});
+
 # if at ~/work/foo/bar, load ~/.re.pl/work-foo-bar as well!
 my $cd = $ENV{PWD};
 $cd =~ s{^(/(?:Users|home)/[^/]+)/}{} and do {
