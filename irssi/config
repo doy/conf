@@ -250,7 +250,10 @@ settings = {
     awaylog_level = "";
     awaylog_file = "";
   };
-  "fe-common/core" = { autolog = "yes"; };
+  "fe-common/core" = {
+    autolog = "yes";
+    autolog_path = "~/irclogs/$tag/${0}-%Y-%m.log";
+  };
   "perl/core/scripts" = {
     chanact_abbreviate_names = "2";
     chanact_show_all = "yes";
