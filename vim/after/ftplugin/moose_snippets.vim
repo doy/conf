@@ -5,14 +5,13 @@ if !exists('loaded_snippet') || &cp
     finish
 endif
 
-function! RemoveEmptySuperClass()
-    s/^extends '<{}>';\n//e
-    return @z
-endfun
-
-function! RemoveEmptyLine()
-    s/^\s*<{}>\s*\n//e
-    return @z
+function! RemoveUnchangedLine()
+    if match(getline('.'), "<{}>") >= 0
+        normal! dd
+        return ''
+    else
+        return @z
+    endif
 endfun
 
 function! Snippet(abbr, str)
@@ -38,7 +37,7 @@ call Snippet('class', [
             \"package <{ClassName}>;",
             \"use Moose;",
             \"",
-            \"extends '<{SuperClass:RemoveEmptySuperClass()}>;",
+            \"extends '<{SuperClass:RemoveUnchangedLine()}>;",
             \"",
             \"<{}>",
             \"",
@@ -50,14 +49,14 @@ call Snippet('has', [
             \"has <{attr}> => (",
             \    "is  => '<{rw}>',",
             \    "isa => '<{Str}>',",
-            \    "<{options:RemoveEmptyLine()}>",
+            \    "<{options:RemoveUnchangedLine()}>",
             \");"])
 call Snippet('hasl', [
             \"has <{attr}> => (",
             \    "is         => '<{rw}>',",
             \    "isa        => '<{Str}>',",
             \    "lazy_build => 1,",
-            \    "<{options:RemoveEmptyLine()}>",
+            \    "<{options:RemoveUnchangedLine()}>",
             \");",
             \"",
             \"sub _build_<{attr}> {",
@@ -67,6 +66,7 @@ call Snippet('hasl', [
 call Snippet('sub', [
             \"sub <{name}> {",
             \    "my $self = shift;",
+            \    "my (<{arg:RemoveUnchangedLine()}>) = @_;",
             \    "<{}>",
             \"}"])
 call Snippet('around', [
