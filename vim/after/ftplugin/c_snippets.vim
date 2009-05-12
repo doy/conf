@@ -65,3 +65,4 @@ exec "Snippet inc #include \"".st.et.".h\"".st.et
 exec "Snippet for for (".st."int".et." ".st."i".et." = ".st.et."; ".st."i".et." < ".st."count".et."; ".st."i".et." += ".st."incr:PlusPlus()".et.") {<CR>".st.et."<CR>}<CR>".st.et
 exec "Snippet forv for (vector<".st."int".et.">::const_iterator ".st."it".et." = ".st."v".et.".begin(); ".st."it".et." != ".st."v".et.".end(); ++".st."it".et.") {<CR>".st.et."<CR>}"
 exec "Snippet form for (map<".st."string".et.", ".st."int".et.">::const_iterator ".st."it".et." = ".st."v".et.".begin(); ".st."it".et." != ".st."v".et.".end(); ++".st."it".et.") {<CR>".st.et."<CR>}"
+exec "Snippet while while (".st.et.") {<CR>".st.et."<CR>}"
