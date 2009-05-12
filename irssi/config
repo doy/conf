@@ -263,7 +263,7 @@ settings = {
     bitlbee_typing_allwin = "yes";
     chanact_display = "$H$N$T$M$C$S";
   };
-  "fe-text" = { autostick_split_windows = "no"; };
+  "fe-text" = { autostick_split_windows = "no"; actlist_sort = "refnum"; };
   "irc/core" = { usermode = "+i"; };
 };
 logs = { };
