@@ -31,6 +31,13 @@ function! CMacroName(filename)
     return name
 endfunction
 
+function! PlusPlus()
+    let st = g:snip_start_tag
+    let et = g:snip_end_tag
+    exe 's/\(\w\+\) += '.st.et.'/\1++/e'
+    return @z
+endfunction
+
 let st = g:snip_start_tag
 let et = g:snip_end_tag
 let cd = g:snip_elem_delim
@@ -51,8 +58,8 @@ exec "Snippet template template <typename ".st."_InputIter".et."><CR>".st.et
 exec "Snippet namespace namespace ".st.":substitute(expand('%'),'.','\\l&', 'g')".et."<CR>{<CR>".st.et."<CR>};<CR>".st.et
 exec "Snippet map std::map<".st."key".et.", ".st."value".et."> map".st.et.";<CR>".st.et
 exec "Snippet mark #if 0<CR><CR>".st.et."<CR><CR>#endif<CR><CR>".st.et
-exec "Snippet if if(".st.et.")<CR>{<CR>".st.et."<CR>}<CR>".st.et
-exec "Snippet main int main (int argc, char const* argv[])<CR>{<CR>".st.et."<CR>return 0;<CR>}<CR>".st.et
+exec "Snippet if if (".st.et.")<CR>{<CR>".st.et."<CR>}<CR>".st.et
+exec "Snippet main int main(int argc, char *argv[])<CR>{<CR>".st.et."<CR>return 0;<CR>}<CR>".st.et
 exec "Snippet Inc #include <".st.et."><CR>".st.et
 exec "Snippet inc #include \"".st.et.".h\"".st.et
-exec "Snippet for for( ".st.et." ".st."i".et." = ".st.et."; ".st."i".et." < ".st."count".et."; ".st."i".et." += ".st.et.")<CR>{<CR>".st.et."<CR>}<CR>".st.et
+exec "Snippet for for (".st."int".et." ".st."i".et." = ".st.et."; ".st."i".et." < ".st."count".et."; ".st."i".et." += ".st."incr:PlusPlus()".et.")<CR>{<CR>".st.et."<CR>}<CR>".st.et
