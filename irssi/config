@@ -336,6 +336,18 @@ windows = {
     sticky = "yes";
     parent = "1";
   };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#moose-dev";
+        tag = "perl";
+      }
+    );
+    sticky = "yes";
+    parent = "1";
+  };
   11 = {
     items = (
       {
