@@ -307,8 +307,8 @@ nmap <Leader>gB  :execute "wa <bar> :execute '!git stash apply' <bar> :silent ex
 " }}}
 " }}}
 " Keep the current selection when indenting (thanks cbus) {{{
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 " }}}
 " Painless spell checking (F11) {{{
 function s:spell()
@@ -432,7 +432,7 @@ function s:nopaste(visual)
     echo @+
 endfunction
 nmap <silent> <Leader>p :call <SID>nopaste(0)<CR>
-vmap <silent> <Leader>p :<C-U>call <SID>nopaste(1)<CR>
+xmap <silent> <Leader>p :<C-U>call <SID>nopaste(1)<CR>
 " }}}
 " better version of keywordprg {{{
 function Help(visual, iskeyword, command)
@@ -462,7 +462,7 @@ function s:man(word)
     set ft=man
 endfunction
 nmap <silent>K :call Help(0, [], '<SID>man')<CR>
-vmap <silent>K :call Help(1, [], '<SID>man')<CR>
+xmap <silent>K :call Help(1, [], '<SID>man')<CR>
 " }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
