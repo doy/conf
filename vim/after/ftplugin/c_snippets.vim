@@ -45,7 +45,7 @@ let cd = g:snip_elem_delim
 exec "Snippet do do {<CR>".st.et."<CR>} while (".st.et.");"
 exec "Snippet readfile std::vector<uint8_t> v;<CR>if(FILE* fp = fopen(\"".st."filename".et."\", \"r\"))<CR>{<CR>uint8_t buf[1024];<CR>while(size_t len = fread(buf, 1, sizeof(buf), fp))<CR>v.insert(v.end(), buf, buf + len);<CR>fclose(fp);<CR>}<CR>"
 exec "Snippet beginend ".st."v".et.".begin(), ".st."v".et.".end()"
-exec "Snippet once #ifndef ``CMacroName(expand('%'))``_<CR><CR>#define ``CMacroName(expand('%'))``_<CR><CR>".st.et."<CR><CR>#endif /* ``CMacroName(expand('%'))``_ */"
+exec "Snippet once #ifndef ``CMacroName(expand('%'))``_<CR>#define ``CMacroName(expand('%'))``_<CR><CR>".st.et."<CR><CR>#endif /* ``CMacroName(expand('%'))``_ */"
 "exec "Snippet once #ifndef _".st."file:substitute(expand('%'),'\\(.\\)','\\u\\1','g')".et."_<CR><CR>#define _".st."file".et."_<CR><CR>".st.et."<CR><CR>#endif /* _".st."file".et."_ */<CR>".st.et
 exec "Snippet class class ".st."name".et." {<CR>public:<CR>".st."name".et."(".st.et.");<CR>virtual ~".st."name".et."();<CR><CR>private:<CR>".st.et."<CR>};"
 " TODO This is a good one but I can't quite work out the syntax yet
