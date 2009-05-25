@@ -25,6 +25,16 @@
 \definecolor{mygrey}{gray}{0.90}
 % >>>
 % <<< Custom commands
+% <<< \resheader
+\newcommand{\resheader}[5]{
+    \begin{tabular*}{7in}{l@{\extracolsep{\fill}}cr}
+    #2 & \textbf{\LARGE #1} & #4\\
+    #3 &                    & #5\\
+    \end{tabular*}
+    \\
+    \vspace{0.1in}
+}
+% >>>
 % <<< \resitem
 \newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
 % >>>
