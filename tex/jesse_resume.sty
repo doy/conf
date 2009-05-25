@@ -66,22 +66,31 @@
 }
 % >>>
 % \resclasses <<<
-\newenvironment{resclasses}{
+\newlength{\resclasscolwidth}
+\newlength{\resclassgradesep}
+\newlength{\resclasscolsep}
+\setlength{\resclasscolwidth}{2.5in}
+\setlength{\resclassgradesep}{0.1in}
+\setlength{\resclasscolsep}{0.75in}
+\newcommand{\resclasses}[2]{
 \begin{minipage}[t]{7in}
+\begin{center}
 \vspace{0.01in}
-\hspace{0.2in}
-}{
-\vspace{0.01in}
-\end{minipage}
-}
-% >>>
-% \resclasscol <<<
-% XXX: there has to be a better way to do this...
-\newenvironment{resclasscol}{
-\begin{minipage}[t]{3.25in}
-\begin{tabular*}{3in}[t]{l@{\hspace{0.2in}}l@{\extracolsep{\fill}}r}
-}{
+\begin{minipage}[t]{\resclasscolwidth}
+\begin{tabular*}{\resclasscolwidth}[t]
+                {l@{\hspace{\resclassgradesep}}l@{\extracolsep{\fill}}r}
+#1
 \end{tabular*}
+\end{minipage}
+\hspace{\resclasscolsep}
+\begin{minipage}[t]{\resclasscolwidth}
+\begin{tabular*}{\resclasscolwidth}[t]
+                {l@{\hspace{\resclassgradesep}}l@{\extracolsep{\fill}}r}
+#2
+\end{tabular*}
+\end{minipage}
+\vspace{0.01in}
+\end{center}
 \end{minipage}
 }
 % >>>
