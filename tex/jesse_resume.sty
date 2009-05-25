@@ -7,14 +7,14 @@
 % http://www.courtesan.com/todd/resume.html
 
 % <<< packages
-\RequirePackage{latexsym,amsmath,amssymb,charter,jesse_macros}
-\usepackage[empty]{fullpage}
-\usepackage{color}
+\RequirePackage{latexsym,amsmath,amssymb,charter,color,jesse_macros}
+\RequirePackage[empty]{fullpage}
 % >>>
 % <<< dimensions/margins
-\textheight=9.0in
 \raggedbottom
 \raggedright
+\setlength{\textheight}{9.0in}
+\setlength{\tabcolsep}{0in}
 \addtolength{\oddsidemargin}{-0.375in}
 \addtolength{\evensidemargin}{0.375in}
 \addtolength{\textwidth}{0.5in}
@@ -23,7 +23,6 @@
 % >>>
 % <<< other definitions
 \definecolor{mygrey}{gray}{0.90}
-\setlength{\tabcolsep}{0in}
 % >>>
 % <<< Custom commands
 % <<< \resitem
