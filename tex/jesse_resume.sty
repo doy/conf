@@ -55,4 +55,28 @@
     \vspace{-6pt}
 }
 % >>>
+% \resclasses <<<
+\newenvironment{resclasses}{
+\begin{minipage}[t]{7in}
+\vspace{0.01in}
+\hspace{0.25in}
+}{
+\end{minipage}
+}
+% >>>
+% \resclasscol <<<
+% XXX: there has to be a better way to do this...
+\newenvironment{resclasscol}{
+\begin{minipage}[t]{3.25in}
+\begin{tabular*}{3in}[t]{l@{\hspace{0.2in}}l@{\extracolsep{\fill}}r}
+}{
+\end{tabular*}
+\end{minipage}
+}
+% >>>
+% \resclass <<<
+\newcommand{\resclass}[3]{
+    \textbf{#1}: & #2 & \textit{#3}\\
+}
+% >>>
 % >>>
