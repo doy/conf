@@ -310,6 +310,10 @@ nmap <Leader>gB  :execute "wa <bar> :execute '!git stash apply' <bar> :silent ex
 xnoremap < <gv
 xnoremap > >gv
 " }}}
+" F5 to :make {{{
+map  <F5> :make<CR><CR><C-W>k
+imap <F5> <C-O>:make<CR><CR><C-O><C-W>k
+" }}}
 " Painless spell checking (F11) {{{
 function s:spell()
     if !exists("s:spell_check") || s:spell_check == 0
