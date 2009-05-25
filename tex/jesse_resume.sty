@@ -29,10 +29,13 @@
 \newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
 % >>>
 % <<< \resheading
+\newlength{\@mywidth}
+\setlength{\@mywidth}{\textwidth}
+\addtolength{\@mywidth}{-0.175in}
 \newcommand{\resheading}[1]{
     {\large \colorbox{mygrey}{
         \begin{minipage}
-            {\textwidth}
+            {\@mywidth}
             {\textbf{#1 \vphantom{p\^{E}}}}
         \end{minipage}
     }}
