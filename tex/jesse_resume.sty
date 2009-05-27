@@ -27,7 +27,7 @@
 % <<< Custom commands
 % <<< \resheader
 \newcommand{\resheader}[5]{
-    \begin{tabular*}{7in}{l@{\extracolsep{\fill}}cr}
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}cr}
     #2 & \textbf{\LARGE #1} & #4\\
     #3 &                    & #5\\
     \end{tabular*}
@@ -50,7 +50,7 @@
 % >>>
 % \ressubheading <<<
 \newcommand{\ressubheading}[4]{
-    \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+    \begin{tabular*}{\textwidth-0.5in}{l@{\extracolsep{\fill}}r}
         \textbf{#1} & #2 \\
         \textit{#3} & \textit{#4} \\
     \end{tabular*}
@@ -59,7 +59,7 @@
 % >>>
 % \resshortsubheading <<<
 \newcommand{\resshortsubheading}[2]{
-    \begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+    \begin{tabular*}{\textwidth-0.5in}{l@{\extracolsep{\fill}}r}
         \textbf{#1} & #2 \\
     \end{tabular*}
     \vspace{-6pt}
@@ -73,7 +73,7 @@
 \setlength{\resclassgradesep}{0.1in}
 \setlength{\resclasscolsep}{0.75in}
 \newcommand{\resclasses}[2]{
-\begin{minipage}[t]{7in}
+\begin{minipage}[t]{\textwidth}
 \begin{center}
 \vspace{0.01in}
 \begin{minipage}[t]{\resclasscolwidth}
