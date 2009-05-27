@@ -66,25 +66,25 @@
 }
 % >>>
 % \resclasses <<<
-\newlength{\resclasscolwidth}
+\newlength{\res@classcolwidth}
 \newlength{\resclassgradesep}
 \newlength{\resclasscolsep}
-\setlength{\resclasscolwidth}{2.5in}
 \setlength{\resclassgradesep}{0.1in}
 \setlength{\resclasscolsep}{0.75in}
 \newcommand{\resclasses}[2]{
+\setlength{\res@classcolwidth}{\textwidth/2-0.5in}
 \begin{minipage}[t]{\textwidth}
 \begin{center}
 \vspace{0.01in}
-\begin{minipage}[t]{\resclasscolwidth}
-\begin{tabular*}{\resclasscolwidth}[t]
+\begin{minipage}[t]{\res@classcolwidth}
+\begin{tabular*}{\res@classcolwidth}[t]
                 {l@{\hspace{\resclassgradesep}}l@{\extracolsep{\fill}}r}
 #1
 \end{tabular*}
 \end{minipage}
 \hspace{\resclasscolsep}
-\begin{minipage}[t]{\resclasscolwidth}
-\begin{tabular*}{\resclasscolwidth}[t]
+\begin{minipage}[t]{\res@classcolwidth}
+\begin{tabular*}{\res@classcolwidth}[t]
                 {l@{\hspace{\resclassgradesep}}l@{\extracolsep{\fill}}r}
 #2
 \end{tabular*}
@@ -96,7 +96,7 @@
 % >>>
 % \resclass <<<
 \newcommand{\resclass}[3]{
-    \parbox[b]{\resclasscolwidth-0.75in}{\textbf{#1}:} & #2 & \textit{#3}\\
+    \parbox[b]{\res@classcolwidth-0.75in}{\textbf{#1}:} & #2 & \textit{#3}\\
 }
 % >>>
 % \restext <<<
