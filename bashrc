@@ -131,6 +131,11 @@ function gist {
 function fm22avi {
     fceux --playmov $1.fm2 --sound 1 --soundq 1 --soundrate 48000 --nospritelim 1 --pal 0 --xscale 1 --yscale 1 --opengl 0 --special 0 $2 --videolog "mencoder - -o $1.avi -ovc x264 -x264encopts qp=0 -oac mp3lame -lameopts mode=3:preset=128 -noskip -nocache -mc 0 -aspect 4/3 NESVSETTINGS"
 }
+function pdfcat {
+    local out=$1
+    shift
+    gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$out $*
+}
 # }}}
 # }}}
 # bash configuration {{{
