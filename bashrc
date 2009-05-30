@@ -136,6 +136,9 @@ function pdfcat {
     shift
     gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$out $*
 }
+function vack {
+    vim $(ack -la -- $*)
+}
 # }}}
 # }}}
 # bash configuration {{{
