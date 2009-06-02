@@ -163,13 +163,13 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.projects.cpan/
 :0:
 * ^TO_cpan-testers@perl.org
-.websites.cpan/
+.websites.projects.cpan/
 :0:
 * ^From.*upload@pause.fiz-chemie.de
-.websites.cpan/
+.websites.projects.cpan/
 :0:
 * ^From.*@rt.cpan.org
-.websites.cpan/
+.websites.projects.cpan/
 # }}}
 :0: # facebook {{{
 * ^From.*@facebookmail.com
