@@ -4,36 +4,36 @@ snippet #!
 	
 snippet sub
 	sub ${1:foo} {
-		$2
+		${2}
 	}
 snippet if
 	if (${1:cond}) {
-		$2
+		${2}
 	}
 snippet elsif
 	elsif (${1:cond}) {
-		$2
+		${2}
 	}
 snippet else
 	else {
-		$1
+		${1}
 	}
 snippet for
 	for my $${1:var} (${2:1..10}) {
-		$3
+		${3}
 	}
 snippet fora
 	for my $${1:var} (@${2:array}) {
-		$3
+		${3}
 	}
 snippet while
 	while (${1:cond}) {
-		$2
+		${2}
 	}
 snippet eval
-	eval {$1};
+	eval {${1}};
 	if ($@) {
-		$2
+		${2}
 	}
 snippet st
 	map  { $_->[0] }
@@ -46,7 +46,6 @@ snippet tbl
 snippet ccl
 	local $Carp::CarpLevel = $Carp::CarpLevel + 1;
 	
-# XXX: i'd like to allow for a tab to jump to the next line, but snipmate
-# seems to be buggy with a lone tabstop at the end of a snippet
 snippet linc
 	local $${1:a} = $$1 + ${2:1};
+	${3}
