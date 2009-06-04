@@ -4,6 +4,7 @@
 [alias]
 	pushall = !git push origin master && git push github master
 	amend = commit --amend
+	record = !git add -p && git commit
 [github]
 	user = doy
 [color]
