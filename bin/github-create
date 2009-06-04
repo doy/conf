@@ -6,10 +6,11 @@ use Net::GitHub::V2;
 @ARGV == 2 || @ARGV == 3 or die "usage: $0 name description [url]";
 my ($name, $description, $url) = splice @ARGV, 0, 3;
 
-open my $github, '<', '~/.github' or die "couldn't get login information";
-my $user  = <$github>;
+open my $login_info, '<', "$ENV{HOME}/.github"
+    or die "couldn't get login information";
+my $user  = <$login_info>;
 chomp $user;
-my $token = <$github>;
+my $token = <$login_info>;
 chomp $token;
 
 my $github = Net::GitHub::V2->new(
