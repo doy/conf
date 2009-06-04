@@ -49,3 +49,68 @@ snippet ccl
 snippet linc
 	local $${1:a} = $$1 + ${2:1};
 	${3}
+#
+# Moose
+#
+snippet class
+	package ${1:`substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g')`};
+	use Moose;
+
+	${2}
+
+	__PACKAGE__->meta->make_immutable;
+	no Moose;
+
+	1;
+# XXX: ideally, this would be merged with the one above, but we need posthooks
+# for that to happen. also, some way to get the extends line to update with
+# the package line would be nice, maybe?
+snippet subclass
+	package ${1:`substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g')`};
+	use Moose;
+	extends '${2:`matchstr(substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g'), '.*\ze::.*')`}';
+
+	${3}
+
+	__PACKAGE__->meta->make_immutable;
+	no Moose;
+
+	1;
+snippet has
+	has ${1:attr} => (
+		is  => '${2:ro}',
+		isa => '${3:Str}',${4}
+	);
+	${5}
+snippet hasl
+	has ${1:attr} => (
+		is         => '${2:ro}',
+		isa        => '${3:Str}',
+		lazy_build => 1,${4}
+	);
+
+	sub _build_$1 {
+		my $self = shift;
+		$5
+	}
+snippet m
+	sub ${1:foo} {
+		my $self = shift;
+		${2}
+	}
+snippet around
+	around ${1:foo} => sub {
+		my $orig = shift;
+		my $self = shift;
+		${2}
+	};
+snippet after
+	after ${1:foo} => sub {
+		my $self = shift;
+		${2}
+	};
+snippet before
+	before ${1:foo} => sub {
+		my $self = shift;
+		${2}
+	};
