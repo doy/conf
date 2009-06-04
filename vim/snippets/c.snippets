@@ -19,16 +19,13 @@ snippet Def
 snippet def
 	#define 
 # Header Include-Guard
-# (the randomizer code is taken directly from TextMate; it could probably be
-# cleaner, I don't know how to do it in vim script)
 snippet once
-	#ifndef ${1:`toupper(Filename('', 'UNTITLED').'_'.system("/usr/bin/ruby -e 'print (rand * 2821109907455).round.to_s(36)'"))`}
-
+	#ifndef ${1:`toupper(Filename('', 'UNTITLED').'_H')`}
 	#define $1
 
 	${2}
 
-	#endif /* end of include guard: $1 */
+	#endif
 # If Condition
 snippet if
 	if (${1:/* condition */}) {
