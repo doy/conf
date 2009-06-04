@@ -28,3 +28,10 @@ snippet cl
 	private:
 		${3:/* data */}
 	};
+# for loop with iterators
+snippet forv
+	for (std::vector<${1:int}>::const_iterator ${2:it} = ${3:vec}.begin();
+	     $2 != $3.end();
+	     ++$2) {
+		${4:/* code */}
+	}
