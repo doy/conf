@@ -7,7 +7,7 @@
 % http://www.courtesan.com/todd/resume.html
 
 % <<< packages
-\RequirePackage{latexsym,amsmath,amssymb,charter,color,calc,jesse_macros}
+\RequirePackage{latexsym,amsmath,amssymb,charter,color,calc,hyperref,jesse_macros}
 \RequirePackage[empty]{fullpage}
 % >>>
 % <<< dimensions/margins
@@ -25,10 +25,10 @@
 % >>>
 % <<< Custom commands
 % <<< \resheader
-\newcommand{\resheader}[5]{
+\newcommand{\resheader}[6]{
     \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}cr}
-    #2 & \textbf{\LARGE #1} & #4\\
-    #3 &                    & #5\\
+    #3 & \textbf{\LARGE #1} & #5\\
+    #4 & \url{#2}           & #6\\
     \end{tabular*}
     \\
     \vspace{0.1in}
