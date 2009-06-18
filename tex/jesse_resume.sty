@@ -35,7 +35,7 @@
 }
 % >>>
 % <<< \resitem
-\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resitem}[1]{\item {\small #1} \vspace{-2pt}}
 % >>>
 % <<< \resheading
 \newcommand{\resheading}[1]{
@@ -59,7 +59,7 @@
 % \resshortsubheading <<<
 \newcommand{\resshortsubheading}[2]{
     \begin{tabular*}{\textwidth-0.5in}{l@{\extracolsep{\fill}}r}
-        \textbf{#1} & #2 \\
+        \textbf{\small #1} & {\small #2} \\
     \end{tabular*}
     \vspace{-6pt}
 }
