@@ -1,39 +1,21 @@
-# maintains a jump-list of the directories you actually use
-# old directories eventually fall off the list
-# inspired by Joel Schaerer's http://wiki.github.com/joelthelion/autojump
-# and something similar i had - but i could never get the dir list right.
-#
-# INSTALL:
-#   source into .bashrc under your '[-z "$PS1" ] || return' line
-#   cd around for a while
-#
-# USE:
-#   j [--h[elp]] [--l] [--r] [--s] [regex1 ... regexn]
-#                       with no args, returns full list (same as j --l)
-#     regex1 ... regexn jump to the the weighted directory matching all masks
-#     --l               show the list instead of jumping
-#     --r               order by recently used instead of most used.
-#     --s               shortest matching path
-#
-# TIPS:
-#   Some handy aliases:
-#     alias jl='j --l'
-#     alias jr='j --r'
-#     alias js='j --s'
-#
-# CREDITS:
-#   Joel Schaerer aka joelthelion for autojump
-#   Daniel Drucker aka dmd for finding bugs and making me late for lunch
+#!/bin/bash
+
+# pure shell version of 'new j'
+# has frecency, rank, and recent
+# has common and case preference
+# lists to stderr
+# protect multiple PROMPT_COMMAND appends
+
 j() {
- # change jfile if you already have a .j file for something else
- local jfile=$HOME/.j
- [ "$1" = "--add" ] && {
+ local datafile=$HOME/.j
+ if [ "$1" = "--add" ]; then
+  # add
   shift
-  # we're in $HOME all the time, let something else get all the good letters
+  # $HOME isn't worth matching
   [ "$*" = "$HOME" ] && return
   awk -v q="$*" -v t="$(date +%s)" -F"|" '
    BEGIN { l[q] = 1; d[q] = t }
-   $2 >= 1 { 
+   $2 >= 1 {
     if( $1 == q ) {
      l[$1] = $2 + 1
      d[$1] = t
@@ -48,88 +30,104 @@ j() {
      for( i in l ) print i "|" 0.9*l[i] "|" d[i] # aging
     } else for( i in l ) print i "|" l[i] "|" d[i]
    }
-  ' $jfile 2>/dev/null > $jfile.tmp
-  mv -f $jfile.tmp $jfile
-  return
- }
- # for tab completion
- [ "$1" = "--complete" ] && {
+  ' $datafile 2>/dev/null > $datafile.tmp
+  mv -f $datafile.tmp $datafile
+ elif [ "$1" = "--complete" ]; then
+  # tab completion
   awk -v q="$2" -F"|" '
    BEGIN { split(substr(q,3),a," ") }
-   { 
+   {
     if( system("test -d \"" $1 "\"") ) next
     for( i in a ) $1 !~ a[i] && $1 = ""; if( $1 ) print $1
    }
-  ' $jfile 2>/dev/null
-  return
- }
- if [ $1 ]; then
-  local x; local out
-  for x do case $x in
-   --h*) echo "j [--h[elp]] [--l] [--r] [--s] [regex1 ... regexn]"; return;;
-   --l)local list=1;;
-   --r)local recent=r;;
-   --s)local short=1;;
-     *)local out="$out $x";;
-  esac; shift; done
-  set -- $out
+  ' $datafile 2>/dev/null
  else
-  local list=1
- fi
- # remove directories that no longer exist
- awk -F"|" '
-  { if( system("test -d \"" $1 "\"") ) next; print $0 }
- ' $jfile 2>/dev/null > $jfile.tmp
- mv -f $jfile.tmp $jfile
- if [ $list ]; then
-  [ "$short" ] && return
-  awk -v q="$*" -v t="$(date +%s)" -v r="$recent" -F"|" '
-   BEGIN { f = 2; split(q,a," "); if( r ) f = 3 }
-   {
-    for( i in a ) $1 !~ a[i] && $1 = ""
-    if( $1 ) if( f == 3 ) {
-     print t - $f "\t" $1
-    } else print $f "\t" $1
+  # list/go
+  while [ "$1" ]; do case $1 in
+   -h) echo "j [-h][-l][-r][-t] args" >/dev/stderr; return;;
+   -l) local list=1;;
+   -r) local typ="rank";;
+   -t) local typ="recent";;
+   --) while [ "$1" ]; do shift; local q="$q $1";done;;
+    *) local q="$q $1";;
+  esac; local n=$1; shift; done
+  [ "$q" ] || local list=1
+  # if we hit enter on a completion just go there
+  [ -d "$n" ] && {
+   cd "$n"
+   return
+  }
+  cd="$(awk -v t="$(date +%s)" -v list="$list" -v typ="$typ" -v q="$q" -F"|" '
+   function frecent(rank, time) {
+    dx = t-time
+    if( dx < 3600 ) return rank*4
+    if( dx < 86400 ) return rank*2
+    if( dx < 604800 ) return rank/2
+    return rank/4
    }
-  ' $jfile 2>/dev/null | sort -n$recent
- # if we hit enter on a completion just go there
- elif [ -d "/${out#*/}" ]; then
-  cd "/${out#*/}"
- # prefer case sensitive
- else
-  out=$(awk -v q="$*" -v s="$short" -v r="$recent" -F"|" '
-   BEGIN { split(q,a," "); if( r ) { f = 3 } else f = 2 }
-   { 
-    for( i in a ) $1 !~ a[i] && $1 = ""
-    if( $1 ) {
-     if( s ) {
-      if( length($1) <= length(x) ) {
-       x = $1
-      } else if( ! x ) x = $1
-     } else if( $f >= dx ) { x = $1; dx = $f }
+   function output(r, s, c) {
+    if( list ) {
+     if( typ == "recent" ) {
+      cmd = "sort -nr >/dev/stderr"
+     } else cmd = "sort -n >/dev/stderr"
+     for( i in r ) if( r[i] ) printf "%-15s %s\n", r[i], i | cmd
+     if( c ) printf "%-15s %s\n", "common:", c > "/dev/stderr"
+    } else {
+     if( c ) s = c
+     print s
     }
+   }
+   function common(r, a, nc) {
+    for( i in r ) {
+     if( ! r[i] ) continue
+     if( !shortest || length(i) < length(shortest) ) shortest = i
+    }
+    if( shortest == "/" ) return
+    for( i in r ) {
+     if( ! r[i] ) continue
+     if( i !~ shortest ) x = 1
+    }
+    if( x ) return
+    if( nc ) {
+     for( i in a ) if( tolower(shortest) !~ tolower(a[i]) ) x = 1
+    } else for( i in a ) if( shortest !~ a[i] ) x = 1
+    if( !x ) return shortest
+   }
+   BEGIN { split(q, a, " ") }
+   {
+    if( system("test -d \"" $1 "\"") ) next
+    if( typ == "rank" ) {
+     f = $2
+    } else if( typ == "recent" ) {
+     f = t-$3
+    } else f = frecent($2, $3)
+    case[$1] = nocase[$1] = f
+    for( i in a ) if( $1 !~ a[i] ) delete case[$1]
+    for( i in a ) if( tolower($1) !~ tolower(a[i]) ) delete nocase[$1]
+    if( case[$1] > oldf ) {
+     cx = $1
+     oldf = case[$1]
+    } else if( nocase[$1] > noldf ) {
+     ncx = $1
+     noldf = nocase[$1]
+    }
+    print $0 >> FILENAME ".tmp"
    }
    END {
-    if( ! x ) {
-     close(FILENAME)
-     while( getline < FILENAME ) {
-      for( i in a ) tolower($1) !~ tolower(a[i]) && $1 = ""
-      if( $1 ) {
-       if( s ) {
-        if( length($1) <= length(x) ) {
-         x = $1
-        } else if( ! x ) x = $1
-       } else if( $f >= dx ) { x = $1; dx = $f }
-      }
-     }
+    if( cx ) {
+     output(case, cx, common(case, a, 0))
+    } else if( ncx ) {
+     output(nocase, ncx, common(nocase, a, 1))
     }
-    if( x ) print x
    }
-  ' $jfile)
-  [ "$out" ] && cd "$out"
+  ' $datafile)"
+  mv -f $datafile.tmp $datafile
+  [ "$cd" ] && cd "$cd"
  fi
 }
-# tab completion for j
+# tab completion
 complete -C 'j --complete "$COMP_LINE"' j
 # populate directory list. avoid clobbering other PROMPT_COMMANDs.
-PROMPT_COMMAND='j --add "$(pwd -P)";'"$PROMPT_COMMAND"
+echo $PROMPT_COMMAND | grep -q "j --add" || {
+ PROMPT_COMMAND='j --add "$(pwd -P)";'"$PROMPT_COMMAND"
+}
