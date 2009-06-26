@@ -155,7 +155,8 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.shopping.food/
 # }}}
 :0: # couchsurfing {{{
-* ^From.*noreply@couchsurfing.com
+* 1^0 ^From.*noreply@couchsurfing.com
+* 1^0 ^From.*noreply@couchsurfing.org
 .websites.community.couchsurfing/
 # }}}
 :0: # cpan {{{
