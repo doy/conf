@@ -1,0 +1,26 @@
+"query:Unread blogs:unread = \"yes\" and tags # \"blog\" and tags !# \"aggregator\"" blog
+"query:News:tags # \"news\" and tags !# \"dumb\"" news
+"query:Dumb news:tags # \"news\" and tags # \"dumb\""
+"query:Moose:tags # \"blog\" and tags # \"perl\" and (title =~ \"[Mm]oose\" or content =~ \"[Mm]oose\")"
+http://ironman.enlightenedperl.org/atom.xml blog perl aggregator
+http://blog.jrock.us/feeds/articles/atom blog perl
+http://clique.jonirons.net/feed/ blog marathon
+http://blog.urth.org/atom.xml blog perl
+http://feeds2.feedburner.com/yuvalkogman?format=xml blog perl
+http://gentlemansc.blogspot.com/feeds/posts/default blog prof
+http://learningcurves.blogspot.com/feeds/posts/default blog prof
+http://dailyvim.blogspot.com/feeds/posts/default blog vim
+http://blog.sartak.org/feeds/posts/default blog perl
+http://stevan-little.blogspot.com/feeds/posts/default blog perl
+http://www.shadowcat.co.uk/feed/blog/matt-s-trout blog perl
+http://www.modernperlbooks.com/mt/atom.xml blog perl
+http://consttype.blogspot.com/feeds/posts/default blog perl
+http://3dpancakes.typepad.com/ernie/atom.xml blog prof
+http://zedshaw.com/feed.xml blog tech dumb
+http://twitter.com/statuses/user_timeline/6753782.rss twitter perl
+http://news.bbc.co.uk/rss/newsonline_world_edition/front_page/rss091.xml news
+http://feeds.boingboing.net/boingboing/iBag blog tech
+http://rss.slashdot.org/Slashdot/slashdot news dumb tech
+http://www.reddit.com/r/programming/.rss news dumb tech
+http://news.ycombinator.com/rss news dumb tech
+http://www.woot.com/blog/rss.aspx shopping

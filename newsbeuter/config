@@ -1,0 +1,15 @@
+error-log "~/.newsbeuter/error.log"
+
+auto-reload yes
+reload-threads 4
+suppress-first-reload yes
+
+browser firefox
+
+color listfocus black cyan
+color info      green blue bold
+
+bind-key j down
+bind-key k up
+bind-key i quit
+macro m set show-read-feeds!

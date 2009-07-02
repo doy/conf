@@ -21,6 +21,7 @@ files="abcde.conf
        irssi
        fortune
        ncmpc
+       newsbeuter
        procmail
        terminfo
        vim"
