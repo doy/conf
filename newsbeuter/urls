@@ -19,6 +19,10 @@ http://3dpancakes.typepad.com/ernie/atom.xml blog prof
 http://zedshaw.com/feed.xml blog tech dumb
 http://twitter.com/statuses/user_timeline/6753782.rss twitter perl
 http://news.bbc.co.uk/rss/newsonline_world_edition/front_page/rss091.xml news
+http://feeds.nytimes.com/nyt/rss/HomePage news
+http://rss.cnn.com/rss/cnn_topstories.rss news
+http://rss.news.yahoo.com/rss/topstories news
+http://news.google.com/news?pz=1&ned=us&hl=en&topic=h&num=10&output=rss news
 http://feeds.boingboing.net/boingboing/iBag blog tech
 http://rss.slashdot.org/Slashdot/slashdot news dumb tech
 http://www.reddit.com/r/programming/.rss news dumb tech
