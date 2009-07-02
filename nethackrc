@@ -1,130 +1,50 @@
-# define character
-#OPTIONS=role:wiz
-#OPTIONS=race:elf
-#OPTIONS=gender:fem
-#OPTIONS=align:cha
-
-OPTIONS=autodig,autopickup,!autoquiver
-OPTIONS=checkpoint
-OPTIONS=nocmdassist
-OPTIONS=color
-OPTIONS=confirm
-#OPTIONS=DECgraphics
-OPTIONS=dungeon: |--------||.-|]]}}.##<><>_\\\\{{~.}..}} #}
-OPTIONS=noeight_bit_tty
-OPTIONS=noextmenu
-OPTIONS=fixinv
-OPTIONS=help
-OPTIONS=hilite_pet
-OPTIONS=noignintr
-OPTIONS=lit_corridor
-OPTIONS=nolootabc
-OPTIONS=mail
-#OPTIONS=menucolors
-OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:wm
-OPTIONS=null
-OPTIONS=objects:m
-OPTIONS=pickup_types:$!/="?
-OPTIONS=prayconfirm
-OPTIONS=pushweapon
-OPTIONS=norest_on_space
-OPTIONS=safe_pet
-OPTIONS=showborn
-OPTIONS=showexp
-OPTIONS=noshowrace
-OPTIONS=showscore
-OPTIONS=silent
-OPTIONS=sortpack
-OPTIONS=sound
+# improve the consistency of telnet ping/pong
 OPTIONS=!sparkle
-OPTIONS=nostandout
-OPTIONS=time
-OPTIONS=!timed_delay
-OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
-OPTIONS=travel
-OPTIONS=use_inverse
-OPTIONS=verbose
-OPTIONS=pettype:cat
-OPTIONS=boulder:0
-OPTIONS=disclose:yi ya yv yg yc 
-OPTIONS=menustyle:combination
-OPTIONS=menu_headings:bold
-OPTIONS=msghistory:1000
-OPTIONS=msg_window:full
-OPTIONS=number_pad:0
-OPTIONS=packorder:)[%?+!"=/(*`0_
-OPTIONS=pickup_burden:unencumbered
 OPTIONS=runmode:teleport
-OPTIONS=sortloot:full
+OPTIONS=!timed_delay
+
+# display
+OPTIONS=showexp
+OPTIONS=showscore
+OPTIONS=time
+OPTIONS=color
+OPTIONS=boulder:0
+OPTIONS=!tombstone
+OPTIONS=!news
+OPTIONS=!legacy
 OPTIONS=suppress_alert:3.4.3
-OPTIONS=scores:10 top/3 around/own
-OPTIONS=use_darkgray
-OPTIONS=showbuc
-OPTIONS=hp_monitor
+OPTIONS=hilite_pet
 
-# known B/U/C, in inv
-MENUCOLOR=" \(uncursed\|([-0-9]+:[-0-9]+)\|[+-][0-9]\)"=brown
-MENUCOLOR=" blessed"=green
-MENUCOLOR=" cursed"=red
+# functionality
+OPTIONS=autopickup
+OPTIONS=pickup_types:$/
+OPTIONS=pickup_burden:unburdened
+OPTIONS=!prayconfirm
+OPTIONS=pettype:none
+OPTIONS=!cmdassist
+OPTIONS=disclose:yi +avgc
 
-# unknown B/U/C, wielded
-MENUCOLOR=" \((being worn)\|(on .* hand)\|(weapon in hands?)\)"=gray&underline
+# miscellaneous
+OPTIONS=!mail
 
-# known B/U/C, wielded
-MENUCOLOR=" \(uncursed\|([-0-9]+:[-0-9]+)\|[+-][0-9]\) .*\((being worn)\|(on .* hand)\|(weapon in hands?)\)"=brown&underline
-MENUCOLOR=" blessed .*\((being worn)\|(on .* hand)\|(weapon in hands?)\)"=green&underline
-MENUCOLOR=" cursed .*\((being worn)\|(on .* hand)\|(weapon in hands?)\)"=red&underline
+# map changes for code simplicity
+OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:wm
+# "strange monster" = m (mimic)
+# ghost/shade = X     now space is solid rock
+# worm tail = w       now ~ is water
 
-# important items
-MENUCOLOR=" Amulet of Yendor"=magenta
-MENUCOLOR=" Bell of Opening"=magenta
-MENUCOLOR=" silver bell"=magenta
-MENUCOLOR=" Candelabrum of Invocation"=magenta
-MENUCOLOR=" candelabrum"=magenta
-MENUCOLOR=" Book of the Dead"=magenta
-MENUCOLOR=" papyrus spellbook"=magenta
+OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
+# spider web = ^      now " is amulet
 
-# dangerous items
-MENUCOLOR=" cancellation"=orange&underline
-MENUCOLOR=" \(cock\|chick\)atrice corpse"=orange
-MENUCOLOR=" bag of tricks"=orange&underline
-MENUCOLOR=" wand .* vanish"=orange&underline
+OPTIONS=dungeon: |--------||.-|]]}}.##<><>_\\\\{{~.}..}} #}
+#  sink => {          one less #, walkable
+#  drawbridge => }    one less #, not walkable
+#  iron bars => }     one less #, not walkable (color: cyan)
+#  trees => }         one less #, not walkable (color: green)
+#  closed doors => ]  now + is spellbook
+#  grave => \         now gray | and - are walls, (grey -- thrones)
+#  water => ~         it looks cool (blue -- long worm tail)
 
-# gold
-MENUCOLOR=" gold pieces"=yellow
-
-# water
-MENUCOLOR=" potions? of water"=cyan
-MENUCOLOR=" holy water"=blue
-MENUCOLOR=" blessed potions? \(called\|of\) water"=blue
-MENUCOLOR=" blessed clear potions?"=blue
-MENUCOLOR=" unholy water"=red
-MENUCOLOR=" cursed potions? \(called\|of\) water"=red
-MENUCOLOR=" cursed clear potions?"=red
-
-# from eidocolors, for non-item things:
-#######################
-# SPELL FAILURE RATES #
-#######################
-MENUCOLOR=" 0%"=white
-MENUCOLOR=" [1-9]%"=cyan
-MENUCOLOR=" [12][0-9]%"=cyan
-MENUCOLOR=" [3-6][0-9]%"=yellow
-MENUCOLOR=" 7[0-5]%"=yellow
-MENUCOLOR=" 7[6-9]%"=orange
-MENUCOLOR=" 8[0-9]%"=orange
-MENUCOLOR=" 9[0-9]%"=red
-MENUCOLOR=" 100%"=red
-
-###################
-# FORGOTTEN SPELL #  # thanks, Stevie
-###################
-MENUCOLOR="[a-zA-Z] - [a-zA-Z ]+ [0-9]\*   [a-z]+ +[0-9]+%"=magenta
-
-############
-# #ENHANCE #  # thanks itsblah
-############
-MENUCOLOR="^ +[a-z -]+ +\[\(Unskilled\|Basic\|Skilled\|Expert\|Master\|Grand Master\)\]$"=none           # normal
-MENUCOLOR="^ *[a-z] - +[a-z -]+ +\[\(Unskilled\|Basic\|Skilled\|Expert\|Master\|Grand Master\)\]$"=white # ready to enhance
-MENUCOLOR="^ +\* +[a-z -]+ +\[\(Unskilled\|Basic\|Skilled\|Expert\|Master\|Grand Master\)\]$"=white      # enhanceable if more skill slots
-MENUCOLOR="^ +# +[a-z -]+ +\[\(Unskilled\|Basic\|Skilled\|Expert\|Master\|Grand Master\)\]$"=none        # enhanceable if more potential
+OPTIONS=objects:m
+# "strange object" = m (mimic)
+# now ] is closed door
