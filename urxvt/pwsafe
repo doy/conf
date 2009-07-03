@@ -1,0 +1,210 @@
+#! perl
+
+sub on_init {
+    my ($self) = @_;
+
+    my $hotkey = $self->{argv}[0]
+      || $self->x_resource ("pwsafe")
+      || "M-w";
+
+    $self->parse_keysym ($hotkey, "perl:pwsafe:start")
+      or warn "unable to register '$hotkey' as pwsafe start hotkey\n";
+
+    return;
+}
+
+sub on_user_command {
+    my ($self, $cmd) = @_;
+
+    $self->enter if $cmd eq 'pwsafe:start';
+
+    return;
+}
+
+sub enter {
+    my ($self) = @_;
+
+    return if $self->displaying_msg || $self->displaying_prompt;
+
+    $self->enable(
+        key_press => \&key_press,
+    );
+
+    $self->do_password;
+}
+
+sub leave {
+   my ($self) = @_;
+   delete $self->{overlay};
+   delete $self->{prompt};
+   delete $self->{state};
+   $self->disable("key_press");
+}
+
+sub msg {
+    my ($self, $msg) = @_;
+    delete $self->{timed_overlay};
+    $self->{overlay} = $self->overlay (0, -2, $self->ncol, 1, urxvt::OVERLAY_RSTYLE, 0);
+    $self->{overlay}->set (0, 0, $self->special_encode ($msg));
+}
+
+sub timed_msg {
+    my ($self, $msg) = @_;
+    delete $self->{overlay};
+    $self->{timed_overlay} = $self->overlay (0, -2, $self->ncol, 1, urxvt::OVERLAY_RSTYLE, 0);
+    $self->{timed_overlay}->set (0, 0, $self->special_encode ($msg));
+    $self->{timed_overlay_timer} = urxvt::timer->new->after(1)->cb(sub {
+        delete $self->{timed_overlay};
+    });
+}
+
+sub displaying_msg {
+    my ($self) = @_;
+    return defined $self->{overlay};
+}
+
+sub prompt {
+    my ($self, $msg, $hide, $next) = @_;
+    $self->{state} = 'prompt';
+    $self->{prompt_hide} = $hide;
+    $self->{prompt_msg} = $msg;
+    $self->{prompt_next} = $next;
+    $self->{prompt_buffer} = '';
+    $self->prompt_redisplay;
+}
+
+sub prompt_redisplay {
+    my ($self) = @_;
+    my $buf = $self->{prompt_buffer};
+    $buf =~ s/././g if $self->{prompt_hide};
+    my $msg = $self->{prompt_msg} . $buf. "█";
+    $self->{prompt} = $self->overlay(0, -1, $self->ncol, 1, urxvt::OVERLAY_RSTYLE, 0);
+    $self->{prompt}->set(0, 0, $self->special_encode ($msg));
+}
+
+sub displaying_prompt {
+    my ($self) = @_;
+    return $self->{state} eq 'prompt';
+}
+
+sub prompt_handle {
+    my ($self, $string) = @_;
+    $self->{prompt_buffer} .= $string;
+    $self->prompt_redisplay;
+}
+
+sub prompt_delete {
+    my ($self) = @_;
+    substr $self->{prompt_buffer}, -1, 1, "";
+    $self->prompt_redisplay;
+}
+
+sub prompt_finish {
+    my ($self) = @_;
+    delete $self->{prompt};
+    delete $self->{state};
+    my $next = delete $self->{prompt_next};
+    my $buf  = delete $self->{prompt_buffer};
+    $next->($buf);
+    return;
+}
+
+sub initdb {
+    my ($self, $after) = @_;
+
+    return $after->($self->{db_password}) if $self->{db_password};
+
+    $self->prompt('Password database password: ', 1, sub {
+        my $pass = shift;
+        if($pass){
+            eval {
+                $self->real_initdb($pass);
+            };
+            if(my $e = $@){
+                $e =~ s/at .* line .*//s;
+                $self->timed_msg("Error: $e");
+                $self->initdb($after); # try again
+                return;
+            }
+            $self->timed_msg('Database unlocked');
+            $self->{db_password} = $pass;
+            $after->($pass);
+        }
+        else {
+            $self->timed_msg('Aborted.');
+            $self->leave;
+            return;
+        }
+
+    });
+}
+
+sub real_initdb {
+    my ($self, $key) = @_;
+
+    my @passwords = `echo $key | pwsafe --export 2> /dev/null`;
+    chomp @passwords;
+
+    die 'Bad password' if $passwords[1] =~ /incorrect/;
+    die 'Confusing data from pwsafe' unless $passwords[0] =~ /# passwordsafe/;
+
+    shift @passwords for 1..2; # useless data
+    die 'No passwords' unless @passwords;
+
+    $self->{db} = {
+        map { s/^"(.+)"$/$1/; $_ }
+        map { my @p = split /\t/, $_; @p[2,4] }
+        grep { $_ } @passwords # skip blank lines
+    };
+}
+
+sub do_password {
+    my ($self, $no_msg) = @_;
+
+    $self->initdb(sub {
+        my $db_pass = shift;
+        $self->real_initdb($db_pass); # re-init database, yes this is now spaghetti code
+
+        my $avail = 'available passwords: '. (join ',', keys %{$self->{db}});
+        $self->msg($avail) unless $no_msg;
+
+        $self->prompt('password to insert: ', 0, sub {
+            my $passname = shift;
+            my $password = $self->{db}{$passname};
+
+            if($password){
+                $self->tt_write($password. "\n");
+                $self->leave;
+            }
+            else {
+                $self->msg("Unknown password $passname: ($avail)");
+                $self->do_password('no_msg');
+            }
+        });
+    });
+}
+
+sub key_press {
+   my ($self, $event, $keysym, $string) =  @_;
+
+   delete $self->{manpage_overlay};
+
+   if ($keysym == 0xff1b) { # escape
+       $self->timed_msg('Aborted.');
+       $self->leave;
+   }
+
+   if ($self->{state} eq 'prompt'){
+       if ($keysym == 0xff0d || $keysym == 0xff8d) { # enter
+           $self->prompt_finish;
+       }
+       elsif ($keysym == 0xff08) { # backspace
+           $self->prompt_delete;
+       }
+       else {
+           $self->prompt_handle($string);
+       }
+   }
+
+   return 1;
+}

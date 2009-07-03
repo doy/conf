@@ -24,6 +24,7 @@ files="abcde.conf
        newsbeuter
        procmail
        terminfo
+       urxvt
        vim"
 
 function install() {
