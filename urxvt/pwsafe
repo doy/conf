@@ -152,6 +152,7 @@ sub real_initdb {
     die 'No passwords' unless @passwords;
 
     $self->{db} = {
+        map { s/&amp;/&/g; s/&lt;/</g; s/&gt;/>/g; s/&quot;/"/g; $_ }
         map { s/^"(.+)"$/$1/; $_ }
         map { my @p = split /\t/, $_; @p[2,4] }
         grep { $_ } @passwords # skip blank lines
@@ -189,7 +190,7 @@ sub key_press {
 
    delete $self->{manpage_overlay};
 
-   if ($keysym == 0xff1b) { # escape
+   if ($keysym == 0xff1b || $string =~ /\cc/) { # escape or ^C
        $self->timed_msg('Aborted.');
        $self->leave;
    }
