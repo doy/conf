@@ -76,7 +76,7 @@ sub prompt {
 sub prompt_redisplay {
     my ($self) = @_;
     my $buf = $self->{prompt_buffer};
-    $buf =~ s/././g if $self->{prompt_hide};
+    $buf = '' if $self->{prompt_hide};
     my $msg = $self->{prompt_msg} . $buf. "█";
     $self->{prompt} = $self->overlay(0, -1, $self->ncol, 1, urxvt::OVERLAY_RSTYLE, 0);
     $self->{prompt}->set(0, 0, $self->special_encode ($msg));
