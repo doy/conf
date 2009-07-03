@@ -4,6 +4,7 @@ procmail/log
 vim/.VimballRecord
 vim/undo/
 newsbeuter/cache.db
+newsbeuter/cache.db.lock
 newsbeuter/error.log
 newsbeuter/history.cmdline
 newsbeuter/history.search
