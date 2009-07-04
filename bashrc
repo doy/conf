@@ -142,6 +142,9 @@ function vack {
 function github-clone {
     git clone git://github.com/$1/$2.git
 }
+function mod {
+    yes | module-setup $1
+}
 # }}}
 # }}}
 # bash configuration {{{
