@@ -1,5 +1,7 @@
 #! perl
 
+use IO::Pty::Easy;
+
 sub on_init {
     my ($self) = @_;
 
@@ -30,7 +32,13 @@ sub enter {
         key_press => \&key_press,
     );
 
-    $self->do_password;
+    #eval {
+        $self->do_password;
+    #};
+    #if ($@) {
+        #$self->timed_message($@);
+        #$self->leave;
+    #}
 }
 
 sub leave {
@@ -109,79 +117,57 @@ sub prompt_finish {
     return;
 }
 
-sub initdb {
-    my ($self, $after) = @_;
-
-    return $after->($self->{db_password}) if $self->{db_password};
+sub do_password {
+    my ($self) = @_;
 
     $self->prompt('Password database password: ', 1, sub {
         my $pass = shift;
-        if($pass){
-            eval {
-                $self->real_initdb($pass);
-            };
-            if(my $e = $@){
-                $e =~ s/at .* line .*//s;
-                $self->timed_msg("Error: $e");
-                $self->initdb($after); # try again
-                return;
-            }
-            $self->timed_msg('Database unlocked');
-            $self->{db_password} = $pass;
-            $after->($pass);
+        if ($pass) {
+            $self->which_password($pass);
         }
         else {
             $self->timed_msg('Aborted.');
             $self->leave;
             return;
         }
-
     });
 }
 
-sub real_initdb {
-    my ($self, $key) = @_;
+sub which_password {
+    my $self = shift;
+    my $pass = shift;
 
-    my @passwords = `echo $key | pwsafe --export 2> /dev/null`;
-    chomp @passwords;
-
-    die 'Bad password' if $passwords[1] =~ /incorrect/;
-    die 'Confusing data from pwsafe' unless $passwords[0] =~ /# passwordsafe/;
-
-    shift @passwords for 1..2; # useless data
-    die 'No passwords' unless @passwords;
-
-    $self->{db} = {
-        map { s/&amp;/&/g; s/&lt;/</g; s/&gt;/>/g; s/&quot;/"/g; $_ }
-        map { s/^"(.+)"$/$1/; $_ }
-        map { my @p = split /\t/, $_; @p[2,4] }
-        grep { $_ } @passwords # skip blank lines
-    };
-}
-
-sub do_password {
-    my ($self, $no_msg) = @_;
-
-    $self->initdb(sub {
-        my $db_pass = shift;
-        $self->real_initdb($db_pass); # re-init database, yes this is now spaghetti code
-
-        my $avail = 'available passwords: '. (join ',', keys %{$self->{db}});
-        $self->msg($avail) unless $no_msg;
-
-        $self->prompt('password to insert: ', 0, sub {
-            my $passname = shift;
-            my $password = $self->{db}{$passname};
-
-            if($password){
-                $self->tt_write($password. "\n");
-                $self->leave;
+    $self->prompt('Password to insert: ', 0, sub {
+        my $passname = shift;
+        my $pty = IO::Pty::Easy->new;
+        $pty->spawn("pwsafe -pE $passname");
+        my $read;
+        while (1) {
+            $read = $pty->read(0);
+            last if $read =~ /passphrase for/;
+        }
+        $pty->write("$pass\n");
+        my $password;
+        while (1) {
+            $password = $pty->read(0);
+            last if $password =~ s/password for.*?: //;
+            if ($password =~ /incorrect/) {
+                $self->do_password;
+                return;
             }
-            else {
-                $self->msg("Unknown password $passname: ($avail)");
-                $self->do_password('no_msg');
+            if ($password =~ /No matching entries/) {
+                $self->which_password($pass);
+                return;
             }
-        });
+        }
+        if ($password) {
+            $self->tt_write($password);
+            $self->leave;
+        }
+        else {
+            $self->msg("Unknown password $passname");
+            $self->which_password($pass);
+        }
     });
 }
 
