@@ -20,6 +20,7 @@ files="abcde.conf
        bin
        irssi
        fortune
+       module-setup
        ncmpc
        newsbeuter
        procmail
