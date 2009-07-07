@@ -52,7 +52,7 @@ esac # }}}
 # adding options to common commands {{{
 alias ls="ls --color=auto --group-directories-first"
 alias grep="grep --color=auto"
-alias rm="rm -i"
+alias rm="rm -I"
 alias cp="cp -i"
 alias mv="mv -i"
 alias bc="bc -lq"
