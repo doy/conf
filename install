@@ -26,7 +26,8 @@ files="abcde.conf
        procmail
        terminfo
        urxvt
-       vim"
+       vim
+       xmonad"
 
 function install() {
     if [[ -e "$2" && ! -h "$2" ]]; then
