@@ -153,6 +153,9 @@ shopt -s extglob
 shopt -s no_empty_cmd_completion
 shopt -s checkwinsize
 shopt -s histappend
+if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
+    shopt -s globstar
+fi
 set -o vi
 export HISTCONTROL=ignoredups
 export HISTFILESIZE=1000000000
