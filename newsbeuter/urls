@@ -24,7 +24,6 @@ http://rss.cnn.com/rss/cnn_topstories.rss news
 http://rss.news.yahoo.com/rss/topstories news
 http://news.google.com/news?pz=1&ned=us&hl=en&topic=h&num=10&output=rss news
 http://feeds.boingboing.net/boingboing/iBag blog tech aggregator
-http://rss.slashdot.org/Slashdot/slashdot news dumb tech
 http://www.reddit.com/r/programming/.rss aggregator dumb programming tech
 http://www.reddit.com/r/perl/.rss aggregator dumb perl
 http://www.reddit.com/r/compsci/.rss aggregator dumb
@@ -39,7 +38,6 @@ http://www.alistapart.com/site/rss blog
 http://python-history.blogspot.com/feeds/posts/default blog python programming
 http://blake8086.blogspot.com/feeds/posts/default blog design
 http://koweycode.blogspot.com/feeds/posts/default blog haskell programming
-http://plnews.org/index.rss2 news programming
 http://neopythonic.blogspot.com/feeds/posts/default blog python programming
 http://syndication.thedailywtf.com/TheDailyWtf website
 http://scienceblogs.com/goodmath/atom.xml blog math
@@ -103,3 +101,6 @@ http://ahefner.livejournal.com/data/rss blog programming
 http://unknownplace.org/cpanrecent/rss perl
 http://cpanratings.perl.org/index.rss perl
 http://feeds2.feedburner.com/thereifixedit blog humor
+http://feeds.gawker.com/lifehacker/excerpts.xml blog aggregator tech
+http://feeds.arstechnica.com/arstechnica/everything news aggregator tech
+http://blog.weftsoar.net/feeds/posts/default blog programming perl
