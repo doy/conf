@@ -14,3 +14,7 @@
 	interactive = auto
 [core]
 	excludesfile = /home/doy/.gitignore
+[push]
+	default = current
+[branch]
+	autosetuprebase = always
