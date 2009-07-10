@@ -32,7 +32,7 @@ main = do
                                          , ppTitle  = xmobarColor "green" "" . shorten 100
                                          }
              } `additionalKeysP` [("C-M1-o", spawn "urxvtc")
-                                 ,("C-M1-b", spawn "chromium-browser --proxy-server='http=localhost:8118;https=localhost:8118'")
+                                 ,("C-M1-b", spawn "firefox")
                                  ,("C-S-l", spawn "xscreensaver-command -lock")
                                  ,("C-M1-r", spawn "gmrun")
                                  ,("C-M1-c", restart "xmonad" True)
