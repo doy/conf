@@ -2,8 +2,8 @@
 startup_message off
 nethack on
 
-# no more "bell in window 1", Crassworm!!
-bell_msg ""
+# bells in background windows make bells in the foreground window
+bell_msg "^G"
 
 # avoid logging in a new user for every term (thanks toft)
 deflogin off
