@@ -253,6 +253,8 @@ settings = {
   "fe-common/core" = {
     autolog = "yes";
     autolog_path = "~/irclogs/$tag/${0}-%Y-%m.log";
+    bell_beeps = "yes";
+    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT ";
   };
   "perl/core/scripts" = {
     chanact_abbreviate_names = "2";
