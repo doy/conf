@@ -16,6 +16,7 @@ files="abcde.conf
        screenrc
        vimrc
        Xdefaults
+       xmobarrc
        bash
        bin
        irssi
