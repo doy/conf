@@ -5,6 +5,9 @@ nethack on
 # bells in background windows make bells in the foreground window
 bell_msg "^G"
 
+# i turn visual bell on in terminal settings, don't do it here
+vbell off
+
 # avoid logging in a new user for every term (thanks toft)
 deflogin off
 
