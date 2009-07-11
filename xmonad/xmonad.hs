@@ -40,6 +40,7 @@ main = do
                                  ,("C-M1-c", restart "xmonad" True)
                                  ,("C-M1-<Left>", prevWS)
                                  ,("C-M1-<Right>", nextWS)
+                                 ,("C-M1-<Up>", focusUrgent)
                                  ,("C-S-M1-<Left>", shiftToPrev)
                                  ,("C-S-M1-<Right>", shiftToNext)
                                  ,("M1-<Tab>", windows W.focusDown)
