@@ -23,7 +23,7 @@ draw_graph_borders no
 draw_shades        no
 font               6x10
 gap_x              4
-gap_y              4
+gap_y              20
 short_units        yes
 use_spacer         left
 temperature_unit   fahrenheit
