@@ -18,6 +18,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
 import qualified XMonad.StackSet as W
 import System.IO
+import Data.List
 
 main = do
     xmproc <- spawnPipe "xmobar"
@@ -57,3 +58,19 @@ myLayout = configurableNavigation noNavigateBorders (tiled ||| Mirror tiled ||| 
         nmaster = 2
         ratio   = 0.5955
         delta   = 0.0005
+
+-- XXX: copied from the darcs version of xmonad
+-- | Strip xmobar markup. Useful to remove ppHidden color from ppUrgent
+--   field. For example:
+--
+-- >     , ppHidden          = xmobarColor "gray20" "" . wrap "<" ">"
+-- >     , ppUrgent          = xmobarColor "dark orange" "" .  xmobarStrip
+xmobarStrip :: String -> String
+xmobarStrip = strip [] where
+    strip keep x
+      | null x                 = keep
+      | "<fc="  `isPrefixOf` x = strip keep (drop 1 . dropWhile (/= '>') $ x)
+      | "</fc>" `isPrefixOf` x = strip keep (drop 5  x)
+      | '<' == head x          = strip (keep ++ "<") (tail x)
+      | otherwise              = let (good,x') = span (/= '<') x
+                                 in strip (keep ++ good) x'
