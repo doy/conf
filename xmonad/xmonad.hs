@@ -11,6 +11,7 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Reflect
 import XMonad.Layout.WindowNavigation
 import XMonad.Util.Run(spawnPipe)
@@ -20,7 +21,7 @@ import System.IO
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ defaultConfig {
+    xmonad $ withUrgencyHook NoUrgencyHook defaultConfig {
                  terminal           = "urxvtc",
                  modMask            = mod4Mask,
                  normalBorderColor  = "#000000",
@@ -30,6 +31,7 @@ main = do
                  logHook            = dynamicLogWithPP $ xmobarPP
                                          { ppOutput = hPutStrLn xmproc
                                          , ppTitle  = xmobarColor "green" "" . shorten 100
+                                         , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
                                          }
              } `additionalKeysP` [("C-M1-o", spawn "urxvtc")
                                  ,("C-M1-b", spawn "firefox")
