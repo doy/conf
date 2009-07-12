@@ -58,7 +58,6 @@ alias mv="mv -i"
 alias bc="bc -lq"
 alias ncmpc="ncmpc -c"
 alias truecrypt="sudo truecrypt -t"
-alias darcs="rlwrap darcs"
 alias less="less -Q"
 # }}}
 # games {{{
@@ -85,7 +84,6 @@ alias henzell="ssh henzell@crawl.akrasiac.org"
 # }}}
 # other {{{
 alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.3) Gecko/20070404 Firefox/2.0.0.3"'
-alias getsong="mpc | head -n1"
 alias ..='cd ..'
 alias dotperl='rsync -av lib/* ~/.perl/'
 function luado { # thanks rici
@@ -96,20 +94,8 @@ function luado { # thanks rici
 function setfont {
     printf '\e]710;%s\007' "$1"
 }
-function checkmessages {
-    find ~/.purple/logs/ -mmin -$1 -type f | grep -v .system | xargs tail -n $2
-}
-function lastaim {
-    pushd ~/.purple/logs/aim/thedoyster/$1 > /dev/null
-    less $(ls | tail -n1)
-    popd > /dev/null
-}
 function mem_usage {
     ps -eo size,ucmd | sort -rn | head -n$([ -z "$1" ] && echo 20 || echo $1)
-}
-function installed_kernel_modules {
-    find /lib/modules/$([ -z "$1" ] && echo $(uname -r) || echo $1)/ \
-        -iname '*.ko' | sed 's:.*/\(.*\)\.ko:\1:'
 }
 function opened_files {
     strace $* 2>&1 | grep -E '^open\('   | \
