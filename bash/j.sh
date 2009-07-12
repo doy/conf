@@ -129,5 +129,5 @@ j() {
 complete -C 'j --complete "$COMP_LINE"' j
 # populate directory list. avoid clobbering other PROMPT_COMMANDs.
 echo $PROMPT_COMMAND | grep -q "j --add" || {
- PROMPT_COMMAND='j --add "$(pwd -P)";'"$PROMPT_COMMAND"
+ PROMPT_COMMAND="$PROMPT_COMMAND"';j --add "$(pwd -P)"'
 }
