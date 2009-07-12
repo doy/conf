@@ -15,3 +15,6 @@ set visible-stats on
 # set up vi mode
 set editing-mode vi
 set keymap vi
+
+# my shell should never use the bell
+set bell-style none
