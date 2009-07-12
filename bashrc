@@ -59,6 +59,7 @@ alias bc="bc -lq"
 alias ncmpc="ncmpc -c"
 alias truecrypt="sudo truecrypt -t"
 alias darcs="rlwrap darcs"
+alias less="less -Q"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
