@@ -3,9 +3,9 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
        , fgColor = "grey"
        , position = Top
        , lowerOnStart = True
-       , commands = [ Run Weather "KCMI" ["-t","<tempF>F","-L","50","-H","75","--normal","green","--high","red","--low","lightblue"] 36000
-                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+       , commands = [ Run Weather "KCMI" ["-t","<tempF>F","-L","50","-H","75","--normal","darkgreen","--high","darkred","--low","lightblue"] 36000
+                    , Run Network "wlan0" ["-L","0","-H","32","--normal","darkgreen","--high","darkred"] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","darkgreen","--high","darkred"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
     		    , Run Date "%a %b %_d %H:%M:%S" "date" 10
