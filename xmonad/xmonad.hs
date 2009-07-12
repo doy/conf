@@ -14,6 +14,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Reflect
 import XMonad.Layout.WindowNavigation
+import XMonad.Util.Font(stringToPixel)
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
 import qualified XMonad.StackSet as W
@@ -22,7 +23,7 @@ import Data.List
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ withUrgencyHook NoUrgencyHook defaultConfig {
+    xmonad $ withUrgencyHookC BorderUrgencyHook urgencyConfig { suppressWhen = Never } $ defaultConfig {
                  terminal           = "urxvtc",
                  modMask            = mod4Mask,
                  normalBorderColor  = "#000000",
@@ -58,6 +59,12 @@ myLayout = configurableNavigation noNavigateBorders (tiled ||| Mirror tiled ||| 
         nmaster = 2
         ratio   = 0.5955
         delta   = 0.0005
+
+data BorderUrgencyHook = BorderUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook BorderUrgencyHook where
+    urgencyHook _ win =
+        do color <- withDisplay (\display -> io (stringToPixel display "#ff0000")); withDisplay (\display -> io (setWindowBorder display win color))
 
 -- XXX: copied from the darcs version of xmonad
 -- | Strip xmobar markup. Useful to remove ppHidden color from ppUrgent
