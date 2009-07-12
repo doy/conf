@@ -20,6 +20,7 @@ export CVS_RSH='ssh'
 export TEXINPUTS=".:${HOME}/conf/tex:"
 export NHBOT_DARCS_AUTHOR="doy@tozt.net"
 export NHBOT_PUBLIC_REPO_BASE="http://tozt.net/code/"
+export LESS='-QR'
 [ -x /usr/bin/lesspipe ] && export LESSOPEN='|/usr/bin/lesspipe %s'
 [ -x /usr/bin/lesspipe.sh ] && export LESSOPEN='|/usr/bin/lesspipe.sh %s'
 # }}}
@@ -58,7 +59,6 @@ alias mv="mv -i"
 alias bc="bc -lq"
 alias ncmpc="ncmpc -c"
 alias truecrypt="sudo truecrypt -t"
-alias less="less -Q"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
