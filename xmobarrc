@@ -1,7 +1,7 @@
 Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "grey"
-       , position = Top
+       , position = Bottom
        , lowerOnStart = True
        , commands = [ Run Weather "KCMI" ["-t","<tempF>F","-L","50","-H","75","--normal","darkgreen","--high","darkred","--low","lightblue"] 36000
                     , Run Network "wlan0" ["-L","0","-H","32","--normal","darkgreen","--high","darkred"] 10
