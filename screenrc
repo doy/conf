@@ -23,3 +23,6 @@ altscreen on
 # some keybindings
 bind ^a windowlist -b
 bind ^g screen //group
+
+# i want utf8 in screen too
+defutf8 on
