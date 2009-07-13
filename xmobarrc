@@ -9,9 +9,10 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
     		    , Run Date "%a %b %_d %H:%M:%S" "date" 10
+                    , Run Battery [] 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %KCMI% | %cpu% | %memory% * %swap% | %wlan0% <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %KCMI% | %cpu% | %memory% * %swap% | %wlan0% | %battery% | <fc=#ee9a00>%date%</fc>"
        }
