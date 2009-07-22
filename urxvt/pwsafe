@@ -155,7 +155,7 @@ sub which_password {
                 $self->do_password;
                 return;
             }
-            if ($password =~ /No matching entries/) {
+            if ($password =~ /(?:No|More than one) matching entr/) {
                 $self->which_password($pass);
                 return;
             }
