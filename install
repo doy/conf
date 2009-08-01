@@ -14,6 +14,7 @@ files="abcde.conf
        nethackrc
        procmailrc
        screenrc
+       tmux.conf
        vimrc
        Xdefaults
        xmobarrc
