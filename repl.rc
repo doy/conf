@@ -1,4 +1,4 @@
-# vim:syntax=perl:
+# vim:filetype=perl:
 #
 #package main;
 ## this is for Perl's Devel::REPL. it goes in ~/.re.pl/repl.rc
