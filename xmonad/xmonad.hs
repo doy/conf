@@ -28,6 +28,8 @@ main = do
                  modMask            = mod4Mask,
                  normalBorderColor  = "#000000",
                  focusedBorderColor = "#aaaaaa",
+                 workspaces         = ["term", "firefox", "3", "4",
+                                       "5", "6", "7", "8", "9"],
                  layoutHook         = avoidStruts myLayout,
                  manageHook         = manageDocks <+> manageHook defaultConfig,
                  logHook            = dynamicLogWithPP $ xmobarPP
