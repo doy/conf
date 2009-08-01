@@ -59,7 +59,6 @@ alias mv="mv -i"
 alias bc="bc -lq"
 alias ncmpc="ncmpc -c"
 alias truecrypt="sudo truecrypt -t"
-alias tmux="tmux -u"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
