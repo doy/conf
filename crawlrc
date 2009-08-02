@@ -1,3 +1,6 @@
+# TEAMCAPTAIN doy
+# TEAMNAME cabal
+# TEAMMEMBERS doy stabwound cbus wasp Grimm 78291
 # Dungeon Crawl Stone Soup 0.4.1
 # Section 1: Starting Screen {{{
 name                     = doy
@@ -5,11 +8,12 @@ remember_name            = true
 #use_old_selection_order = false
 #weapon                  =
 #book                    =
+#wand                    =
 #chaos_knight            =
 #death_knight            =
 #priest                  =
-#race                    =
-#class                   =
+#species                 =
+#job                     =
 #random_pick             = false
 #good_random             = true
 # }}}
@@ -21,14 +25,11 @@ remember_name            = true
 #sound      = <regex>:<path to sound file>
 # }}}
 # Section 3: Lua Files {{{
-lua_file = lua/chnkdata.lua
-lua_file = lua/safechnk.lua
 lua_file = lua/stash.lua
 lua_file = lua/wield.lua
 lua_file = lua/kills.lua
 lua_file = lua/runrest.lua
 lua_file = lua/gearset.lua
-lua_file = lua/eat.lua
 lua_file = lua/pickup.lua
 lua_file = lua/trapwalk.lua
 # }}}
@@ -36,7 +37,6 @@ lua_file = lua/trapwalk.lua
 # Section 4-a: Picking up and Dropping {{{
 #autopickup             = $?!+"/%
 autopickup_exceptions = <potion.*mutation
-autopickup_exceptions = <scroll.*torment
 # XXX: hack, since i can't disable ae excludes
 #include                = autopickup_exceptions.txt
 # Contents of autopickup_exceptions.txt {{{
@@ -45,7 +45,7 @@ ae = <curare-tipped
 ae = useless_item
 ae = inedible
 # XXX: disabled
-ae = dangerous_item
+#ae = dangerous_item
 ae = amulet of (inaccuracy|the gourmand|controlled flight|warding)
 ae = amulet of (resist .*|clarity|rage|conservation)
 ae = ring of (see invisible|levitation|poison resistance|hunger)
@@ -76,6 +76,7 @@ default_friendly_pickup = friend
 #target_los_first      = true
 #default_target        = true
 #target_unshifted_dirs = false
+#darken_beyond_range   = true
 # }}}
 # Section 4-c: Passive Sightings {{{
 #detected_monster_colour   = lightred
@@ -85,13 +86,14 @@ default_friendly_pickup = friend
 #clean_map                 = false
 # }}}
 # Section 4-d: Branding {{{
-friend_brand       = hi:yellow
-neutral_brand      = hi:darkgrey
-stab_brand         = hi:blue
-may_stab_brand     = hi:green
-heap_brand         = reverse
-feature_item_brand = reverse
-trap_item_brand    = reverse
+friend_brand          = hi:yellow
+neutral_brand         = hi:darkgrey
+stab_brand            = hi:blue
+may_stab_brand        = hi:green
+heap_brand            = reverse
+feature_item_brand    = reverse
+trap_item_brand       = reverse
+#verbose_monster_pane = true
 # }}}
 # Section 4-e: Level Map Functions {{{
 #level_map_cursor_step = 7
@@ -138,13 +140,14 @@ runrest_ignore_monster = fish:2
 runrest_ignore_monster = butterfly:1
 runrest_ignore_monster = swamp worm:3
 runrest_ignore_monster = lava worm:3
+trapwalk_safe_hp       = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
 #trap_prompt           = true
-trapwalk_safe_hp = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
 #rest_wait_both        = false
+auto_exclude           = oklob plant, orange crystal statue, ice statue, silver statue, curse skull, Roxanne, Murray
 # }}}
 # Section 4-h: Stashes {{{
 # XXX: look for other possibilities for this
-stash_filter          = 14,4:21
+#stash_filter          = 14,4:21
 annotate_item_class   = true
 annotate_item_dropped = true
 # }}}
@@ -152,21 +155,26 @@ annotate_item_dropped = true
 #auto_list              = true
 #easy_open              = true
 #easy_unequip           = true
+#equip_unequip          = false
 #easy_confirm           = safe
 #allow_self_target      = prompt
 #easy_butcher           = true
 #always_confirm_butcher = false
-#swap_when_safe         = true
+#prefer_safe_chunks     = true
+easy_eat_chunks         = true
+easy_eat_gourmand       = true
+#easy_eat_contaminated  = false
+#prompt_for_swap        = true
 #easy_quit_item_prompts = true
 #easy_exit_menu         = true
-auto_eat_chunks         = true
-sort_menus = true : equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
+sort_menus              = true : equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
 # }}}
 # Section 4-j: Messages and Display Enhancements {{{
 hp_warning                    = 40
 #mp_warning                   = 0
 hp_colour                     = lightgrey,99:green,80:yellow,40:red
 mp_colour                     = lightgrey,99:green,80:yellow,40:red
+stat_colour                   = 1:lightred,3:red,7:yellow
 #status_caption_colour        = yellow
 delay_message_clear           = true
 show_inventory_weights        = true
@@ -175,11 +183,12 @@ show_gold_turns               = true
 item_stack_summary_minimum    = 1
 #list_rotten                  = true
 #mlist_min_height             = 5
-msg_max_height                = 30
+#msg_max_height               = 10
 #mlist_allow_alternate_layout = false
 #mlist_targetting             = false
 #classic_hud                  = false
 menu_colour_prefix_class      = true
+#menu_colour_shops            = true
 # XXX: this priority order needs tweaking - especially the stuff that's marked
 # as lightgrey now
 menu_colour                   = white:\s\+\s
@@ -202,6 +211,10 @@ menu_colour                   = white:equipped
 message_colour                = mute:You start (searching|resting)
 message_colour                = mute:Done searching
 message_colour                = mute:Your legs become a tail as you enter
+message_colour                = mute:Your.*disappears in a puff of smoke
+message_colour                = mute:Your.*miss(es)? (the|it)
+message_colour                = mute:misses your
+message_colour                = mute:[yY]our.*but (do no|doesn't do any) damage
 include                       = messages.txt
 force_more_message            = You are starting to lose your buoyancy
 force_more_message            = Space (bends|warps horribly) around
@@ -220,9 +233,10 @@ force_more_message            = danger:
 #channel.CHANNEL_NAME =
 # }}}
 # Section 4-m: Inscriptions {{{
-autoinscribe = distortion:!w
-autoinscribe = deck:!p
-autoinscribe = potion.*mutation:!q
+autoinscribe            = distortion:!w
+autoinscribe            = deck:!p
+autoinscribe            = potion.*mutation:!q
+#autoinscribe_artefacts = true
 # }}}
 # Section 4-n: Macro related Options {{{
 #flush.failure         = true
@@ -239,13 +253,14 @@ include = tiles_options.txt
 # Section 5: Dump File {{{
 # Section 5-a: Items and Kill List {{{
 #kill_map              =
-#dump_kill_places      = single
-dump_item_origins      = artifacts,ego_arm,ego_weap,jewellery
+dump_kill_places       = all
+dump_item_origins      = artefacts,ego_arm,ego_weap,jewellery
 dump_item_origin_price = 200
 dump_message_count     = 20
 dump_order             = header,hiscore,stats,inventory,skills,spells,mutations
 dump_order            += overview,misc,screenshot,messages,notes,monlist,kills
 dump_order            += turns_by_place,kills_by_place
+#dump_book_spells      = true
 # }}}
 # Section 5-b: Notes {{{
 user_note_prefix       = doy:
@@ -253,11 +268,12 @@ note_items             = rune of,acquirement,Orb
 note_monsters          = ^[A-Z],orb of fire,lich
 ood_interesting        = 6
 rare_interesting       = 9
-note_hp_percent        = 5
+note_hp_percent        = 10
 note_skill_levels      = 1,8,15,21,27
 #note_all_skill_levels = false
 note_skill_max         = true
 note_all_spells        = true
+#note_xom_effects      = true
 note_messages          = You pass through the gate
 note_messages          = [bB]anish.*Abyss
 note_messages          = Your scales start
@@ -268,7 +284,7 @@ note_messages          = You fall through a shaft
 # Section 6: Miscellaneous {{{
 # Section 6-a: All OS {{{
 #mouse_input          = false
-wiz_mode              = yes
+wiz_mode              = no
 #char_set             = ascii
 #classic_item_colours = false
 #colour.OLDCOLOUR     = NEWCOLOUR
@@ -279,6 +295,7 @@ wiz_mode              = yes
 #cset_any             =
 #feature              =
 mon_glyph             = _ : p
+mon_glyph             = shadow : lightgrey
 mon_glyph             = oklob plant : lightmagenta
 mon_glyph             = Xtahua : lightmagenta
 mon_glyph             = acid blob : lightmagenta
@@ -286,6 +303,7 @@ mon_glyph             = giant eyeball : cyan
 mon_glyph             = greater mummy : lightmagenta
 mon_glyph             = ancient lich : lightmagenta
 mon_glyph             = curse skull : lightmagenta
+mon_glyph             = killer bee : brown
 # }}}
 # Section 6-b: DOS and Windows {{{
 #dos_use_background_intensity = false
@@ -295,136 +313,6 @@ mon_glyph             = curse skull : lightmagenta
 #use_fake_cursor = false
 # }}}
 # }}}
-fsim_mons = Dispater
-fsim_xl = 27
 # greedy_autoexplore should stop not only for ego/arts, but also for armor that
 # i can wear that i don't currently own any of (normal cloaks are useful if i
 # don't have a cloak yet)
-: function pray_prompt()
-:    crawl.formatted_mpr("Really pray?", "prompt")
-:    local res = crawl.getch()
-:    if string.lower(string.char(res)) == "y" then
-:        crawl.sendkeys("p")
-:    end
-: end
-< do
--- globals {{{
-local x, y = 1, 1
-local map = { [1] = { [1] = 'f' } }
-local last_move = ''
-local turns = 0
-local seen_a_monster = false
--- }}}
-function vi_to_delta(key) -- {{{
-    local v2d = {
-        y = {-1,  1}, k = {0,  1}, u = {1,  1},
-        h = {-1,  0},              l = {1,  0},
-        b = {-1, -1}, j = {0, -1}, n = {1, -1},
-    }
-    return v2d[key]
-end -- }}}
-function delta_to_vi(dx, dy) -- {{{
-    local d2v = {
-        [-1] = { [-1] = 'b', [0] = 'h', [1] = 'y'},
-        [0]  = { [-1] = 'j',            [1] = 'k'},
-        [1]  = { [-1] = 'n', [0] = 'l', [1] = 'u'},
-    }
-    return d2v[dx][dy]
-end -- }}}
-function reset() -- {{{
-    x, y = 1, 1
-    map = { [1] = { [1] = 'f' } }
-    last_move = ''
-    crawl.mpr("Reset!")
-end -- }}}
-function dijkstra() -- {{{
-    local stack = {}
-    local dist = {}
-    table.insert(stack, {pos = {x, y}, dist = 0, path = ''})
-    dist[x] = {[y] = 0}
-    while #stack ~= 0 do
-        table.sort(stack, function(a, b) return a.dist > b.dist end)
-        local node = table.remove(stack)
-        for _, deltas in pairs({{1,1},{1,0},{1,-1},{0,1},{0,-1},{-1,1},{-1,0},{-1,-1}}) do
-            local dx, dy = unpack(deltas)
-            local nx, ny = node.pos[1] + dx, node.pos[2] + dy
-            local next_path = node.path .. delta_to_vi(dx, dy)
-            local next_dist = node.dist + 1
-            map[nx] = map[nx] or {}
-            dist[nx] = dist[nx] or {}
-            if map[nx][ny] == nil then
-                return next_path:sub(1, 1)
-            elseif map[nx][ny] == 'f' and
-                   (dist[nx][ny] == nil or dist[nx][ny] > next_dist) then
-                table.insert(stack, {pos  = {nx, ny},
-                                     dist = next_dist,
-                                     path = next_path})
-                dist[nx][ny] = next_dist
-            end
-        end
-    end
-end -- }}}
-function update_turn() -- {{{
-    dt = you.turns() - turns
-    turns = you.turns()
-    local delta = vi_to_delta(last_move)
-    if delta == nil then return end
-    local dx, dy = unpack(delta)
-    if dt == 0 then
-        map[x + dx] = map[x + dx] or {}
-        map[x + dx][y + dy] = 'w'
-    else
-        for i = 1, dt do
-            map[x + i * dx] = map[x + i * dx] or {}
-            map[x + i * dx][y + i * dy] = 'f'
-        end
-        x = x + dx * dt
-        y = y + dy * dt
-    end
-end -- }}}
-function minotaur_in_view() -- {{{
-    return seen_a_monster
-end -- }}}
-function step_solve_lab(coro) -- {{{
-    update_turn()
-    last_move = dijkstra()
-    if last_move == nil then crawl.mpr("nil move!"); return end
-    --crawl.mpr("sending " .. last_move)
-    crawl.sendkeys(last_move)
-    if coro then return not minotaur_in_view() else return end
-end -- }}}
-function solve_lab() -- {{{
-    crawl.mpr("Solving lab...")
-    while true do coroutine.yield(step_solve_lab(true)) end
-    crawl.mpr("Minotaur!")
-end -- }}}
-local old_ch_mon_is_safe = ch_mon_is_safe
-function ch_mon_is_safe(...) -- {{{
-    seen_a_monster = true
-    return old_ch_mon_is_safe(...)
-end -- }}}
-end >
-< function test1()
-      crawl.sendkeys("j")
-      coroutine.yield(true)
-      crawl.sendkeys("j")
-      coroutine.yield(false)
-  end >
-< function test2()
-      crawl.sendkeys("j")
-      coroutine.yield(true)
-      crawl.sendkeys("j")
-      coroutine.yield(true)
-      crawl.sendkeys("j")
-      coroutine.yield(false)
-  end >
-< function test3()
-      crawl.sendkeys("j")
-      coroutine.yield(true)
-      crawl.sendkeys("j")
-      coroutine.yield(true)
-      crawl.sendkeys("j")
-      coroutine.yield(true)
-      crawl.sendkeys("j")
-      coroutine.yield(false)
-  end >
