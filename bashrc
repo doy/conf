@@ -42,12 +42,12 @@ else
 fi # }}}
 # Change the window title of X terminals {{{
 case ${TERM} in
-	xterm*|rxvt*|Eterm|aterm|kterm|gnome)
+	xterm*|rxvt*|Eterm|aterm|kterm|gnome|screen*)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 		;;
-	screen*)
-		PROMPT_COMMAND='echo -ne "\033k${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-		;;
+        #screen*)
+                #PROMPT_COMMAND='echo -ne "\033k${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
+                #;;
 esac # }}}
 # aliases {{{
 # adding options to common commands {{{
