@@ -18,3 +18,5 @@
 	default = current
 [branch]
 	autosetuprebase = always
+[merge]
+	tool = vimdiff
