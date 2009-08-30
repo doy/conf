@@ -89,6 +89,9 @@ set mousehide
 " fold only when I ask for it damnit!
 set foldmethod=marker
 
+" visually indicate wrapped lines
+set showbreak=>
+
 " Language specific features {{{
 " Bash {{{
 " I use bash
