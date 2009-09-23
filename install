@@ -4,6 +4,7 @@ confdir=$(dirname $0)
 files="abcde.conf
        bash_logout
        bashrc
+       conkerorrc
        conkyrc
        crawlrc
        gitconfig
