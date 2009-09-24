@@ -104,6 +104,11 @@ interactive("root", // {{{
             "Go to the root of the current URL",
             "find-url",
             $browser_object = browser_object_root_url); // }}}
+interactive("find-alternate-url-new-buffer", // {{{
+            "Edit the current URL in the minibuffer, to open in a new buffer",
+            "find-url-new-buffer",
+            $browser_object = browser_object_alternate_url,
+            $prompt = "Find url"); // }}}
 // }}}
 // Webjumps {{{
 define_webjump("imdb", "http://imdb.com/find?q=%s");
@@ -132,7 +137,7 @@ define_key(content_buffer_normal_keymap, "g U", "root");
 define_key(content_buffer_normal_keymap, "o", "find-url");
 define_key(content_buffer_normal_keymap, "O", "find-alternate-url");
 define_key(content_buffer_normal_keymap, "t", "find-url-new-buffer");
-//define_key(content_buffer_normal_keymap, "T", "find-alternate-url-new-buffer");
+define_key(content_buffer_normal_keymap, "T", "find-alternate-url-new-buffer");
 
 define_key(content_buffer_normal_keymap, "k", "cmd_scrollLineUp");
 define_key(content_buffer_normal_keymap, "j", "cmd_scrollLineDown");
@@ -170,7 +175,6 @@ add_hook("window_initialize_hook", set_proxy_session);
 
 /*
  * TODO:
- * - "find-alternate-url-new-buffer" command for vimperator's T
  * - make isearch wrap around
  * - undo close tab
  * - there might be an easier way to do copy-current-url, using "0" or
