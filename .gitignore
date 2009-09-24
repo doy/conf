@@ -13,3 +13,6 @@ xmonad/xmonad.errors
 xmonad/xmonad.hi
 xmonad/xmonad.o
 irssi/default.theme
+bin/nethack/ipbt
+bin/nethack/ttydump
+bin/nethack/ttygrep
