@@ -100,8 +100,8 @@ function set_proxy_session (window, server, port) {
         session_pref ('network.proxy.type', 0); //direct connection
         window.minibuffer.message ("Direction connection to the internet enabled for this session");
     } else {
-        if (server == "") server = proxy_server_default;
-        if (port == "") port = proxy_port_default;
+        if (!server) server = proxy_server_default;
+        if (!port)   port   = proxy_port_default;
 
         session_pref ('network.proxy.ftp',    server);
         session_pref ('network.proxy.gopher', server);
@@ -134,7 +134,7 @@ interactive(
     }
 );
 
-
+add_hook("window_initialize_hook", set_proxy_session);
 
 /*
  * TODO:
