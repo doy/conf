@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xulrunner ~/coding/src/conkeror/application.ini
