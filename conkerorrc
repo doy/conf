@@ -17,6 +17,9 @@ require("new-tabs.js");
 require("page-modes/wikipedia.js");
 wikipedia_enable_didyoumean = true;
 
+require("session.js");
+session_auto_save_auto_load = true;
+
 interactive(
     "copy-current-url",
     "Copy the current buffer's URL to the clipboard",
@@ -102,4 +105,5 @@ define_key(default_global_keymap, "g T", "buffer-previous");
  * - default webjump for none given should be i'm feeling lucky, not www.%s.com
  * - configure privoxy
  * - reimplement flashblock maybe?
+ * - session stuff doesn't save tab history
 */
