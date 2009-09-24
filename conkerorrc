@@ -1,3 +1,4 @@
+// vim: ft=javascript
 can_kill_last_buffer = false;
 hints_display_url_panel = true;
 homepage = "about:blank";
