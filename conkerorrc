@@ -95,6 +95,15 @@ interactive("set-proxy-session", // {{{
                     ))
                 );
             }); // }}}
+define_browser_object_class("root-url", // {{{
+                            "Browser object which returns the root of a URL.",
+                            function(I, prompt) {
+                                return url_path_trim(I.buffer.current_uri.spec);
+                            }); // }}}
+interactive("root", // {{{
+            "Go to the root of the current URL",
+            "find-url",
+            $browser_object = browser_object_root_url); // }}}
 // }}}
 // Webjumps {{{
 define_webjump("imdb", "http://imdb.com/find?q=%s");
@@ -118,7 +127,7 @@ define_key(content_buffer_normal_keymap, "M-right", "forward");
 define_key(content_buffer_normal_keymap, "H", "back");
 define_key(content_buffer_normal_keymap, "M-left", "back");
 define_key(content_buffer_normal_keymap, "g u", "up");
-//define_key(content_buffer_normal_keymap, "g U", "root");
+define_key(content_buffer_normal_keymap, "g U", "root");
 
 define_key(content_buffer_normal_keymap, "o", "find-url");
 define_key(content_buffer_normal_keymap, "O", "find-alternate-url");
@@ -161,7 +170,6 @@ add_hook("window_initialize_hook", set_proxy_session);
 
 /*
  * TODO:
- * - "root" command for vimperator's gU
  * - "find-alternate-url-new-buffer" command for vimperator's T
  * - make isearch wrap around
  * - undo close tab
