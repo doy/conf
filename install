@@ -28,6 +28,7 @@ files="abcde.conf
        ncmpc
        newsbeuter
        procmail
+       services
        terminfo
        urxvt
        vim

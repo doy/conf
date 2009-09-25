@@ -1,0 +1,3 @@
+#!/bin/sh
+
+watch_lock 2>&1

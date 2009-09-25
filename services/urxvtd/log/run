@@ -1,0 +1,3 @@
+#!/bin/sh
+
+multilog t * $HOME/.log/urxvtd
