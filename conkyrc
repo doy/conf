@@ -7,7 +7,6 @@ color4             ddaa00
 
 alignment          top_right
 
-background         yes
 double_buffer      yes
 own_window         no
 out_to_console     no
