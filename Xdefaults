@@ -1,3 +1,4 @@
+! vim: ft=xdefaults
 ! rxvt-unicode {{{
 URxvt*visualBell:true
 URxvt*background:black

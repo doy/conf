@@ -1,3 +1,4 @@
+# vim: ft=procmail
 # vars {{{
 #VERBOSE=yes
 UIUC=(uiuc|illinois|uillinois)
