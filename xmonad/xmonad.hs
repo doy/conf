@@ -28,7 +28,7 @@ main = do
                  modMask            = mod4Mask,
                  normalBorderColor  = "#000000",
                  focusedBorderColor = "#aaaaaa",
-                 workspaces         = ["term", "firefox", "3", "4",
+                 workspaces         = ["term", "browser", "3", "4",
                                        "5", "6", "7", "8", "9"],
                  layoutHook         = avoidStruts myLayout,
                  manageHook         = manageDocks <+> manageHook defaultConfig,
@@ -38,7 +38,7 @@ main = do
                                          , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
                                          }
              } `additionalKeysP` [("C-M1-o", spawn "urxvtc")
-                                 ,("C-M1-b", spawn "firefox")
+                                 ,("C-M1-b", spawn "conkeror")
                                  ,("C-S-l", spawn "xscreensaver-command -lock")
                                  ,("C-M1-r", spawn "gmrun")
                                  ,("C-M1-c", restart "xmonad" True)
