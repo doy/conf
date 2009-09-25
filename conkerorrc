@@ -195,8 +195,6 @@ add_hook("window_initialize_hook", set_proxy_session);
  * - undo close tab (undo-kill-buffer?)
  * - there might be an easier way to do copy-current-url, using "0" or
  *   something? check this out
- * - attempting to kill the last buffer should close it, but leave an empty
- *   buffer open
  * - smarter webjumps - cpan should go to the first search result
  * - default webjump should trigger on dns lookup failure
  * - reimplement flashblock maybe?
