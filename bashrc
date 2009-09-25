@@ -5,6 +5,7 @@
 # anything or bad things will happen !
 # }}}
 # environment {{{
+export PATH="~/.bin/marathon:~/.bin/nethack:~/.bin:/usr/local/sbin:/usr/local/bin:$PATH"
 export MPD_HOST=bishamon
 export LUA_CPATH='/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?/init.so;./?.so'
 export LUA_PATH='/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;?.lua'
@@ -147,7 +148,6 @@ set -o vi
 export HISTCONTROL=ignoredups
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
-export PATH="~/.bin/marathon:~/.bin/nethack:~/.bin:/usr/local/sbin:/usr/local/bin:$PATH"
 if [[ -z "$PROMPT_COMMAND" ]]; then
     export PROMPT_COMMAND='history -a'
 else
