@@ -129,6 +129,7 @@ webjumps["urban"] = webjumps["slang"];
 undefine_key(content_buffer_normal_keymap, "b");
 undefine_key(content_buffer_normal_keymap, "g");
 undefine_key(content_buffer_normal_keymap, "G");
+undefine_key(content_buffer_normal_keymap, "u");
 undefine_key(download_buffer_keymap, "d");
 undefine_key(download_buffer_keymap, "p");
 undefine_key(download_buffer_keymap, "o");
@@ -171,6 +172,7 @@ define_key(content_buffer_normal_keymap, "C-v", "quote-next-input-mode");
 define_key(content_buffer_normal_keymap, "C-M-v", "quote-input-mode");
 
 define_key(default_global_keymap, "d", "kill-current-buffer");
+//define_key(default_global_keymap, "u", "undo-kill-buffer");
 define_key(default_global_keymap, "/", "isearch-forward");
 define_key(default_global_keymap, "?", "isearch-backward");
 define_key(default_global_keymap, "b", "switch-to-buffer");
@@ -187,7 +189,7 @@ add_hook("window_initialize_hook", set_proxy_session);
 /*
  * TODO:
  * - make isearch wrap around
- * - undo close tab
+ * - undo close tab (undo-kill-buffer?)
  * - there might be an easier way to do copy-current-url, using "0" or
  *   something? check this out
  * - attempting to kill the last buffer should close it, but leave an empty
