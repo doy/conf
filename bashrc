@@ -133,6 +133,17 @@ function github-clone {
 function mod {
     yes | module-setup $1
 }
+function svup {
+    svc -u "$HOME/.services/$1"
+    svstat "$HOME/.services/$1"
+}
+function svdn {
+    svc -d "$HOME/.services/$1"
+    svstat "$HOME/.services/$1"
+}
+function svst {
+    svstat "$HOME/.services/$1"
+}
 # }}}
 # }}}
 # bash configuration {{{
