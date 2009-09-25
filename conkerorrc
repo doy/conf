@@ -195,9 +195,8 @@ add_hook("window_initialize_hook", set_proxy_session);
  * - attempting to kill the last buffer should close it, but leave an empty
  *   buffer open
  * - smarter webjumps - cpan should go to the first search result, need one for
- *   google i'm feeling lucky, everything2, maybe man pages?
- * - default webjump for none given should be i'm feeling lucky, not www.%s.com
- * - configure privoxy
+ *   everything2, maybe man pages?
+ * - default webjump should trigger on dns lookup failure
  * - reimplement flashblock maybe?
  * - session stuff doesn't save tab history
 */
