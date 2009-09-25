@@ -4,6 +4,8 @@
 // Built-in {{{
 // Don't let kill-buffer close the window
 can_kill_last_buffer = false;
+// don't use a new window for the download buffer
+download_buffer_automatic_open_target = [OPEN_NEW_BUFFER_BACKGROUND, OPEN_NEW_WINDOW];
 // display the url before going to it in hints mode
 hints_display_url_panel = true;
 // don't use a homepage
@@ -127,6 +129,14 @@ webjumps["urban"] = webjumps["slang"];
 undefine_key(content_buffer_normal_keymap, "b");
 undefine_key(content_buffer_normal_keymap, "g");
 undefine_key(content_buffer_normal_keymap, "G");
+undefine_key(download_buffer_keymap, "d");
+undefine_key(download_buffer_keymap, "p");
+undefine_key(download_buffer_keymap, "o");
+
+define_key(download_buffer_keymap, "space", "download-pause-or-resume");
+define_key(download_buffer_keymap, "C-c", "download-cancel");
+define_key(download_buffer_keymap, "t", "find-url-new-buffer");
+define_key(download_buffer_keymap, "P", "paste-url-new-buffer");
 
 define_key(content_buffer_normal_keymap, "L", "forward");
 define_key(content_buffer_normal_keymap, "M-right", "forward");
