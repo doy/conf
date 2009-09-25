@@ -160,6 +160,9 @@ define_key(content_buffer_normal_keymap, "h", "cmd_scrollLeft");
 define_key(content_buffer_normal_keymap, "l", "cmd_scrollRight");
 define_key(content_buffer_normal_keymap, "g g", "cmd_scrollTop");
 define_key(content_buffer_normal_keymap, "G", "cmd_scrollBottom");
+// XXX: these appear to not work yet
+define_key(content_buffer_normal_keymap, "0", "cmd_scrollBeginLine");
+define_key(content_buffer_normal_keymap, "$", "cmd_scrollEndLine");
 
 define_key(content_buffer_normal_keymap, "n", "isearch-continue-forward");
 define_key(content_buffer_normal_keymap, "N", "isearch-continue-backward");
