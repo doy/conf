@@ -18,6 +18,7 @@ files="abcde.conf
        tmux.conf
        vimrc
        Xdefaults
+       xinitrc
        xmobarrc
        bash
        bin
