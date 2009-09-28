@@ -34,21 +34,23 @@ INSTALL   = abcde.conf \
 	    xmonad
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
+BUILD     = bin/nethack/timettyrec
+
 ECHO      = @echo
 LN        = @ln -sf
 MKDIR     = @mkdir -p
 RM        = @rm -f
 
-build :
+build : $(BUILD)
 
-install : $(INSTALLED)
+install : build $(INSTALLED)
 	$(MKDIR) $(INTO)/.ssh
 	$(LN) $(PWD)/authorized_keys $(INTO)/.ssh/
 	$(ECHO) Installed into $(HOME)
 
 clean :
 	$(ECHO) Cleaning from $(HOME)
-	$(RM) $(INSTALLED) $(INTO)/.ssh/authorized_keys
+	$(RM) $(BUILD) $(INSTALLED) $(INTO)/.ssh/authorized_keys
 
 $(INTO)/.% : %
 	@[ ! -f $@ ] || readlink -q $@ || mv -f $@ $@.bak
