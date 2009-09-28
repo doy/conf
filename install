@@ -28,6 +28,7 @@ files="abcde.conf
        ncmpc
        newsbeuter
        procmail
+       re.pl
        services
        terminfo
        urxvt
@@ -55,7 +56,6 @@ function install() {
 for file in $files; do
     install "${file}" ".${file}"
 done
-install repl.rc .re.pl/repl.rc
 install authorized_keys .ssh/authorized_keys
 
 cd .bin
