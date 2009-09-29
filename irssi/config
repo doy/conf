@@ -1,8 +1,15 @@
 servers = (
   { address = "irc.stealth.net"; chatnet = "IRCnet"; port = "6668"; },
+  { address = "irc.efnet.net"; chatnet = "EFNet"; port = "6667"; },
   {
-    address = "irc.efnet.net";
-    chatnet = "EFNet";
+    address = "irc.perl.org";
+    chatnet = "perl";
+    port = "6667";
+    autoconnect = "yes";
+  },
+  {
+    address = "localhost";
+    chatnet = "bitlbee";
     port = "6667";
     autoconnect = "yes";
   },
@@ -62,15 +69,29 @@ chatnets = {
   };
   SILC = { type = "SILC"; };
   freenode = { type = "IRC"; };
+  perl = { type = "IRC"; };
+  bitlbee = { type = "IRC"; };
 };
 
 channels = (
+  { 
+    name = "##crawl-offtopic";
+    chatnet = "freenode";
+    autojoin = "yes";
+  },
   { name = "##nethack-elite"; chatnet = "freenode"; autojoin = "yes"; },
   { name = "#interhack"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#moose"; chatnet = "perl"; autojoin = "yes"; },
+  { name = "#kiokudb"; chatnet = "perl"; autojoin = "yes"; },
+  { name = "#moose-cabal"; chatnet = "perl"; autojoin = "yes"; },
+  { name = "#moose-dev"; chatnet = "perl"; autojoin = "yes"; },
+  { name = "#devel-declare"; chatnet = "perl"; autojoin = "yes"; },
+  { name = "#tmux"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#conkeror"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "##crawl"; chatnet = "freenode"; autojoin = "yes"; },
   #  { name = "#rodney"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#netmonster"; chatnet = "EFNet"; autojoin = "yes"; },
+  #  { name = "#netmonster"; chatnet = "EFNet"; autojoin = "yes"; },
   #  { name = "#alephone"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "##crawl"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -409,7 +430,7 @@ windows = {
         type = "QUERY";
         chat_type = "IRC";
         name = "sazzyanjali";
-        tag = "localhost";
+        tag = "bitlbee";
       }
     );
   };
@@ -419,7 +440,7 @@ windows = {
         type = "QUERY";
         chat_type = "IRC";
         name = "cb4nova";
-        tag = "localhost";
+        tag = "bitlbee";
       }
     );
     sticky = "yes";
@@ -431,7 +452,7 @@ windows = {
         type = "QUERY";
         chat_type = "IRC";
         name = "hyposomnileptic";
-        tag = "localhost";
+        tag = "bitlbee";
       }
     );
     sticky = "yes";
@@ -443,7 +464,7 @@ windows = {
         type = "QUERY";
         chat_type = "IRC";
         name = "skltte";
-        tag = "localhost";
+        tag = "bitlbee";
       }
     );
     sticky = "yes";
@@ -503,7 +524,7 @@ windows = {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "&bitlbee";
-        tag = "localhost";
+        tag = "bitlbee";
       }
     );
     sticky = "yes";

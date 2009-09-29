@@ -1,0 +1,1 @@
+../bitlbee_join_notice.pl
