@@ -273,11 +273,17 @@ logs = { };
 hilights = ( { text = "doy"; nick = "yes"; word = "yes"; } );
 notifies = { };
 windows = {
-  1 = { 
-    immortal = "yes";
-    name = "(status)";
-    level = "ALL";
+  1 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##crawl-offtopic";
+        tag = "freenode";
+      }
+    );
     sticky = "yes";
+    parent = "50";
   };
   2 = {
     items = (
@@ -289,7 +295,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   3 = {
     items = (
@@ -301,7 +307,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   4 = {
     items = (
@@ -313,31 +319,31 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   5 = {
     items = (
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#netmonster";
-        tag = "EFNet";
+        name = "#kiokudb";
+        tag = "perl";
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   6 = {
     items = (
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##crawl";
-        tag = "freenode";
+        name = "#moose-cabal";
+        tag = "perl";
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   7 = {
     items = (
@@ -349,19 +355,53 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
-  11 = {
+  8 = {
     items = (
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "&bitlbee";
-        tag = "localhost";
+        name = "#devel-declare";
+        tag = "perl";
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
+  };
+  9 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#tmux";
+        tag = "freenode";
+      }
+    );
+    sticky = "yes";
+    parent = "50";
+  };
+  10 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#conkeror";
+        tag = "freenode";
+      }
+    );
+    sticky = "yes";
+    parent = "50";
+  };
+  11 = {
+    items = (
+      {
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "confound";
+        tag = "perl";
+      }
+    );
   };
   12 = {
     items = (
@@ -383,7 +423,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   14 = {
     items = (
@@ -395,7 +435,7 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   15 = {
     items = (
@@ -407,22 +447,67 @@ windows = {
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
   16 = {
+    items = (
+      { 
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "stevan";
+        tag = "perl";
+      }
+    );
+  };
+  17 = {
     items = (
       {
         type = "QUERY";
         chat_type = "IRC";
-        name = "starlifesage";
+        name = "autarch";
+        tag = "perl";
+      }
+    );
+  };
+  18 = {
+    items = (
+      {
+        type = "QUERY";
+        chat_type = "IRC";
+        name = "runcible";
+        tag = "freenode";
+      }
+    );
+  };
+  30 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "##crawl";
+        tag = "freenode";
+      }
+    );
+    sticky = "yes";
+    parent = "50";
+  };
+  50 = { 
+    immortal = "yes";
+    name = "(status)";
+    level = "ALL";
+    sticky = "yes";
+  };
+  51 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "&bitlbee";
         tag = "localhost";
       }
     );
     sticky = "yes";
-    parent = "1";
+    parent = "50";
   };
-  21 = { name = "all"; sticky = "yes"; parent = "1"; };
-  22 = { name = "bots"; sticky = "yes"; parent = "1"; };
-  23 = { name = "hilight"; sticky = "yes"; parent = "1"; };
 };
-mainwindows = { 1 = { first_line = "1"; lines = "34"; }; };
+mainwindows = { 50 = { first_line = "1"; lines = "22"; }; };
