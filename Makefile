@@ -30,6 +30,7 @@ INSTALL   = abcde.conf \
 	    procmail \
 	    re.pl \
 	    services \
+	    taeb \
 	    terminfo \
 	    urxvt \
 	    vim \
