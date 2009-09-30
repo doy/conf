@@ -1,6 +1,7 @@
 INTO      = $(HOME)
 INSTALL   = abcde.conf \
 	    bash_logout \
+	    bash_profile \
 	    bashrc \
 	    conkerorrc \
 	    conkyrc \
