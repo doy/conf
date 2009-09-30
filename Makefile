@@ -21,6 +21,7 @@ INSTALL   = abcde.conf \
 	    xmobarrc \
 	    bash \
 	    bin \
+	    interhack \
 	    irssi \
 	    fortune \
 	    module-setup \

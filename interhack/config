@@ -1,0 +1,154 @@
+# vim:ft=perl:fdm=marker:
+
+# main config {{{
+nick "doy";
+#server "sporkhack";
+$vikeys = 1;
+$write_keys = 0;
+$write_normal_ttyrec = 1;
+$write_interhack_ttyrec = 1;
+$no_evalcontext = 1;
+# }}}
+# early plugin configuration {{{
+# eido-colors (has to go before include) {{{
+# exclude/include categories {{{
+$ece_shortbuc = 1;
+$ece_scope = 1;
+$ece_instrument = 1;
+$ece_gem = 1;
+$ece_charges_individual = 1;
+$ece_holywater = 1;
+$ece_unholywater = 1;
+$ece_goodies_other = 1;
+$eci_splitwater = 1;
+$eci_erosion = 1;
+# }}}
+# change colors {{{
+$ec_blessed = "green";
+$ec_uncursed = "brown";
+$ec_cursed = "red";
+$ec_holywater = "blue";
+$ec_unholywater = "red";
+$ec_trice = "bred";
+$ec_bohboom = "bred";
+# }}}
+# }}}
+# priceid {{{
+$lc_scrolls = 1;
+$short_names{scroll}{60} = ['ew'];
+$short_names{scroll}{80} = ['ea', 'rc'];
+$short_names{potion}{300} = ['ga', 'gl', 'para'];
+# }}}
+$empty = "e";
+# }}}
+# plugins {{{
+exclude "apply-oil", "colors-monsters", "dual-slow-digestion", "elbereth";
+exclude "eval", "gem-name", "geno-list", "hiveminder", "intrinsics-matcher";
+exclude "intrinsics-tracker", "monster-rename", "unnamed-scrolls";
+include "*";
+# }}}
+# plugin configuration {{{
+# fortune {{{
+$fortune = "~/.fortune/yasd-fortune ~/.fortune/ideas";
+# }}}
+# autoadjust {{{
+sub autoadjust;
+autoadjust $aa_key         => "o";
+autoadjust $aa_unihorn     => "a";
+autoadjust $aa_athame      => "e";
+autoadjust $aa_stethoscope => "y";
+autoadjust $aa_bag         => "i";
+autoadjust $aa_blindfold   => "n";
+autoadjust $aa_whistle     => "z";
+autoadjust $aa_lamp        => "j";
+autoadjust $aa_instrument  => "q";
+autoadjust $aa_trice       => "^y";
+autoadjust qr/\bpotions?\b[^.]*?/ => "^q";
+autoadjust qr/\bwand\b[^.]*?/ => "^z";
+# }}}
+# botl {{{
+$statusline = sub {
+    $elbereths = 0 if !defined($elbereths);
+    my $timepos = 80 - length($botl{time});
+    "$botl{score} E:$elbereths K:$keystrokes\e[23;${timepos}H$colormap{darkgray}$botl{time}\e[0m"
+};
+# }}}
+# wish-menu {{{
+$wish_enchantment = 2;
+my $armor = "blessed greased fixed +$wish_enchantment";
+%wishes =
+(
+    A => "$wish_quantity blessed scrolls of charging",
+    B => "magic marker",
+    C => "$armor helm of brilliance",
+    D => "$armor gray dragon scale mail",
+    E => "blessed ring of levitation",
+    F => "$armor silver dragon scale mail",
+    G => "blessed greased fixed bag of holding",
+    H => "$wish_quantity cursed potions of gain level",
+    I => "blessed ring of conflict",
+    J => "7 candles",
+    K => "blessed Eye of the Aethiopica",
+    L => "$armor jumping boots",
+    M => "$armor helm of telepathy",
+    N => "blessed Orb of Fate",
+    O => "blessed ring of free action",
+    P => "blessed ring of teleport control",
+    Q => "$armor speed boots",
+    R => "blessed spellbook of identify",
+    S => "$armor gauntlets of power",
+    T => "blessed amulet of life saving",
+    U => "$armor helm of opposite alignment",
+    V => "blessed Master Key of Thievery",
+    W => "nothing",
+);
+%law_wishes = ();
+%neu_wishes = ();
+%cha_wishes = ();
+# }}}
+# marker-menu {{{
+%scrolls =
+(
+  A => 'charging',
+  B => 'enchant armor',
+  C => 'enchant weapon',
+  D => 'identify',
+  E => 'remove curse',
+  F => 'magic mapping',
+  G => 'gold detection',
+  H => 'scare monster',
+  I => 'teleportation',
+  J => 'earth',
+  K => 'taming',
+  L => 'genocide',
+);
+%spellbooks =
+(
+  A => 'magic mapping',
+  B => 'identify',
+  C => 'jumping',
+  D => 'haste self',
+  E => 'magic missile',
+  F => 'drain life',
+  G => 'charm monster',
+  H => 'finger of death',
+  I => 'cure sickness',
+  J => 'extra healing',
+  K => 'detect treasure',
+  L => 'create monster',
+  M => 'remove curse',
+  N => 'polymorph',
+  O => 'cancellation',
+);
+show_menu qr/^What type of spellbook do you want to write\? +$/ => \%spellbooks;
+# }}}
+# }}}
+# mappings {{{
+remap chr(2) => "ainy?!\$\n\e"; # ^B to bag non-dangerous stuff
+our $magicbane = 0;
+extended_command "mb" => sub { $magicbane = !$magicbane; "Magicbane " . ($magicbane ? "ON" : "OFF") };
+remap chr(5) => sub { $elbereths++; $magicbane ? "Ee  Elbereth\n" : "E-  Elbereth\n" }; # ^E to engrave Elbereth
+remap chr(14) => sub { $elbereths += 2; $magicbane ? "Ee  ElberethElbereth\n" : "E-  ElberethElbereth\n" }; # ^N to engrave Elbereth twice
+remap chr(22) => sub { $elbereths += 6; "E-  Elbereth\nE-  Elbereth\nE-  Elbereth\nE-  Elbereth\nE-  Elbereth\nE-  Elbereth\n>      " }; # ^V to DfV
+remap chr(23) => "aqny "; # ^W to work the castle drawbridge
+# }}}
