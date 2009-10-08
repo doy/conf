@@ -276,6 +276,8 @@ settings = {
     autolog_path = "~/irclogs/$tag/${0}-%Y-%m.log";
     bell_beeps = "yes";
     beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT ";
+    activity_hide_level = "JOINS PARTS QUITS NICKS MODES";
+    windows_auto_renumber = "no";
   };
   "perl/core/scripts" = {
     chanact_abbreviate_names = "2";
