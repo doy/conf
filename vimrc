@@ -475,6 +475,10 @@ xmap <silent>K :call Help(1, [], '<SID>man')<CR>
 " have Y behave analogously to D rather than to dd
 nmap Y y$
 
+" buffer switching
+nmap H :bp<CR>
+nmap L :bn<CR>
+
 " easily cancel hitting the leader key once
 nnoremap <Leader><Leader> <Leader>
 
