@@ -153,6 +153,7 @@ b:match_word	matchit.txt	/*b:match_word*
 b:match_words	matchit.txt	/*b:match_words*
 cs	surround.txt	/*cs*
 ds	surround.txt	/*ds*
+ft-gitcommit-plugin	ft-gitcommit-plugin.txt	/*ft-gitcommit-plugin*
 fugitive	fugitive.txt	/*fugitive*
 fugitive-:Gblame	fugitive.txt	/*fugitive-:Gblame*
 fugitive-:Gcd	fugitive.txt	/*fugitive-:Gcd*
