@@ -23,3 +23,7 @@
 	autosetuprebase = always
 [merge]
 	tool = vimdiff
+[rebase]
+	stat = true
+[help]
+	autocorrect = 5
