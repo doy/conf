@@ -67,19 +67,3 @@ data BorderUrgencyHook = BorderUrgencyHook deriving (Read, Show)
 instance UrgencyHook BorderUrgencyHook where
     urgencyHook _ win =
         do color <- withDisplay (\display -> io (stringToPixel display "#ff0000")); withDisplay (\display -> io (setWindowBorder display win color))
-
--- XXX: copied from the darcs version of xmonad
--- | Strip xmobar markup. Useful to remove ppHidden color from ppUrgent
---   field. For example:
---
--- >     , ppHidden          = xmobarColor "gray20" "" . wrap "<" ">"
--- >     , ppUrgent          = xmobarColor "dark orange" "" .  xmobarStrip
-xmobarStrip :: String -> String
-xmobarStrip = strip [] where
-    strip keep x
-      | null x                 = keep
-      | "<fc="  `isPrefixOf` x = strip keep (drop 1 . dropWhile (/= '>') $ x)
-      | "</fc>" `isPrefixOf` x = strip keep (drop 5  x)
-      | '<' == head x          = strip (keep ++ "<") (tail x)
-      | otherwise              = let (good,x') = span (/= '<') x
-                                 in strip (keep ++ good) x'
