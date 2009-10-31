@@ -2,7 +2,7 @@
 	email = doy@tozt.net
 	name = Jesse Luehrs
 [alias]
-	pushall = !git push origin master && git push github master
+	pushall = !git push origin && git push github
 	amend = commit --amend
 	record = !git add -p && git commit
 	rebase-branch = !git rebase -i $(git merge-base master HEAD)
