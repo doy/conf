@@ -22,7 +22,7 @@ export TEXINPUTS=".:${HOME}/conf/tex:"
 export NHBOT_DARCS_AUTHOR="doy@tozt.net"
 export NHBOT_PUBLIC_REPO_BASE="http://tozt.net/code/"
 export LESS='-QR'
-export GIT_EXEC_PATH="${HOME}/.bin/git:${GIT_EXEC_PATH}"
+[ -x `which git` ] && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec-path`
 [ -x /usr/bin/lesspipe ] && export LESSOPEN='|/usr/bin/lesspipe %s'
 [ -x /usr/bin/lesspipe.sh ] && export LESSOPEN='|/usr/bin/lesspipe.sh %s'
 # }}}
