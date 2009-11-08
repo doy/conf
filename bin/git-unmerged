@@ -1,0 +1,30 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+sub git {
+    if (wantarray) {
+        chomp(my @ret = qx{git $_[0]});
+        return @ret;
+    }
+    else {
+        chomp(my $ret = qx{git $_[0]});
+        return $ret;
+    }
+}
+
+my $branch = git 'symbolic-ref HEAD';
+$branch ||= 'master';
+$branch =~ s:^refs/heads/::;
+
+my @remotes = git 'remote show';
+my %remotes = map { $_, "$_/$branch" } @remotes;
+
+for my $remote (keys %remotes) {
+    my $remote_branch = $remotes{$remote};
+    my $tip = git "show-ref -s --abbrev $remote_branch";
+    my $merge_base = git "merge-base HEAD $remote_branch";
+    $merge_base = substr $merge_base, 0, 7;
+    next if $merge_base eq $tip;
+    print "$remote: $merge_base..$tip\n";
+}
