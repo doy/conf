@@ -222,7 +222,7 @@ function _set_vcs {
         ;;
         git)
             vcs_dirty=$(git status -a > /dev/null 2>&1; echo $?)
-            vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null || git show-ref -h -s --abbrev HEAD)
+            vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null || git rev-parse --short HEAD)
             vcs_branch=${vcs_branch#refs/heads/}
             if [[ "x$vcs_branch" == "xmaster" ]]; then
                 vcs_branch=''
