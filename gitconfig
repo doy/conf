@@ -9,6 +9,7 @@
 	diff-branch = !git diff $(git merge-base master HEAD)..HEAD
 	log-branch = !git log $(git merge-base master HEAD)..HEAD
 	review = "!f() { for rev in $(git rev-list --reverse \"$@\"); do git show $rev; done; }; f"
+	unstage = reset -q HEAD
 [github]
 	user = doy
 [color]
