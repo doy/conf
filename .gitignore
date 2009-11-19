@@ -18,5 +18,6 @@ bin/nethack/ttydump
 bin/nethack/ttygrep
 supervise/
 interhack/servers
+interhack/ttyrec
 taeb
 !taeb/config.yml
