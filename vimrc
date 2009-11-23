@@ -386,7 +386,10 @@ function s:vcs_orig(file)
     elseif finddir('_darcs', dir . ';') =~ '_darcs'
         return system('darcs show contents ' . a:file)
     elseif finddir('.git', dir . ';') =~ '.git'
-        return system('git show HEAD:' . a:file)
+        let prefix = system('git rev-parse --show-prefix')
+        let prefix = substitute(prefix, '\n', '', 'g')
+        let cmd = 'git show HEAD:'.prefix.a:file
+        return system(cmd)
     else
         throw 'No VCS directory found'
     endif
