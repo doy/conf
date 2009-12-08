@@ -16,6 +16,7 @@ export DARCS_SSH="${HOME}/.bin/ssh"
 export DARCS_SCP="${HOME}/.bin/scp"
 export DARCS_SFTP="${HOME}/.bin/sftp"
 export GIT_SSH="${HOME}/.bin/ssh"
+export RSYNC_RSH="${HOME}/.bin/ssh"
 export PERL5LIB="${HOME}/.perl:${HOME}/.perl/lib/perl5/site_perl/5.10.0/i686-linux"
 export CVS_RSH='ssh'
 export TEXINPUTS=".:${HOME}/conf/tex:"
