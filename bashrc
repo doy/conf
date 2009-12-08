@@ -178,6 +178,8 @@ function _set_vcs {
     local vcs
     local vcs_dirty
     local vcs_branch
+    local vcs_dir
+    local vcs_state
     __vcs=''
     function _find_upwards {
         local pwd
@@ -221,8 +223,15 @@ function _set_vcs {
             vcs_branch=
         ;;
         git)
+            vcs_dir=$(git rev-parse --git-dir)
             vcs_dirty=$(git status -a > /dev/null 2>&1; echo $?)
             vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null || git rev-parse --short HEAD)
+            if [[ -e "${vcs_dir}/MERGE_HEAD" ]]; then
+                vcs_state='merge'
+            fi
+            if [[ -d "${vcs_dir}/rebase-apply" || -d "${vcs_dir}/rebase-merge" ]]; then
+                vcs_state='rebase'
+            fi
             vcs_branch=${vcs_branch#refs/heads/}
             if [[ "x$vcs_branch" == "xmaster" ]]; then
                 vcs_branch=''
@@ -238,7 +247,10 @@ function _set_vcs {
     if [[ -n "$vcs_branch" ]]; then
         vcs_branch=":$vcs_branch"
     fi
-    __vcs="(${vcs:0:1}${vcs_dirty}${vcs_branch})"
+    if [[ -n "$vcs_state" ]]; then
+        vcs_state="(${vcs_state:0:1})"
+    fi
+    __vcs="(${vcs:0:1}${vcs_dirty}${vcs_branch}${vcs_state})"
 }
 export PROMPT_COMMAND="_set_error;_set_vcs;$PROMPT_COMMAND"
 export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W\[${CYAN}\]\$__vcs \[${HIBLUE}\]\\$\[${NORM}\] "
