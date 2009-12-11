@@ -228,8 +228,12 @@ function _set_vcs {
             local git_dir
             local git_base
             git_dir=$(git rev-parse --git-dir)
-            vcs_dirty=$(git status -a > /dev/null 2>&1; echo $?)
             vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null)
+            if [[ -z "$(git ls-files -udm)" ]]; then
+                vcs_dirty=1
+            else
+                vcs_dirty=0
+            fi
             if [[ -z "${vcs_branch}" ]]; then
                 vcs_branch=$(git rev-parse --short HEAD)
             else
