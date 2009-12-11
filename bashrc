@@ -241,8 +241,10 @@ function _set_vcs {
                 git_base=$(git merge-base HEAD origin/$vcs_branch)
                 if [[ "${git_base}" == "$(git rev-parse HEAD)" ]]; then
                     vcs_local_commits="-$(git rev-list HEAD..origin/$vcs_branch | wc -l)"
-                else
+                elif [[ "${git_base}" == "$(git rev-parse origin/$vcs_branch)" ]]; then
                     vcs_local_commits="+$(git rev-list origin/${vcs_branch}..HEAD | wc -l)"
+                else
+                    vcs_local_commits="+$(git rev-list ${git_base}..HEAD | wc -l)-$(git rev-list ${git_base}..origin/$vcs_branch | wc -l)"
                 fi
             fi
             if [[ -e "${git_dir}/MERGE_HEAD" ]]; then
