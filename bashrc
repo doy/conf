@@ -181,6 +181,7 @@ function _set_vcs {
     local vcs_branch
     local vcs_dir
     local vcs_state
+    local vcs_local_commits
     __vcs=''
     function _find_upwards {
         local pwd
@@ -224,16 +225,28 @@ function _set_vcs {
             vcs_branch=
         ;;
         git)
-            vcs_dir=$(git rev-parse --git-dir)
+            local git_dir
+            local git_base
+            git_dir=$(git rev-parse --git-dir)
             vcs_dirty=$(git status -a > /dev/null 2>&1; echo $?)
-            vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null || git rev-parse --short HEAD)
-            if [[ -e "${vcs_dir}/MERGE_HEAD" ]]; then
+            vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null)
+            if [[ -z "${vcs_branch}" ]]; then
+                vcs_branch=$(git rev-parse --short HEAD)
+            else
+                vcs_branch=${vcs_branch#refs/heads/}
+                git_base=$(git merge-base HEAD origin/$vcs_branch)
+                if [[ "${git_base}" == "$(git rev-parse HEAD)" ]]; then
+                    vcs_local_commits="-$(git rev-list HEAD..origin/$vcs_branch | wc -l)"
+                else
+                    vcs_local_commits="+$(git rev-list origin/${vcs_branch}..HEAD | wc -l)"
+                fi
+            fi
+            if [[ -e "${git_dir}/MERGE_HEAD" ]]; then
                 vcs_state='merge'
             fi
-            if [[ -d "${vcs_dir}/rebase-apply" || -d "${vcs_dir}/rebase-merge" ]]; then
+            if [[ -d "${git_dir}/rebase-apply" || -d "${git_dir}/rebase-merge" ]]; then
                 vcs_state='rebase'
             fi
-            vcs_branch=${vcs_branch#refs/heads/}
             if [[ "x$vcs_branch" == "xmaster" ]]; then
                 vcs_branch=''
             fi
@@ -251,7 +264,10 @@ function _set_vcs {
     if [[ -n "$vcs_state" ]]; then
         vcs_state="(${vcs_state:0:1})"
     fi
-    __vcs="(${vcs:0:1}${vcs_dirty}${vcs_branch}${vcs_state})"
+    if [[ "$vcs_local_commits" == "-0" ]]; then
+        vcs_local_commits=''
+    fi
+    __vcs="(${vcs:0:1}${vcs_dirty}${vcs_branch}${vcs_local_commits}${vcs_state})"
 }
 export PROMPT_COMMAND="_set_error;_set_vcs;$PROMPT_COMMAND"
 export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W\[${CYAN}\]\$__vcs \[${HIBLUE}\]\\$\[${NORM}\] "
