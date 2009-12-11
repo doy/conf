@@ -254,13 +254,15 @@ function _set_vcs {
                 vcs_branch=$(git rev-parse --short HEAD)
             else
                 vcs_branch=${vcs_branch#refs/heads/}
-                git_base=$(git merge-base HEAD origin/$vcs_branch)
-                if [[ "${git_base}" == "$(git rev-parse HEAD)" ]]; then
-                    vcs_local_commits="-$(git rev-list HEAD..origin/$vcs_branch | wc -l)"
-                elif [[ "${git_base}" == "$(git rev-parse origin/$vcs_branch)" ]]; then
-                    vcs_local_commits="+$(git rev-list origin/${vcs_branch}..HEAD | wc -l)"
-                else
-                    vcs_local_commits="+$(git rev-list ${git_base}..HEAD | wc -l)-$(git rev-list ${git_base}..origin/$vcs_branch | wc -l)"
+                if git show-ref -q --verify "refs/remotes/origin/$vcs_branch"; then
+                    git_base=$(git merge-base HEAD origin/$vcs_branch)
+                    if [[ "${git_base}" == "$(git rev-parse HEAD)" ]]; then
+                        vcs_local_commits="-$(git rev-list HEAD..origin/$vcs_branch | wc -l)"
+                    elif [[ "${git_base}" == "$(git rev-parse origin/$vcs_branch)" ]]; then
+                        vcs_local_commits="+$(git rev-list origin/${vcs_branch}..HEAD | wc -l)"
+                    else
+                        vcs_local_commits="+$(git rev-list ${git_base}..HEAD | wc -l)-$(git rev-list ${git_base}..origin/$vcs_branch | wc -l)"
+                    fi
                 fi
             fi
             if [[ -e "${git_dir}/MERGE_HEAD" ]]; then
@@ -283,7 +285,8 @@ function _set_vcs {
     fi
     if [[ "$vcs_local_commits" == "-0" ]]; then
         vcs_local_commits=''
-    else
+    fi
+    if [[ -n "$vcs_local_commits" ]]; then
         vcs_local_commits=":$vcs_local_commits"
     fi
     __vcs="(${vcs:0:1}${vcs_dirty}${vcs_branch}${vcs_local_commits}${vcs_state})"
