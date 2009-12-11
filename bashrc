@@ -218,10 +218,20 @@ function _set_vcs {
     case "$vcs" in
         svn)
             vcs_dirty=$([[ -n "$(svn status | grep -v '^?')" ]]; echo $?)
+            if [[ "$vcs_dirty" -eq 0 ]]; then
+                vcs_dirty='*'
+            else
+                vcs_dirty=''
+            fi
             vcs_branch=
         ;;
         darcs)
             vcs_dirty=$(darcs whatsnew > /dev/null 2>&1; echo $?)
+            if [[ "$vcs_dirty" -eq 0 ]]; then
+                vcs_dirty='*'
+            else
+                vcs_dirty=''
+            fi
             vcs_branch=
         ;;
         git)
@@ -229,10 +239,16 @@ function _set_vcs {
             local git_base
             git_dir=$(git rev-parse --git-dir)
             vcs_branch=$(git symbolic-ref -q HEAD 2>/dev/null)
-            if [[ -z "$(git ls-files -udm)" ]]; then
-                vcs_dirty=1
+            vcs_dirty=''
+            if git diff --no-ext-diff --ignore-submodules --quiet --exit-code; then
+                :
             else
-                vcs_dirty=0
+                vcs_dirty="${vcs_dirty}*"
+            fi
+            if git diff-index --cached --quiet --ignore-submodules HEAD; then
+                :
+            else
+                vcs_dirty="${vcs_dirty}+"
             fi
             if [[ -z "${vcs_branch}" ]]; then
                 vcs_branch=$(git rev-parse --short HEAD)
@@ -259,11 +275,6 @@ function _set_vcs {
         ;;
         *) return 0 ;;
     esac
-    if [[ "$vcs_dirty" -eq 0 ]]; then
-        vcs_dirty='*'
-    else
-        vcs_dirty=''
-    fi
     if [[ -n "$vcs_branch" ]]; then
         vcs_branch=":$vcs_branch"
     fi
@@ -272,6 +283,8 @@ function _set_vcs {
     fi
     if [[ "$vcs_local_commits" == "-0" ]]; then
         vcs_local_commits=''
+    else
+        vcs_local_commits=":$vcs_local_commits"
     fi
     __vcs="(${vcs:0:1}${vcs_dirty}${vcs_branch}${vcs_local_commits}${vcs_state})"
 }
