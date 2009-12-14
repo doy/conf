@@ -206,6 +206,7 @@ statusbar = {
         more = { priority = "-1"; alignment = "right"; };
         barend = { priority = "100"; alignment = "right"; };
         typing_notice = { };
+        join_notice = { };
       };
     };
 
@@ -277,6 +278,7 @@ settings = {
     bell_beeps = "yes";
     beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT ";
     activity_hide_level = "JOINS PARTS QUITS NICKS MODES";
+    activity_hide_targets = "status &bitlbee";
     windows_auto_renumber = "no";
   };
   "perl/core/scripts" = {
@@ -295,6 +297,7 @@ settings = {
 logs = { };
 hilights = ( { text = "doy"; nick = "yes"; word = "yes"; } );
 notifies = { };
+keyboard = ( );
 windows = {
   1 = {
     items = (
@@ -349,8 +352,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#kiokudb";
-        tag = "perl";
+        name = "#netmonster";
+        tag = "EFNet";
       }
     );
     sticky = "yes";
@@ -385,8 +388,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#devel-declare";
-        tag = "perl";
+        name = "##crawl";
+        tag = "freenode";
       }
     );
     sticky = "yes";
@@ -397,8 +400,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#tmux";
-        tag = "freenode";
+        name = "#distzilla";
+        tag = "perl";
       }
     );
     sticky = "yes";
@@ -409,7 +412,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#conkeror";
+        name = "##crawl-dev";
         tag = "freenode";
       }
     );
@@ -421,8 +424,8 @@ windows = {
       {
         type = "QUERY";
         chat_type = "IRC";
-        name = "confound";
-        tag = "perl";
+        name = "starlifesage";
+        tag = "bitlbee";
       }
     );
   };
@@ -474,20 +477,15 @@ windows = {
   };
   16 = {
     items = (
-      { 
-        type = "QUERY";
-        chat_type = "IRC";
-        name = "stevan";
-        tag = "perl";
-      }
+      { type = "QUERY"; chat_type = "IRC"; name = "rjbs"; tag = "perl"; }
     );
   };
   17 = {
     items = (
-      {
+      { 
         type = "QUERY";
         chat_type = "IRC";
-        name = "autarch";
+        name = "stevan";
         tag = "perl";
       }
     );
@@ -497,8 +495,8 @@ windows = {
       {
         type = "QUERY";
         chat_type = "IRC";
-        name = "runcible";
-        tag = "freenode";
+        name = "confound";
+        tag = "perl";
       }
     );
   };
@@ -507,8 +505,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##crawl";
-        tag = "freenode";
+        name = "#devel-declare";
+        tag = "perl";
       }
     );
     sticky = "yes";
@@ -533,4 +531,4 @@ windows = {
     parent = "50";
   };
 };
-mainwindows = { 50 = { first_line = "1"; lines = "22"; }; };
+mainwindows = { 50 = { first_line = "1"; lines = "34"; }; };
