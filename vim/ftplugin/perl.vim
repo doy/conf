@@ -7,12 +7,6 @@ function! s:perldoc(word)
     let perldoc_pager = $PERLDOC_PAGER
     let $PERLDOC_PAGER = 'cat'
     exe 'silent read! perldoc -f "' . a:word . '" 2>/dev/null || perldoc "' . a:word . '"'
-    try
-        silent %s/\%x1b\[\d\+m//g
-        silent %s/.\%x08//g
-    catch /.*/
-    endtry
-    normal ggdd
     let $PERLDOC_PAGER = perldoc_pager
     set ft=man
 endfunction

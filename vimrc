@@ -462,13 +462,21 @@ function Help(visual, iskeyword, command)
     exe &helpheight . 'new'
     set modifiable
     exe 'call ' . a:command . '("' . word . '")'
+    try
+        silent %s/\%x1b\[\d\+m//g
+    catch /.*/
+    endtry
+    try
+        silent %s/.\%x08//g
+    catch /.*/
+    endtry
+    normal ggdd
     set bt=nofile
     set nobuflisted
     set nomodifiable
 endfunction
 function s:man(word)
-    exe 'silent read! man -P"col -b" ' . a:word
-    normal ggdd
+    exe 'silent read! man -Pcat ' . a:word
     set ft=man
 endfunction
 nmap <silent>K :call Help(0, [], '<SID>man')<CR>
