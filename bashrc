@@ -271,6 +271,9 @@ function _set_vcs {
             if [[ -d "${git_dir}/rebase-apply" || -d "${git_dir}/rebase-merge" ]]; then
                 vcs_state='rebase'
             fi
+            if [[ -e "${git_dir}/BISECT_START" ]]; then
+                vcs_state='bisect'
+            fi
             if [[ "x$vcs_branch" == "xmaster" ]]; then
                 vcs_branch=''
             fi
