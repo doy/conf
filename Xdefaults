@@ -19,7 +19,7 @@ URxvt*perl-ext-common:default,matcher,pwsafe<M-p>
 URxvt*perl-lib:/home/doy/.urxvt/
 URxvt*matcher.button:3
 URxvt*keysym.C-Return: perl:matcher
-URxvt.urlLauncher:/home/doy/.bin/conkeror
+URxvt.urlLauncher:firefox
 URxvt*14755_52:false
 URxvt.urgentOnBell: true
 ! }}}

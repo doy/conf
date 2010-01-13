@@ -4,7 +4,7 @@ auto-reload yes
 reload-threads 4
 suppress-first-reload yes
 
-browser conkeror
+browser firefox
 
 color listfocus black cyan
 color info      green blue bold
