@@ -1,5 +1,5 @@
 ---
-ai: Demo
+ai: Behavioral::Personality::Explorer
 ai_options:
     Behavioral:
         avoid_branch: mines
