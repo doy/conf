@@ -518,21 +518,6 @@ let g:rainbow_brace = 1
 " modelines which update highlighting)
 autocmd BufWinEnter * runtime plugin/rainbow_paren.vim
 " }}}
-" Taglist {{{
-let s:session_file = './.tlist_session'
-let TlistIncWinWidth = 0
-let Tlist_GainFocus_On_ToggleOpen = 1
-let Tlist_Use_Horiz_Window = 1
-let Tlist_Compact_Format = 1
-let Tlist_Close_On_Select = 1
-let Tlist_Display_Prototype = 1
-nnoremap <silent> <F8> :TlistToggle<CR>
-" if the current file isn't below the current directory, :. doesn't modify %
-if file_readable(s:session_file) && expand("%:.") !~ '^/'
-    autocmd VimEnter * TlistDebug | exec 'TlistSessionLoad ' . s:session_file
-    autocmd VimLeave * call delete(s:session_file) | exec 'TlistSessionSave ' . s:session_file
-endif
-" }}}
 " SuperTab {{{
 let g:SuperTabMidWordCompletion = 0
 let g:SuperTabDefaultCompletionType = 'context'
@@ -561,21 +546,5 @@ let g:Skeleton_patterns = [
     \'Makefile',
     \'Makefile.PL'
 \]
-" }}}
-" snippetsEmu {{{
-function HighlightSnipTags()
-    if &ft == 'perl'
-        " this is something of a hack, but... there's only so much you can do
-        " with vim syntax stuff
-        let extra = ' containedin=.*Var.*,.*Error'
-    else
-        let extra = ''
-    endif
-    exe 'syn match SnipTag /<{.\{-}}>/ contains=SnipTagInner'.extra
-    syn match SnipTagInner /<{\zs.\{-}\ze}>/ contained
-    hi link SnipTag Comment
-    hi link SnipTagInner Type
-endfunction
-autocmd BufWinEnter * call HighlightSnipTags()
 " }}}
 " }}}
