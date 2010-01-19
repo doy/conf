@@ -1,2 +1,4 @@
 # ignore vim swap files
 .*.sw?
+# prove state files
+.prove
