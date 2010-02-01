@@ -1,7 +1,7 @@
 # TEAMCAPTAIN doy
 # TEAMNAME cabal
 # TEAMMEMBERS doy stabwound cbus wasp Grimm 78291
-# Dungeon Crawl Stone Soup 0.4.1
+# Dungeon Crawl Stone Soup 0.6.0
 # Section 1: Starting Screen {{{
 name                     = doy
 remember_name            = true
@@ -13,7 +13,7 @@ remember_name            = true
 #death_knight            =
 #priest                  =
 #species                 =
-#job                     =
+#background              =
 #random_pick             = false
 #good_random             = true
 # }}}
@@ -35,45 +35,22 @@ lua_file = lua/trapwalk.lua
 # }}}
 # Section 4: Interface {{{
 # Section 4-a: Picking up and Dropping {{{
-#autopickup             = $?!+"/%
-autopickup_exceptions = <potion.*mutation
-# XXX: hack, since i can't disable ae excludes
-#include                = autopickup_exceptions.txt
-# Contents of autopickup_exceptions.txt {{{
-ae := autopickup_exceptions
-ae = <curare-tipped
-ae = useless_item
-ae = inedible
-# XXX: disabled
-#ae = dangerous_item
-ae = amulet of (inaccuracy|the gourmand|controlled flight|warding)
-ae = amulet of (resist .*|clarity|rage|conservation)
-ae = ring of (see invisible|levitation|poison resistance|hunger)
-ae = ring of (fire|ice|sustenance|invisibility)
-ae = ring of (magical power|regeneration)
-< do
-local old_ch_autopickup = ch_autopickup or function() return true end
-function ch_autopickup(it)
-    return you.where() ~= "Abyss" and old_ch_autopickup(it)
-end
-end >
-# }}}
-#default_autopickup     = true
-autopickup_no_burden    = true
-#pickup_thrown          = true
-#pickup_dropped         = false
-#chunks_autopickup      = true
-assign_item_slot        = backward
-#drop_mode              = multi
-pickup_mode             = multi
+#autopickup              = $?!+"/%
+autopickup_exceptions    = <potion.*mutation
+include                  = autopickup_exceptions.txt
+#default_autopickup      = true
+autopickup_no_burden     = true
+#pickup_thrown           = true
+#pickup_dropped          = false
+#chunks_autopickup       = true
+assign_item_slot         = backward
+#drop_mode               = multi
+pickup_mode              = multi
 # XXX: make this select all non-worn items?
-#drop_filter            =
-default_friendly_pickup = friend
+#drop_filter             =
+#default_friendly_pickup = friend
 # }}}
 # Section 4-b: Targeting {{{
-#target_zero_exp       = false
-#target_oos            = true
-#target_los_first      = true
 #default_target        = true
 #target_unshifted_dirs = false
 #darken_beyond_range   = true
@@ -88,11 +65,11 @@ default_friendly_pickup = friend
 # Section 4-d: Branding {{{
 friend_brand          = hi:yellow
 neutral_brand         = hi:darkgrey
-stab_brand            = hi:blue
+#stab_brand           = hi:blue
 may_stab_brand        = hi:green
-heap_brand            = reverse
-feature_item_brand    = reverse
-trap_item_brand       = reverse
+#heap_brand           = reverse
+#feature_item_brand   = reverse
+#trap_item_brand      = reverse
 #verbose_monster_pane = true
 # }}}
 # Section 4-e: Level Map Functions {{{
@@ -102,10 +79,10 @@ trap_item_brand       = reverse
 # }}}
 # Section 4-f: Viewport Options {{{
 #view_max_width   = 33
-#view_max_height  = 21
-view_lock_x       = false
-view_lock_y       = false
-#view_lock        = true
+#view_max_height  = 17
+#view_lock_x      = true
+#view_lock_y      = true
+view_lock         = false
 #center_on_scroll = false
 symmetric_scroll  = false
 #scroll_margin_x  = 2
@@ -113,41 +90,40 @@ symmetric_scroll  = false
 #scroll_margin    = 2
 # }}}
 # Section 4-g: Travel and Exploration {{{
-travel_delay           = -1
-#travel_avoid_terrain  =
-#explore_greedy        = true
-explore_stop           = glowing_items,artefacts,runes,greedy_pickup
-explore_stop          += stairs,shops,altars,gates
-#explore_improved      = false
-#tc_reachable          = blue
-#tc_dangerous          = cyan
-#tc_disconnected       = darkgrey
-#tc_excluded           = lightmagenta
-#tc_exclude_circle     = red
-include                = travel_stoppers.txt
-travel_stop_message    = duration:
-travel_stop_message    = turns to flee
-# XXX: catch more 'about to expire' messages here
-runrest_ignore_message = pray:
-runrest_ignore_message = You feel.*sick
-runrest_ignore_message = disappears in a puff of smoke
-runrest_ignore_message = engulfed in a cloud of smoke
-runrest_ignore_message = safely over a trap
-runrest_ignore_message = merges.*into the air
-runrest_ignore_message = forms.*from the air
-runrest_ignore_poison  = 2:30
-runrest_ignore_monster = fish:2
-runrest_ignore_monster = butterfly:1
-runrest_ignore_monster = swamp worm:3
-runrest_ignore_monster = lava worm:3
-trapwalk_safe_hp       = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
-#trap_prompt           = true
-#rest_wait_both        = false
-auto_exclude           = oklob plant, orange crystal statue, ice statue, silver statue, curse skull, Roxanne, Murray
+travel_delay                = -1
+#explore_delay              = -1
+#travel_avoid_terrain       =
+#explore_greedy             = true
+explore_stop                = glowing_items,artefacts,runes,greedy_pickup
+explore_stop               += stairs,shops,altars,gates
+#explore_stop_pickup_ignore =
+#explore_improved           = false
+#tc_reachable               = blue
+#tc_dangerous               = cyan
+#tc_disconnected            = darkgrey
+#tc_excluded                = lightmagenta
+#tc_exclude_circle          = red
+include                     = travel_stoppers.txt
+travel_stop_message         = duration:
+runrest_ignore_message      = You feel.*sick
+runrest_ignore_message      = disappears in a puff of smoke
+runrest_ignore_message      = engulfed in a cloud of smoke
+runrest_ignore_message      = safely over a trap
+runrest_ignore_message      = merges.*into the air
+runrest_ignore_message      = forms.*from the air
+runrest_ignore_poison       = 2:30
+runrest_ignore_monster      = fish:2
+runrest_ignore_monster      = mimic:2
+runrest_ignore_monster      = butterfly:1
+runrest_ignore_monster      = swamp worm:3
+runrest_ignore_monster      = lava worm:3
+trapwalk_safe_hp            = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
+#trap_prompt                = true
+rest_wait_both              = true
+auto_exclude                = oklob plant, orange crystal statue, ice statue, silver statue, curse skull, Roxanne, Murray
 # }}}
 # Section 4-h: Stashes {{{
-# XXX: look for other possibilities for this
-#stash_filter          = 14,4:21
+#stash_filter         =
 annotate_item_class   = true
 annotate_item_dropped = true
 # }}}
@@ -167,7 +143,7 @@ easy_eat_gourmand       = true
 #prompt_for_swap        = true
 #easy_quit_item_prompts = true
 #easy_exit_menu         = true
-sort_menus              = true : equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
+sort_menus              = true : charged,equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
 # }}}
 # Section 4-j: Messages and Display Enhancements {{{
 hp_warning                    = 40
@@ -175,20 +151,21 @@ hp_warning                    = 40
 hp_colour                     = lightgrey,99:green,80:yellow,40:red
 mp_colour                     = lightgrey,99:green,80:yellow,40:red
 stat_colour                   = 1:lightred,3:red,7:yellow
-#status_caption_colour        = yellow
-delay_message_clear           = true
+status_caption_colour         = white
+#clear_messages               = false
+#show_more                    = true
 show_inventory_weights        = true
 show_gold_turns               = true
 #show_beam                    = true
 item_stack_summary_minimum    = 1
 #list_rotten                  = true
-#mlist_min_height             = 5
+#mlist_min_height             = 4
+#msg_min_height               = 6
 #msg_max_height               = 10
+#messages_at_top              = false
 #mlist_allow_alternate_layout = false
 #mlist_targetting             = false
 #classic_hud                  = false
-menu_colour_prefix_class      = true
-#menu_colour_shops            = true
 # XXX: this priority order needs tweaking - especially the stuff that's marked
 # as lightgrey now
 menu_colour                   = white:\s\+\s
@@ -208,6 +185,8 @@ $evil                        := brown
 include                       = food_colouring.txt
 include                       = menu_colours.txt
 menu_colour                   = white:equipped
+#menu_colour_prefix_class     = true
+#menu_colour_shops            = true
 message_colour                = mute:You start (searching|resting)
 message_colour                = mute:Done searching
 message_colour                = mute:Your legs become a tail as you enter
@@ -216,6 +195,7 @@ message_colour                = mute:Your.*miss(es)? (the|it)
 message_colour                = mute:misses your
 message_colour                = mute:[yY]our.*but (do no|doesn't do any) damage
 message_colour                = mute:peering into the
+message_colour                = darkgrey:--more--
 include                       = messages.txt
 force_more_message            = You are starting to lose your buoyancy
 force_more_message            = Space (bends|warps horribly) around
@@ -225,7 +205,7 @@ force_more_message            = danger:
 # Section 4-k: Firing Commands {{{
 #fire_items_start = a
 #fire_order       = launcher, return
-#fire_order      += javelin / dart / stone / rock / spear / net / handaxe / dagger / club
+#fire_order      += javelin / dart / stone / rock / spear / net / handaxe / dagger
 #fire_order      += inscribed
 # }}}
 # Section 4-l: Channels {{{
@@ -238,6 +218,7 @@ autoinscribe            = distortion:!w
 autoinscribe            = deck:!p
 autoinscribe            = potion.*mutation:!q
 #autoinscribe_artefacts = true
+#autoinscribe_cursed    = true
 # }}}
 # Section 4-n: Macro related Options {{{
 #flush.failure         = true
@@ -259,21 +240,21 @@ dump_item_origins      = artefacts,ego_arm,ego_weap,jewellery
 dump_item_origin_price = 200
 dump_message_count     = 20
 dump_order             = header,hiscore,stats,inventory,skills,spells,mutations
-dump_order            += overview,misc,screenshot,messages,notes,monlist,kills
-dump_order            += turns_by_place,kills_by_place
+dump_order            += overview,misc,screenshot,messages,notes,vaults
+dump_order            += monlist,kills,turns_by_place,kills_by_place
 #dump_book_spells      = true
 # }}}
 # Section 5-b: Notes {{{
-user_note_prefix       = doy:
-note_items             = rune of,acquirement,Orb
-note_monsters          = ^[A-Z],orb of fire,lich
+user_note_prefix       = doy: 
+note_items             = rune of,acquirement,Orb,of speed,of resistance,of running
+#note_monsters         =
 ood_interesting        = 6
-rare_interesting       = 9
-note_hp_percent        = 10
+rare_interesting       = 12
+note_hp_percent        = 15
 note_skill_levels      = 1,8,15,21,27
 #note_all_skill_levels = false
-note_skill_max         = true
-note_all_spells        = true
+#note_skill_max        = true
+#note_all_spells       = true
 #note_xom_effects      = true
 note_messages          = You pass through the gate
 note_messages          = [bB]anish.*Abyss
@@ -284,27 +265,25 @@ note_messages          = You fall through a shaft
 # }}}
 # Section 6: Miscellaneous {{{
 # Section 6-a: All OS {{{
-#mouse_input          = false
-wiz_mode              = no
-#char_set             = ascii
-#classic_item_colours = false
-#colour.OLDCOLOUR     = NEWCOLOUR
-#cset_ascii           =
-#cset_ibm             =
-#cset_dec             =
-#cset_unicode         =
-#cset_any             =
-#feature              =
-mon_glyph             = _ : p
-mon_glyph             = shadow : lightgrey
-mon_glyph             = oklob plant : lightmagenta
-mon_glyph             = Xtahua : lightmagenta
-mon_glyph             = acid blob : lightmagenta
-mon_glyph             = giant eyeball : cyan
-mon_glyph             = greater mummy : lightmagenta
-mon_glyph             = ancient lich : lightmagenta
-mon_glyph             = curse skull : lightmagenta
-mon_glyph             = killer bee : brown
+#mouse_input            = false
+wiz_mode                = no
+#char_set               = ascii
+#classic_item_colours   = false
+#colour.OLDCOLOUR       = NEWCOLOUR
+#cset_ascii             =
+#cset_ibm               =
+#cset_dec               =
+#cset_unicode           =
+#cset_any               =
+feature                 = stone staircase leading up {,,,,green}
+feature                 = stone staircase leading down {,,,,red}
+mon_glyph               = giant eyeball : cyan
+mon_glyph               = oklob plant : lightmagenta
+mon_glyph               = greater mummy : lightmagenta
+mon_glyph               = ancient lich : lightmagenta
+mon_glyph               = curse skull : lightmagenta
+#pizza                  =
+#use_fake_player_cursor = false
 # }}}
 # Section 6-b: DOS and Windows {{{
 #dos_use_background_intensity = false
