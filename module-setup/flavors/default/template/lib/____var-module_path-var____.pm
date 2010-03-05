@@ -61,7 +61,7 @@ L<http://search.cpan.org/dist/[% dist %]>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Jesse Luehrs.
+This software is copyright (c) 2010 by Jesse Luehrs.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.
