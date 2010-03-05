@@ -516,7 +516,7 @@ let g:rainbow_brace = 1
 " syntax files override the highlighting
 " using BufWinEnter because that is run after modelines are run (so it catches
 " modelines which update highlighting)
-autocmd BufWinEnter * runtime plugin/rainbow_paren.vim
+autocmd BufWinEnter,FileType * runtime plugin/rainbow_paren.vim
 " }}}
 " SuperTab {{{
 let g:SuperTabMidWordCompletion = 0
