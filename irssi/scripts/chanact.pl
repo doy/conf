@@ -192,8 +192,8 @@ sub remake() {
                 $name eq "all" && next;
                 $name eq "bots" && next;
                 $name eq "hilight" && next;
-                $name eq "(status)" && next;
-                $name eq "&bitlbee" && next;
+                $name eq "(status)" && $win->{data_level} <= 0 && next;
+                $name eq "&bitlbee" && $win->{data_level} <= 0 && next;
 
                 $type = '!' if $name eq "(status)";
 		# (status) is an awfull long name, so make it short to 'S'

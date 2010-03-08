@@ -278,7 +278,6 @@ settings = {
     bell_beeps = "yes";
     beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT ";
     activity_hide_level = "JOINS PARTS QUITS NICKS MODES";
-    activity_hide_targets = "status &bitlbee";
     windows_auto_renumber = "no";
   };
   "perl/core/scripts" = {
