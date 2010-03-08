@@ -110,7 +110,7 @@ aliases = {
   WI = "whois";
   WII = "whois $0 $0";
   WW = "whowas";
-  W = "who";
+  W = "window";
   N = "names";
   M = "msg";
   T = "topic";
@@ -304,7 +304,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##crawl-offtopic";
+        name = "##crawl-dev";
         tag = "freenode";
       }
     );
@@ -316,7 +316,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##nethack-elite";
+        name = "##crawl-offtopic";
         tag = "freenode";
       }
     );
@@ -340,8 +340,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#moose";
-        tag = "perl";
+        name = "##nethack-elite";
+        tag = "freenode";
       }
     );
     sticky = "yes";
@@ -352,26 +352,14 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#netmonster";
-        tag = "EFNet";
-      }
-    );
-    sticky = "yes";
-    parent = "50";
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#moose-cabal";
+        name = "#moose";
         tag = "perl";
       }
     );
     sticky = "yes";
     parent = "50";
   };
-  7 = {
+  6 = {
     items = (
       {
         type = "CHANNEL";
@@ -383,13 +371,25 @@ windows = {
     sticky = "yes";
     parent = "50";
   };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#moose-cabal";
+        tag = "perl";
+      }
+    );
+    sticky = "yes";
+    parent = "50";
+  };
   8 = {
     items = (
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##crawl";
-        tag = "freenode";
+        name = "#devel-declare";
+        tag = "perl";
       }
     );
     sticky = "yes";
@@ -400,8 +400,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#distzilla";
-        tag = "perl";
+        name = "#ii";
+        tag = "iinteractive";
       }
     );
     sticky = "yes";
@@ -412,8 +412,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "##crawl-dev";
-        tag = "freenode";
+        name = "#ii_discuss_models_to_death";
+        tag = "iinteractive";
       }
     );
     sticky = "yes";
@@ -477,40 +477,13 @@ windows = {
   };
   16 = {
     items = (
-      { type = "QUERY"; chat_type = "IRC"; name = "rjbs"; tag = "perl"; }
-    );
-  };
-  17 = {
-    items = (
-      { 
+      {
         type = "QUERY";
         chat_type = "IRC";
         name = "stevan";
-        tag = "perl";
+        tag = "iinteractive";
       }
     );
-  };
-  18 = {
-    items = (
-      {
-        type = "QUERY";
-        chat_type = "IRC";
-        name = "confound";
-        tag = "perl";
-      }
-    );
-  };
-  30 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#devel-declare";
-        tag = "perl";
-      }
-    );
-    sticky = "yes";
-    parent = "50";
   };
   50 = { 
     immortal = "yes";
