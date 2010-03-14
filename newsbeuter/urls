@@ -1,121 +1,20 @@
-"query:Unread blogs:unread = \"yes\" and tags # \"blog\" and tags !# \"aggregator\"" blog
-"query:News:tags # \"news\" and tags !# \"dumb\"" news
-"query:Dumb news:tags # \"news\" and tags # \"dumb\""
-"query:Moose:tags # \"blog\" and tags # \"perl\" and (title =~ \"[Mm]oose\" or content =~ \"[Mm]oose\")"
-http://ironman.enlightenedperl.org/atom.xml blog perl aggregator programming
-http://blog.jrock.us/feeds/articles/atom blog perl programming
-http://clique.jonirons.net/feed/ blog marathon
-http://blog.urth.org/atom.xml blog perl programming
-http://feeds2.feedburner.com/yuvalkogman?format=xml blog perl programming
-http://gentlemansc.blogspot.com/feeds/posts/default blog prof
-http://learningcurves.blogspot.com/feeds/posts/default blog prof
-http://dailyvim.blogspot.com/feeds/posts/default blog vim programming
-http://blog.sartak.org/feeds/posts/default blog perl programming
-http://stevan-little.blogspot.com/feeds/posts/default blog perl programming
-http://www.shadowcat.co.uk/feed/blog/matt-s-trout blog perl programming
-http://www.modernperlbooks.com/mt/atom.xml blog perl programming
-#http://consttype.blogspot.com/feeds/posts/default blog perl programming
-#http://3dpancakes.typepad.com/ernie/atom.xml blog prof
-#http://zedshaw.com/feed.xml blog tech dumb programming python
-#http://twitter.com/statuses/user_timeline/6753782.rss twitter perl programming
-http://news.bbc.co.uk/rss/newsonline_world_edition/front_page/rss091.xml news
-http://feeds.nytimes.com/nyt/rss/HomePage news
-#http://rss.cnn.com/rss/cnn_topstories.rss news
-http://rss.news.yahoo.com/rss/topstories news
-#http://news.google.com/news?pz=1&ned=us&hl=en&topic=h&num=10&output=rss news
-#http://feeds.boingboing.net/boingboing/iBag blog tech aggregator
-#http://www.reddit.com/r/programming/.rss aggregator dumb programming tech
-#http://www.reddit.com/r/perl/.rss aggregator dumb perl
-#http://www.reddit.com/r/compsci/.rss aggregator dumb
-#http://www.reddit.com/r/vim/.rss aggregator dumb
-#http://www.reddit.com/r/git/.rss aggregator dumb
-#http://news.ycombinator.com/rss aggregator dumb tech
-#http://www.woot.com/blog/rss.aspx shopping
-http://taeb-blog.sartak.org/feeds/posts/default blog perl taeb programming
-#http://feeds2.feedburner.com/github blog ruby github programming
-#http://lambda-the-ultimate.org/rss.xml blog aggregator programming
-http://www.alistapart.com/site/rss blog
-#http://python-history.blogspot.com/feeds/posts/default blog python programming
-#http://blake8086.blogspot.com/feeds/posts/default blog design
-#http://koweycode.blogspot.com/feeds/posts/default blog haskell programming
-#http://neopythonic.blogspot.com/feeds/posts/default blog python programming
-#http://syndication.thedailywtf.com/TheDailyWtf website
-http://scienceblogs.com/goodmath/atom.xml blog math
-#http://www.akalin.cx/feed/ blog math programming haskell
-#http://vimperator.org/trac/blog?format=rss blog software
-http://blog.fsck.com/atom.xml blog perl programming kindle
-http://use.perl.org/~Alias/journal/rss blog perl programming
-http://bestpractical.typepad.com/worst_impractical/atom.xml blog software
-#http://use.perl.org/~chromatic/journal/rss blog perl programming
-http://jjnapiorkowski.vox.com/library/posts/atom.xml blog perl programming
-#http://use.perl.org/~miyagawa/journal/rss blog perl programming
-http://use.perl.org/~Ovid/journal/rss blog perl programming
-#http://use.perl.org/~perigrin/journal/rss blog perl programming
-#http://perlgeek.de/blog-en/index.rss blog perl programming
-http://rjbs.manxome.org/rubric/entries/user/rjbs/has_body/1?format=rss blog perl programming
-http://use.perl.org/~scrottie/journal/rss blog perl programming
-#http://j.asonmay.net/blog/feed/ blog programming
-#http://leto.net/x/atom.xml blog programming math
-#http://greenokapi.net/blog/feed/ blog programming perl haskell
-http://thelackthereof.org/blog.rss blog programming perl
-http://perldition.org/feeds/articles/atom blog programming perl
-#http://our.coldhardcode.com/jshirley/atom.xml blog programming perl
-http://www.onemogin.com/blog/feed blog programming perl
-http://blog.ingy.net/atom.xml blog programming perl
-http://bulknews.vox.com/library/posts/atom.xml blog programming perl
-#http://plasmasturm.org/feeds/plasmasturm/ blog programming perl
-http://chris.prather.org/atom.xml blog programming perl
-http://news.perlfoundation.org/atom.xml news programming perl
-#http://blog.timbunce.org/feed/ blog programming perl
-http://www.bofh.org.uk/articles.rss blog programming perl
-http://use.perl.org/~jjore/journal/rss blog programming perl
-#http://damienlearnsperl.blogspot.com/feeds/posts/default blog programming perl
-http://use.perl.org/~schwern/journal/rss blog programming perl
-#http://www.catalyzed.org/atom.xml blog programming perl
-#http://lumberjaph.net/blog/index.php/feed/ blog programming perl
-#http://peter.makholm.net/feed/ blog programming perl
-#http://perl-yarg.blogspot.com/feeds/posts/default blog programming perl
-#http://zerothorder.blogspot.com/feeds/posts/default blog programming perl
-#http://blog.moertel.com/xml/atom/feed.xml blog programming perl
-#http://perltraining.com.au/tips/index.atom blog programming perl
-#http://samcrawley.wordpress.com/feed/ blog programming perl
-http://blog.plover.com/index.rss blog programming perl
-#http://www.dagolden.com/index.php/feed/ blog programming perl
-#http://elliotlovesperl.com/feed/ blog programming perl
-#http://blog.johngoulah.com/feed/ blog programming perl
-#http://blog.spang.cc/articles.rss blog
-#http://damien.krotkine.com/blog/atom.xml blog programming perl
-#http://sungo.us/atom.xml blog programming perl
-#http://szabgab.com/blog/szabgab.rss blog programming perl
-#http://blog.questright.com/index.rss blog programming perl
-#http://wknight8111.blogspot.com/feeds/posts/default blog programming perl
-#http://feeds.feedburner.com/PerlBuzz aggregator perl
-http://www.schneier.com/blog/index.rdf blog security
-#http://igorsk.blogspot.com/feeds/posts/default blog
-#http://theworkinggeek.com/atom.xml blog
-http://www.lessig.org/blog/atom.xml blog politics
-#http://feeds2.feedburner.com/PoboxBlog blog company
-#http://funcall.blogspot.com/feeds/posts/default blog programming lisp
-#http://steve-yegge.blogspot.com/feeds/posts/default blog programming
-#http://ahefner.livejournal.com/data/rss blog programming
-#http://unknownplace.org/cpanrecent/rss perl
-http://cpanratings.perl.org/index.rss perl
-http://feeds2.feedburner.com/thereifixedit blog humor
-http://feeds.gawker.com/lifehacker/excerpts.xml blog aggregator tech
-http://feeds.arstechnica.com/arstechnica/everything news aggregator tech
-http://blog.weftsoar.net/feeds/posts/default blog programming perl
-http://hiveminder.com/news/atom blog company
-#http://www.theweek.com/topic/all_columns.rss news
-#http://www.instructables.com/tag/type:id/featured:true/rss.xml blog
-#http://blog.makezine.com/index.xml blog
-#http://feeds.feedburner.com/CrackedRSS humor
-http://www.badscience.net/feed/atom/ blog
-#http://www.joelonsoftware.com/rss.xml blog tech
-http://unqualified-reservations.blogspot.com/feeds/posts/default blog tech politics
-http://socialskydivingwithjustin.posterous.com/rss.xml blog
-http://daringfireball.net/index.xml blog tech
-http://feedproxy.google.com/onceuponawin blog
-http://slacktivist.typepad.com/slacktivist/atom.xml blog religion politics
-http://dneiwert.blogspot.com/rss/dneiwert.xml blog politics
-http://thisislikesogay.blogspot.com/feeds/posts/default blog politics
-http://feeds.feedburner.com/first-draft/BoMa blog politics
+http://stevan-little.blogspot.com/feeds/posts/default programming
+http://feeds2.feedburner.com/yuvalkogman?format=xml programming
+http://blog.sartak.org/feeds/posts/default programming
+http://blog.urth.org/atom.xml programming
+http://www.shadowcat.co.uk/feed/blog/matt-s-trout programming
+http://rjbs.manxome.org/rubric/entries/user/rjbs/has_body/1?format=rss programming
+http://chris.prather.org/atom.xml programming
+http://blog.weftsoar.net/feeds/posts/default programming
+http://perldition.org/feeds/articles/atom programming
+http://blog.plover.com/index.rss programming
+http://use.perl.org/~scrottie/journal/rss programming
+http://www.onemogin.com/blog/feed programming
+http://thelackthereof.org/blog.rss programming
+http://taeb-blog.sartak.org/feeds/posts/default programming
+http://clique.jonirons.net/feed/ marathon
+http://slacktivist.typepad.com/slacktivist/atom.xml religion politics
+http://pervocracy.blogspot.com/feeds/posts/default sex
+http://gentlemansc.blogspot.com/feeds/posts/default prof
+http://learningcurves.blogspot.com/feeds/posts/default prof
+http://www.alistapart.com/site/rss design
