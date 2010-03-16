@@ -535,16 +535,4 @@ let g:Foldtext_tex_enable = 1
 let g:Foldtext_cpp_enable = 1
 let g:Foldtext_perl_enable = 1
 " }}}
-" Skeletons {{{
-let g:Skeleton_patterns = [
-    \'*.pl',
-    \'*.pm',
-    \'*.cpp',
-    \'*.c',
-    \'*.tex',
-    \'*.t',
-    \'Makefile',
-    \'Makefile.PL'
-\]
-" }}}
 " }}}
