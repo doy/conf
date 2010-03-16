@@ -24,7 +24,7 @@ snippet cl
 	public:
 		$1(${2:arguments});
 		virtual ~$1();
-
+	
 	private:
 		${3:/* data */}
 	};
@@ -33,5 +33,5 @@ snippet forv
 	for (std::vector<${1:int}>::const_iterator ${2:it} = ${3:vec}.begin();
 	     $2 != $3.end();
 	     ++$2) {
-		${4:/* code */}
+	    ${4:/* code */}
 	}

@@ -2,21 +2,31 @@
 snippet #!
 	#!/usr/bin/env perl
 	
+# Hash Pointer
+snippet .
+	 =>
 snippet sub
 	sub ${1:foo} {
 		${2}
 	}
 snippet if
-	if (${1:cond}) {
-		${2}
+	if (${1}) {
+		${2:# body...}
+	}
+snippet ife
+	if (${1}) {
+		${2:# body...}
+	}
+	else {
+		${3:# else...}
 	}
 snippet elsif
-	elsif (${1:cond}) {
-		${2}
+	elsif (${1:}) {
+		${2:# else...}
 	}
 snippet else
 	else {
-		${1}
+		${1:# else...}
 	}
 snippet for
 	for my $${1:var} (${2:1..10}) {
