@@ -72,6 +72,16 @@ snippet script
 	
 snippet nac
 	use namespace::autoclean;
+snippet dd
+	use Data::Dumper; die Dumper(${1});
+snippet ddd
+	use Data::Dumper; $Data::Dumper::Maxdepth = ${1:1}; die Dumper(${2});
+snippet package
+	package ${1:`substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g')`};
+
+	${2}
+
+	1;
 #
 # Moose
 #
@@ -97,6 +107,15 @@ snippet subclass
 
 	__PACKAGE__->meta->make_immutable;
 	no Moose;
+
+	1;
+snippet role
+	package ${1:`substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g')`};
+	use Moose::Role;
+
+	${2}
+
+	no Moose::Role;
 
 	1;
 snippet has
