@@ -58,10 +58,8 @@ snippet st
 	${1:list}
 snippet tbl
 	local $Test::Builder::Level = $Test::Builder::Level + 1;
-	
 snippet ccl
 	local $Carp::CarpLevel = $Carp::CarpLevel + 1;
-	
 snippet linc
 	local $${1:a} = $$1 + ${2:1};
 	${3}
@@ -69,7 +67,15 @@ snippet script
 	#!/usr/bin/env perl
 	use strict;
 	use warnings;
-	
+snippet test
+	#!/usr/bin/env perl
+	use strict;
+	use warnings;
+	use Test::More;
+
+	${1}
+
+	done_testing;
 snippet nac
 	use namespace::autoclean;
 snippet dd
@@ -123,7 +129,6 @@ snippet has
 		is  => '${2:ro}',
 		isa => '${3:Str}',${4}
 	);
-	${5}
 snippet hasl
 	has ${1:attr} => (
 		is         => '${2:ro}',
