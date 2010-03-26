@@ -5,7 +5,7 @@
 # anything or bad things will happen !
 # }}}
 # environment {{{
-export PATH="~/.bin/marathon:~/.bin/nethack:~/.bin:/usr/local/sbin:/usr/local/bin:$PATH"
+export PATH="${HOME}/.bin/marathon:${HOME}/.bin/nethack:${HOME}/.bin:/usr/local/sbin:/usr/local/bin:$PATH"
 export MPD_HOST=bishamon
 export LUA_CPATH='/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?/init.so;./?.so'
 export LUA_PATH='/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;?.lua'
@@ -66,8 +66,8 @@ alias prove="prove -rj3"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
-alias cao="(TERM=rxvt /usr/bin/ssh -C -i ~/.ssh/cao_key joshua@crawl.akrasiac.org)"
-alias cdo="ssh -C -i ~/.ssh/cao_key crawl@crawl.develz.org"
+alias cao="(TERM=rxvt /usr/bin/ssh -C -i ${HOME}/.ssh/cao_key joshua@crawl.akrasiac.org)"
+alias cdo="ssh -C -i ${HOME}/.ssh/cao_key crawl@crawl.develz.org"
 alias scn="(TERM=xterm-color telnet slashem.crash-override.net)"
 alias spork="telnet sporkhack.nineball.org"
 alias cgoban="javaws http://files.gokgs.com/javaBin/cgoban.jnlp"
@@ -89,7 +89,7 @@ alias henzell="ssh henzell@crawl.akrasiac.org"
 # other {{{
 alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.3) Gecko/20070404 Firefox/2.0.0.3"'
 alias ..='cd ..'
-alias dotperl='rsync -av lib/* ~/.perl/'
+alias dotperl="rsync -av lib/* ${HOME}/.perl/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
 function luado { # thanks rici
     local e=$1
