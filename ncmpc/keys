@@ -9,11 +9,14 @@ key up = 'k'
 ## Move cursor down
 key down = 'j'
 
-## Home
+## Move cursor to the top of the list
 key home = 262,  '0',  'g'
 
-## End
+## Move cursor to the bottom of the list
 key end = 360,  36,  'G'
+
+## Select currently playing song
+key select-playing = 59
 
 ## Help screen
 key screen-help = '1',  265,  8
@@ -43,7 +46,7 @@ key volume-up = 43,  259
 key volume-down = 45,  258
 
 ## Select/deselect song in playlist
-key select = 46
+key select = 44
 
 ## Locate song in browser
 key locate = 'F'
