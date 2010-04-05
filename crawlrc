@@ -120,7 +120,7 @@ runrest_ignore_monster      = lava worm:3
 trapwalk_safe_hp            = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
 #trap_prompt                = true
 rest_wait_both              = true
-auto_exclude                = oklob plant, orange crystal statue, ice statue, silver statue, curse skull, Roxanne, Murray
+auto_exclude                = oklob plant, orange crystal statue, ice statue, silver statue, curse skull, Roxanne, Murray, archer statue
 # }}}
 # Section 4-h: Stashes {{{
 #stash_filter         =
