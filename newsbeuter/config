@@ -3,6 +3,7 @@ error-log "~/.newsbeuter/error.log"
 auto-reload yes
 reload-threads 4
 suppress-first-reload yes
+show-read-feeds no
 
 browser firefox
 
