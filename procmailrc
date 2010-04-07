@@ -11,8 +11,10 @@ UIUC=(uiuc|illinois|uillinois)
 * -1^0
 *  1^0 ^Subject:.*Daily error monitoring report
 *  1^0 ^Subject: INSOMNIACS.*(left the list|error report from)
+*  1^0 ^Subject: (You have been added|Your removal).*INSOMNIACS
 *  1^0 ^From.*LISTSERV@LISTSERV.ILLINOIS.EDU
 *  1^0 ^Subject:.*Luairc-commits moderator request
+*  1^0 ^Subject:.*Luairc-commits post .* requires approval
 *  1^0 ^TO_luairc-commits-owner@lists.luaforge.net
 {
     folder=${DEFAULT}.Trash/
@@ -31,6 +33,7 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # crawl {{{
 * ^Subject:.*crawl-ref
 * ^From.*sourceforge.*
+* ^From.*crawl.develz.org
 .mailing\ lists.crawl/
 # catches dpeg and jpeg
 :0:
@@ -47,6 +50,7 @@ UIUC=(uiuc|illinois|uillinois)
 # }}}
 :0: # trace bundy {{{
 * ^TO_.*trace@tracebundy.com
+* ^From.*trace@tracebundy.com
 .old.mailing\ lists.trace\ bundy/
 # }}}
 :0: # nomic {{{
@@ -56,6 +60,14 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # moose {{{
 * ^TO_moose@perl.org
 .mailing\ lists.moose/
+# }}}
+:0: # conkeror {{{
+* ^TO_conkeror@mozdev.org
+.mailing\ lists.conkeror/
+# }}}
+:0: # swing society {{{
+* ^TO_swing-l@listserv.${UIUC}.edu
+.mailing\ lists.swing-society/
 # }}}
 # }}}
 # school {{{
@@ -143,7 +155,16 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # housing {{{
 * 1^0 ^From.*@jsmapts.com
 * 1^0 ^From.*@rentpayment.com
-.school.housing/
+.housing/
+# }}}
+:0: # ecs {{{
+* 1^0 ^From.*ecs@engineering.${UIUC}.edu
+* 1^0 ^From.*ecs@engr.${UIUC}.edu
+.school.ecs/
+# }}}
+:0: # eweek {{{
+*$ 1^0 ^From.*eweek@${UIUC}.edu
+.school.eweek/
 # }}}
 # }}}
 # websites {{{
@@ -156,8 +177,7 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.shopping.food/
 # }}}
 :0: # couchsurfing {{{
-* 1^0 ^From.*noreply@couchsurfing.com
-* 1^0 ^From.*noreply@couchsurfing.org
+* 1^0 ^From.*@couchsurfing.(com|org)
 .websites.community.couchsurfing/
 # }}}
 :0: # cpan {{{
@@ -170,11 +190,15 @@ UIUC=(uiuc|illinois|uillinois)
 * ^From.*upload@pause.fiz-chemie.de
 .websites.projects.cpan/
 :0:
+* ^From.*upload@pause.perl.org
+.websites.projects.cpan/
+:0:
 * ^From.*@rt.cpan.org
 .websites.projects.cpan/
 # }}}
 :0: # facebook {{{
 * ^From.*@facebookmail.com
+* ^From.*@facebookappmail.com
 .websites.community.facebook/
 # }}}
 :0: # hiveminder {{{
@@ -202,6 +226,10 @@ UIUC=(uiuc|illinois|uillinois)
 * ^From.*@aerlingus.chtah.com
 .websites.travel.airlines/
 # }}}
+:0: # orbitz {{{
+* ^From.*@.*orbitz.com
+.websites.travel.airlines/
+# }}}
 :0: # babeland {{{
 * ^From.*@babeland.com
 .websites.shopping.babeland/
@@ -226,8 +254,9 @@ UIUC=(uiuc|illinois|uillinois)
 * ^From.*@greeka.com
 .websites.travel/
 # }}}
-:0: # summitonline {{{
-* ^From.*@summitonline.com
+:0: # skating {{{
+* ^From.*@summitonline.*.com
+* ^From.*@vxb.com
 .websites.shopping.skating/
 # }}}
 :0: # kongregate {{{
@@ -248,6 +277,7 @@ UIUC=(uiuc|illinois|uillinois)
 # }}}
 :0: # wachovia {{{
 * ^From.*wachovia.com
+* ^From.*acs-education.com
 .websites.money.loans/
 # }}}
 :0: # codeweavers {{{
@@ -281,12 +311,13 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.money.paypal/
 # }}}
 :0: # everydns {{{
-* ^From.*@everydns.net
+* ^From.*@everydns.(net|com)
+* ^From.*@dyn.com
 .websites.other.everydns/
 # }}}
 :0: # scuba diving {{{
 * 1^0 ^From.*webmaster@padi.com
-* 1^0 ^From.*padi@padidiver.com
+* 1^0 ^From.*@.*padidiver.com
 * 1^0 ^From.*info@naxosdiving.com
 .websites.fun.scuba\ diving/
 # }}}
@@ -302,12 +333,15 @@ UIUC=(uiuc|illinois|uillinois)
 * ^From.*@.*sourceforge.net
 .websites.projects.sourceforge/
 # }}}
-:0: # frozen perl {{{
+:0: # perl conferences {{{
 * 1^0 ^From.*root@mongueurs.net
 * 1^0 ^From.*YET ANOTHER SOCIETY
 * 1^0 ^TO_frozen-perl-2009@googlegroups.com
 * 1^0 ^From.*leonard@umn.edu
-.mailing\ lists.frozen\ perl/
+* 1^0 ^From.*confserv@andrew.cmu.edu
+* 1^0 ^From.*eay@andrew.cmu.edu
+* 1^0 ^From.*@yapc10.org
+.mailing\ lists.perl\ conferences/
 # }}}
 :0: # aes {{{
 * ^From.*elabs7.com
@@ -318,38 +352,93 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.community.youtube/
 # }}}
 :0: # redoctane {{{
-* ^From.*orders@redoctane.com
+* ^From.*@redoctane.com
+* ^From.*@guitarherostore.com
 .websites.shopping.redoctane/
+# }}}
+:0: # github {{{
+* ^From.*@github.com
+.websites.projects.github/
+# }}}
+:0: # livemocha {{{
+* ^From.*@.*.livemocha.com
+.websites.fun.livemocha/
+# }}}
+:0: # ebay {{{
+* ^From.*@.*.ebay.com
+.websites.shopping.ebay/
+# }}}
+:0: # att {{{
+* ^From.*@.*sbc.com
+.websites.other.att/
+# }}}
+:0: # borders {{{
+* ^From.*@.*borders.com
+.websites.shopping.borders/
+# }}}
+:0: # dailymotion {{{
+* ^From.*@.*dailymotion.com
+.websites.community.dailymotion/
+# }}}
+:0: # twitter {{{
+* ^From.*@.*twitter.com
+.websites.community.twitter/
+# }}}
+:0: # emusic {{{
+* ^From.*@.*emusic.com
+.websites.shopping.emusic/
 # }}}
 # }}}
 # work {{{
-:0
+:0: # ii {{{
+* ^From.*iinteractive.com
+.work/
+# }}}
+:0 # old {{{
 *$ 1^0 ^TO_hydro-lab@${UIUC}.edu
 *$ 1^0 ^TO_.*@aquifer.geology.${UIUC}.edu
 *$ 1^0 ^From.*uihrcomm@${UIUC}.edu
 *$ 1^0 ^TO_sese-(everyone|all-faculty)@earth.${UIUC}.edu
+*$ 1^0 ^TO_uiucvisiting@gmail.com
+*$ 1^0 ^TO_nhb@.*geology.${UIUC}.edu
+*$ 1^0 ^TO_jobs@.*geology.${UIUC}.edu
 *$ 1^0 ^From.*mkt@ad.${UIUC}.edu
 *$ 1^0 ^From.*phays@${UIUC}.edu
 *$ 1^0 ^From.*@.*sursls.org
 *$ 1^0 ^From.*bethke@${UIUC}.edu
-*$ 1^0 ^From.*tom@rockware.com
+*$ 1^0 ^From.*@rockware.com
 *$ 1^0 ^From.*hatchel@ad.${UIUC}.edu
 *$ 1^0 ^From.*jbarrett@cyrus.psych.${UIUC}.edu
+*$ 1^0 ^From.*jenny.barrett@ieanea.org
 *$ 1^0 ^From.*dyar@earth.${UIUC}.edu
+*$ 1^0 ^From.*smarshak@${UIUC}.edu
+*$ 1^0 ^From.*fouke@${UIUC}.edu
+*$ 1^0 ^From.*wpchen@${UIUC}.edu
+*$ 1^0 ^From.*no_reply_hr@${UIUC}.edu
+*$ 1^0 ^From.*stackler@${UIUC}.edu
+*$ 1^0 ^From.*tmflynn2@${UIUC}.edu
 {
     :0: # commits {{{
     *  ^Subject: commit - revision
     *$ ^From.*@aquifer.geology.${UIUC}.edu
-    .work.commits/
+    .work-gwb.commits/
     # }}}
     :0:
-    .work/
+    .work-gwb/
 }
+# }}}
+# }}}
+# other {{{
+:0: # quantumrecruitment {{{
+* ^From.*quantumrecruitment.com
+.jobs/
+# }}}
 # }}}
 # defaults {{{
 :0: # school catch-all {{{
 *$ 1^0 ^TO_.*@${UIUC}.edu
-*$ 1^0 ^From.*eweek@${UIUC}.edu
+*$ 1^0 ^From.*illini-alert@.*
+*$ 1^0 ^From.*consult@${UIUC}.edu
 .school/
 # }}}
 # }}}
