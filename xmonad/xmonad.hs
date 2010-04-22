@@ -14,6 +14,10 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Reflect
 import XMonad.Layout.WindowNavigation
+import XMonad.Prompt
+import XMonad.Prompt.AppLauncher
+import XMonad.Prompt.Shell
+import XMonad.Prompt.XMonad
 import XMonad.Util.Font(stringToPixel)
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeysP)
@@ -42,7 +46,11 @@ main = do
              } `additionalKeysP` [("C-M1-o", spawn "urxvtc")
                                  ,("C-M1-b", spawn "firefox")
                                  ,("C-S-l", spawn "xscreensaver-command -lock")
-                                 ,("C-M1-r", spawn "gmrun")
+                                 ,("C-M1-r", shellPrompt defaultXPConfig)
+                                 ,("C-M1-x", xmonadPrompt defaultXPConfig)
+                                 ,("C-M1-f", launchApp defaultXPConfig "feh")
+                                 ,("C-M1-m", launchApp defaultXPConfig "mplayer")
+                                 ,("C-M1-p", launchApp defaultXPConfig "xpdf")
                                  ,("C-M1-c", restart "xmonad" True)
                                  ,("C-M1-<Left>", prevWS)
                                  ,("C-M1-<Right>", nextWS)
