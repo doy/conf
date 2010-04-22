@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd
+fghack tmux start 2>&1
