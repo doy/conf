@@ -16,6 +16,7 @@ import XMonad.Layout.Reflect
 import XMonad.Layout.WindowNavigation
 import XMonad.Prompt
 import XMonad.Prompt.AppLauncher
+import XMonad.Prompt.Input
 import XMonad.Prompt.Shell
 import XMonad.Prompt.XMonad
 import XMonad.Util.Font(stringToPixel)
@@ -24,6 +25,8 @@ import XMonad.Util.EZConfig(additionalKeysP)
 import qualified XMonad.StackSet as W
 import System.IO
 import Data.List
+import System.Directory
+import Char
 
 main = do
     xmproc <- spawnPipe "xmobar"
@@ -51,6 +54,7 @@ main = do
                                  ,("C-M1-f", launchApp defaultXPConfig "feh")
                                  ,("C-M1-m", launchApp defaultXPConfig "mplayer")
                                  ,("C-M1-p", launchApp defaultXPConfig "xpdf")
+                                 ,("C-M1-q", killAllPrompt)
                                  ,("C-M1-c", restart "xmonad" True)
                                  ,("C-M1-<Left>", prevWS)
                                  ,("C-M1-<Right>", nextWS)
@@ -83,3 +87,8 @@ myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
                           , resource =? "win"         --> doF (W.shift "docs") -- xpdf
                           , resource =? "feh"         --> doF (W.shift "docs")
                           ]
+
+killAllPrompt = inputPromptWithCompl defaultXPConfig "killall" runningProcessesCompl ?+ killAll
+killAll procName = spawn ("killall " ++ procName)
+runningProcessesCompl str = runningProcesses >>= (\procs -> return $ filter (\proc -> str `isPrefixOf` proc) procs)
+runningProcesses = getDirectoryContents "/proc" >>= (\dir -> return $ map (\pid -> "/proc/" ++ pid ++ "/comm") $ filter (\dir -> all isDigit dir) $ dir) >>= (\filenames -> sequence $ map (\filename -> openFile filename ReadMode >>= hGetContents) filenames) >>= (\procs -> return $ nub $ map (\proc -> init proc) procs)
