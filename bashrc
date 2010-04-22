@@ -18,10 +18,8 @@ export DARCS_SFTP="${HOME}/.bin/sftp"
 export GIT_SSH="${HOME}/.bin/ssh"
 export RSYNC_RSH="${HOME}/.bin/ssh"
 export PERL5LIB="${HOME}/.perl:${HOME}/.perl/lib/perl5/site_perl/5.10.0/i686-linux"
-export CVS_RSH='ssh'
+export CVS_RSH="${HOME}/.bin/ssh"
 export TEXINPUTS=".:${HOME}/conf/tex:"
-export NHBOT_DARCS_AUTHOR="doy@tozt.net"
-export NHBOT_PUBLIC_REPO_BASE="http://tozt.net/code/"
 export LESS='-QR'
 export NOPASTE_SERVICES="PastebinCom Rafb Shadowcat Pastie Husk"
 [ -x `which git` ] && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec-path`
@@ -36,7 +34,7 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 [ -z "$PS1" ] && return # }}}
-# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489 {{{
+# Enable colors for ls, etc.  Prefer ~/.dir_colors {{{
 if [[ -f ~/.dir_colors ]]; then
 	eval `dircolors -b ~/.dir_colors`
 elif [[ -f /etc/DIR_COLORS ]]; then
@@ -49,9 +47,6 @@ case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome|screen*)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
 		;;
-        #screen*)
-                #PROMPT_COMMAND='echo -ne "\033k${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
-                #;;
 esac # }}}
 # aliases {{{
 # adding options to common commands {{{
@@ -80,12 +75,17 @@ alias starcraft="wine c:\\Program\ Files\\Starcraft\\StarCraft.exe"
 alias tc="telnet termcast.org"
 # }}}
 # shells {{{
+alias bishamon='ssh bishamon'
 alias apt='ssh doy@apt.tozt.net'
 alias jjaro="ssh doy@jjaro.net"
-alias tozt="ssh doy@tozt.net"
-alias csil="(TERM=rxvt ssh jluehrs2@csil-core7.cs.uiuc.edu)"
-alias ews="ssh jluehrs2@remlnx.ews.uiuc.edu"
+alias tozt="ssh -t doy@tozt.net tmux a"
 alias henzell="ssh henzell@crawl.akrasiac.org"
+# }}}
+# tmux sessions {{{
+alias main='tmux a -t main'
+alias work='tmux a -t work'
+alias docs='tmux a -t docs'
+alias misc='tmux a -t misc'
 # }}}
 # other {{{
 alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.3) Gecko/20070404 Firefox/2.0.0.3"'
@@ -96,6 +96,9 @@ function luado { # thanks rici
     local e=$1
     shift
     lua /dev/fd/3 $* 4<&0- <<<$e 3<&0- 0<&4-
+}
+function moose {
+    perl -Moose -E "$*"
 }
 function setfont {
     printf '\e]710;%s\007' "$1"
@@ -128,9 +131,6 @@ function pdfcat {
     local out=$1
     shift
     gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$out $*
-}
-function vack {
-    vim $(ack -la -- $*)
 }
 function github-clone {
     git clone git://github.com/$1/$2.git
@@ -305,7 +305,6 @@ export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
 source ~/.bash/cdhist.sh
-source ~/.bash/j.sh
 # }}}
 # fortune {{{
 fortune -n300 -s ~/.fortune | grep -v -E "^$"
