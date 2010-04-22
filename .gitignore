@@ -1,6 +1,7 @@
 bin/nethack/timettyrec
 bin/nethack/ttrtail
 procmail/log
+vim/.netrwhist
 vim/.VimballRecord
 vim/undo/
 newsbeuter/cache.db
@@ -16,6 +17,9 @@ irssi/default.theme
 bin/nethack/ipbt
 bin/nethack/ttydump
 bin/nethack/ttygrep
+bin/marathon
+!bin/marathon/marathon
+bin/te
 supervise/
 interhack/servers
 interhack/ttyrec
