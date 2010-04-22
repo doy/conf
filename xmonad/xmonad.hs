@@ -28,10 +28,12 @@ main = do
                  modMask            = mod4Mask,
                  normalBorderColor  = "#000000",
                  focusedBorderColor = "#aaaaaa",
-                 workspaces         = ["term", "browser", "3", "4",
+                 workspaces         = ["term", "browser", "docs", "4",
                                        "5", "6", "7", "8", "9"],
                  layoutHook         = avoidStruts myLayout,
-                 manageHook         = manageDocks <+> manageHook defaultConfig,
+                 manageHook         = myManageHook <+>
+                                      manageDocks <+>
+                                      manageHook defaultConfig,
                  logHook            = dynamicLogWithPP $ xmobarPP
                                          { ppOutput = hPutStrLn xmproc
                                          , ppTitle  = xmobarColor "green" "" . shorten 100
@@ -67,3 +69,9 @@ data BorderUrgencyHook = BorderUrgencyHook deriving (Read, Show)
 instance UrgencyHook BorderUrgencyHook where
     urgencyHook _ win =
         do color <- withDisplay (\display -> io (stringToPixel display "#ff0000")); withDisplay (\display -> io (setWindowBorder display win color))
+
+myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
+                          , resource =? "firefox-bin" --> doF (W.shift "browser")
+                          , resource =? "win"         --> doF (W.shift "docs") -- xpdf
+                          , resource =? "feh"         --> doF (W.shift "docs")
+                          ]
