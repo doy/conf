@@ -91,4 +91,4 @@ myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
 killAllPrompt = inputPromptWithCompl defaultXPConfig "killall" runningProcessesCompl ?+ killAll
 killAll procName = spawn ("killall " ++ procName)
 runningProcessesCompl str = runningProcesses >>= (\procs -> return $ filter (\proc -> str `isPrefixOf` proc) procs)
-runningProcesses = getDirectoryContents "/proc" >>= (\dir -> return $ map (\pid -> "/proc/" ++ pid ++ "/comm") $ filter (\dir -> all isDigit dir) $ dir) >>= (\filenames -> sequence $ map (\filename -> openFile filename ReadMode >>= hGetContents) filenames) >>= (\procs -> return $ nub $ map (\proc -> init proc) procs)
+runningProcesses = getDirectoryContents "/proc" >>= (\dir -> return $ map (\pid -> "/proc/" ++ pid ++ "/comm") $ filter (\dir -> all isDigit dir) $ dir) >>= (\filenames -> sequence $ map (\filename -> openFile filename ReadMode >>= hGetContents) filenames) >>= (\procs -> return $ sort $ nub $ map (\proc -> init proc) procs)
