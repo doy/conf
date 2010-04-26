@@ -309,3 +309,6 @@ source ~/.bash/cdhist.sh
 # fortune {{{
 fortune -n300 -s ~/.fortune | grep -v -E "^$"
 # }}}
+# perl directories {{{
+source $HOME/perl5/perlbrew/etc/bashrc
+# }}}
