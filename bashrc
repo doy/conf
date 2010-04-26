@@ -304,11 +304,9 @@ export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h
 # external files {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
+[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
 source ~/.bash/cdhist.sh
 # }}}
 # fortune {{{
 fortune -n300 -s ~/.fortune | grep -v -E "^$"
-# }}}
-# perl directories {{{
-source $HOME/perl5/perlbrew/etc/bashrc
 # }}}
