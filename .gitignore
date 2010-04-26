@@ -10,9 +10,11 @@ newsbeuter/error.log
 newsbeuter/history.cmdline
 newsbeuter/history.search
 xmonad/xmonad-i386-linux
+xmonad/xmonad-x86_64-linux
 xmonad/xmonad.errors
 xmonad/xmonad.hi
 xmonad/xmonad.o
+xmonad/history
 irssi/default.theme
 bin/nethack/ipbt
 bin/nethack/ttydump
