@@ -73,7 +73,7 @@ myLayout = configurableNavigation noNavigateBorders (tiled ||| Mirror tiled ||| 
     where
         tiled   = reflectHoriz $ Tall nmaster delta ratio
         nmaster = 2
-        ratio   = 0.5955
+        ratio   = 0.662
         delta   = 0.0005
 
 data BorderUrgencyHook = BorderUrgencyHook deriving (Read, Show)
