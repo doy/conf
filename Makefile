@@ -9,6 +9,7 @@ INSTALL   = abcde.conf \
 	    gitconfig \
 	    gitignore \
 	    gtkrc \
+	    gtkrc-2.0 \
 	    inputrc \
 	    muttrc \
 	    nethackrc \
@@ -32,6 +33,7 @@ INSTALL   = abcde.conf \
 	    services \
 	    taeb \
 	    terminfo \
+	    themes \
 	    urxvt \
 	    vim \
 	    xmonad
