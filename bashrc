@@ -92,9 +92,19 @@ alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.
 alias ..='cd ..'
 alias dotperl="rsync -av lib/* ${HOME}/.perl/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
-alias webcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot'
+function webcam {
+    local width=$1
+    local height=$2
+    if [[ -z $width ]];  then width=640;  fi
+    if [[ -z $height ]]; then height=480; fi
+    mplayer tv:// -tv driver=v4l2:width=$width:height=$height:device=/dev/video0 -fps 15 -vf screenshot
+}
 function webcam_record {
-    mencoder tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0:forceaudio:adevice=/dev/dsp -ovc lavc -oac mp3lame -lameopts cbr:br=64:mode=3 -o $1
+    local width=$1
+    if [[ -z $width ]];  then width=640;  else shift; fi
+    local height=$1
+    if [[ -z $height ]]; then height=480; else shift; fi
+    mencoder tv:// -tv driver=v4l2:width=$width:height=$height:device=/dev/video0:forceaudio:adevice=/dev/dsp -ovc lavc -oac mp3lame -lameopts cbr:br=64:mode=3 -o $1
 }
 function luado { # thanks rici
     local e=$1
