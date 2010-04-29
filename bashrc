@@ -165,6 +165,12 @@ function svst {
 }
 # }}}
 # }}}
+# external files {{{
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+[ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
+[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
+source ~/.bash/cdhist.sh
+# }}}
 # bash configuration {{{
 source ~/.bash/colors
 shopt -s extglob
@@ -332,12 +338,6 @@ if [ -x $(which perlbrew) ]; then
     export PROMPT_COMMAND="${PROMPT_COMMAND};_setup_perlbrew"
 fi
 # }}}
-# }}}
-# external files {{{
-[ -f /etc/bash_completion ] && source /etc/bash_completion
-[ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
-[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
-source ~/.bash/cdhist.sh
 # }}}
 # fortune {{{
 fortune -n300 -s ~/.fortune | grep -v -E "^$"
