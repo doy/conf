@@ -315,20 +315,22 @@ export PROMPT_COMMAND="_set_error;_set_vcs;$PROMPT_COMMAND"
 export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h \[${HIBLUE}\]\W\[${CYAN}\]\$__vcs \[${HIBLUE}\]\\$\[${NORM}\] "
 # }}}
 # set the correct perl {{{
-function _setup_perlbrew {
-    local perl="$(readlink ${HOME}/perl5/perlbrew/perls/current)"
-    local pwd="${PWD#${HOME}}/"
-    if [[ "${pwd:0:6}" == "/work/" ]]; then
-        if [[ "$perl" != "work-perl" ]]; then
-            perlbrew switch work-perl
+if [ -x $(which perlbrew) ]; then
+    function _setup_perlbrew {
+        local perl="$(readlink ${HOME}/perl5/perlbrew/perls/current)"
+        local pwd="${PWD#${HOME}}/"
+        if [[ "${pwd:0:6}" == "/work/" ]]; then
+            if [[ "$perl" != "work-perl" ]]; then
+                perlbrew switch work-perl
+            fi
+        else
+            if [[ "$perl" == "work-perl" ]]; then
+                perlbrew switch perl-5.10.1
+            fi
         fi
-    else
-        if [[ "$perl" == "work-perl" ]]; then
-            perlbrew switch perl-5.10.1
-        fi
-    fi
-}
-export PROMPT_COMMAND="${PROMPT_COMMAND};_setup_perlbrew"
+    }
+    export PROMPT_COMMAND="${PROMPT_COMMAND};_setup_perlbrew"
+fi
 # }}}
 # }}}
 # external files {{{
