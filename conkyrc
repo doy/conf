@@ -32,12 +32,13 @@ ${alignc}${color}${nodename} - ${sysname} ${kernel} on ${machine}
 ${alignc}${time %T   %a %b %d}
 ${color1}Uptime:${color}    ${uptime}
 ${color1}CPU Temp:${color}  ${ibm_temps 0}F
-${color1}GPU Temp:${color}  ${ibm_temps 3}F
 ${color1}Battery:${color}   ${battery} (${battery_time}) ${battery_bar}
 ${color1}Fan Speed:${color} ${ibm_fan}RPM
 ${color}${hr}
 ${color1}CPU Usage:${color} 1:${cpu cpu1}% (${freq_g 1}GHz) ${cpubar cpu1}
 ${color1}          ${color} 2:${cpu cpu2}% (${freq_g 2}GHz) ${cpubar cpu2}
+${color1}          ${color} 3:${cpu cpu1}% (${freq_g 3}GHz) ${cpubar cpu3}
+${color1}          ${color} 4:${cpu cpu2}% (${freq_g 4}GHz) ${cpubar cpu4}
 ${color0}${cpugraph cpu0 000000 5000a0}
 ${color}${hr}
 ${color1}RAM: ${color} ${mem}/${memmax} ${membar}
