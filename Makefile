@@ -51,7 +51,6 @@ RM        = @rm -f
 build : $(BUILD)
 
 install : build $(INSTALLED) /var/spool/cron/$(USER)
-	@crontab crontab
 	$(ECHO) Installed into $(HOME)
 
 clean :
@@ -62,5 +61,8 @@ clean :
 $(INTO)/.% : %
 	@[ ! -f $@ ] || readlink -q $@ || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
+
+/var/spool/cron/$(USER) : crontab
+	@crontab crontab
 
 .PHONY: build install clean
