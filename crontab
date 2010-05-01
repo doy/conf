@@ -1,0 +1,2 @@
+0 */3 * * * newsbeuter -x reload
+0   5 * * * perlbrew switch perl-5.10.1 && minicpan

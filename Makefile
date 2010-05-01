@@ -49,14 +49,16 @@ RM        = @rm -f
 
 build : $(BUILD)
 
-install : build $(INSTALLED)
+install : build $(INSTALLED) /var/spool/cron/$(USER)
 	$(MKDIR) $(INTO)/.ssh
 	$(LN) $(PWD)/authorized_keys $(INTO)/.ssh/
+	@crontab crontab
 	$(ECHO) Installed into $(HOME)
 
 clean :
 	$(ECHO) Cleaning from $(HOME)
 	$(RM) $(BUILD) $(INSTALLED) $(INTO)/.ssh/authorized_keys
+	@crontab -d
 
 $(INTO)/.% : %
 	@[ ! -f $@ ] || readlink -q $@ || mv -f $@ $@.bak
