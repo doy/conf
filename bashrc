@@ -17,7 +17,7 @@ export DARCS_SCP="${HOME}/.bin/scp"
 export DARCS_SFTP="${HOME}/.bin/sftp"
 export GIT_SSH="${HOME}/.bin/ssh"
 export RSYNC_RSH="${HOME}/.bin/ssh"
-export PERL5LIB="${HOME}/.perl:${HOME}/.perl/lib/perl5/site_perl/5.10.0/i686-linux"
+export PERL5LIB="${HOME}/perl5/local/:${HOME}/perl5/local/lib/perl5/site_perl/5.10.0/i686-linux"
 export CVS_RSH="${HOME}/.bin/ssh"
 export TEXINPUTS=".:${HOME}/conf/tex:"
 export LESS='-QR'
@@ -91,7 +91,7 @@ alias misc='tmux a -t misc'
 # other {{{
 alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.3) Gecko/20070404 Firefox/2.0.0.3"'
 alias ..='cd ..'
-alias dotperl="rsync -av lib/* ${HOME}/.perl/"
+alias dotperl="rsync -av lib/* ${HOME}/perl5/local/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
 function webcam {
     local width=$1
