@@ -51,6 +51,7 @@ RM        = @rm -f
 build : $(BUILD)
 
 install : build $(INSTALLED) /var/spool/cron/$(USER)
+	$(MKDIR) .log
 	$(ECHO) Installed into $(HOME)
 
 clean :
