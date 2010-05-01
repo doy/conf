@@ -25,6 +25,7 @@ export NOPASTE_SERVICES="Codepeek PastebinCom Rafb Shadowcat Pastie Husk"
 [ -x `which git` ] && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec-path`
 [ -x /usr/bin/lesspipe ] && export LESSOPEN='|/usr/bin/lesspipe %s'
 [ -x /usr/bin/lesspipe.sh ] && export LESSOPEN='|/usr/bin/lesspipe.sh %s'
+[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
 # }}}
 # Test for an interactive shell. {{{
 # There is no need to set anything past this point for scp and rcp, and it's
@@ -168,7 +169,6 @@ function svst {
 # external files {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
-[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
 source ~/.bash/cdhist.sh
 # }}}
 # bash configuration {{{
