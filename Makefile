@@ -32,6 +32,7 @@ INSTALL   = abcde.conf \
 	    procmail \
 	    re.pl \
 	    services \
+	    ssh \
 	    taeb \
 	    terminfo \
 	    themes \
@@ -50,14 +51,12 @@ RM        = @rm -f
 build : $(BUILD)
 
 install : build $(INSTALLED) /var/spool/cron/$(USER)
-	$(MKDIR) $(INTO)/.ssh
-	$(LN) $(PWD)/authorized_keys $(INTO)/.ssh/
 	@crontab crontab
 	$(ECHO) Installed into $(HOME)
 
 clean :
 	$(ECHO) Cleaning from $(HOME)
-	$(RM) $(BUILD) $(INSTALLED) $(INTO)/.ssh/authorized_keys
+	$(RM) $(BUILD) $(INSTALLED)
 	@crontab -d
 
 $(INTO)/.% : %

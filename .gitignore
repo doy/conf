@@ -27,3 +27,6 @@ interhack/servers
 interhack/ttyrec
 taeb
 !taeb/config.yml
+ssh/id_dsa
+ssh/id_dsa.pub
+ssh/known_hosts
