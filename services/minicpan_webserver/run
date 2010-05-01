@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd $HOME
+source $HOME/.bashrc
+minicpan_webserver 2>&1
