@@ -11,6 +11,7 @@ INSTALL   = abcde.conf \
 	    gtkrc \
 	    gtkrc-2.0 \
 	    inputrc \
+	    minicpanrc \
 	    muttrc \
 	    nethackrc \
 	    procmailrc \
