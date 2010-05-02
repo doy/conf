@@ -1,2 +1,2 @@
 0 */3 * * * newsbeuter -x reload
-0   5 * * * perlbrew switch perl-5.10.1 && minicpan
+0   5 * * * . $HOME/.bashrc && perlbrew switch perl-5.10.1 && minicpan
