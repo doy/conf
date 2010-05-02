@@ -1,2 +1,0 @@
-#!/bin/sh
-pacman -Qu | sed '/Targets/,/^$/!d' | sed '/^$/d' | sed 's/Targets ([[:digit:]]\+): //' | sed 's/[[:space:]]\+/\n/g' | grep -v '^$'
