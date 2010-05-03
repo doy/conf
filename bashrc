@@ -22,7 +22,7 @@ export CVS_RSH="${HOME}/.bin/ssh"
 export TEXINPUTS=".:${HOME}/conf/tex:"
 export LESS='-QR'
 export NOPASTE_SERVICES="Codepeek PastebinCom Rafb Shadowcat Pastie Husk"
-export PERL_CPANM_OPT="--mirror file:///home/doy/perl5/minicpan/ --mirror http://search.cpan.org/CPAN --prompt --skip-installed"
+export PERL_CPANM_OPT="--mirror file://${HOME}/perl5/minicpan/ --mirror http://search.cpan.org/CPAN --prompt --skip-installed"
 [ -x `which git` ] && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec-path`
 [ -x /usr/bin/lesspipe ] && export LESSOPEN='|/usr/bin/lesspipe %s'
 [ -x /usr/bin/lesspipe.sh ] && export LESSOPEN='|/usr/bin/lesspipe.sh %s'
@@ -78,9 +78,9 @@ alias tc="telnet termcast.org"
 # }}}
 # shells {{{
 alias bishamon='ssh bishamon'
-alias apt='ssh doy@apt.tozt.net'
-alias jjaro="ssh doy@jjaro.net"
-alias tozt="ssh -t doy@tozt.net tmux a"
+alias apt="ssh ${USER}@apt.tozt.net"
+alias jjaro="ssh ${USER}@jjaro.net"
+alias tozt="ssh -t ${USER}@tozt.net tmux a"
 alias henzell="ssh henzell@crawl.akrasiac.org"
 # }}}
 # tmux sessions {{{
