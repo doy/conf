@@ -29,12 +29,12 @@ use_spacer         left
 temperature_unit   fahrenheit
 
 TEXT
-                       ${color green}${nodename} - ${sysname} ${kernel} on ${machine}
-                              ${time %T   %a %b %d}
-${color white}CPU Usage:${color green} 1:${cpu cpu1}% (${freq_g 1}GHz) ${cpubar cpu1}     ${color white}Uptime:${color green}    ${uptime}
-          ${color green} 2:${cpu cpu2}% (${freq_g 2}GHz) ${cpubar cpu2}     ${color white}CPU Temp:${color green}  ${ibm_temps 0}F
-          ${color green} 3:${cpu cpu3}% (${freq_g 3}GHz) ${cpubar cpu3}     ${color white}Battery:${color green}   ${battery} (${battery_time}) ${battery_bar}
-          ${color green} 4:${cpu cpu4}% (${freq_g 4}GHz) ${cpubar cpu4}     ${color white}Fan Speed:${color green} ${ibm_fan}RPM
+                      ${color green}${nodename} - ${sysname} ${kernel} on ${machine}
+                             ${time %T   %a %b %d}
+${color white}CPU Usage:${color green} 1:${cpu cpu1}% (${freq_g 1}GHz) ${cpubar cpu1}      ${color white}Uptime:${color green}    ${uptime}
+          ${color green} 2:${cpu cpu2}% (${freq_g 2}GHz) ${cpubar cpu2}      ${color white}CPU Temp:${color green}  ${ibm_temps 0}F
+          ${color green} 3:${cpu cpu3}% (${freq_g 3}GHz) ${cpubar cpu3}      ${color white}Battery:${color green}   ${battery} (${battery_time}) ${battery_bar}
+          ${color green} 4:${cpu cpu4}% (${freq_g 4}GHz) ${cpubar cpu4}      ${color white}Fan Speed:${color green} ${ibm_fan}RPM
 ${color green}${hr}
 ${color white}RAM: ${color green} ${mem}/${memmax} ${membar}
 ${color white}Swap:${color green} ${swap}/${swapmax} ${swapbar}${if_gw}
