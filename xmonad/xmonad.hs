@@ -11,6 +11,7 @@ import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Reflect
 import XMonad.Layout.WindowNavigation
@@ -41,11 +42,8 @@ main = do
                  manageHook         = myManageHook <+>
                                       manageDocks <+>
                                       manageHook defaultConfig,
-                 logHook            = dynamicLogWithPP $ xmobarPP
-                                         { ppOutput = hPutStrLn xmproc
-                                         , ppTitle  = xmobarColor "green" "" . shorten 100
-                                         , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
-                                         }
+                 logHook            = myFadeInactiveLogHook >>
+                                      (myXmobarLogHook xmproc)
              } `additionalKeysP` [("C-M1-o", spawn "urxvtc")
                                  ,("C-M1-b", spawn "firefox")
                                  ,("C-S-l", spawn "xscreensaver-command -lock")
@@ -75,6 +73,16 @@ myLayout = configurableNavigation noNavigateBorders (tiled ||| Mirror tiled ||| 
         nmaster = 2
         ratio   = 0.662
         delta   = 0.0005
+
+myFadeInactiveLogHook =
+    fadeInactiveLogHook 0xbbbbbbbb
+
+myXmobarLogHook xmproc =
+    dynamicLogWithPP $ xmobarPP
+    { ppOutput = hPutStrLn xmproc
+    , ppTitle  = xmobarColor "green" "" . shorten 100
+    , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
+    }
 
 data BorderUrgencyHook = BorderUrgencyHook deriving (Read, Show)
 
