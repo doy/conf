@@ -60,7 +60,7 @@ alias mv="mv -i"
 alias bc="bc -lq"
 alias ncmpc="ncmpc -c"
 alias truecrypt="sudo truecrypt -t"
-alias prove="prove -rj3"
+alias prove="prove -rj5"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
