@@ -52,8 +52,8 @@ ${color white}${endif}${if_up wlan0}
    ${color white}Wireless: ${color green}${wireless_bitrate wlan0} - ${wireless_link_bar wlan0}
    Down:${color magenta}${downspeed wlan0}/s${color green}         Up:${color blue}${upspeed wlan0}/s
 ${color white}${endif}${endif}
-${color white}Processes:${color green} ${processes}  ${color white}Running:${color green} ${running_processes}
-${color green}Name              PID     CPU%   MEM%     ${color green}Mem usage
+${color white}Processes:${color green} ${processes}  ${color white}Running:${color green} ${running_processes}           ${color white}Mem usage
+${color green} Name               PID   CPU%   MEM%     Name               PID   CPU%   MEM%
 ${color yellow} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}    ${color yellow} ${top_mem name 1} ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
 ${color white} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}    ${color white} ${top_mem name 2} ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
 ${color white} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}    ${color white} ${top_mem name 3} ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
