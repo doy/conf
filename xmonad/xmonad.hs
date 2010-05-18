@@ -52,6 +52,7 @@ main = do
                                  ,("C-M1-f", launchApp defaultXPConfig "feh")
                                  ,("C-M1-m", launchApp defaultXPConfig "mplayer")
                                  ,("C-M1-p", launchApp defaultXPConfig "xpdf")
+                                 ,("C-M1-s", launchApp defaultXPConfig "soffice")
                                  ,("C-M1-q", killAllPrompt)
                                  ,("C-M1-c", restart "xmonad" True)
                                  ,("C-M1-<Left>", prevWS)
