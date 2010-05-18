@@ -1,6 +1,10 @@
 " :make does a syntax check
-setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
-setlocal errorformat=%f:%l:%m
+if expand("%:e") == "psgi"
+    exe 'setlocal makeprg=plackup\ -Ilib\ -a\ ' . expand("%")
+else
+    setlocal makeprg=$VIMRUNTIME/tools/efm_perl.pl\ -c\ %\ $*
+    setlocal errorformat=%f:%l:%m
+endif
 
 " look up words in perldoc rather than man for K
 function! s:perldoc(word)
