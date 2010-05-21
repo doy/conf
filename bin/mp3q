@@ -1,0 +1,75 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use File::Next;
+use File::Basename;
+use MP3::Info;
+use MP4::Info;
+use Ogg::Vorbis::Header::PurePerl;
+
+sub color {
+    my ($bitrate) = @_;
+    $bitrate ||= 0;
+    if ($bitrate >= 192) {
+        return "1;32";
+    }
+    elsif ($bitrate >= 160) {
+        return "32";
+    }
+    elsif ($bitrate >= 128) {
+        return "33";
+    }
+    elsif ($bitrate >= 96) {
+        return "31";
+    }
+    elsif ($bitrate == 0) {
+        return "1;30";
+    }
+    else {
+        return "37;41";
+    }
+}
+
+sub bitrate {
+    my ($file) = @_;
+    if ($file =~ /\.mp3$/i) {
+        return MP3::Info->new($file)->bitrate;
+    }
+    elsif ($file =~ /\.m4a$/i) {
+        return MP4::Info->new($file)->bitrate;
+    }
+    elsif ($file =~ /\.ogg$/i) {
+        return Ogg::Vorbis::Header::PurePerl->new($file)->info->{bitrate_nominal} / 1000.0;
+    }
+    elsif ($file =~ /\.(?:m4p|jpg|ini|db|exe|wma|nfo|m3u|zip|m4v|txt|DS_Store|mpe?g|mov|cue|ncd|xml|rar|png)$/i) {
+        return 0;
+    }
+    elsif ($file =~ /\.(?:wav|flac)$/i) {
+        return 1440;
+    }
+    elsif ($file !~ /\./) {
+        return 0;
+    }
+    else {
+        die "unknown file type: $file";
+    }
+}
+
+my @dirs = @ARGV;
+push @dirs, '.' unless @dirs;
+
+my $files = File::Next::files({sort_files => 1}, @dirs);
+
+#mkdir 'unnecessary';
+
+while (defined (my $file = $files->())) {
+    my $bitrate = bitrate($file);
+    print "\e[", color($bitrate), "m";
+    print "$file: $bitrate";
+    print "\e[m\n";
+    if ($bitrate < 96) {
+        my $new_name = fileparse $file;
+        $new_name = 'unnecessary/'.$new_name;
+        #rename $file, $new_name;
+    }
+}
