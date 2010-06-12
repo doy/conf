@@ -1,0 +1,5 @@
+No known bugs.
+
+Please report any bugs through RT: email
+C<bug-{{ lc($name) }} at rt.cpan.org>, or browse to
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue={{ $name }}>.

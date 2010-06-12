@@ -23,6 +23,7 @@ INSTALL   = abcde.conf \
 	    xmobarrc \
 	    bash \
 	    bin \
+	    dzil \
 	    interhack \
 	    irssi \
 	    fortune \
