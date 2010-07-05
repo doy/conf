@@ -15,6 +15,7 @@ INSTALL   = abcde.conf \
 	    muttrc \
 	    nethackrc \
 	    procmailrc \
+	    pwsafe.dat \
 	    screenrc \
 	    tmux.conf \
 	    vimrc \
@@ -42,7 +43,7 @@ INSTALL   = abcde.conf \
 	    xmonad
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
-BUILD     = bin/nethack/timettyrec
+BUILD     = bin/nethack/timettyrec pwsafe.dat
 
 ECHO      = @echo
 LN        = @ln -sf
@@ -66,5 +67,8 @@ $(INTO)/.% : %
 
 /var/spool/cron/$(USER) : crontab
 	@crontab crontab
+
+pwsafe.dat :
+	wget http://tozt.net/.pwsafe.dat -O pwsafe.dat
 
 .PHONY: build install clean
