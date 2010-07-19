@@ -1,0 +1,4 @@
+:map H :bp<CR>
+:map L :bn<CR>
+:map J 20j
+:map K 20k

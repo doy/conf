@@ -18,6 +18,7 @@ INSTALL   = abcde.conf \
 	    pwsafe.dat \
 	    screenrc \
 	    tmux.conf \
+	    vimperatorrc \
 	    vimrc \
 	    Xdefaults \
 	    xinitrc \
