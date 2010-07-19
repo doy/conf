@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ulimit -Sm 2048000
+
 cd $HOME
 . "$HOME/.bashrc"
 
