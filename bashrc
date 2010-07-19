@@ -59,7 +59,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias bc="bc -lq"
 alias ncmpc="ncmpc -c"
-alias truecrypt="sudo truecrypt -t"
+alias truecrypt="truecrypt -t"
 alias prove="prove -rj5"
 alias cpan-outdated="cpan-outdated --mirror file://${HOME}/perl5/minicpan/"
 # }}}
