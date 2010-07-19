@@ -92,6 +92,8 @@ instance UrgencyHook BorderUrgencyHook where
         do color <- withDisplay (\display -> io (stringToPixel display "#ff0000")); withDisplay (\display -> io (setWindowBorder display win color))
 
 myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
+                          , resource =? "qemu"        --> doFloat
+                          , resource =? "qemu-system-x86_64" --> doFloat
                           , resource =? "firefox-bin" --> doF (W.shift "browser")
                           , resource =? "win"         --> doF (W.shift "docs") -- xpdf
                           , resource =? "feh"         --> doF (W.shift "docs")
