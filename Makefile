@@ -63,7 +63,7 @@ clean :
 	@crontab -d
 
 $(INTO)/.% : %
-	@[ ! -f $@ ] || readlink -q $@ || mv -f $@ $@.bak
+	@[ -e $@ ] && [ ! -h $@ ] && mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
 
 /var/spool/cron/$(USER) : crontab
