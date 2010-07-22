@@ -70,6 +70,6 @@ $(INTO)/.% : %
 	@crontab crontab
 
 pwsafe.dat :
-	wget http://tozt.net/.pwsafe.dat -O pwsafe.dat
+	wget -q http://tozt.net/.pwsafe.dat -O pwsafe.dat
 
 .PHONY: build install clean
