@@ -19,11 +19,6 @@ set modeline
 " always join with just one space, even between sentences
 set nojoinspaces
 
-" vim has pretty nice mouse support, in terminals that support it
-if has('mouse')
-    set mouse=a
-endif
-
 " don't move the cursor to the start of the line when changing buffers
 set nostartofline
 " }}}
