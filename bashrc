@@ -62,6 +62,7 @@ alias ncmpc="ncmpc -c"
 alias truecrypt="truecrypt -t"
 alias prove="prove -rj5"
 alias cpan-outdated="cpan-outdated --mirror file://${HOME}/perl5/minicpan/"
+alias netstat="netstat -a --inet --numeric-port"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
