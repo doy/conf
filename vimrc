@@ -244,7 +244,7 @@ endif
 " Autocommands {{{
 " When editing a file, always jump to the last cursor position {{{
 autocmd BufReadPost *
-\  if line("'\"") > 0 && line("'\"") <= line("$") |
+\  if &filetype != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
 \    exe "normal g`\"" |
 \  endif
 " }}}
