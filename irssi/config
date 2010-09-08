@@ -279,6 +279,7 @@ settings = {
     beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT ";
     activity_hide_level = "JOINS PARTS QUITS NICKS MODES";
     windows_auto_renumber = "no";
+    window_history = "yes";
   };
   "perl/core/scripts" = {
     chanact_abbreviate_names = "2";
