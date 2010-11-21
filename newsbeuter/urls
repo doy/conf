@@ -23,6 +23,9 @@ http://quizzicalpussy.com/feed/ sex blog
 http://gentlemansc.blogspot.com/feeds/posts/default prof blog
 http://learningcurves.blogspot.com/feeds/posts/default prof blog
 http://www.alistapart.com/site/rss design blog
+http://offtopic.akrasiac.org/?feed=rss2 crawl-offtopic gender blog
+http://offtopic.akrasiac.org/?feed=sfw crawl-offtopic links
+http://offtopic.akrasiac.org/?feed=nsfw crawl-offtopic links
 
 # webcomics
 http://www.questionablecontent.net/QCRSS.xml webcomics
@@ -43,6 +46,7 @@ http://dresdencodak.com/category/comic/feed/ webcomics
 http://www.drunkduck.com/rss/rss.php?cid=3 webcomics
 http://basicinstructions.net/basic-instructions/rss.xml webcomics
 http://www.marriedtothesea.com/rss/rss.php webcomics
+http://www.webcomics.me/feed/ webcomics
 
 # webcomics i'm behind on
 #http://www.asciiartfarts.com/farts.rss webcomics catchup
@@ -54,6 +58,7 @@ http://www.marriedtothesea.com/rss/rss.php webcomics
 #http://feeds.feedburner.com/TheSecretKnots webcomics catchup
 
 # webcomics - things to read eventually
+#http://www.mspaintadventures.com/
 #http://girlyyy.com/
 #http://www.rice-boy.com/
 #http://www.threepanelsoul.com/
