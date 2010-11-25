@@ -1,0 +1,46 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use Getopt::Long;
+use Path::Class;
+
+my $fh = dir($ENV{HOME})->file('.bash_history')->openr;
+my $n = 10;
+my $subcommand;
+GetOptions(
+    'n=i'          => \$n,
+    'subcommand=s' => \$subcommand,
+);
+
+my %cmds;
+my %sudo_cmds;
+
+while (<$fh>) {
+    chomp;
+    for my $cmd (split /;/, $_) {
+        $cmd =~ s/^\s*(.*?)\s*$/$1/;
+        my @words = split /\s+/, $cmd;
+        next unless @words;
+        shift @words while $words[0] =~ /^[A-Z][A-Z0-9_]*=/;
+        my $sudo;
+        if ($words[0] eq 'sudo') {
+            $sudo = 1;
+            shift @words;
+        }
+        if ($subcommand) {
+            next unless $words[0] eq $subcommand;
+            shift @words;
+            shift @words while $words[0] =~ /^-/;
+        }
+        $cmds{$words[0]}++;
+        $sudo_cmds{$words[0]}++ if $sudo;
+    }
+}
+
+for my $cmd (sort { $cmds{$b} <=> $cmds{$a} } keys %cmds) {
+    printf '%5d %s', $cmds{$cmd}, $subcommand ? "$subcommand $cmd" : $cmd;
+    printf ' (%d under sudo)', $sudo_cmds{$cmd} if $sudo_cmds{$cmd};
+    print "\n";
+    last unless --$n;
+}
