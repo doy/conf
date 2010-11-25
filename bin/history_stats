@@ -31,9 +31,9 @@ while (<$fh>) {
         if ($subcommand) {
             next unless $words[0] eq $subcommand;
             shift @words;
-            shift @words while $words[0] =~ /^-/;
+            shift @words while @words && $words[0] =~ /^-/;
         }
-        $cmds{$words[0]}++;
+        $cmds{($words[0] || '')}++;
         $sudo_cmds{$words[0]}++ if $sudo;
     }
 }
