@@ -30,3 +30,6 @@ taeb
 ssh
 !ssh/authorized_keys
 pwsafe.dat
+mutt/aliases
+mutt/extra
+mutt/cache

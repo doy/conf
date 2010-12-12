@@ -12,7 +12,7 @@ INSTALL   = abcde.conf \
 	    gtkrc-2.0 \
 	    inputrc \
 	    minicpanrc \
-	    muttrc \
+	    mutt \
 	    nethackrc \
 	    procmailrc \
 	    pwsafe.dat \

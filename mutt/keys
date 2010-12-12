@@ -1,0 +1,21 @@
+bind pager j next-line
+bind pager k previous-line
+bind pager J half-down
+bind pager K half-up
+bind pager p search-opposite
+bind pager N next-undeleted
+bind pager P previous-undeleted
+bind pager g top
+bind pager G bottom
+bind pager A group-reply
+
+bind index <Down> next-entry
+bind index <Up> previous-entry
+bind index J half-down
+bind index K half-up
+bind index p search-opposite
+bind index A group-reply
+bind index g first-entry
+bind index G last-entry
+bind index ^G imap-fetch-mail
+macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>"
