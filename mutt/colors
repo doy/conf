@@ -8,3 +8,5 @@ color quoted6 green       default
 color quoted7 brightgreen default
 color quoted8 green       default
 color quoted9 brightgreen default
+
+# vim:ft=muttrc:

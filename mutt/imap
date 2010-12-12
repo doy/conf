@@ -6,3 +6,5 @@ set header_cache=~/.mutt/cache
 set message_cachedir=~/.mutt/cache
 set net_inc=5
 set mark_old=no
+
+# vim:ft=muttrc:
