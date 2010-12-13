@@ -14,6 +14,7 @@ bind pager g top
 bind pager G bottom
 bind pager A group-reply
 
+bind index i noop
 bind index <Down> next-entry
 bind index <Up> previous-entry
 bind index J half-down
