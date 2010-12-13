@@ -73,7 +73,7 @@ alias spork="telnet sporkhack.nineball.org"
 alias cgoban="javaws http://files.gokgs.com/javaBin/cgoban.jnlp"
 alias counterstrike="wine c:\\Program\ Files\\Sierra\\Half-Life\\hl.exe -game cstrike -console -numericping -nojoy -noipx"
 alias halflife="wine c:\\Program\ Files\\Sierra\\Half-Life\\hl.exe" # -console breaks
-alias starcraft="wine c:\\Program\ Files\\Starcraft\\StarCraft.exe"
+alias starcraft='wine c:\\Program\ Files\ \(x86\)\\Starcraft\\StarCraft.exe'
 # }}}
 # termcast {{{
 alias tc="telnet termcast.org"
