@@ -1,5 +1,3 @@
-# vim:filetype=perl:
-#
 #package main;
 ## this is for Perl's Devel::REPL. it goes in ~/.re.pl/repl.rc
 #
@@ -75,3 +73,4 @@ $cd =~ s{^(/(?:Users|home)/[^/]+)/}{} and do {
     $Devel::REPL::Script::CURRENT_SCRIPT->apply_script($proj, 0);
 };
 
+# vim:filetype=perl:

@@ -1,5 +1,3 @@
-# vim:ft=perl:fdm=marker:
-
 # main config {{{
 nick "doy";
 #server "sporkhack";
@@ -152,3 +150,5 @@ remap chr(14) => sub { $elbereths += 2; $magicbane ? "Ee  ElberethElbereth\n" : 
 remap chr(22) => sub { $elbereths += 6; "E-  Elbereth\nE-  Elbereth\nE-  Elbereth\nE-  Elbereth\nE-  Elbereth\nE-  Elbereth\n>      " }; # ^V to DfV
 remap chr(23) => "aqny "; # ^W to work the castle drawbridge
 # }}}
+
+# vim:ft=perl:fdm=marker:

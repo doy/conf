@@ -31,3 +31,5 @@
 	stat = true
 [help]
 	autocorrect = 5
+
+; vim:ft=gitconfig:

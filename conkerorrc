@@ -1,5 +1,3 @@
-// vim: ft=javascript
-
 // Global configuration {{{
 // Built-in {{{
 // Don't let kill-buffer close the window
@@ -203,3 +201,5 @@ add_hook("window_initialize_hook", set_proxy_session);
  * - reimplement flashblock maybe?
  * - session stuff doesn't save tab history
 */
+
+// vim:ft=javascript:

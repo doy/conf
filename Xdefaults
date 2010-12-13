@@ -1,4 +1,3 @@
-! vim: ft=xdefaults
 ! rxvt-unicode {{{
 URxvt*visualBell:true
 URxvt*background:black
@@ -78,3 +77,5 @@ aterm*scrollBar_right:true
 aterm*scrollBar:false
 aterm*boldFont:7x14
 ! }}}
+
+! vim:ft=xdefaults:

@@ -16,3 +16,5 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
        , alignSep = "}{"
        , template = "%StdinReader% }{ %KBOS% | %cpu% | %memory% * %swap% | %wlan0% | %battery% | <fc=#ee9a00>%date%</fc>"
        }
+
+-- vim:ft=haskell:

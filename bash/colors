@@ -42,3 +42,5 @@ else
     BOLD=$(printf "\033[0;39m")
     NORM=$(printf "\033[0m")
 fi
+
+# vim:ft=sh:
