@@ -12,6 +12,11 @@
 	review = "!f() { for rev in $(git rev-list --reverse \"$@\"); do git show $rev; done; }; f"
 	unstage = reset -q HEAD
 	info = remote show -n origin
+	graph = log --graph --all --full-history --color --branches --decorate
+	prune-all = !git remote | xargs -n 1 git remote prune
+	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%an %Cgreen(%cr)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
+	lgs = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%an %Cgreen(%cr)%Creset%n%s%n' --abbrev-commit --date=relative
 [github]
 	user = doy
 [color]
