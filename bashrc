@@ -330,7 +330,9 @@ export PS1="\[\$__error_color\]\$__error \[${HIYELLOW}\][\t] \[${HIGREEN}\]\u@\h
 # set the correct perl {{{
 if type -a perlbrew > /dev/null 2>&1; then
     function _setup_perlbrew {
-        local perl="$(readlink ${HOME}/perl5/perlbrew/perls/current)"
+        . ${HOME}/.perlbrew/init
+        local perl=$PERLBREW_PERL
+        [ -z $perl ] && perl="$(readlink ${HOME}/perl5/perlbrew/perls/current)"
         local pwd="${PWD#${HOME}}/"
         if [[ "${pwd:0:6}" == "/work/" ]]; then
             if [[ "$perl" != "work-perl" ]]; then
