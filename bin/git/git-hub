@@ -169,6 +169,18 @@ sub run_command_list {
           } @{ $self->_github(owner => $owner, repo => '')->repos->list };
 }
 
+sub run_command_pullreq {
+    my $self = shift;
+    my ($owner, $repo, $title, $body) = @_;
+    die "usage: git hub pullreq <owner> <repo> [title] [description]"
+        unless @_ == 2 || @_ == 3 || @_ == 4;
+
+    $self->_github(owner => $owner, repo => $repo)->pull_request->pull_request(
+        title => $title,
+        body  => $body,
+    );
+}
+
 sub _github {
     my $self = shift;
     my %opts = @_;
