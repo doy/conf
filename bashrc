@@ -150,13 +150,6 @@ function pdfcat {
     shift
     gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$out $*
 }
-function github-clone {
-    if [[ -z $2 ]]; then
-        git clone git@github.com:$USER/$1.git
-    else
-        git clone git://github.com/$1/$2.git
-    fi
-}
 function mod {
     yes | module-setup $1
 }

@@ -1,0 +1,186 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+package App::Git::Hub;
+
+use File::pushd;
+use Net::GitHub::V2;
+
+sub git {
+    if (wantarray) {
+        chomp(my @ret = qx{git $_[0]});
+        return @ret;
+    }
+    else {
+        chomp(my $ret = qx{git $_[0]});
+        return $ret;
+    }
+}
+
+sub new {
+    my $class = shift;
+    my @argv = @_;
+
+    open my $login_info, '<', "$ENV{HOME}/.github"
+        or die "couldn't get login information";
+    my $user  = <$login_info>;
+    chomp $user;
+    my $token = <$login_info>;
+    chomp $token;
+
+    bless {
+        user  => $user,
+        token => $token,
+        argv  => \@argv,
+    }, $class;
+}
+
+sub user  { shift->{user}      }
+sub token { shift->{token}     }
+sub argv  { @{ shift->{argv} } }
+
+sub shift_argv {
+    my $self = shift;
+    return shift @{ $self->{argv} };
+}
+
+sub run {
+    my $self = shift;
+
+    my $command = $self->shift_argv;
+    $self->usage unless defined $command;
+    $self->run_command($command);
+}
+
+sub usage {
+    die "usage";
+}
+
+sub run_command {
+    my $self = shift;
+    my ($command) = @_;
+
+    my $meth = "run_command_$command";
+    if ($self->can($meth)) {
+        return $self->$meth($self->argv);
+    }
+    else {
+        $self->usage;
+    }
+}
+
+sub run_command_create {
+    my $self = shift;
+    my ($name, $description, $url) = @_;
+    die "usage: git hub create <name> <description> [url]"
+        unless @_ >= 2;
+
+    $self->_github(repo => $name)->repos->create(
+        $name, $description, $url || '', 1
+    );
+}
+
+sub run_command_delete {
+    my $self = shift;
+    die "usage: git hub delete [-f] <name>"
+        unless @_ == 1 || @_ == 2;
+
+    my $force;
+    if ($_[0] eq '-f') {
+        $force = 1;
+        shift @_;
+    }
+
+    my ($name) = @_;
+
+    warn "not actually deleting $name (-f not set)\n" unless $force;
+
+    my $response = $self->_github(repo => $name)->repos->delete(
+        $force ? ({confirm => 1}) : ()
+    );
+
+    if ($response->{error}) {
+        die "error deleting repository $name: $response->{error}\n";
+    }
+}
+
+sub run_command_fork {
+    my $self = shift;
+    my ($owner, $repo) = @_;
+    die "usage: git hub fork <owner> <repo>"
+        unless @_ == 2;
+
+    $self->_github(owner => $owner, repo => $repo)->repos->fork;
+}
+
+sub run_command_clone {
+    my $self = shift;
+    die "usage: git hub clone [--fork] [owner] <repo>"
+        unless @_ == 1 || @_ == 2 || @_ == 3;
+
+    my $fork;
+    if ($_[0] eq '--fork') {
+        shift @_;
+        $fork = 1;
+    }
+
+    if (@_ == 1) {
+        my ($repo) = @_;
+        my $user = $self->user;
+        git "clone git\@github.com:$user/$repo.git";
+    }
+    else {
+        my ($owner, $repo) = @_;
+        if ($fork) {
+            $self->run_command_fork($owner, $repo);
+            $self->run_command_clone($repo);
+            {
+                my $d = pushd($repo);
+                git "remote add $owner git://github.com/$owner/$repo.git";
+                git "remote update";
+            }
+        }
+        else {
+            git "clone git://github.com/$owner/$repo.git";
+        }
+    }
+}
+
+sub run_command_list {
+    my $self = shift;
+    die "usage: git hub list [-v] [owner]"
+        unless @_ <= 2;
+
+    my $verbose;
+    if (@_ > 0 && $_[0] eq '-v') {
+        $verbose = 1;
+        shift @_;
+    }
+
+    my $owner = defined $_[0] ? $_[0] : $self->user;
+
+    print for map {
+              $verbose
+                  ? ("$_->{name}:\n"
+                    . ($_->{description} ? "  $_->{description}\n" : '')
+                    . ($_->{homepage}    ? "  $_->{homepage}\n"    : ''))
+                  : "$_->{name}\n"
+          } @{ $self->_github(owner => $owner, repo => '')->repos->list };
+}
+
+sub _github {
+    my $self = shift;
+    my %opts = @_;
+
+    Net::GitHub::V2->new(
+        owner => $self->user,
+        login => $self->user,
+        token => $self->token,
+        %opts,
+    );
+}
+
+package main;
+
+App::Git::Hub->new(@ARGV)->run;
