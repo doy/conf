@@ -22,13 +22,6 @@ sub new {
     my $class = shift;
     my @argv = @_;
 
-    open my $login_info, '<', "$ENV{HOME}/.github"
-        or die "couldn't get login information";
-    my $user  = <$login_info>;
-    chomp $user;
-    my $token = <$login_info>;
-    chomp $token;
-
     bless {
         user  => $user,
         token => $token,
@@ -185,10 +178,23 @@ sub _github {
     my $self = shift;
     my %opts = @_;
 
+    my $user = $ENV{USER};
+    my $token;
+
+    if (open my $login_info, '<', "$ENV{HOME}/.github") {
+        $user  = <$login_info>;
+        chomp $user;
+        $token = <$login_info>;
+        chomp $token;
+    }
+
     Net::GitHub::V2->new(
-        owner => $self->user,
-        login => $self->user,
-        token => $self->token,
+        (defined $user
+            ? (owner => $user, login => $user)
+            : ()),
+        (defined $token
+            ? (token => $token)
+            : ()),
         %opts,
     );
 }
