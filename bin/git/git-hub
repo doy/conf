@@ -47,7 +47,10 @@ sub run {
 }
 
 sub usage {
-    die "usage";
+    my @subcommands = do { no strict 'refs'; grep { /^run_command_/ } keys %{ __PACKAGE__ . '::' };
+    die "usage: git hub <subcommand> [args...]\n"
+      . "subcommands:\n"
+      . "  " . join "\n  ", ;
 }
 
 sub run_command {
