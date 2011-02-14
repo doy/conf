@@ -23,15 +23,12 @@ sub new {
     my @argv = @_;
 
     bless {
-        user  => $user,
-        token => $token,
         argv  => \@argv,
     }, $class;
 }
 
-sub user  { shift->{user}      }
-sub token { shift->{token}     }
-sub argv  { @{ shift->{argv} } }
+sub user  { shift->_github->login }
+sub argv  { @{ shift->{argv} }    }
 
 sub shift_argv {
     my $self = shift;
@@ -47,10 +44,11 @@ sub run {
 }
 
 sub usage {
-    my @subcommands = do { no strict 'refs'; grep { /^run_command_/ } keys %{ __PACKAGE__ . '::' };
+    my @subcommands = do { no strict 'refs'; grep { /^run_command_/ } keys %{ __PACKAGE__ . '::' } };
     die "usage: git hub <subcommand> [args...]\n"
       . "subcommands:\n"
-      . "  " . join "\n  ", ;
+      . "  " . (join "\n  ", map { s/^run_command_//; $_ } @subcommands)
+      . "\n";
 }
 
 sub run_command {
@@ -198,6 +196,7 @@ sub _github {
         (defined $token
             ? (token => $token)
             : ()),
+        repo => 'something_not_real',
         %opts,
     );
 }
