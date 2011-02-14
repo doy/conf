@@ -47,6 +47,8 @@ main = do
              } `additionalKeysP` [("C-M1-o", spawn "urxvtc")
                                  ,("C-M1-b", spawn "firefox")
                                  ,("C-S-l", spawn "xscreensaver-command -lock")
+                                 -- ugh, can't customize the prompt text
+                                 ,("C-M1-i", launchApp defaultXPConfig "urxvtc -name pwsafe -geometry 47x2 -e pwsafe -p")
                                  ,("C-M1-r", shellPrompt defaultXPConfig)
                                  ,("C-M1-x", xmonadPrompt defaultXPConfig)
                                  ,("C-M1-f", launchApp defaultXPConfig "feh")
@@ -93,6 +95,7 @@ instance UrgencyHook BorderUrgencyHook where
 
 myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
                           , resource =? "qemu"        --> doFloat
+                          , resource =? "pwsafe"      --> doFloat
                           , resource =? "qemu-system-x86_64" --> doFloat
                           , resource =? "firefox-bin" --> doF (W.shift "browser")
                           , resource =? "win"         --> doF (W.shift "docs") -- xpdf
