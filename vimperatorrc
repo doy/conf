@@ -2,7 +2,7 @@ map H :bp<CR>
 map L :bn<CR>
 map J 20j
 map K 20k
-map <BS> <C-v><C-e>
+map <BS> <C-v><C-S-e>
 map s :panorama switchgroup 
 
 set go-=T
