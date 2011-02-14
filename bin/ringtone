@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -lt 3 ]; then
+    echo "usage: ringtone <input> <output> <fake_video_file>"
+    echo "note: fake_video_file is unused, but must be valid"
+    echo "      and at least the length of the output"
+    exit 1
+fi
+
+mencoder -ovc frameno \
+         -oac mp3lame \
+         -lameopts cbr:br=64 \
+         -of rawaudio \
+         -o $2 \
+         -audiofile $1 \
+         -endpos 256kb \
+         $3
