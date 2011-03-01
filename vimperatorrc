@@ -10,5 +10,6 @@ set maxitems=5
 set urlseparator=
 set noac
 set hintmatching=wordstartswith
+set defsearch=g
 
 " vim:ft=vim:
