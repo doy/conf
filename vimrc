@@ -64,7 +64,7 @@ set hlsearch
 
 " highlight matching parens for .2s
 set showmatch
-set matchtime=2
+set matchtime=1
 
 " threshold for reporting number of lines changed
 set report=0
@@ -233,6 +233,9 @@ autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
 " }}}
+" conflict markers {{{
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+" }}}
 " fonts {{{
 if has('win32') || has('win64') || has('win32unix')
     set guifont=Lucida_Console
@@ -247,9 +250,6 @@ autocmd BufReadPost *
 \  if &filetype != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
 \    exe "normal g`\"" |
 \  endif
-" }}}
-" Auto +x {{{
-au BufWritePost *.{sh,pl} silent exe "!chmod +x %"
 " }}}
 " Update ctags after writing {{{
 autocmd BufWritePost * if filereadable('tags') | silent exe "!ctags -a %" | redraw | endif
@@ -273,6 +273,9 @@ function s:ask_quit (msg, proposed_action)
         exit
     endif
 endfunction
+" }}}
+" Source vimrc after editing {{{
+autocmd BufWritePost {,.}vimrc source ~/.vimrc
 " }}}
 " Misc {{{
 autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
@@ -433,7 +436,7 @@ nmap <CR> <C-]>
 nmap <BS> <C-T>
 " }}}
 " Nopaste {{{
-function s:nopaste(visual)
+function! s:nopaste(visual)
     let nopaste_services = $NOPASTE_SERVICES
     if &filetype == 'tex'
         let $NOPASTE_SERVICES = "Mathbin ".$NOPASTE_SERVICES
@@ -551,9 +554,6 @@ nnoremap <Leader><Leader> <Leader>
 
 " clear the search highlight
 nmap <silent><Leader>/ :nohl<CR>
-
-" toggle line numbers
-nmap <silent><Leader>n :set invnumber<CR>
 
 " manually resync the syntax highlighting
 nmap <silent><Leader>s :syntax sync fromstart<CR>
