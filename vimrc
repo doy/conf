@@ -256,7 +256,7 @@ autocmd BufWritePost * if filereadable('tags') | silent exe "!ctags -a %" | redr
 " }}}
 " Prompt to create directories if they don't exist {{{
 autocmd BufNewFile * :call <SID>ensure_dir_exists()
-function s:ensure_dir_exists ()
+function! s:ensure_dir_exists ()
     let required_dir = expand("%:h")
     if !isdirectory(required_dir)
         call <SID>ask_quit("Directory '" . required_dir . "' doesn't exist.", "&Create it?")
@@ -268,7 +268,7 @@ function s:ensure_dir_exists ()
         endtry
     endif
 endfunction
-function s:ask_quit (msg, proposed_action)
+function! s:ask_quit (msg, proposed_action)
     if confirm(a:msg, "&Quit?\n" . a:proposed_action) == 1
         exit
     endif
@@ -336,7 +336,7 @@ map  <F5> :make<CR><CR><C-W>k
 imap <F5> <C-O>:make<CR><CR><C-O><C-W>k
 " }}}
 " Painless spell checking (F11) {{{
-function s:spell()
+function! s:spell()
     if !exists("s:spell_check") || s:spell_check == 0
         echo "Spell check on"
         let s:spell_check = 1
@@ -354,7 +354,7 @@ imap <F11> <C-o>:call <SID>spell()<CR>
 let s:foldmethod = &foldmethod
 let s:foldenable = &foldenable
 let s:diffwindow = 0
-function s:diffstart(read_cmd)
+function! s:diffstart(read_cmd)
     if s:diffwindow != 0
         return
     endif
@@ -380,7 +380,7 @@ function s:diffstart(read_cmd)
     " why does this not happen automatically?
     normal zM
 endfunction
-function s:diffstop()
+function! s:diffstop()
     if s:diffwindow == 0
         return
     endif
@@ -394,7 +394,7 @@ function s:diffstop()
     endif
     let s:diffwindow = 0
 endfunction
-function s:vcs_orig(file)
+function! s:vcs_orig(file)
     " XXX: would be nice to use a:file rather than # here...
     let dir = expand('#:p:h')
     if filewritable(dir . '/.svn') == 2
@@ -463,7 +463,7 @@ nmap <silent> <Leader>p :call <SID>nopaste(0)<CR>
 xmap <silent> <Leader>p :<C-U>call <SID>nopaste(1)<CR>
 " }}}
 " better version of keywordprg {{{
-function Help(visual, iskeyword, command)
+function! Help(visual, iskeyword, command)
     let iskeyword = &iskeyword
     for kw in a:iskeyword
         exe 'set iskeyword+=' . kw
@@ -493,7 +493,7 @@ function Help(visual, iskeyword, command)
     set nobuflisted
     set nomodifiable
 endfunction
-function s:man(word)
+function! s:man(word)
     exe 'silent read! man -Pcat ' . a:word
     set ft=man
 endfunction
@@ -501,7 +501,7 @@ nmap <silent>K :call Help(0, [], '<SID>man')<CR>
 xmap <silent>K :call Help(1, [], '<SID>man')<CR>
 " }}}
 " ;= to align = signs {{{
-function s:align_assignments()
+function! s:align_assignments()
     " Patterns needed to locate assignment operators...
     let ASSIGN_OP   = '[-+*/%|&]\?=\@<!=[=~]\@!'
     let ASSIGN_LINE = '^\(.\{-}\)\s*\(' . ASSIGN_OP . '\)\(.*\)$'
