@@ -560,9 +560,10 @@ nmap <silent><Leader>s :syntax sync fromstart<CR>
 " }}}
 " }}}
 " Plugin settings {{{
-" Enhanced Commentify {{{
-let g:EnhCommentifyBindInInsert = 'No'
-let g:EnhCommentifyRespectIndent = 'Yes'
+" tComment {{{
+map  ;x gcc
+vmap ;x gc
+let g:tcommentBlankLines = 0
 " }}}
 " Rainbow {{{
 let g:rainbow = 1
