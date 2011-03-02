@@ -4,6 +4,7 @@ procmail/log
 vim/.netrwhist
 vim/.VimballRecord
 vim/fuf-data/
+vim/yankring-data/
 vim/undo/
 newsbeuter/cache.db
 newsbeuter/cache.db.lock

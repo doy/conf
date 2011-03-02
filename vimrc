@@ -605,4 +605,14 @@ let g:fuf_keyPrevPattern = '<Up>'
 let g:fuf_keyNextPattern = '<Down>'
 let g:fuf_dataDir = '~/.vim/fuf-data'
 " }}}
+" Yankring {{{
+let g:yankring_min_element_length = 2
+let g:yankring_history_dir = '~/.vim/yankring-data'
+let g:yankring_clipboard_monitor = 0
+let g:yankring_replace_n_pkey = '-'
+let g:yankring_replace_n_nkey = '_'
+function! YRRunAfterMaps()
+    nnoremap <silent> Y :<C-U>YRYankCount 'y$'<CR>
+endfunction
+" }}}
 " }}}
