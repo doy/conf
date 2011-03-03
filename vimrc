@@ -283,50 +283,6 @@ autocmd QuickFixCmdPost * copen 3
 " }}}
 " }}}
 " Remappings {{{
-" vcs convenience mappings {{{
-" darcs {{{
-nmap <Leader>da  :execute 'w  <bar> !darcs add %'<CR>
-nmap <Leader>dr  :execute 'w  <bar> !darcs record %'<CR>
-nmap <Leader>dR  :execute 'wa <bar> !darcs record'<CR>
-nmap <Leader>dm  :execute 'w  <bar> !darcs amend-record %'<CR>
-nmap <Leader>dM  :execute 'wa <bar> !darcs amend-record'<CR>
-nmap <Leader>dn  :execute 'w  <bar> !darcs whatsnew % <bar> less'<CR>
-nmap <Leader>dN  :execute 'wa <bar> !darcs whatsnew   <bar> less'<CR>
-nmap <Leader>dd  :execute 'w  <bar> !darcs diff -u %  <bar> less'<CR>
-nmap <Leader>dD  :execute 'wa <bar> !darcs diff -u    <bar> less'<CR>
-nmap <Leader>dc  :execute '!darcs changes %           <bar> less'<CR>
-nmap <Leader>dC  :execute '!darcs changes             <bar> less'<CR>
-nmap <Leader>dl  :execute '!darcs query manifest      <bar> less'<CR>
-nmap <Leader>dt  :execute '!darcs tag'<CR>
-nmap <Leader>dp  :execute '!darcs push'<CR>
-nmap <Leader>du  :execute '!darcs unrecord'<CR>
-nmap <Leader>db  :execute "w <bar> :execute '!darcs revert %'   <bar> :silent execute 'e'"<CR>
-nmap <Leader>dB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :silent execute 'e'"<CR>
-" }}}
-" git {{{
-nmap <Leader>ga  :execute 'w  <bar> !git add %'<CR>
-nmap <Leader>gr  :execute 'w  <bar> !git add -p % && git commit'<CR>
-nmap <Leader>gR  :execute 'wa <bar> !git add -p && git commit'<CR>
-nmap <Leader>gm  :execute 'w  <bar> !git add -p % && git commit --amend'<CR>
-nmap <Leader>gM  :execute 'wa <bar> !git add -p && git commit --amend'<CR>
-nmap <Leader>gd  :execute 'w  <bar> !git diff %'<CR>
-nmap <Leader>gD  :execute 'wa <bar> !git diff'<CR>
-nmap <Leader>gc  :execute '!git commit'<CR>
-nmap <Leader>gl  :execute '!git log'<CR>
-nmap <Leader>gp  :execute '!git push'<CR>
-nmap <Leader>gP  :execute '!git pushall'<CR>
-nmap <Leader>gu  :execute '!git reset'<CR>
-nmap <Leader>gU  :execute '!git reset --hard'<CR>
-nmap <Leader>gs  :execute "wa <bar> :execute '!git stash'       <bar> :silent execute 'e'"<CR>
-nmap <Leader>gB  :execute "wa <bar> :execute '!git stash apply' <bar> :silent execute 'e'"<CR>
-"nmap <Leader>gb  :execute "w <bar> :execute '!darcs revert %'   <bar> :silent execute 'e'"<CR>
-"nmap <Leader>gB  :execute "w <bar> :execute '!darcs unrevert %' <bar> :silent execute 'e'"<CR>
-"nmap <Leader>gn  :execute 'w  <bar> !git diff % <bar> less'<CR>
-"nmap <Leader>gN  :execute 'wa <bar> !git diff   <bar> less'<CR>
-"nmap <Leader>gt  :execute '!git tag'<CR>
-"nmap <Leader>gC  :execute '!git commit'<CR>
-" }}}
-" }}}
 " Keep the current selection when indenting (thanks cbus) {{{
 xnoremap < <gv
 xnoremap > >gv
