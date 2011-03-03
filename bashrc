@@ -95,6 +95,7 @@ alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.
 alias ..='cd ..'
 alias dotperl="rsync -av lib/* ${HOME}/perl5/local/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
+alias pm="find lib -type f"
 function webcam {
     local width=$1
     local height=$2
