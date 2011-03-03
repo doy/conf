@@ -551,7 +551,7 @@ let g:Foldtext_perl_enable = 1
 " FuzzyFinder {{{
 nmap t :FufCoverageFile<CR>
 nmap b :FufBuffer<CR>
-nmap f :FufLine<CR>
+nmap f :FufLine!<CR>
 let g:fuf_modesDisable = [
             \'mrufile', 'mrucmd', 'bookmarkfile', 'bookmarkdir',
             \'tag', 'buffertag', 'taggedfile', 'jumplist', 'changelist',
@@ -560,6 +560,7 @@ let g:fuf_modesDisable = [
 let g:fuf_keyPrevPattern = '<Up>'
 let g:fuf_keyNextPattern = '<Down>'
 let g:fuf_dataDir = '~/.vim/fuf-data'
+let g:fuf_enumeratingLimit = 10
 " }}}
 " Yankring {{{
 let g:yankring_min_element_length = 2
