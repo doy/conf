@@ -7,7 +7,7 @@ map <BS> <C-v><C-S-e>
 set mapleader=;
 nnoremap <Leader><Leader> <Leader>
 
-set go+=c
+set go-=C
 set maxitems=5
 set au=
 set hintmatching=wordstartswith
