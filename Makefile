@@ -14,11 +14,11 @@ INSTALL   = abcde.conf \
 	    minicpanrc \
 	    mutt \
 	    nethackrc \
+	    pentadactylrc \
 	    procmailrc \
 	    pwsafe.dat \
 	    screenrc \
 	    tmux.conf \
-	    vimperatorrc \
 	    vimrc \
 	    Xdefaults \
 	    xinitrc \

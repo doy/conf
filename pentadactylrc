@@ -3,12 +3,9 @@ map L :bn<CR>
 map J 20j
 map K 20k
 map <BS> <C-v><C-S-e>
-map s :panorama switchgroup 
 
-set go-=T
 set maxitems=5
-set urlseparator=
-set noac
+set au=
 set hintmatching=wordstartswith
 set defsearch=g
 
