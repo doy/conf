@@ -18,7 +18,8 @@ http://taeb-blog.sartak.org/feeds/posts/default programming blog
 http://www.modernperlbooks.com/mt/atom.xml programming blog
 http://clique.jonirons.net/feed/ marathon blog
 http://crawl.develz.org/wordpress/feed programming crawl blog
-http://slacktivist.typepad.com/slacktivist/atom.xml religion politics blog
+# http://slacktivist.typepad.com/slacktivist/atom.xml religion politics blog
+http://www.patheos.com/community/slacktivist/feed/ religion politics blog
 http://pervocracy.blogspot.com/feeds/posts/default sex blog
 http://quizzicalpussy.com/feed/ sex blog
 http://gentlemansc.blogspot.com/feeds/posts/default prof blog
@@ -35,7 +36,6 @@ http://drmcninja.com/feed webcomics
 http://rsspect.com/rss/qwantz.xml webcomics
 http://rsspect.com/rss/asw.xml webcomics
 http://www.xkcd.com/rss.xml webcomics
-http://feeds.feedburner.com/XkcdSucks?format=xml webcomics
 http://www.overcompensating.com/index.xml webcomics
 http://blipcomic.com/rss.php webcomics
 http://achewood.com/rss.php webcomics
@@ -48,7 +48,7 @@ http://dresdencodak.com/category/comic/feed/ webcomics
 http://www.drunkduck.com/rss/rss.php?cid=3 webcomics
 http://basicinstructions.net/basic-instructions/rss.xml webcomics
 http://www.marriedtothesea.com/rss/rss.php webcomics
-http://www.webcomics.me/feed/ webcomics
+http://bettermyths.blogspot.com/feeds/posts/default myths
 
 # webcomics i'm behind on
 #http://www.asciiartfarts.com/farts.rss webcomics catchup
