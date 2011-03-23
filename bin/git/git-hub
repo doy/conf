@@ -131,8 +131,7 @@ sub run_command_clone {
             $self->run_command_clone($repo);
             {
                 my $d = pushd($repo);
-                git "remote add $owner git://github.com/$owner/$repo.git";
-                git "remote update";
+                $self->run_command_add($owner, $repo);
             }
         }
         else {
@@ -173,6 +172,16 @@ sub run_command_pullreq {
         title => $title,
         body  => $body,
     );
+}
+
+sub run_command_add {
+    my $self = shift;
+    my ($owner, $repo) = @_;
+    die "usage: git hub add <owner> <repo>"
+        unless @_ == 2;
+
+    git "remote add $owner git://github.com/$owner/$repo.git";
+    git "fetch $owner";
 }
 
 sub _github {
