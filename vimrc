@@ -563,7 +563,6 @@ let g:fuf_dataDir = '~/.vim/fuf-data'
 let g:fuf_enumeratingLimit = 10
 " }}}
 " Yankring {{{
-let g:yankring_min_element_length = 2
 let g:yankring_history_dir = '~/.vim/yankring-data'
 let g:yankring_clipboard_monitor = 0
 let g:yankring_replace_n_pkey = '-'
