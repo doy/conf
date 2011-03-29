@@ -5,6 +5,7 @@ use warnings;
 package App::Git::Hub;
 
 use File::pushd;
+use List::MoreUtils qw(any);
 use Net::GitHub::V2;
 
 sub git {
@@ -176,12 +177,22 @@ sub run_command_pullreq {
 
 sub run_command_add {
     my $self = shift;
-    my ($owner, $repo) = @_;
-    die "usage: git hub add <owner> <repo>"
-        unless @_ == 2;
+    die "usage: git hub add [owner] <repo>"
+        unless @_ == 1 || @_ == 2;
+    my ($owner, $repo) = (@_ > 1 ? @_ : (undef, $_[0]));
 
-    git "remote add $owner git://github.com/$owner/$repo.git";
-    git "fetch $owner";
+    my $remote;
+    if ($owner) {
+        $remote = $owner;
+        git "remote add $remote git://github.com/$owner/$repo.git";
+    }
+    else {
+        $owner = $self->user;
+        $remote = (any { /\borigin\b/ } git "remote") ? 'github' : 'origin';
+        git "remote add $remote git\@github.com:$owner/$repo.git";
+    }
+
+    git "fetch $remote";
 }
 
 sub _github {
