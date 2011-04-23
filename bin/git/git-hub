@@ -165,13 +165,17 @@ sub run_command_list {
 
 sub run_command_pullreq {
     my $self = shift;
-    my ($owner, $repo, $title, $body) = @_;
-    die "usage: git hub pullreq <owner> <repo> [title] [description]"
-        unless @_ == 2 || @_ == 3 || @_ == 4;
+    my ($owner, $repo, $title, $branch, $body) = @_;
+    die "usage: git hub pullreq <owner> <repo> <title> [branch] [description]"
+        unless @_ == 3 || @_ == 4 || @_ == 5;
+
+    # XXX: should default to the current branch
+    $branch ||= 'master';
 
     $self->_github(owner => $owner, repo => $repo)->pull_request->pull_request(
         title => $title,
         body  => $body,
+        head  => $self->user . ':' . $branch
     );
 }
 
