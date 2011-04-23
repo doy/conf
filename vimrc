@@ -561,6 +561,7 @@ let g:fuf_keyPrevPattern = '<Up>'
 let g:fuf_keyNextPattern = '<Down>'
 let g:fuf_dataDir = '~/.vim/fuf-data'
 let g:fuf_enumeratingLimit = 10
+let g:fuf_coveragefile_exclude = '\(^\|/\)\.\|^\(blib\|nytprof\)\|\.\(o\|exe\|dll\|bak\|orig\|swp\|bs\)$\|\~$'
 " }}}
 " Yankring {{{
 let g:yankring_history_dir = '~/.vim/yankring-data'
