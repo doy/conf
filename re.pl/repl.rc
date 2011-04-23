@@ -4,23 +4,24 @@
     use Term::ANSIColor;
 
     my @plugins = (
-        'ReadLineHistory',            # history saved across sessions
-        'Colors',                     # colorize return value and errors
-        'FancyPrompt',                # provide an irb-like prompt
         'ClassRefresh',               # refresh before every eval
-        'Interrupt',                  # improve handling of ^C
-        'OutputCache',                # access previous results
-        'Nopaste',                    # paste session with #nopaste
-        'PPI',                        # PPI dumping of Perl code
-        'MultiLine::PPI',             # allow multiple lines
-        'LoadClass',                  # automatically load unloaded classes
+        'Colors',                     # colorize return value and errors
         'Editor',                     # #e to edit code in vim
+        'FancyPrompt',                # provide an irb-like prompt
+        'Interrupt',                  # improve handling of ^C
+        'LoadClass',                  # automatically load unloaded classes
+        'MultiLine::PPI',             # allow multiple lines
+        'Nopaste',                    # paste session with #nopaste
+        'OutputCache',                # access previous results
+        'Peek',                       # Devel::Peek support
+        'ReadLineHistory',            # history saved across sessions
+        'Time',                       # time specific commands
 
         'Completion',
-        'CompletionDriver::Keywords', # substr, while, etc
-        'CompletionDriver::LexEnv',   # current environment
         'CompletionDriver::Globals',  # global variables
         'CompletionDriver::INC',      # loading new modules
+        'CompletionDriver::Keywords', # substr, while, etc
+        'CompletionDriver::LexEnv',   # current environment
         'CompletionDriver::Methods',  # class method completion
         'CompletionDriver::Turtles',  # turtle command completion
     );
