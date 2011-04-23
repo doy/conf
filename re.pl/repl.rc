@@ -1,75 +1,79 @@
-## this is for Perl's Devel::REPL. it goes in ~/.re.pl/repl.rc
-#
-use lib 'lib';
+# set up Devel::REPL
+{
+    use lib 'lib';
+    use Term::ANSIColor;
 
-no warnings 'redefine';
+    my @plugins = (
+        'ReadLineHistory',            # history saved across sessions
+        'Colors',                     # colorize return value and errors
+        'FancyPrompt',                # provide an irb-like prompt
+        'ClassRefresh',               # refresh before every eval
+        'Interrupt',                  # improve handling of ^C
+        'OutputCache',                # access previous results
+        'Nopaste',                    # paste session with #nopaste
+        'PPI',                        # PPI dumping of Perl code
+        'MultiLine::PPI',             # allow multiple lines
+        'LoadClass',                  # automatically load unloaded classes
+        'Editor',                     # #e to edit code in vim
 
-use List::Util qw(first max maxstr min minstr reduce shuffle sum);
-use List::MoreUtils ':all';
-use Scalar::Util qw(blessed weaken isweak tainted);
-use Scalar::Defer qw(lazy defer force);
-use Carp::Clan qw(verbose Devel::REPL:: Moose:: Class::MOP:: Lexical::Persistence::);
-use Term::ANSIColor;
+        'Completion',
+        'CompletionDriver::Keywords', # substr, while, etc
+        'CompletionDriver::LexEnv',   # current environment
+        'CompletionDriver::Globals',  # global variables
+        'CompletionDriver::INC',      # loading new modules
+        'CompletionDriver::Methods',  # class method completion
+        'CompletionDriver::Turtles',  # turtle command completion
+    );
 
-*fold = \&reduce;
+    $_REPL->load_plugin($_) for @plugins;
 
-sub say { print @_, "\n" }
+    $_REPL->fancy_prompt(sub {
+        my $self = shift;
+        "\ca" . color('blue')  . "\cb" . $self->current_package
+    . "\ca" . color('green') . "\cb" . '(0)'
+    . "\ca" . color('reset') . "\cb" . '> '
+    } );
+    $_REPL->fancy_continuation_prompt(sub {
+        my $self = shift;
+        "\ca" . color('blue')   . "\cb" . $self->current_package
+    . "\ca" . color('yellow') . "\cb" . '(' . $self->line_depth . ')'
+    . "\ca" . color('reset')  . "\cb" . '> ' . (' ' x ($self->line_depth * 2))
+    });
 
-my @plugins = (
-    'ReadLineHistory',            # history saved across sessions
-    'Colors',                     # colorize return value and errors
-    'FancyPrompt',                # provide an irb-like prompt
-    'Refresh',                    # refresh before every eval
-    'Interrupt',                  # improve handling of ^C
-    'OutputCache',                # access previous results
-    'Nopaste',                    # paste session with #nopaste
-    'PPI',                        # PPI dumping of Perl code
-    'MultiLine::PPI',             # allow multiple lines
-    'LoadClass',                  # automatically load unloaded classes
+    $Devel::REPL::Plugin::Packages::PKG_SAVE = 'main';
+}
 
-    'Completion',
-    'CompletionDriver::Keywords', # substr, while, etc
-    'CompletionDriver::LexEnv',   # current environment
-    'CompletionDriver::Globals',  # global variables
-    'CompletionDriver::INC',      # loading new modules
-    'CompletionDriver::Methods',  # class method completion
-    'CompletionDriver::Turtles',  # turtle command completion
-);
+# set up the default environment
+{
+    package main;
 
-$_REPL->load_plugin($_) for @plugins;
-$_REPL->fancy_prompt(sub {
-    my $self = shift;
-    "\ca" . color('blue')  . "\cb" . $self->current_package
-  . "\ca" . color('green') . "\cb" . '(0)'
-  . "\ca" . color('reset') . "\cb" . '> '
-} );
-$_REPL->fancy_continuation_prompt(sub {
-    my $self = shift;
-    "\ca" . color('blue')   . "\cb" . $self->current_package
-  . "\ca" . color('yellow') . "\cb" . '(' . $self->line_depth . ')'
-  . "\ca" . color('reset')  . "\cb" . '> ' . (' ' x ($self->line_depth * 2))
-});
-$Devel::REPL::Plugin::Packages::PKG_SAVE = 'main';
+    use List::Util qw(first max maxstr min minstr reduce shuffle sum);
+    use List::MoreUtils ':all';
+    use Scalar::Util qw(blessed weaken isweak);
+    use Path::Class;
+}
 
-#$_REPL->meta->add_around_method_modifier(line_needs_continuation => sub {
-    #my $orig = shift;
-    #my $self = shift;
-    #my ($line) = @_;
-    #my $ret = $self->$orig(@_);
-    #if (!$ret) {
-        #(my $last_line = $line) =~ s/.*\n//s;
-        #print { $self->out_fh } "\r\b\r", $self->prompt, $last_line, "     \n";
-    #}
-    #return $ret;
-#});
+# load a local config file if it exists
+{
+    use Cwd ();
+    my $cd = Path::Class::dir(Cwd::getcwd)->absolute->cleanup;
+    my $home = Path::Class::dir(File::HomeDir->my_home)->absolute->cleanup;
+    if ($home->subsumes($cd)) {
+        while ($cd ne $home) {
+            my $proj = $cd->file('.repl.rc');
+            if (-f $proj) {
+                $Devel::REPL::Script::CURRENT_SCRIPT->apply_script(
+                    $proj->stringify,
+                    0,
+                );
+                last;
+            }
+            $cd = $cd->parent;
+        }
+    }
+}
 
-# if at ~/work/foo/bar, load ~/.re.pl/work-foo-bar as well!
-my $cd = $ENV{PWD};
-$cd =~ s{^(/(?:Users|home)/[^/]+)/}{} and do {
-    my $homedir = $1;
-    $cd =~ s{/}{-}g;
-    my $proj = "$homedir/.re.pl/$cd";
-    $Devel::REPL::Script::CURRENT_SCRIPT->apply_script($proj, 0);
-};
+# stuff that needs to be lexical
+use 5.010; # would be nice if it was possible to do this conditionally
 
 # vim:filetype=perl:
