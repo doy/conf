@@ -95,7 +95,7 @@ alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.
 alias ..='cd ..'
 alias dotperl="rsync -av lib/* ${HOME}/perl5/local/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
-alias pm="find lib -type f"
+alias pm="find lib -type f | sort"
 function incoming {
     cpanm http://pause.cpan.org/incoming/$1.tar.gz
 }
