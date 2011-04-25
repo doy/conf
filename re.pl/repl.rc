@@ -1,6 +1,5 @@
 # set up Devel::REPL
 {
-    use lib 'lib';
     use Term::ANSIColor;
 
     my @plugins = (
@@ -76,5 +75,8 @@
 
 # stuff that needs to be lexical
 use 5.010; # would be nice if it was possible to do this conditionally
+
+# do this last (and at runtime) so the previous stuff doesn't see it
+unshift @INC, 'lib';
 
 # vim:filetype=perl:
