@@ -30,4 +30,10 @@ set defsearch=g
 set hlfind
 nmap <Leader>/ :nohlfind<CR>
 
+" reactivate `` - can't actually use ` mark since pentadactyl wants letter
+" registers only
+noremap gg mpgg
+noremap G mpG
+map `` `p
+
 " vim:ft=vim:
