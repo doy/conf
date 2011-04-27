@@ -1,38 +1,31 @@
-""" general config """
 set mapleader=;
 nnoremap <Leader><Leader> <Leader>
 
-""" interface """"""""
 " single line status/command bar
 set go-=C
 
-""" scrolling """"""""
+" scrolling
 map H :bp<CR>
 map L :bn<CR>
 map J 20j
 map K 20k
 
-""" completion """""""
 " disable autocompletion entirely
 set au=
 " when completing, only show 5 at a time
 set maxitems=5
 
-""" hints """"""""""""
 " anchor hint typeahead to the start of words
 set hintmatching=wordstartswith
 " prettier hint numbering
 highlight Hint -append font-size:11px;font-weight:bold;background:#fff;border:1px solid red;color:#000;font-family:monospace
 
-""" panorama """""""""
 " backspace to open panorama
 map <BS> <C-v><C-S-e>
 
-""" search engines """
 " default to using the 'g' search keyword
 set defsearch=g
 
-""" find """""""""""""
 " highlight all matches, but let them be hidden
 set hlfind
 nmap <Leader>/ :nohlfind<CR>
