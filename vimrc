@@ -561,7 +561,25 @@ let g:fuf_keyPrevPattern = '<Up>'
 let g:fuf_keyNextPattern = '<Down>'
 let g:fuf_dataDir = '~/.vim/fuf-data'
 let g:fuf_enumeratingLimit = 10
-let g:fuf_coveragefile_exclude = '\(^\|/\)\.\|^\(blib\|nytprof\)\|\.\(o\|exe\|dll\|bak\|orig\|swp\|bs\)$\|\~$'
+" exclusions {{{
+function! s:set_excludes()
+    let fuf_coveragefile_exclude_base = '\('
+            \. '\(^\|/\)\.\|'
+            \. '\~$\|'
+            \. '^\(blib\|nytprof\)\|'
+            \. '\.\('
+                \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|'
+                \. 'png\|jpg\|gif\|pdf\|doc\|d\|vsprops\|pbxproj\|sln'
+            \. '\)$'
+        \. '\)'
+    let g:fuf_coveragefile_exclude = fuf_coveragefile_exclude_base
+    if filereadable("dist.ini")
+        let g:fuf_coveragefile_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
+    endif
+endfunction
+autocmd BufReadPost * call <SID>set_excludes()
+" call <SID>set_excludes()
+" }}}
 " }}}
 " Yankring {{{
 let g:yankring_history_dir = '~/.vim/yankring-data'
