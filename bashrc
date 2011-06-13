@@ -96,6 +96,13 @@ alias ..='cd ..'
 alias dotperl="rsync -av lib/* ${HOME}/perl5/local/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
 alias pm="find lib -type f | sort"
+function perldoc {
+    if type -P cpandoc > /dev/null 2>&1; then
+        cpandoc "$*"
+    else
+        command perldoc "$*"
+    fi
+}
 function incoming {
     cpanm http://pause.cpan.org/incoming/$1.tar.gz
 }
