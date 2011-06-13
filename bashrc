@@ -98,9 +98,9 @@ alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
 alias pm="find lib -type f | sort"
 function perldoc {
     if type -P cpandoc > /dev/null 2>&1; then
-        cpandoc "$*"
+        cpandoc "$@"
     else
-        command perldoc "$*"
+        command perldoc "$@"
     fi
 }
 function incoming {
