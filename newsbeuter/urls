@@ -14,14 +14,17 @@ http://blog.plover.com/index.rss programming blog
 http://use.perl.org/~scrottie/journal/rss programming blog
 http://www.onemogin.com/blog/feed programming blog
 http://thelackthereof.org/blog.rss programming blog
-http://taeb-blog.sartak.org/feeds/posts/default programming blog
+http://jjnapiorkowski.typepad.com/modern-perl/atom.xml programming blog
 http://www.modernperlbooks.com/mt/atom.xml programming blog
-http://clique.jonirons.net/feed/ marathon blog
+http://blog.moose.perl.org/atom.xml programming blog
+http://taeb-blog.sartak.org/feeds/posts/default programming blog
 http://crawl.develz.org/wordpress/feed programming crawl blog
+http://clique.jonirons.net/feed/ marathon blog
 # http://slacktivist.typepad.com/slacktivist/atom.xml religion politics blog
 http://www.patheos.com/community/slacktivist/feed/ religion politics blog
 http://pervocracy.blogspot.com/feeds/posts/default sex blog
 http://quizzicalpussy.com/feed/ sex blog
+http://manboobz.com/feed/ blog
 http://gentlemansc.blogspot.com/feeds/posts/default prof blog
 http://learningcurves.blogspot.com/feeds/posts/default prof blog
 http://feeds.feedburner.com/VaginaDrum?format=xml blog
@@ -50,6 +53,8 @@ http://dresdencodak.com/category/comic/feed/ webcomics
 http://www.drunkduck.com/rss/rss.php?cid=3 webcomics
 http://basicinstructions.net/basic-instructions/rss.xml webcomics
 http://www.marriedtothesea.com/rss/rss.php webcomics
+http://www.brightestcomic.com/?feed=rss2 webcomics
+http://www.bohemiandrive.com/comics/npwil.html webcomics
 
 # webcomics i'm behind on
 #http://www.asciiartfarts.com/farts.rss webcomics catchup
@@ -66,7 +71,6 @@ http://www.marriedtothesea.com/rss/rss.php webcomics
 #http://www.rice-boy.com/
 #http://www.threepanelsoul.com/
 #http://www.biggercheese.com/
-#http://www.bohemiandrive.com/comics/npwil.html
 #http://catandgirl.com/
 #http://e-merl.com/
 #http://www.gunnerkrigg.com/
