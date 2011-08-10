@@ -13,6 +13,7 @@ http://bulknews.typepad.com/blog/atom.xml programming blog
 http://blog.plover.com/index.rss programming blog
 http://use.perl.org/~scrottie/journal/rss programming blog
 http://www.onemogin.com/blog/feed programming blog
+http://feeds.feedburner.com/jshirley programming blog
 http://thelackthereof.org/blog.rss programming blog
 http://jjnapiorkowski.typepad.com/modern-perl/atom.xml programming blog
 http://www.modernperlbooks.com/mt/atom.xml programming blog
@@ -24,10 +25,13 @@ http://clique.jonirons.net/feed/ marathon blog
 http://www.patheos.com/community/slacktivist/feed/ religion politics blog
 http://pervocracy.blogspot.com/feeds/posts/default sex blog
 http://quizzicalpussy.com/feed/ sex blog
-http://manboobz.com/feed/ blog
+#http://manboobz.com/feed/ blog
+http://zeroatthebone.wordpress.com/feed/ blog
+http://www.racialicious.com/feed/ blog
 http://gentlemansc.blogspot.com/feeds/posts/default prof blog
 http://learningcurves.blogspot.com/feeds/posts/default prof blog
 http://feeds.feedburner.com/VaginaDrum?format=xml blog
+http://feeds.feedburner.com/thelastpsychiatrist/fLMy blog
 http://www.alistapart.com/site/rss design blog
 http://offtopic.akrasiac.org/?feed=rss2 crawl-offtopic gender blog
 http://offtopic.akrasiac.org/?feed=sfw crawl-offtopic links
