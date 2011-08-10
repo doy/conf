@@ -590,4 +590,23 @@ function! YRRunAfterMaps()
     nnoremap <silent> Y :<C-U>YRYankCount 'y$'<CR>
 endfunction
 " }}}
+" zencoding {{{
+let g:user_zen_settings = {
+\    'indentation' : '    ',
+\    'html' : {
+\        'indentation' : '  '
+\    },
+\    'tt2' : {
+\        'extends' : 'html',
+\        'indentation' : '  '
+\    },
+\    'tt2html' : {
+\        'extends' : 'html',
+\        'indentation' : '  '
+\    },
+\}
+let g:user_zen_leader_key = '<C-Z>'
+imap <C-Z><C-Z> <C-Z>,
+autocmd FileType html,tt2,tt2html,css imap <Tab> <C-Z>, | imap <C-N> <C-Z>n
+" }}}
 " }}}
