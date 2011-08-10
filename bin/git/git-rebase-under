@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.010;
+
+use Path::Class 'dir';
+
+sub git {
+    if (!defined wantarray) {
+        system('git', @_);
+    }
+    elsif (wantarray) {
+        chomp(my @ret = qx{git @_});
+        return @ret;
+    }
+    else {
+        chomp(my $ret = qx{git @_});
+        return $ret;
+    }
+}
+
+my $git_dir = dir(scalar(git qw(rev-parse --show-toplevel)))->subdir('.git');
+my $state_file = $git_dir->file('rebase-under-state');
+
+my ($onto, $branch, @commits);
+if ($ARGV[0] eq '--continue') {
+    die "can't continue: no state file" unless -r $state_file;
+    ($onto, $branch, @commits) = split("\n", $state_file->slurp);
+}
+else {
+    $onto = $ARGV[0] // 'master';
+    $branch = git qw(symbolic-ref -q HEAD);
+    $branch =~ s+^refs/heads/++;
+
+    my $remote_branch = "origin/$branch";
+    @commits = git 'rev-list', '--reverse', "$remote_branch..$branch";
+}
+
+$state_file->openw->print(join("\n", $onto, $branch, @commits));
+
+git 'checkout', $onto;
+while (@commits) {
+    my $commit = shift @commits;
+    $state_file->openw->print(join("\n", $onto, $branch, @commits));
+    git 'cherry-pick', $commit;
+    if ($?) {
+        die <<DIE;
+Conflict detected. Fix the conflict, and run `git rebase-under --continue`.
+DIE
+    }
+}
+git 'checkout', $branch;
+git 'rebase', $onto;
