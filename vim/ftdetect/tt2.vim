@@ -1,8 +1,8 @@
 au BufNewFile,BufRead *.tt
-        \ if ( getline(1) . getline(2) . getline(3) =~ '<\chtml'
-        \           && getline(1) . getline(2) . getline(3) !~ '<[%?]' )
+        \ if ( join(getline(1, 10)) =~ '<\chtml'
+        \           && join(getline(1, 10)) !~ '<[%?]' )
         \   || getline(1) =~ '<!DOCTYPE HTML'
-        \ || ( getline(1) . getline(2) . getline(3) =~ '<.*>' ) |
+        \ || ( join(getline(1, 10)) =~ '<.*>' ) |
         \   setf tt2html |
         \ else |
         \   setf tt2 |
