@@ -44,7 +44,7 @@ INSTALL   = abcde.conf \
 	    xmonad
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
-BUILD     = bin/nethack/timettyrec pwsafe.dat
+BUILD     = bin/nethack/timettyrec pwsafe.dat $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*)))
 
 ECHO      = @echo
 LN        = @ln -sf
@@ -71,5 +71,9 @@ $(INTO)/.% : %
 
 pwsafe.dat :
 	wget -q http://tozt.net/.pwsafe.dat -O pwsafe.dat
+
+fortune/%.dat : fortune/%
+	@echo "Compiling $@"
+	@strfile -s $(basename $@)
 
 .PHONY: build install clean
