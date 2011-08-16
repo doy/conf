@@ -31,6 +31,7 @@ taeb
 !taeb/config.yml
 ssh
 !ssh/authorized_keys
+!ssh/config
 pwsafe.dat
 mutt/aliases
 mutt/extra
