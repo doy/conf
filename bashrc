@@ -96,6 +96,14 @@ alias ..='cd ..'
 alias dotperl="rsync -av lib/* ${HOME}/perl5/local/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
 alias pm="find lib -type f | sort"
+function web {
+    local port=$1
+    if [[ -z $port ]]; then
+        plackup -MPlack::App::Directory -e'Plack::App::Directory->new'
+    else
+        plackup -MPlack::App::Directory -e'Plack::App::Directory->new' --port $port
+    fi
+}
 function perldoc {
     if type -P cpandoc > /dev/null 2>&1; then
         cpandoc "$@"
