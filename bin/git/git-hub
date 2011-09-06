@@ -199,6 +199,16 @@ sub run_command_add {
     git "fetch $remote";
 }
 
+sub run_command_pull {
+    my $self = shift;
+    die "usage: git hub pull <num>"
+        unless @_ == 1;
+    my ($num) = @_;
+
+    my $remote = (any { /\bgithub\b/ } git "remote") ? 'github' : 'origin';
+    git "fetch $remote refs/pull/$num/head:pull-$num";
+}
+
 sub _github {
     my $self = shift;
     my %opts = @_;
