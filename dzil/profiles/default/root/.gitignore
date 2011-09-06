@@ -1,5 +1,6 @@
 cover_db
-META.yml
+META.*
+MYMETA.*
 Makefile
 blib
 inc
@@ -11,3 +12,5 @@ MANIFEST.bak
 *.sw[po]
 .build
 {{$dist->name}}-*
+*.bs
+*.o
