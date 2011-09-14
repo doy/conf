@@ -22,8 +22,14 @@ set include
 set reverse_name
 set fast_reply
 set reply_to=no
-send-hook .                       "unmy_hdr From:"
-send-hook ^.*@iinteractive\\.com$ "my_hdr From: Jesse Luehrs <jesse.luehrs@iinteractive.com>"
+send-hook . '\
+    set from=doy@tozt.net ;\
+    unset signature \
+'
+send-hook ^.*@iinteractive\\.com$ '\
+    set from=jesse.luehrs@iinteractive.com ;\
+    set signature=~/.mutt/partial_sig \
+'
 
 # display
 set pager_stop
