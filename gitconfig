@@ -14,11 +14,14 @@
 	info = remote show -n origin
 	graph = log --graph --all --full-history --color --branches --decorate
 	prune-all = !git remote | xargs -n 1 git remote prune
+	alias = "!f() { local name=$1; shift; git config --global alias.$name \"$*\"; }; f"
 	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
 	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%an %Cgreen(%cr)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
 	lgs = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%an %Cgreen(%cr)%Creset%n%s%n' --abbrev-commit --date=relative
 	st = status -sb
 	ch = "!f() { git cherry \"$@\" | grep -v '^-' | sed 's/^..//' | xargs -n1 git log --oneline -1 | cat | perl -ple 's/([^ ]+)/\\e[33m$1\\e[m/'; }; f"
+	ff = merge --ff-only
+	cc = cherry-pick
 [github]
 	user = doy
 [color]
