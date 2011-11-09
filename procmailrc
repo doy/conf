@@ -77,14 +77,14 @@ UIUC=(uiuc|illinois|uillinois)
 .mailing\ lists.swing-society/
 # }}}
 :0: # perl5-porters {{{
-* ^TO_perl5-porters@perl.org
-* ^From.*perlbug-followup@perl.org
+* 1^0 ^TO_perl5-porters@perl.org
+* 1^0 ^From.*perlbug-followup@perl.org
 .mailing\ lists.perl5-porters/
 # }}}
 :0: # alar-rpg {{{
-* ^TO_alar-rpg@tozt.net
-* ^TO_alar-rpg@listbox.com
-* ^TO_alar@dudgeonmaster.org
+* 1^0 ^TO_alar-rpg@tozt.net
+* 1^0 ^TO_alar-rpg@listbox.com
+* 1^0 ^TO_alar@dudgeonmaster.org
 .mailing\ lists.alar-rpg/
 # }}}
 # }}}
@@ -299,8 +299,8 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.travel.internet/
 # }}}
 :0: # hostelworld {{{
-* ^From.*@hostelworld.com
-* ^From.*@.*.hostelworld.com
+* 1^0 ^From.*@hostelworld.com
+* 1^0 ^From.*@.*.hostelworld.com
 .websites.travel.hostels/
 # }}}
 :0: # achewood {{{
@@ -366,9 +366,9 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.fun.livemocha/
 # }}}
 :0: # ebay {{{
-* ^From.*@.*.ebay.com
-* ^From.*@ebay.com
-* ^TO_ebay@tozt.net
+* 1^0 ^From.*@.*.ebay.com
+* 1^0 ^From.*@ebay.com
+* 1^0 ^TO_ebay@tozt.net
 .websites.shopping.ebay/
 # }}}
 :0: # att {{{
@@ -416,8 +416,8 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.fun.concerts/
 # }}}
 :0: # foodler {{{
-* ^TO_foodler@tozt.net
-* ^From.*@foodler.com
+* 1^0 ^TO_foodler@tozt.net
+* 1^0 ^From.*@foodler.com
 .websites.shopping.food/
 # }}}
 :0: # gitorious {{{
@@ -425,8 +425,8 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.projects.gitorious/
 # }}}
 :0: # hotwire {{{
-* ^TO_hotwire@tozt.net
-* ^From.*@hotwire.com
+* 1^0 ^TO_hotwire@tozt.net
+* 1^0 ^From.*@hotwire.com
 .websites.travel.hotel/
 # }}}
 :0: # expedia {{{
@@ -434,8 +434,8 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.travel/
 # }}}
 :0: # amtrak {{{
-* ^TO_amtrak@tozt.net
-* ^From.*@amtrak.com
+* 1^0 ^TO_amtrak@tozt.net
+* 1^0 ^From.*@amtrak.com
 .websites.travel.train/
 # }}}
 :0: # chase {{{
@@ -479,8 +479,8 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.community.skype/
 # }}}
 :0: # dropbox {{{
-* ^From.*@dropboxmail.com
-* ^From.*@dropbox.com
+* 1^0 ^From.*@dropboxmail.com
+* 1^0 ^From.*@dropbox.com
 .websites.dropbox/
 # }}}
 # }}}
