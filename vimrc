@@ -157,8 +157,9 @@ endif
 
 let mapleader = ';'
 
-if exists("+undofile")
+if has("persistent_undo")
     set undofile
+    set undodir=~/.vim/undo
 endif
 " }}}
 " Make vim less whiny {{{
