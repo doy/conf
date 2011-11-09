@@ -15,6 +15,8 @@ UIUC=(uiuc|illinois|uillinois)
 *  1^0 ^Subject:.*Luairc-commits moderator request
 *  1^0 ^Subject:.*Luairc-commits post .* requires approval
 *  1^0 ^TO_luairc-commits-owner@lists.luaforge.net
+*  1^0 ^Subject:.*mozdev.org mailing list memberships reminder
+*  1^0 ^From.*mailman-owner@mozdev.org
 {
     folder=${DEFAULT}.Trash/
     SWITCHRC=$HOME/.procmail/mark_as_read
@@ -28,6 +30,10 @@ UIUC=(uiuc|illinois|uillinois)
 }
 # }}}
 # filters {{{
+:0: # gravatar {{{
+* ^From.*@gravatar.com
+.websites.community.gravatar/
+# }}}
 # mailing lists/trackers {{{
 :0: # crawl {{{
 * ^Subject:.*crawl-ref
@@ -69,6 +75,17 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # swing society {{{
 *$ ^TO_swing-l@listserv.${UIUC}.edu
 .mailing\ lists.swing-society/
+# }}}
+:0: # perl5-porters {{{
+* ^TO_perl5-porters@perl.org
+* ^From.*perlbug-followup@perl.org
+.mailing\ lists.perl5-porters/
+# }}}
+:0: # alar-rpg {{{
+* ^TO_alar-rpg@tozt.net
+* ^TO_alar-rpg@listbox.com
+* ^TO_alar@dudgeonmaster.org
+.mailing\ lists.alar-rpg/
 # }}}
 # }}}
 # school {{{
@@ -281,18 +298,9 @@ UIUC=(uiuc|illinois|uillinois)
 * ^From.*@boingo.*.com
 .websites.travel.internet/
 # }}}
-:0: # personal {{{
-* 1^0 ^From.*jimluehrs@yahoo.com
-* 1^0 ^From.*hipkit124@aol.com
-* 1^0 ^From.*forcol@aol.com
-* 1^0 ^From.*rangerjack@mchsi.com
-* 1^0 ^From.*dcress@western.edu
-* 1^0 ^From.*Roawendy@aol.com
-* 1^0 ^From.*judemag58@yahoo.com
-.personal/
-# }}}
 :0: # hostelworld {{{
 * ^From.*@hostelworld.com
+* ^From.*@.*.hostelworld.com
 .websites.travel.hostels/
 # }}}
 :0: # achewood {{{
@@ -341,7 +349,7 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.money.loans/
 # }}}
 :0: # youtube {{{
-* ^From.*service@youtube.com
+* ^From.*@youtube.com
 .websites.community.youtube/
 # }}}
 :0: # redoctane {{{
@@ -359,11 +367,13 @@ UIUC=(uiuc|illinois|uillinois)
 # }}}
 :0: # ebay {{{
 * ^From.*@.*.ebay.com
+* ^From.*@ebay.com
+* ^TO_ebay@tozt.net
 .websites.shopping.ebay/
 # }}}
 :0: # att {{{
 * ^From.*@.*sbc.com
-.websites.other.att/
+.bills.internet/
 # }}}
 :0: # borders {{{
 * ^From.*@.*borders.com
@@ -380,6 +390,98 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # emusic {{{
 * ^From.*@.*emusic.com
 .websites.shopping.emusic/
+# }}}
+:0: # groupon {{{
+* ^TO_groupon@tozt.net
+.websites.shopping.groupon/
+# }}}
+:0: # mint {{{
+* ^TO_mint@tozt.net
+.websites.money.mint/
+# }}}
+:0: # geico {{{
+* ^TO_geico@tozt.net
+.websites.insurance.geico/
+# }}}
+:0: # opentable {{{
+* ^TO_opentable@tozt.net
+.websites.shopping.food/
+# }}}
+:0: # bonnaroo {{{
+* ^TO_bonaroo@tozt.net
+.websites.fun.concerts/
+# }}}
+:0: # ticketfly {{{
+* ^From.*@ticketfly.com
+.websites.fun.concerts/
+# }}}
+:0: # foodler {{{
+* ^TO_foodler@tozt.net
+* ^From.*@foodler.com
+.websites.shopping.food/
+# }}}
+:0: # gitorious {{{
+* ^TO_gitorious@tozt.net
+.websites.projects.gitorious/
+# }}}
+:0: # hotwire {{{
+* ^TO_hotwire@tozt.net
+* ^From.*@hotwire.com
+.websites.travel.hotel/
+# }}}
+:0: # expedia {{{
+* ^TO_expedia@tozt.net
+.websites.travel/
+# }}}
+:0: # amtrak {{{
+* ^TO_amtrak@tozt.net
+* ^From.*@amtrak.com
+.websites.travel.train/
+# }}}
+:0: # chase {{{
+* ^TO_chase@tozt.net
+.websites.money.loans/
+# }}}
+:0: # stubhub {{{
+* ^TO_stubhub@tozt.net
+.websites.fun.concerts/
+# }}}
+:0: # coderwall {{{
+* ^From.*@coderwall.com
+.websites.community/
+# }}}
+:0: # verizon {{{
+* ^From.*@verizonwireless.com
+.bills.internet/
+# }}}
+:0: # thinkgeek {{{
+* ^From.*@.*.thinkgeek.com
+.websites.shopping.thinkgeek/
+# }}}
+:0: # humblebundle {{{
+* ^From.*@humblebundle.com
+.websites.shopping.humblebundle/
+# }}}
+:0: # flixster {{{
+* ^TO_flixster@tozt.net
+.websites.community.flixster/
+# }}}
+:0: # wells fargo {{{
+* ^From.*@wellsfargo.com
+.websites.money.loans/
+# }}}
+:0: # livingsocial {{{
+* ^From.*@livingsocial.com
+.websites.shopping.livingsocial/
+# }}}
+:0: # skype {{{
+* ^TO_skype@tozt.net
+.websites.community.skype/
+# }}}
+:0: # dropbox {{{
+* ^From.*@dropboxmail.com
+* ^From.*@dropbox.com
+.websites.dropbox/
 # }}}
 # }}}
 # work {{{
@@ -426,6 +528,9 @@ UIUC=(uiuc|illinois|uillinois)
 * ^From.*quantumrecruitment.com
 .jobs/
 # }}}
+# }}}
+# local {{{
+INCLUDERC=$PMDIR/local.rc
 # }}}
 # defaults {{{
 :0: # school catch-all {{{
