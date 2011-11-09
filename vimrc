@@ -618,6 +618,13 @@ imap <C-Z><C-Z> <C-Z>,
 autocmd FileType html,tt2,tt2html,css imap <buffer> <Tab> <C-Z>, | imap <buffer> <C-N> <C-Z>n
 " }}}
 " gundo {{{
-nnoremap U :GundoToggle<CR>
+if has("python")
+    nnoremap U :GundoToggle<CR>
+    let g:gundo_help = 0
+    let g:gundo_preview_bottom = 1
+    let g:gundo_width = 30
+else
+    let g:gundo_disable = 1
+endif
 " }}}
 " }}}
