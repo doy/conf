@@ -34,3 +34,6 @@
 [submodule "vim/bundle/foldtext"]
 	path = vim/bundle/foldtext
 	url = git://github.com/doy/vim-foldtext.git
+[submodule "vim/bundle/gundo"]
+	path = vim/bundle/gundo
+	url = git://github.com/sjl/gundo.vim.git

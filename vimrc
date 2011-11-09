@@ -617,4 +617,7 @@ let g:user_zen_leader_key = '<C-Z>'
 imap <C-Z><C-Z> <C-Z>,
 autocmd FileType html,tt2,tt2html,css imap <buffer> <Tab> <C-Z>, | imap <buffer> <C-N> <C-Z>n
 " }}}
+" gundo {{{
+nnoremap U :GundoToggle<CR>
+" }}}
 " }}}
