@@ -22,6 +22,7 @@
 	ch = "!f() { git cherry \"$@\" | grep -v '^-' | sed 's/^..//' | xargs -n1 git log --oneline -1 | cat | perl -ple 's/([^ ]+)/\\e[33m$1\\e[m/'; }; f"
 	ff = merge --ff-only
 	cc = cherry-pick
+	rv = checkout -p
 [github]
 	user = doy
 [color]
