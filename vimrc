@@ -517,6 +517,13 @@ nmap <silent><Leader>s :syntax sync fromstart<CR>
 " }}}
 " }}}
 " Plugin settings {{{
+" pathogen {{{
+runtime bundle/pathogen/autoload/pathogen.vim
+call pathogen#infect()
+" }}}
+" matchit {{{
+runtime macros/matchit.vim
+" }}}
 " tComment {{{
 map  ;x gcc
 vmap ;x gc

@@ -2,3 +2,6 @@
 .*.sw?
 # prove state files
 .prove
+# ctags files
+tags
+tags-ja
