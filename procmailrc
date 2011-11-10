@@ -80,6 +80,7 @@ UIUC=(uiuc|illinois|uillinois)
 * 1^0 ^TO_smokers-reports@perl.org
 * 1^0 ^TO_daily-build-reports@perl.org
 .mailing\ lists.perl5-porters.smokers/
+:0:
 * 1^0 ^TO_perl5-porters@perl.org
 * 1^0 ^From.*perlbug-followup@perl.org
 .mailing\ lists.perl5-porters/
