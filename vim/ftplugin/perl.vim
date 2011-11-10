@@ -45,3 +45,5 @@ function! s:unpostfix()
 endfunction
 
 map <buffer> <silent> <Leader>i :call <SID>unpostfix()<CR>
+
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"

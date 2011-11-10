@@ -37,3 +37,6 @@
 [submodule "vim/bundle/gundo"]
 	path = vim/bundle/gundo
 	url = git://github.com/sjl/gundo.vim.git
+[submodule "vim/bundle/perlomni"]
+	path = vim/bundle/perlomni
+	url = https://github.com/c9s/perlomni.vim.git
