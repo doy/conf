@@ -53,12 +53,12 @@ UIUC=(uiuc|illinois|uillinois)
 # }}}
 :0: # aleph one {{{
 * ^TO_marathon-devel@lists.sourceforge.net
-.old.mailing\ lists.alephone/
+.mailing\ lists.alephone/
 # }}}
 :0: # trace bundy {{{
 * 1^0 ^TO_.*trace@tracebundy.com
 * 1^0 ^From.*trace@tracebundy.com
-.old.mailing\ lists.trace\ bundy/
+.mailing\ lists.trace\ bundy/
 # }}}
 :0: # nomic {{{
 * ^TO_netmonster-nomic@googlegroups.com
@@ -146,7 +146,7 @@ UIUC=(uiuc|illinois|uillinois)
 * 1^0 ^From.*@isalsa2.org
 * 1^0 ^From.*@mamboitaliano.us
 * 1^0 ^From.*jim@ks.uiuc.edu
-.old.clubs.dance/
+.clubs.dance/
 # }}}
 :0: # listserv {{{
 * ^TO_cites-listserv-owners@illinois.edu
@@ -168,7 +168,7 @@ UIUC=(uiuc|illinois|uillinois)
 # }}}
 :0: # study abroad {{{
 * ^TO_STUDYABROAD-L@LISTSERV.ILLINOIS.EDU
-.old.study\ abroad/
+.study\ abroad/
 # }}}
 :0: # housing {{{
 * 1^0 ^From.*@jsmapts.com
@@ -188,7 +188,7 @@ UIUC=(uiuc|illinois|uillinois)
 # websites {{{
 :0: # 30 boxes {{{
 * ^From.*@30boxes.com
-.old.websites.organization.30boxes/
+.websites.organization.30boxes/
 # }}}
 :0: # campusfood {{{
 * ^From.*@campusfood.com
@@ -230,7 +230,7 @@ UIUC=(uiuc|illinois|uillinois)
 # }}}
 :0: # jott {{{
 * ^From.*notify@jott.com
-.old.websites.organization.jott/
+.websites.organization.jott/
 # }}}
 :0: # aerlingus {{{
 * ^From.*@aerlingus.chtah.com
