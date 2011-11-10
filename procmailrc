@@ -77,6 +77,8 @@ UIUC=(uiuc|illinois|uillinois)
 .mailing\ lists.swing-society/
 # }}}
 :0: # perl5-porters {{{
+* ^TO_smokers-reports@perl.org
+.mailing\ lists.perl5-porters.smokers/
 * 1^0 ^TO_perl5-porters@perl.org
 * 1^0 ^From.*perlbug-followup@perl.org
 .mailing\ lists.perl5-porters/
