@@ -1,7 +1,7 @@
 " the perl ftplugin hard-sets path, so this has to go in after/
 setlocal path+=lib
 
-function s:SID()
+function! s:SID()
     return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID$')
 endfun
 fun! s:StringFilter(list,string)
