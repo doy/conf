@@ -1,0 +1,37 @@
+#!/bin/bash
+
+_configure () {
+    ./Configure -des -Dusedevel -DDEBUGGING -Dusethreads -Uversiononly -Accflags="-Wall -Wextra" -Doptimize="-g -O0 -ggdb3"
+}
+
+_make () {
+    make -j9
+}
+
+_test () {
+    export TEST_JOBS=9
+    if [ -n "$*" ]; then
+        make test_harness TEST_FILES="$*"
+    else
+        make test_harness
+    fi
+}
+
+cmd=$1
+shift
+
+case $cmd in
+    configure)
+        _configure $@
+        ;;
+    make)
+        _make $@
+        ;;
+    test)
+        _test $@
+        ;;
+    *)
+        echo "Usage: p <command> [args...]" 1>&2
+        exit 1
+        ;;
+esac
