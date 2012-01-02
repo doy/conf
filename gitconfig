@@ -23,6 +23,7 @@
 	ff = merge --ff-only
 	cc = cherry-pick
 	rv = checkout -p
+	re = rebase -i @{u}
 [github]
 	user = doy
 [color]
