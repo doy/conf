@@ -51,3 +51,5 @@ DIE
 }
 git 'checkout', $branch;
 git 'rebase', $onto;
+
+$state_file->remove;
