@@ -39,4 +39,6 @@ map `` `p
 " no beeps
 javascript dactyl.beep = function() { return false; }
 
+autocmd Enter * set fbwhitelist=youtube.com,kongregate.com
+
 " vim:ft=vim:
