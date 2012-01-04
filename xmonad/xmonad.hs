@@ -96,6 +96,7 @@ instance UrgencyHook BorderUrgencyHook where
 myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
                           , resource =? "qemu"        --> doFloat
                           , resource =? "pwsafe"      --> doFloat
+                          , resource =? "urxvt-kuake" --> doFloat
                           , resource =? "qemu-system-x86_64" --> doFloat
                           , resource =? "firefox-bin" --> doF (W.shift "browser")
                           , resource =? "win"         --> doF (W.shift "docs") -- xpdf
