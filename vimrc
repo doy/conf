@@ -21,6 +21,9 @@ set nojoinspaces
 
 " don't move the cursor to the start of the line when changing buffers
 set nostartofline
+
+" call CursorHold autocommands (and write swap files to disk) more often
+set updatetime=2000
 " }}}
 " Display {{{
 " color!
@@ -277,6 +280,9 @@ endfunction
 " }}}
 " Source vimrc after editing {{{
 autocmd BufWritePost {,.}vimrc source ~/.vimrc
+" }}}
+" Try harder to keep syntax highlighting in sync {{{
+autocmd BufEnter,CursorHold,CursorHoldI * syntax sync fromstart
 " }}}
 " Misc {{{
 autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
