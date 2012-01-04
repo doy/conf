@@ -92,7 +92,6 @@ alias misc='tmux a -t misc'
 # }}}
 # other {{{
 alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.3) Gecko/20070404 Firefox/2.0.0.3"'
-alias ..='cd ..'
 alias dotperl="rsync -av lib/* ${HOME}/perl5/local/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
 alias pm="find lib -type f | sort"
@@ -167,9 +166,6 @@ function pdfcat {
     local out=$1
     shift
     gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$out $*
-}
-function mod {
-    yes | module-setup $1
 }
 function svup {
     svc -u "$HOME/.services/$1"
