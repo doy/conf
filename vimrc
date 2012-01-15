@@ -278,9 +278,6 @@ function! s:ask_quit (msg, proposed_action)
     endif
 endfunction
 " }}}
-" Source vimrc after editing {{{
-autocmd BufWritePost {,.}vimrc source ~/.vimrc
-" }}}
 " Try harder to keep syntax highlighting in sync {{{
 autocmd BufEnter,CursorHold,CursorHoldI * syntax sync fromstart
 " }}}
