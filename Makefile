@@ -33,6 +33,7 @@ INSTALL   = abcde.conf \
 	    ncmpc \
 	    newsbeuter \
 	    procmail \
+	    pentadactyl \
 	    re.pl \
 	    services \
 	    ssh \

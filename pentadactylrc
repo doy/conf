@@ -36,6 +36,8 @@ noremap gg mpgg
 noremap G mpG
 map `` `p
 
+map , :pb 
+
 " no beeps
 javascript dactyl.beep = function() { return false; }
 
