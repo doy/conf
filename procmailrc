@@ -288,7 +288,8 @@ UIUC=(uiuc|illinois|uillinois)
 .websites.travel.airlines/
 # }}}
 :0: # amazon {{{
-* ^From.*@amazon.com
+* 1^0 ^From.*@amazon.com
+* 1^0 TO_amazon@tozt.net
 .websites.shopping.amazon/
 # }}}
 :0: # wachovia {{{
@@ -488,6 +489,10 @@ UIUC=(uiuc|illinois|uillinois)
 * 1^0 ^From.*@dropboxmail.com
 * 1^0 ^From.*@dropbox.com
 .websites.dropbox/
+# }}}
+:0: # pinboard {{{
+* ^TO_pinboard@tozt.net
+.websites.community.pinboard/
 # }}}
 # }}}
 # work {{{
