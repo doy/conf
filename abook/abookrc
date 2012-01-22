@@ -1,0 +1,28 @@
+field aim      = AIM
+field irc      = IRC, list
+field twitter  = Twitter
+field birthday = Birthday, date
+
+field 2address  = Address
+field 2address2 = Address2
+field 2city     = City
+field 2state    = State/Province
+field 2zip      = "ZIP/Postal Code"
+field 2country  = Country
+
+field textphone = Text
+
+view Contact  = name, email, birthday
+view Phone    = mobile, textphone, phone, workphone
+view Internet = irc, aim, twitter, url, nick
+view Address  = address, address2, city, state, zip, country
+view Address2 = 2address, 2address2, 2city, 2state, 2zip, 2country
+view Other    = notes
+
+set index_format=" {name:15}    {email:27}    {mobile:12|phone|workphone}    {birthday:10}"
+
+set preserve_fields=all
+set show_all_emails=false
+set www_command=firefox
+set address_style=us
+set sort_field=name

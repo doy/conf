@@ -23,6 +23,7 @@ INSTALL   = abcde.conf \
 	    Xdefaults \
 	    xinitrc \
 	    xmobarrc \
+	    abook \
 	    bash \
 	    bin \
 	    dzil \

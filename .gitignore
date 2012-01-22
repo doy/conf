@@ -38,3 +38,4 @@ mutt/extra
 mutt/cache
 fortune/*.dat
 pentadactyl/info
+abook/addressbook*
