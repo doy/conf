@@ -45,3 +45,62 @@ function! s:unpostfix()
 endfunction
 
 map <buffer> <silent> <Leader>i :call <SID>unpostfix()<CR>
+
+" reimplement :make, since it always prints to the screen, which is annoying
+function! Make()
+    if exists('#QuickFixCmdPre')
+        doau QuickFixCmdPre make
+    endif
+
+    cexpr ""
+
+    let buffer_contents = join(getbufline("", 1, '$'), "\n")
+    let output = system("perl -c -Ilib", buffer_contents)
+    let lines = split(output, "\n")
+
+    for line in lines
+        let match = matchlist(line, '\(.\+\) at - line \(\d\+\)')
+        if !empty(match)
+            caddexpr expand('%') . ':' . match[2] . ':' . match[1]
+        endif
+    endfor
+
+    if exists('#QuickFixCmdPost')
+        doau QuickFixCmdPost make
+    endif
+endfunction
+
+function! HighlightCurrent()
+    exe '1wincmd w'
+    try
+        syntax clear CompileError
+    catch /E28/
+    endtry
+    let qlist = getqflist()
+    for q in qlist
+        let line = substitute(getline(q['lnum']), '\', '\\\\', 'g')
+        exe 'syntax match CompileError /\%' . q['lnum'] . 'l' . line . '/'
+    endfor
+    highlight CompileError ctermbg=red guibg=red
+endfunction
+
+function! UpdateStatusLine()
+    let qlist = getqflist()
+    let lnum = getpos('.')[1]
+    for q in qlist
+        if lnum == q["lnum"]
+            let text = q["text"]
+            let width = &columns - 52
+            if strlen(text) > width - 3
+                let text = strpart(text, 0, width - 3) . '...'
+            endif
+            echo text
+            return
+        endif
+    endfor
+    echo ""
+endfunction
+
+au BufEnter,BufWritePost <buffer> call Make()
+au QuickFixCmdPost       <buffer> call HighlightCurrent()
+au CursorMoved           <buffer> call UpdateStatusLine()

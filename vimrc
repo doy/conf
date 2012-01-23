@@ -283,7 +283,6 @@ autocmd BufEnter,CursorHold,CursorHoldI * syntax sync fromstart
 " }}}
 " Misc {{{
 autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
-autocmd QuickFixCmdPost * copen 3
 " }}}
 " }}}
 " Remappings {{{
