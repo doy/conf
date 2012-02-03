@@ -46,6 +46,7 @@ endfunction
 
 map <buffer> <silent> <Leader>i :call <SID>unpostfix()<CR>
 
+if 0
 " reimplement :make, since it always prints to the screen, which is annoying
 function! Make()
     if exists('#QuickFixCmdPre')
@@ -109,3 +110,4 @@ endfunction
 au BufEnter,BufWritePost <buffer> call Make()
 au QuickFixCmdPost       <buffer> call HighlightCurrent()
 au CursorMoved           <buffer> call UpdateStatusLine()
+endif
