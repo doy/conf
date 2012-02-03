@@ -79,11 +79,12 @@ function! HighlightCurrent()
     let qlist = getqflist()
     for q in qlist
         let line = substitute(getline(q['lnum']), '\', '\\\\', 'g')
-        exe 'syntax match CompileError /\%' . q['lnum'] . 'l' . line . '/'
+        exe 'syntax match CompileError /^\%' . q['lnum'] . 'l' . line . '$/'
     endfor
     highlight CompileError ctermbg=red guibg=red
 endfunction
 
+let b:needs_clear = 0
 function! UpdateStatusLine()
     let qlist = getqflist()
     let lnum = getpos('.')[1]
@@ -95,10 +96,14 @@ function! UpdateStatusLine()
                 let text = strpart(text, 0, width - 3) . '...'
             endif
             echo text
+            let b:needs_clear = 1
             return
         endif
     endfor
-    echo ""
+    if b:needs_clear
+        echo ""
+        let b:needs_clear = 0
+    endif
 endfunction
 
 au BufEnter,BufWritePost <buffer> call Make()
