@@ -91,13 +91,9 @@ sub run_command_delete {
 
     warn "not actually deleting $name (-f not set)\n" unless $force;
 
-    my $response = $self->_github(repo => $name)->repos->delete(
+    $self->_github(repo => $name)->repos->delete(
         $force ? ({confirm => 1}) : ()
     );
-
-    if ($response->{error}) {
-        die "error deleting repository $name: $response->{error}\n";
-    }
 }
 
 sub run_command_fork {
@@ -237,4 +233,7 @@ sub _github {
 
 package main;
 
-App::Git::Hub->new(@ARGV)->run;
+my $res = App::Git::Hub->new(@ARGV)->run;
+if (ref($res) eq 'HASH' && exists $res->{error}) {
+    die $res->{error}[0], "\n";
+}
