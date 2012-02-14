@@ -48,6 +48,8 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/nethack/timettyrec pwsafe.dat $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*)))
 
+EMPTYDIRS = .log .vim/undo .vim/yankring-data
+
 ECHO      = @echo
 LN        = @ln -sf
 MKDIR     = @mkdir -p
@@ -56,7 +58,7 @@ RM        = @rm -f
 build : $(BUILD)
 
 install : build $(INSTALLED) /var/spool/cron/$(USER)
-	$(MKDIR) .log
+	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	$(ECHO) Installed into $(HOME)
 
 clean :
