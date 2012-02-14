@@ -98,6 +98,7 @@ myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
                           , resource =? "pwsafe"      --> doFloat
                           , resource =? "urxvt-kuake" --> doFloat
                           , resource =? "qemu-system-x86_64" --> doFloat
+                          , resource =? "plugin-container" --> doFloat
                           , resource =? "firefox-bin" --> doF (W.shift "browser")
                           , resource =? "win"         --> doF (W.shift "docs") -- xpdf
                           , resource =? "feh"         --> doF (W.shift "docs")
