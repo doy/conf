@@ -95,6 +95,7 @@ alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.
 alias dotperl="rsync -av lib/* ${HOME}/perl5/local/"
 alias clean_packages='sudo pacman -Rsn $(pacman -Qqdt)'
 alias pm="find lib -type f | sort"
+alias bootstrap_cpanm="wget -O- -q http://xrl.us/cpanm | perl - App::cpanminus"
 function web {
     local port=$1
     if [[ -z $port ]]; then
