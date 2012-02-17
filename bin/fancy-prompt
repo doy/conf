@@ -1,0 +1,323 @@
+#!/usr/bin/env perl
+# keep these commented out in actual use, for speed (saves ~2ms)
+# use strict;
+# use warnings;
+
+# collect information
+chomp(my $hostname = `hostname`);
+my $cols           = `tput cols`;
+my $pwd            = $ENV{PWD};
+my $user           = $ENV{USER};
+my $root           = ($> == 0);
+(my $time          = localtime) =~ s/.*(\d\d:\d\d:\d\d).*/$1/;
+my $err            = $ARGV[0] || 0; # bash's $? is passed on the command line
+my $battery        = battery();
+my $charging       = charging();
+my $in_tmux        = exists $ENV{TMUX};
+my $in_ssh         = exists $ENV{SSH_CONNECTION};
+my $vcs            = vcs();
+
+# initialize colors
+my $tput = join("\n", map { "setf $_" } 0..15);
+my @colors = qw(
+    black    blue     green      cyan   red       magenta      brown     grey
+    darkgrey lightred lightgreen yellow lightblue lightmagenta lightcyan white
+);
+my %colors;
+my $termcolors = `echo "$tput" | tput -S`;
+if (!$?) {
+    my @termcolors = split /(?=\e)/, $termcolors;
+    $colors{$colors[$_]} = $termcolors[$_] for 0..$#colors;
+    $colors{reset} = `tput sgr0`; # this can be multiple escapes
+}
+else {
+    # hardcoded fallback, if terminfo isn't available
+    %colors = (
+        reset        => "\e[m",
+
+        black        => "\e[0;30m",
+        blue         => "\e[0;34m",
+        green        => "\e[0;32m",
+        cyan         => "\e[0;36m",
+        red          => "\e[0;31m",
+        magenta      => "\e[0;35m",
+        brown        => "\e[0;33m",
+        grey         => "\e[0;37m",
+
+        darkgrey     => "\e[1;30m",
+        lightred     => "\e[1;31m",
+        lightgreen   => "\e[1;32m",
+        yellow       => "\e[1;33m",
+        lightblue    => "\e[1;34m",
+        lightmagenta => "\e[1;35m",
+        lightcyan    => "\e[1;36m",
+        white        => "\e[1;37m",
+    );
+}
+
+my %colornames = (
+    bishamon   => 'blue',
+    erim       => 'white',
+    magus      => 'darkgrey',
+    tozt       => 'yellow',
+    xtahua     => 'lightmagenta',
+    zaon       => 'lightgreen',
+
+    error      => 'red',
+
+    user       => 'lightblue',
+    root       => 'lightred',
+
+    path       => 'blue',
+    ropath     => 'red',
+
+    vcs        => 'cyan',
+
+    battwarn   => 'brown',
+    battcrit   => 'red',
+    battemerg  => 'lightred',
+
+    time       => 'blue',
+
+    background => 'darkgrey',
+    reset      => 'reset',
+);
+$colornames{hostname} = $colornames{$hostname};
+$colornames{user}     = $colornames{root} if $root;
+$colornames{path}     = $colornames{ropath} unless -w $pwd;
+$colornames{error}    = $colornames{background} unless $err;
+$colornames{battery}  = $battery > 40 ? $colornames{background}
+                      : $battery > 15 ? $colornames{battwarn}
+                      : $battery >  5 ? $colornames{battcrit}
+                      :                 $colornames{battemerg};
+sub color { $colors{$colornames{$_[0]}} }
+
+# define some display things
+my $border       = '-';
+my $meter        = '=';
+my $empty_meter  = '-';
+my $meter_end    = $charging ? '<' : '>';
+my $prompt       = $root ? '#' : '$';
+my $meter_length = 10;
+my $maxvcslen    = 20; # at least 17
+
+# snippets
+my $nested = '';
+# not sure how useful this really is, let's leave it off for now
+# if ($in_tmux || $in_ssh) {
+#     $nested = '(' . ($in_tmux ? 'T' : '') . ($in_ssh ? 'S' : '') . ')';
+# }
+
+# build the pieces of the prompt
+my $timestr   = wrap($time, '[]', color('time'));
+
+my $errstr    = color('error') . sprintf('%03d', $err);
+
+my $promptstr = color('user') . $prompt . color('reset');
+
+my $full_length = int($battery / 100 * $meter_length);
+my $battstr     = wrap(($empty_meter x ($meter_length - $full_length))
+                     . $meter_end . ($meter x ($full_length - 1)),
+                       '{}',
+                       color('battery'));;
+
+my $trimmed_vcs = trimvcs($vcs, $maxvcslen);
+my $vcslen = $trimmed_vcs ? length($trimmed_vcs) + 1 : 0;
+my $maxpathlen = $cols
+               - 1
+               - $vcslen - 2
+               - 1
+               - 1
+               - $meter_length - 2
+               - 1
+               - length($user) - length($hostname) - length($nested) - 1
+               - 1
+               - length($time) - 2
+               - 1;
+
+my $trimmed_pwd = trimpath($pwd, $maxpathlen - 1);
+my $path_info = $trimmed_pwd
+              . ($trimmed_vcs ? (color('background') . '|') : '')
+              . color('vcs') . $trimmed_vcs;
+my $pathstr   = wrap($path_info, '()', color('path'))
+              . ' ' . color('background') . ($border x ($maxpathlen - length($trimmed_pwd)));
+
+my $locstr    = color('user') . $user
+              . color('background') . '@'
+              . color('hostname') . $hostname
+              . color('background') . $nested;
+
+# assemble the prompt
+print join(' ', '', $pathstr, $battstr, $locstr, $timestr, ''), "\n";
+print join(' ', $errstr, $promptstr, '');
+
+sub battery {
+    my $now = slurp('/sys/class/power_supply/BAT0/charge_now');
+    my $full = slurp('/sys/class/power_supply/BAT0/charge_full');
+    return int(100 * $now / $full);
+}
+
+sub charging {
+    my $ac = slurp('/sys/class/power_supply/AC/online');
+    chomp($ac);
+    return $ac;
+}
+
+sub slurp {
+    open my $fh, '<', $_[0];
+    local $/;
+    <$fh>;
+}
+
+sub wrap {
+    my ($str, $wrapper, $color) = @_;
+    $wrapper = $wrapper x 2 if length($wrapper) == 1;
+    return color('hostname') . substr($wrapper, 0, 1)
+         . $color . $str
+         . color('hostname') . substr($wrapper, 1, 1);
+}
+
+sub trimpath {
+    my ($path, $max) = @_;
+
+    $path =~ s/^$ENV{HOME}/~/;
+
+    while (length($path) > $max) {
+        $path =~ s|([^/])[^/]+/|$1/|
+            or last;
+    }
+
+    if (length($path) > $max) {
+        $path = substr($path, 0, $max - 6) . '...' . substr($path, -3);
+    }
+
+    return $path;
+}
+
+sub trimvcs {
+    my ($vcsinfo, $max) = @_;
+    return $vcsinfo if length($vcsinfo) <= $max;
+    my @parts = split /:/, $vcsinfo;
+    $max -= length($parts[0]) + 1;
+    $max -= length($parts[2]) + 1 if $parts[2];
+    $parts[1] = substr($parts[1], 0, $max - 6) . '...' . substr($parts[1], -3);
+    return join(':', @parts);
+}
+
+sub vcs {
+    my ($vcs, $vcsdir) = find_vcs();
+    return '' unless $vcs;
+    return git_info($vcsdir)   if $vcs eq 'git';
+    return svn_info($vcsdir)   if $vcs eq 'svn';
+    return darcs_info($vcsdir) if $vcs eq 'darcs';
+    return;
+}
+
+sub find_upwards {
+    my ($vcsdir) = @_;
+
+    my $path = $pwd;
+    while ($path) {
+        if (-d "$path/$vcsdir") {
+            return "$path/$vcsdir";
+        }
+        $path =~ s{/.*?$}{};
+    }
+
+    return;
+}
+
+sub find_svn   { -d "$pwd/.svn" ? "$pwd/.svn" : undef }
+sub find_git   {
+    chomp(my $gitdir = `git rev-parse --git-dir 2>/dev/null`);
+    return $gitdir;
+}
+sub find_darcs { find_upwards('_darcs') }
+
+sub find_vcs {
+    if (my $git = find_git()) {
+        return ('git', $git);
+    }
+    elsif (my $svn = find_svn()) {
+        return ('svn', $svn);
+    }
+    elsif (my $darcs = find_darcs()) {
+        return ('darcs', $darcs);
+    }
+    return;
+}
+
+sub svn_info {
+    my $dirty = '';
+    if (!system(q[svn status | grep -qv '^?'])) {
+        $dirty .= '*';
+    }
+
+    return 's' . $dirty;
+}
+
+sub darcs_info {
+    my $dirty = '';
+    if (!system(q[darcs whatsnew > /dev/null 2>&1])) {
+        $dirty .= '*';
+    }
+
+    return 'd' . $dirty;
+}
+
+sub git_info {
+    my ($git_dir) = @_;
+
+    my $dirty = '';
+    if (system(q[git diff --no-ext-diff --ignore-submodules --quiet --exit-code])) {
+        $dirty .= '*';
+    }
+    if (system(q[git diff-index --cached --quiet --ignore-submodules HEAD])) {
+        $dirty .= '+';
+    }
+
+    chomp(my $branch = `git symbolic-ref -q HEAD 2>/dev/null`
+                    || `git rev-parse --short HEAD`);
+    $branch =~ s{^refs/heads/}{};
+
+    my $local_commits = '';
+    system(qq[git show-ref -q --verify "refs/remotes/origin/$branch"]);
+    if (!$?) {
+        chomp(my $base = `git merge-base HEAD origin/$branch`);
+        chomp(my $head = `git rev-parse HEAD`);
+        chomp(my $remote = `git rev-parse origin/$branch`);
+        if ($base eq $head) {
+            my @revs = `git rev-list HEAD..origin/$branch`;
+            $local_commits = '-' . scalar(@revs);
+        }
+        elsif ($base eq $remote) {
+            my @revs = `git rev-list origin/$branch..HEAD`;
+            $local_commits = '+' . scalar(@revs);
+        }
+        else {
+            my @head_revs = `git rev-list $base..HEAD`;
+            my @remote_revs = `git rev-list $base..origin/$branch`;
+            $local_commits = '+' . scalar(@head_revs)
+                           . '-' . scalar(@remote_revs);
+        }
+    }
+
+    $local_commits = '' if $local_commits eq '-0';
+    $local_commits = ':' . $local_commits if $local_commits;
+
+    my $state = '';
+    if (-e "$git_dir/MERGE_HEAD") {
+        $state = 'm';
+    }
+    elsif (-d "$git_dir/rebase-apply" || -d "$git_dir/rebase-merge") {
+        $state = 'r';
+    }
+    elsif (-e "$git_dir/BISECT_START") {
+        $state = 'b';
+    }
+
+    $branch = '' if $branch eq 'master';
+    $branch = ':' . $branch if $branch;
+
+    return 'g' . $dirty . $branch . $local_commits . $state;
+}
