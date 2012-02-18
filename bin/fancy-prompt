@@ -174,7 +174,11 @@ print join(' ', $errstr, $promptstr, '');
 
 sub battery {
     my $now = slurp('/sys/class/power_supply/BAT0/charge_now');
+    $now = slurp('/sys/class/power_supply/BAT0/energy_now')
+        if !defined($now);
     my $full = slurp('/sys/class/power_supply/BAT0/charge_full');
+    $full = slurp('/sys/class/power_supply/BAT0/energy_full')
+        if !defined($full);
     return if !defined($full);
     return int(100 * $now / $full);
 }
