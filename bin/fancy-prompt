@@ -93,7 +93,8 @@ $colornames{hostname} = $colornames{$hostname};
 $colornames{user}     = $colornames{root} if $root;
 $colornames{path}     = $colornames{ropath} unless -w $pwd;
 $colornames{error}    = $colornames{background} unless $err;
-$colornames{battery}  = !defined($battery) ? $colornames{battemerg}
+$colornames{battery}  = $charging          ? $colornames{background}
+                      : !defined($battery) ? $colornames{battemerg}
                       : $battery > 40      ? $colornames{background}
                       : $battery > 15      ? $colornames{battwarn}
                       : $battery >  5      ? $colornames{battcrit}
