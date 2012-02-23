@@ -335,13 +335,13 @@ sub git_info {
 
     my $state = '';
     if (-e "$git_dir/MERGE_HEAD") {
-        $state = 'm';
+        $state = '(m)';
     }
     elsif (-d "$git_dir/rebase-apply" || -d "$git_dir/rebase-merge") {
-        $state = 'r';
+        $state = '(r)';
     }
     elsif (-e "$git_dir/BISECT_START") {
-        $state = 'b';
+        $state = '(b)';
     }
 
     $branch = '' if $branch eq 'master';
