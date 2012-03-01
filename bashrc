@@ -187,7 +187,6 @@ function svst {
 source ~/.bash/cdhist.sh
 # }}}
 # bash configuration {{{
-source ~/.bash/colors
 shopt -s extglob
 shopt -s no_empty_cmd_completion
 shopt -s checkwinsize
