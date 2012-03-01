@@ -4,7 +4,7 @@
 [alias]
 	pushall = "!f() { for repo in origin github; do git push $repo \"$@\"; done; }; f"
 	amend = !git add -p && git commit --amend
-	record = !git add -p && git commit
+	record = !git add -p && git commit --verbose
 	rebase-branch = !git rebase -i $(git merge-base master HEAD)
 	diff-branch = !git diff master..HEAD
 	log-branch = !git log master..HEAD
