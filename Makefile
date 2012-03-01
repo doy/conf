@@ -26,6 +26,9 @@ INSTALL   = abcde.conf \
 	    Xdefaults \
 	    xinitrc \
 	    xmobarrc \
+	    zshcomplete \
+	    zshinput \
+	    zshrc \
 	    abook \
 	    sh \
 	    bin \
