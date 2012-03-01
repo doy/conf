@@ -29,15 +29,19 @@ source ~/.zshinput
 source ~/.sh/cdhist.sh
 # }}}
 # zsh configuration {{{
+autoload -U colors
+colors
 setopt sharehistory
 setopt extendedhistory
 setopt histignoredups
 setopt nobeep
 setopt completeinword
+setopt correct
 export REPORTTIME=120
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
+export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ynae] "
 # prompt {{{
 function shell_prompt_precmd () {
     PROMPT=`fancy-prompt --prompt-escape zsh $?`
