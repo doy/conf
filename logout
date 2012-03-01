@@ -1,4 +1,5 @@
 # This file is sourced when a login shell terminates.
-source .logout
+sudo -k
+clear
 
 # vim:ft=sh:

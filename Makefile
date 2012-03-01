@@ -1,16 +1,19 @@
 INTO      = $(HOME)
 INSTALL   = abcde.conf \
+	    aliases \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \
 	    conkerorrc \
 	    conkyrc \
 	    crawlrc \
+	    env \
 	    gitconfig \
 	    gitignore \
 	    gtkrc \
 	    gtkrc-2.0 \
 	    inputrc \
+	    logout \
 	    minicpanrc \
 	    mutt \
 	    nethackrc \
@@ -24,7 +27,7 @@ INSTALL   = abcde.conf \
 	    xinitrc \
 	    xmobarrc \
 	    abook \
-	    bash \
+	    sh \
 	    bin \
 	    dzil \
 	    interhack \

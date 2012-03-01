@@ -1,0 +1,24 @@
+export PATH="${HOME}/.bin/marathon:${HOME}/.bin/nethack:${HOME}/.bin:/usr/local/sbin:/usr/local/bin:/usr/lib/ccache/bin:$PATH"
+export MPD_HOST=bishamon
+export LUA_CPATH='/usr/local/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/?/init.so;./?.so'
+export LUA_PATH='/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua;?.lua'
+export MANPAGER="${HOME}/.bin/vimmanpager"
+export EDITOR=$(which vim)
+export SVN_SSH="${HOME}/.bin/ssh"
+export DARCS_SSH="${HOME}/.bin/ssh"
+export DARCS_SCP="${HOME}/.bin/scp"
+export DARCS_SFTP="${HOME}/.bin/sftp"
+export GIT_SSH="${HOME}/.bin/ssh"
+export RSYNC_RSH="${HOME}/.bin/ssh"
+export PERL5LIB="${HOME}/perl5/local/:${HOME}/perl5/local/lib/perl5/site_perl/5.10.0/i686-linux"
+export CVS_RSH="${HOME}/.bin/ssh"
+export TEXINPUTS=".:${HOME}/conf/tex:"
+export LESS='-QR'
+export NOPASTE_SERVICES="Codepeek Shadowcat Pastie Husk"
+export PERL_CPANM_OPT="-q --mirror file://${HOME}/perl5/minicpan/ --mirror http://mirrors.kernel.org/cpan/ --mirror http://search.cpan.org/CPAN --prompt"
+type git > /dev/null 2>&1 && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec-path`
+[ -x /usr/bin/lesspipe ] && export LESSOPEN='|/usr/bin/lesspipe %s'
+[ -x /usr/bin/lesspipe.sh ] && export LESSOPEN='|/usr/bin/lesspipe.sh %s'
+[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
+
+# vim:ft=sh:

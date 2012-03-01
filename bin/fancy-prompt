@@ -4,10 +4,10 @@
 # use warnings;
 
 # readline gets confused if non-printable characters in prompts aren't escaped
-my $prompt_escape;
+my $prompt_escape = '';
 if ($ARGV[0] eq '--prompt-escape') {
     shift;
-    $prompt_escape = 1;
+    $prompt_escape = shift;
 }
 
 # collect information
@@ -101,7 +101,8 @@ $colornames{battery}  = $charging          ? $colornames{background}
                       :                      $colornames{battemerg};
 sub color {
     my $code = $colors{$colornames{$_[0]}};
-    $code = '\[' . $code . '\]' if $prompt_escape;
+    $code = '\[' . $code . '\]' if $prompt_escape eq 'bash';
+    $code = '%{' . $code . '%}' if $prompt_escape eq 'zsh';
     $code;
 }
 
@@ -170,7 +171,8 @@ my $locstr    = color('user') . $user
               . color('background') . $nested;
 
 # assemble the prompt
-print join(' ', '', $pathstr, $battstr, $locstr, $timestr, ''), "\n";
+print join(' ', '', $pathstr, $battstr, $locstr, $timestr, '');
+print $prompt_escape eq 'zsh' ? "%{\n%}" : "\n";
 print join(' ', $errstr, $promptstr, '');
 
 sub battery {
