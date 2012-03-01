@@ -42,6 +42,18 @@ export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ynae] "
+# plugins {{{
+# zsh-syntax-highlighting {{{
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_STYLES[path]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[command]='fg=green'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=magenta'
+# }}}
+# }}}
 # prompt {{{
 function shell_prompt_precmd () {
     PROMPT=`fancy-prompt --prompt-escape zsh $?`
