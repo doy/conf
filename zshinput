@@ -6,6 +6,12 @@ bindkey "^[[B" history-beginning-search-forward-end
 bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
 
+bindkey -M viins '^R' history-incremental-search-backward
+bindkey -M vicmd '^R' history-incremental-search-backward
+bindkey -M vicmd '/' history-incremental-search-backward
+bindkey -M vicmd '?' history-incremental-search-forward
+bindkey -rM viins '^[/'
+
 bindkey "^?" backward-delete-char
 bindkey "^H" backward-delete-char
 bindkey "^U" backward-kill-line
