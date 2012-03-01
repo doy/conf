@@ -22,10 +22,11 @@ sub git {
 my $git_dir = dir(scalar(git qw(rev-parse --show-toplevel)))->subdir('.git');
 my $state_file = $git_dir->file('rebase-under-state');
 
-my ($onto, $branch, @commits);
+my ($continuing, $onto, $branch, @commits);
 if ($ARGV[0] eq '--continue') {
     die "can't continue: no state file" unless -r $state_file;
     ($onto, $branch, @commits) = split("\n", $state_file->slurp);
+    $continuing = 1;
 }
 else {
     $onto = $ARGV[0] // 'master';
@@ -38,7 +39,13 @@ else {
 
 $state_file->openw->print(join("\n", $onto, $branch, @commits));
 
-git 'checkout', $onto;
+if ($continuing) {
+    git 'commit';
+}
+else {
+    git 'checkout', $onto;
+}
+
 while (@commits) {
     my $commit = shift @commits;
     $state_file->openw->print(join("\n", $onto, $branch, @commits));
