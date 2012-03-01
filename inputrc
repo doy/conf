@@ -2,11 +2,6 @@
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
-# expand all ! history things on space
-$if Bash
-    Space: magic-space
-$endif
-
 # completion things
 set match-hidden-files off
 set visible-stats on
