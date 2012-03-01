@@ -41,6 +41,7 @@
 	tool = vimdiff
 [rebase]
 	stat = true
+	autosquash = true
 [help]
 	autocorrect = 5
 [diff]
