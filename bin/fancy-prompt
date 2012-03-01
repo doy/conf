@@ -69,6 +69,7 @@ my %colornames = (
     tozt       => 'yellow',
     xtahua     => 'lightmagenta',
     zaon       => 'lightgreen',
+    unknown_host => 'brown',
 
     error      => 'red',
 
@@ -89,7 +90,7 @@ my %colornames = (
     background => 'darkgrey',
     reset      => 'reset',
 );
-$colornames{hostname} = $colornames{$hostname};
+$colornames{hostname} = $colornames{$hostname} || $colornames{unknown_host};
 $colornames{user}     = $colornames{root} if $root;
 $colornames{path}     = $colornames{ropath} unless -w $pwd;
 $colornames{error}    = $colornames{background} unless $err;
