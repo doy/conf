@@ -26,7 +26,6 @@ esac # }}}
 # external files {{{
 source ~/.zshcomplete
 source ~/.zshinput
-source ~/.sh/cdhist.sh
 # }}}
 # zsh configuration {{{
 autoload -U colors
@@ -43,6 +42,9 @@ export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ynae] "
 # plugins {{{
+# cdhist {{{
+source ~/.sh/cdhist.sh
+# }}}
 # zsh-syntax-highlighting {{{
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_STYLES[path]='fg=blue,bold'
