@@ -1,6 +1,6 @@
 # The following lines were added by compinstall
 
-zstyle ':completion:*' completer _expand _complete _ignored _prefix
+zstyle ':completion:*' completer _complete _ignored _prefix
 zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' insert-unambiguous true
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
