@@ -26,6 +26,7 @@ INSTALL   = abcde.conf \
 	    Xdefaults \
 	    xinitrc \
 	    xmobarrc \
+	    zlogout \
 	    zshcomplete \
 	    zshinput \
 	    zshrc \
