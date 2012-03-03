@@ -27,10 +27,7 @@
 [github]
 	user = doy
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+	ui = auto
 [core]
 	excludesfile = /home/doy/.gitignore
 [push]
@@ -46,5 +43,12 @@
 	autocorrect = 5
 [diff]
 	renames = true
+	mnemonicprefix = true
+[advice]
+	pushNonFastForward = false
+	statusHints = false
+	commitBeforeMerge = false
+	resolveConflict = false
+	detachedHead = false
 
 ; vim:ft=gitconfig:
