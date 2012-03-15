@@ -36,6 +36,7 @@
 	autosetuprebase = always
 [merge]
 	tool = vimdiff
+	conflictstyle = diff3
 [rebase]
 	stat = true
 	autosquash = true
