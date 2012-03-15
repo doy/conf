@@ -27,7 +27,7 @@ import qualified XMonad.StackSet as W
 import System.IO
 import Data.List
 import System.Directory
-import Char
+import Data.Char
 
 main = do
     xmproc <- spawnPipe "xmobar"
