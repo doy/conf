@@ -1,0 +1,78 @@
+#!/bin/sh
+#
+# This prepares a brief summary of how your current branch has diverged 
+# from a corresponding remote branch.  A typical use is:
+#   git vee origin
+#
+# if the currently-checked-out branch is master, this will compare
+# master and origin/master.  
+#
+# It uses git log --cherry-mark, so you need at least git 1.4.7.1.
+# If --cherry-mark doesn't work, delete that option from this script.
+#
+# Usage:
+#   git vee # compare current head branch and its remote tracking branch
+#   git vee remote  # compare current head branch and its analog on the remote
+#   git vee remote branch # compare branch and remote/branch
+#   git vee branch  # compare HEAD and branch
+#   git vee branch1 branch2 # compare branch1 and branch2
+#
+
+DIE=false;
+
+equal_commits () {
+  [ $(git rev-parse $A) = $(git rev-parse $B) ]
+}  
+
+valid_ref () {
+  git rev-parse -q --verify $1 >/dev/null
+}
+
+is_remote () {
+  git remote | grep -q "^$1"'$'
+}
+
+die_later () {
+  echo $* 1>&2;
+  DIE=true
+}
+
+die_now () {
+  $DIE && exit 1
+}
+
+usage () {
+  echo "Usage: $0 [remote] [branch]" 1>&2
+  echo "       $0 branch-a [branch-b]" 1>&2
+  exit 2
+}
+
+case $# in
+  0) Y=$(git get current-branch-name);
+     X=$(git get branch-remote $Y);
+     ;;
+  1) X=$1 Y=HEAD;;
+  2) X=$1 Y=$2;;
+  *) usage ;;
+esac
+
+if is_remote $X; then
+  if [ $Y = HEAD ]; then
+      Y=$(git get current-branch-name)
+  fi
+  A=$Y B="$X/$Y"
+else 
+  A=$X; B=$Y;
+fi
+
+valid_ref $A || die_later "$A: unknown commit"
+valid_ref $B || die_later "$B: unknown commit"
+die_now
+
+if equal_commits $A $B ; then
+  echo "$A and $B are identical"
+  exit 0;
+fi
+
+git log --decorate --cherry-mark --oneline --graph --boundary $A"..."$B
+
