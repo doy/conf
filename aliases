@@ -129,7 +129,7 @@ function svst {
 }
 function pick_music {
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
-    sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM tracks GROUP BY artist HAVING strftime('%s') - max(timestamp) < 60*60*24*365 ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
+    sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM tracks WHERE strftime('%s') - timestamp < 60*60*24*365 GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
 }
 # }}}
 
