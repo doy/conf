@@ -33,6 +33,7 @@ http://offtopic.akrasiac.org/?feed=sfw crawl-offtopic links
 http://offtopic.akrasiac.org/?feed=nsfw crawl-offtopic links
 http://bettermyths.com/feed/
 http://blog.okcupid.com/index.php/feed/
+http://yoisthisracist.com/rss
 
 # webcomics
 http://www.questionablecontent.net/QCRSS.xml webcomics
@@ -41,7 +42,6 @@ http://rsspect.com/rss/qwantz.xml webcomics
 http://rsspect.com/rss/asw.xml webcomics
 http://www.xkcd.com/rss.xml webcomics
 http://www.overcompensating.com/index.xml webcomics
-http://blipcomic.com/rss.php webcomics
 http://achewood.com/rss.php webcomics
 http://www.giantitp.com/comics/oots.rss webcomics
 http://www.rsspect.com/rss/vagrant.xml webcomics
@@ -50,7 +50,6 @@ http://www.rsspect.com/rss/pfsc.xml webcomics
 http://dresdencodak.com/category/comic/feed/ webcomics
 http://basicinstructions.net/basic-instructions/rss.xml webcomics
 http://www.marriedtothesea.com/rss/rss.php webcomics
-http://www.brightestcomic.com/?feed=rss2 webcomics
 http://www.dumbingofage.com/feed/rss/ webcomics
 http://shaynamarchese.com/voids/?feed=rss2 webcomics
 http://www.thenerdsofparadise.com/nerdsfeed.xml webcomics
@@ -93,6 +92,8 @@ http://garfieldminusgarfield.net/rss
 #http://pbfcomics.com/
 #http://blipcomic.com
 #http://www.artistegullible.com/
+#http://blipcomic.com/
+#http://www.brightestcomic.com/
 
 # webcomics - finished
 #http://anderslovesmaria.reneengstrom.com/
