@@ -30,7 +30,7 @@ source ~/.zshinput
 # zsh configuration {{{
 autoload -U colors
 colors
-setopt sharehistory
+setopt incappendhistory
 setopt extendedhistory
 setopt histignoredups
 setopt nobeep
