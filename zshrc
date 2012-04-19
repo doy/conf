@@ -33,6 +33,7 @@ colors
 setopt incappendhistory
 setopt extendedhistory
 setopt histignoredups
+setopt noclobber
 setopt nobeep
 setopt completeinword
 setopt correct
