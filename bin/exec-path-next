@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+use FindBin;
+use Cwd 'realpath';
+use File::Basename;
+use File::Spec;
+
+=pod
+
+apparently some things look for their binaries in relative paths to other
+binaries... this is pretty dumb, fix that
+
+=cut
+
+sub firstval (&@) {
+    my $code = shift;
+    for (@_) {
+        return $_ if $code->();
+    }
+    return;
+}
+
+my $bin = realpath $FindBin::Bin;
+my $executable = fileparse($0);
+
+my $exepath = (
+    firstval { -f $_ }
+    map { File::Spec->catfile($_, $executable) }
+    grep { defined $_ && $_ ne $bin }
+    map { realpath $_ }
+    split( /:/, $ENV{PATH} )
+);
+
+exec($exepath, @ARGV);
