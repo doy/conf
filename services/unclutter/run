@@ -1,3 +1,3 @@
 #!/bin/sh
 
-unclutter -idle 1 2>&1
+exec unclutter -idle 1 2>&1
