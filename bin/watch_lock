@@ -1,9 +1,20 @@
 #!/usr/bin/perl
-open (IN, "xscreensaver-command -watch |");
-while (<IN>) {
-    if (m/^LOCK/) {
-        system "$ENV{HOME}/.bin/on_lock"
-    } elsif (m/^UNBLANK/) {
+use strict;
+use warnings;
+
+my $pid = open my $in, '-|', 'xscreensaver-command -watch'
+    or die "Couldn't spawn process: $!";
+$SIG{TERM} = sub { kill TERM => $pid; exit };
+while (<$in>) {
+    if (/^LOCK/) {
+        system "$ENV{HOME}/.bin/on_lock";
+        if ($? == -1) {
+            warn "Couldn't exec on_lock: $!";
+        }
+        elsif ($? != 0) {
+            warn "on_lock exited with value " . ($? >> 8);
+        }
+    } elsif (/^UNBLANK/) {
         #system "on_unlock"
     }
 }
