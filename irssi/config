@@ -276,7 +276,7 @@ settings = {
     autolog = "yes";
     autolog_path = "~/irclogs/$tag/${0}-%Y-%m.log";
     bell_beeps = "yes";
-    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT ";
+    beep_msg_level = "MSGS DCC DCCMSGS HILIGHT";
     activity_hide_level = "JOINS PARTS QUITS NICKS MODES";
     windows_auto_renumber = "no";
     window_history = "yes";
@@ -291,7 +291,11 @@ settings = {
     chanact_display = "$H$N$T$C$S";
     bitlbee_send_typing = "yes";
   };
-  "fe-text" = { autostick_split_windows = "no"; actlist_sort = "refnum"; };
+  "fe-text" = {
+    autostick_split_windows = "no";
+    actlist_sort = "refnum";
+    paste_verify_line_count = "2";
+  };
   "irc/core" = { usermode = "+i"; };
 };
 logs = { };
