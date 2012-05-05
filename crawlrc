@@ -1,21 +1,17 @@
 # TEAMCAPTAIN doy
 # TEAMNAME cabal
 # TEAMMEMBERS doy stabwound cbus wasp Grimm 78291
-# Dungeon Crawl Stone Soup 0.6.0
+# Dungeon Crawl Stone Soup 0.10.0
 # Section 1: Starting Screen {{{
 name                     = doy
 remember_name            = true
-#use_old_selection_order = false
 #weapon                  =
-#book                    =
-#wand                    =
-#chaos_knight            =
-#death_knight            =
-#priest                  =
 #species                 =
 #background              =
 #random_pick             = false
 #good_random             = true
+#restart_after_game      = false
+#default_manual_training = false
 # }}}
 # Section 2: File System {{{
 #crawl_dir  = /home/doy/coding/src/stone_soup-trunk/crawl-ref/source
@@ -29,9 +25,9 @@ lua_file = lua/stash.lua
 lua_file = lua/wield.lua
 lua_file = lua/kills.lua
 lua_file = lua/runrest.lua
-lua_file = lua/gearset.lua
-lua_file = lua/pickup.lua
+#lua_file = lua/gearset.lua
 lua_file = lua/trapwalk.lua
+lua_file = lua/autofight.lua
 # }}}
 # Section 4: Interface {{{
 # Section 4-a: Picking up and Dropping {{{
@@ -39,9 +35,8 @@ lua_file = lua/trapwalk.lua
 autopickup_exceptions    = <potion.*mutation
 include                  = autopickup_exceptions.txt
 #default_autopickup      = true
-autopickup_no_burden     = true
+#autopickup_no_burden    = true
 #pickup_thrown           = true
-#pickup_dropped          = false
 #chunks_autopickup       = true
 assign_item_slot         = backward
 #drop_mode               = multi
@@ -59,7 +54,6 @@ pickup_mode              = multi
 #detected_monster_colour   = lightred
 #detected_item_colour      = green
 #remembered_monster_colour = darkgrey
-#colour_map                = true
 #clean_map                 = false
 # }}}
 # Section 4-d: Branding {{{
@@ -70,16 +64,15 @@ may_stab_brand        = hi:green
 #heap_brand           = reverse
 #feature_item_brand   = reverse
 #trap_item_brand      = reverse
-#verbose_monster_pane = true
 # }}}
 # Section 4-e: Level Map Functions {{{
 #level_map_cursor_step = 7
 #level_map_title       = true
-#item_colour           = true
+#show_waypoints        = true
 # }}}
-# Section 4-f: Viewport Options {{{
+# Section 4-f: Viewport Display Options {{{
 #view_max_width   = 33
-#view_max_height  = 17
+#view_max_height  = 21
 #view_lock_x      = true
 #view_lock_y      = true
 view_lock         = false
@@ -94,23 +87,22 @@ travel_delay                = -1
 #explore_delay              = -1
 #travel_avoid_terrain       =
 #explore_greedy             = true
-explore_stop                = glowing_items,artefacts,runes,greedy_pickup
+explore_stop                = glowing_items,artefacts,runes,greedy_pickup_smart
+explore_stop               += greedy_visited_item_stack
 explore_stop               += stairs,shops,altars,gates
 #explore_stop_pickup_ignore =
+#explore_wall_bias          = 0
 #explore_improved           = false
+#travel_key_stop            = true
 #tc_reachable               = blue
 #tc_dangerous               = cyan
 #tc_disconnected            = darkgrey
 #tc_excluded                = lightmagenta
 #tc_exclude_circle          = red
-include                     = travel_stoppers.txt
-travel_stop_message         = duration:
-runrest_ignore_message      = You feel.*sick
-runrest_ignore_message      = disappears in a puff of smoke
-runrest_ignore_message      = engulfed in a cloud of smoke
-runrest_ignore_message      = safely over a trap
+include                     = runrest_messages.txt
 runrest_ignore_message      = merges.*into the air
 runrest_ignore_message      = forms.*from the air
+runrest_stop_message        = duration:
 runrest_ignore_poison       = 2:30
 runrest_ignore_monster      = fish:2
 runrest_ignore_monster      = mimic:2
@@ -118,32 +110,33 @@ runrest_ignore_monster      = butterfly:1
 runrest_ignore_monster      = swamp worm:3
 runrest_ignore_monster      = lava worm:3
 trapwalk_safe_hp            = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
-#trap_prompt                = true
 rest_wait_both              = true
 auto_exclude                = oklob plant, orange crystal statue, ice statue, silver statue, curse skull, Roxanne, Murray, archer statue
 # }}}
-# Section 4-h: Stashes {{{
-#stash_filter         =
+# Section 4-h: Floor items {{{
 annotate_item_class   = true
 annotate_item_dropped = true
 # }}}
 # Section 4-i: Command Enhancements {{{
 #auto_list              = true
+#auto_switch            = false
 #easy_open              = true
 #easy_unequip           = true
 #equip_unequip          = false
 #easy_confirm           = safe
 #allow_self_target      = prompt
-#easy_butcher           = true
-#always_confirm_butcher = false
+#confirm_butcher        = auto
 #prefer_safe_chunks     = true
 easy_eat_chunks         = true
 easy_eat_gourmand       = true
 #easy_eat_contaminated  = false
+auto_eat_chunks         = true
 #prompt_for_swap        = true
 #easy_quit_item_prompts = true
-#easy_exit_menu         = true
+easy_exit_menu          = true
 sort_menus              = true : charged,equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
+#spell_slot             =
+#autofight_stop         = 30
 # }}}
 # Section 4-j: Messages and Display Enhancements {{{
 hp_warning                    = 40
@@ -154,18 +147,19 @@ stat_colour                   = 1:lightred,3:red,7:yellow
 status_caption_colour         = white
 #clear_messages               = false
 #show_more                    = true
+small_more                    = true
 show_inventory_weights        = true
+#show_newturn_mark            = true
 show_gold_turns               = true
-#show_beam                    = true
+show_game_turns               = true
 item_stack_summary_minimum    = 1
 #list_rotten                  = true
 #mlist_min_height             = 4
-#msg_min_height               = 6
+#msg_min_height               = 7
 #msg_max_height               = 10
 #messages_at_top              = false
 #mlist_allow_alternate_layout = false
 #mlist_targetting             = false
-#classic_hud                  = false
 # XXX: this priority order needs tweaking - especially the stuff that's marked
 # as lightgrey now
 menu_colour                   = white:\s\+\s
@@ -178,10 +172,10 @@ menu_colour                   = yellow:gluggy white potion
 menu_colour                   = lightgrey:potion.*(restore abilities|might)
 menu_colour                   = magenta:good_item
 menu_colour                   = magenta:potion.*mutation
-menu_colour                   = lightred:dangerous_item
 menu_colour                   = pickup:magenta:god gift
 include                       = standard_colours.txt
 $evil                        := brown
+$dangerous                   := lightred
 include                       = food_colouring.txt
 include                       = menu_colours.txt
 menu_colour                   = white:equipped
@@ -201,16 +195,17 @@ force_more_message            = You are starting to lose your buoyancy
 force_more_message            = Space (bends|warps horribly) around
 force_more_message            = danger:
 #msg_condense_repeats         = true
+#msg_condense_short           = true
+#show_no_ctele                = true
+#skill_focus                  = true
 # }}}
-# Section 4-k: Firing Commands {{{
+# Section 4-k: Missiles {{{
 #fire_items_start = a
 #fire_order       = launcher, return
 #fire_order      += javelin / dart / stone / rock / spear / net / handaxe / dagger
 #fire_order      += inscribed
 # }}}
-# Section 4-l: Channels {{{
-# XXX: bug report - options_guide.txt claims that channel.multiturn is mute by
-#default
+# Section 4-l: Message channels {{{
 #channel.CHANNEL_NAME =
 # }}}
 # Section 4-m: Inscriptions {{{
@@ -224,7 +219,6 @@ autoinscribe            = potion.*mutation:!q
 #flush.failure         = true
 #flush.command         = false
 #flush.message         = false
-macro_meta_entry       = false
 #additional_macro_file = <filename>
 #bindkey               =
 # }}}
@@ -232,13 +226,13 @@ macro_meta_entry       = false
 include = tiles_options.txt
 # }}}
 # }}}
-# Section 5: Dump File {{{
-# Section 5-a: Items and Kill List {{{
+# Section 5: Character Dump {{{
+# Section 5-a: Items and Kills {{{
 #kill_map              =
 dump_kill_places       = all
 dump_item_origins      = artefacts,ego_arm,ego_weap,jewellery
 dump_item_origin_price = 200
-dump_message_count     = 20
+#dump_message_count    = 20
 dump_order             = header,hiscore,stats,inventory,skills,spells,mutations
 dump_order            += overview,misc,screenshot,messages,notes,vaults
 dump_order            += monlist,kills,turns_by_place,kills_by_place
@@ -246,7 +240,7 @@ dump_order            += monlist,kills,turns_by_place,kills_by_place
 # }}}
 # Section 5-b: Notes {{{
 user_note_prefix       = doy: 
-note_items             = rune of,acquirement,Orb,of speed,of resistance,of running
+note_items             = rune of,acquirement,Orb,of speed,of resistance,of running,of preservation
 #note_monsters         =
 ood_interesting        = 6
 rare_interesting       = 12
@@ -267,14 +261,14 @@ note_messages          = You fall through a shaft
 # Section 6-a: All OS {{{
 #mouse_input            = false
 wiz_mode                = no
-#char_set               = ascii
-#classic_item_colours   = false
+#char_set               = unicode
 #colour.OLDCOLOUR       = NEWCOLOUR
 #cset_ascii             =
 #cset_ibm               =
 #cset_dec               =
 #cset_unicode           =
 #cset_any               =
+#feature                =
 mon_glyph               = giant eyeball : cyan
 mon_glyph               = oklob plant : lightmagenta
 mon_glyph               = greater mummy : lightmagenta
@@ -282,13 +276,39 @@ mon_glyph               = ancient lich : lightmagenta
 mon_glyph               = curse skull : lightmagenta
 #pizza                  =
 #use_fake_player_cursor = false
+show_player_species     = true
 # }}}
 # Section 6-b: DOS and Windows {{{
 #dos_use_background_intensity = false
 # }}}
 # Section 6-c: Unix {{{
 #background      = BLACK
-#use_fake_cursor = false
+#use_fake_cursor = true
+# }}}
+# }}}
+# Section 7: Inline Lua {{{
+# don't autopickup in the abyss {{{
+< do
+local old_ch_deny_autopickup = ch_deny_autopickup or function() return false end
+function ch_deny_autopickup(it)
+    return you.where() == "Abyss" or old_ch_deny_autopickup(it)
+end
+end >
+# }}}
+# prompt for leaving labs {{{
+< do
+function safe_upstairs()
+  if you.branch() == "Lab" then
+     crawl.formatted_mpr("Really leave this labyrinth?", "prompt")
+     local res = crawl.getch()
+     if string.lower(string.char(res)) == "y" then
+       crawl.sendkeys("<")
+     end
+  else
+     crawl.sendkeys("<")
+  end
+end
+end >
 # }}}
 # }}}
 # greedy_autoexplore should stop not only for ego/arts, but also for armor that
