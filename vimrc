@@ -136,6 +136,11 @@ set wildmenu
 " when doing tab completion, ignore files with any of the following extensions
 set wildignore+=.log,.out,.o
 
+" tab completions should ignore case
+if exists("+wildignorecase")
+    set wildignorecase
+endif
+
 " remember lotsa fun stuff
 set viminfo=!,'1000,f1,/1000,:1000,<1000,@1000,h,n~/.viminfo
 
