@@ -509,6 +509,10 @@ nmap <silent> <Leader>= :call <SID>align_assignments()<CR>
 " have Y behave analogously to D rather than to dd
 nmap Y y$
 
+" try 'e' instead of 'c' for change
+map e c
+map E C
+
 " buffer switching
 nmap H :bp<CR>
 nmap L :bn<CR>
