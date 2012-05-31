@@ -194,6 +194,7 @@ include                       = messages.txt
 force_more_message            = You are starting to lose your buoyancy
 force_more_message            = Space (bends|warps horribly) around
 force_more_message            = danger:
+force_more_message            = Found a gateway leading out of the Abyss
 #msg_condense_repeats         = true
 #msg_condense_short           = true
 #show_no_ctele                = true
