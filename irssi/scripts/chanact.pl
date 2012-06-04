@@ -244,6 +244,7 @@ sub remake() {
 		}
 
 		if ($abbrev) {
+			$name =~ s{.*/}{};
 			if ($name =~ /^[&#+!=]*(.*)/) {
 				$name = substr($1, 0, $abbrev);
 			}
