@@ -69,7 +69,7 @@ if type -a perlbrew > /dev/null 2>&1; then
             fi
         else
             if [[ "$perl" == "work-perl" ]]; then
-                perlbrew use perl-5.10.1
+                perlbrew use perl-5.16.0
             fi
         fi
     }
