@@ -24,6 +24,8 @@
 	cc = cherry-pick
 	rv = checkout -p
 	re = rebase -i @{u}
+	git = "!f() { git \"$@\"; }; f"
+	vim = "!f() { vim \"$@\"; }; f"
 [github]
 	user = doy
 [color]
