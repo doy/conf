@@ -1,5 +1,5 @@
-set mapleader=;
-nnoremap <Leader><Leader> <Leader>
+map ; <Leader>
+nmap -builtin <Leader><Leader> <Leader>
 
 " single line status/command bar
 set go-=C
@@ -30,8 +30,8 @@ nmap <Leader>/ :nohlfind<CR>
 
 " reactivate `` - can't actually use ` mark since pentadactyl wants letter
 " registers only
-noremap gg mpgg
-noremap G mpG
+nmap -builtin gg mpgg
+nmap -builtin G mpG
 map `` `p
 
 map , :pb 
