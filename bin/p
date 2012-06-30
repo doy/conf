@@ -1,14 +1,31 @@
 #!/bin/bash
 
+_clean () {
+    git clean -dfx
+    ctags *.c *.h
+}
+
 _configure () {
-    ./Configure -des -Dusedevel -DDEBUGGING -Dusethreads -Uversiononly -Accflags="-Wall -Wextra" -Doptimize="-g -O0 -ggdb3"
+    # XXX breaks when building Compress::Raw::Zlib, nobody else can reproduce?
+    # ./Configure -des -Dusedevel -DDEBUGGING -Dusethreads -Uversiononly -Accflags="-Wall -Wextra" -Doptimize="-g -O0 -ggdb3"
+    # can't do this with -Werror, not everything (external modules, say) is
+    # -Werror clean
+    # ./Configure -des -Dusedevel -Accflags="-Wall -Wextra"
+    ./Configure -des -Dusedevel
 }
 
 _make () {
-    make -j9
+    if [[ ! -e Makefile ]]; then
+        _configure
+    fi
+    # -Werror at configure time seems to confuse Configure, so do it here
+    make -j9 OPTIMIZE="-O2 -Werror"
 }
 
 _test () {
+    if [[ ! -e perl ]]; then
+        _make
+    fi
     export TEST_JOBS=9
     if [ -n "$*" ]; then
         make test_harness TEST_FILES="$*"
@@ -21,14 +38,21 @@ cmd=$1
 shift
 
 case $cmd in
-    configure)
+    cl|clean)
+        _clean $@
+        ;;
+    c|conf|configure)
         _configure $@
         ;;
-    make)
+    m|make)
         _make $@
         ;;
-    test)
+    t|test)
         _test $@
+        ;;
+    a|all)
+        _clean
+        _test
         ;;
     *)
         echo "Usage: p <command> [args...]" 1>&2
