@@ -16,6 +16,12 @@
 [submodule "vim/bundle/git"]
 	path = vim/bundle/git
 	url = git://github.com/tpope/vim-git.git
+[submodule "vim/bundle/fuzzyfinder"]
+	path = vim/bundle/fuzzyfinder
+	url = git://github.com/vim-scripts/FuzzyFinder.git
+[submodule "vim/bundle/l9"]
+	path = vim/bundle/l9
+	url = git://github.com/vim-scripts/L9.git
 [submodule "vim/bundle/perl"]
 	path = vim/bundle/perl
 	url = git://github.com/petdance/vim-perl.git
@@ -31,6 +37,3 @@
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "vim/bundle/ctrlp"]
-	path = vim/bundle/ctrlp
-	url = git://github.com/kien/ctrlp.vim.git
