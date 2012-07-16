@@ -1,6 +1,0 @@
----
-author: Jesse Luehrs
-email: doy at tozt dot net
-plugins:
-  - Template
-  - VC::Git
