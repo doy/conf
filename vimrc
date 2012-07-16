@@ -585,39 +585,6 @@ let g:Foldtext_tex_enable = 1
 let g:Foldtext_cpp_enable = 1
 let g:Foldtext_perl_enable = 1
 " }}}
-" FuzzyFinder {{{
-nmap t :FufCoverageFile<CR>
-nmap b :FufBuffer<CR>
-nmap f :FufLine!<CR>
-let g:fuf_modesDisable = [
-            \'mrufile', 'mrucmd', 'bookmarkfile', 'bookmarkdir',
-            \'tag', 'buffertag', 'taggedfile', 'jumplist', 'changelist',
-            \'quickfix',
-\]
-let g:fuf_keyPrevPattern = '<Up>'
-let g:fuf_keyNextPattern = '<Down>'
-let g:fuf_dataDir = '~/.vim/fuf-data'
-let g:fuf_enumeratingLimit = 10
-" exclusions {{{
-function! s:set_excludes()
-    let fuf_coveragefile_exclude_base = '\('
-            \. '\(^\|/\)\.\|'
-            \. '\~$\|'
-            \. '^\(blib\|nytprof\)\|'
-            \. '\.\('
-                \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|'
-                \. 'png\|jpg\|gif\|pdf\|doc\|d\|vsprops\|pbxproj\|sln'
-            \. '\)$'
-        \. '\)'
-    let g:fuf_coveragefile_exclude = fuf_coveragefile_exclude_base
-    if filereadable("dist.ini")
-        let g:fuf_coveragefile_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
-    endif
-endfunction
-autocmd BufReadPost * call <SID>set_excludes()
-" call <SID>set_excludes()
-" }}}
-" }}}
 " Yankring {{{
 let g:yankring_history_dir = '~/.vim/yankring-data'
 let g:yankring_clipboard_monitor = 0
@@ -659,5 +626,25 @@ if has("python")
 else
     let g:gundo_disable = 1
 endif
+" }}}
+" ctrlp {{{
+let g:ctrlp_map = 't'
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_cache_dir = $HOME.'/.vim/ctrlp/cache'
+let g:ctrlp_dotfiles = 0
+let g:ctrlp_open_new_file = 'r'
+let g:ctrlp_open_multiple_files = '1r'
+let g:ctrlp_arg_map = 0
+let g:ctrlp_lazy_update = 100
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtSelectMove("j")':   ['<c-j>', '<tab>'],
+    \ 'PrtSelectMove("k")':   ['<c-k>', '<s-tab>'],
+    \ 'PrtHistory(-1)':       ['<c-n>', '<down>'],
+    \ 'PrtHistory(1)':        ['<c-p>', '<up>'],
+    \ 'PrtExpandDir()':       [],
+    \ 'ToggleFocus()':        [],
+    \ 'MarkToOpen()':         ['<c-z>', '<space>'],
+\ }
 " }}}
 " }}}
