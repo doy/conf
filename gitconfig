@@ -26,6 +26,8 @@
 	re = rebase -i @{u}
 	git = "!f() { git \"$@\"; }; f"
 	vim = "!f() { vim \"$@\"; }; f"
+	up = !git remote update && git pull && git prune-all
+	co = checkout
 [github]
 	user = doy
 [color]
