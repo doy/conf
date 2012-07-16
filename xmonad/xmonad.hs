@@ -99,6 +99,8 @@ myManageHook = composeAll [ resource =? "xmessage"    --> doFloat
                           , resource =? "urxvt-kuake" --> doFloat
                           , resource =? "qemu-system-x86_64" --> doFloat
                           , resource =? "plugin-container" --> doFloat
+                          , resource =? "explorer.exe" --> doFloat
+                          , stringProperty "WM_WINDOW_ROLE" =? "CallWindow"  --> doFloat
                           , resource =? "firefox-bin" --> doF (W.shift "browser")
                           , resource =? "win"         --> doF (W.shift "docs") -- xpdf
                           , resource =? "feh"         --> doF (W.shift "docs")
