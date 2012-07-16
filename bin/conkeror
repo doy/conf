@@ -1,3 +1,0 @@
-#!/bin/sh
-
-xulrunner ~/coding/software/conkeror/application.ini $*
