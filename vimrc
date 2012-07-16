@@ -585,15 +585,6 @@ let g:Foldtext_tex_enable = 1
 let g:Foldtext_cpp_enable = 1
 let g:Foldtext_perl_enable = 1
 " }}}
-" Yankring {{{
-let g:yankring_history_dir = '~/.vim/yankring-data'
-let g:yankring_clipboard_monitor = 0
-let g:yankring_replace_n_pkey = '-'
-let g:yankring_replace_n_nkey = '_'
-function! YRRunAfterMaps()
-    nnoremap <silent> Y :<C-U>YRYankCount 'y$'<CR>
-endfunction
-" }}}
 " zencoding {{{
 let g:user_zen_settings = {
 \    'indentation' : '    ',
