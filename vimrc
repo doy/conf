@@ -133,8 +133,23 @@ set backspace=indent,eol,start
 " tab completion in ex mode
 set wildmenu
 
-" when doing tab completion, ignore files with any of the following extensions
-set wildignore+=.log,.out,.o
+" when doing tab completion, ignore files that match any of these
+set wildignore+=*.o,.git/*,.svn/*,blib/*
+" exclusions {{{
+function! s:set_excludes()
+    if filereadable("dist.ini")
+        for line in readfile("dist.ini", '', 10)
+            let name = matchstr(line, '\s*name\s*=\s*\zs.*')
+            if name != ""
+                exe 'set wildignore+=' . name . '-*'
+                break
+            endif
+        endfor
+    endif
+endfunction
+autocmd BufReadPost * call <SID>set_excludes()
+call <SID>set_excludes()
+" }}}
 
 " tab completions should ignore case
 if exists("+wildignorecase")
@@ -143,6 +158,9 @@ endif
 
 " remember lotsa fun stuff
 set viminfo=!,'1000,f1,/1000,:1000,<1000,@1000,h,n~/.viminfo
+
+" more stuff to remember
+set history=1000
 
 " add : as a file-name character (allow gf to work with http://foo.bar/)
 set isfname+=:
