@@ -32,14 +32,10 @@ snippet test
 	done_testing;
 snippet nac
 	use namespace::autoclean;
-snippet dd
-	use Data::Dumper; die Dumper(${1});
-snippet ddd
-	use Data::Dumper; $Data::Dumper::Maxdepth = ${1:1}; die Dumper(${2});
 snippet wd
-	use Data::Dumper; warn Dumper(${1});
+	use Data::Dump; ddx(${1});
 snippet wdd
-	use Data::Dumper; $Data::Dumper::Maxdepth = ${1:1}; warn Dumper(${2});
+	use Data::Dump; push @Data::Dump::FILTERS, sub { return {dump => "$_[1]"} if $_[0]->depth > ${1:1} }; ddx(${2});
 snippet package
 	package ${1:`substitute(matchstr(expand("%"), '^lib/\zs.*\ze\.pm'), '/', '::', 'g')`};
 	use strict;
