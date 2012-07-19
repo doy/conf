@@ -12,7 +12,7 @@
 	review = "!f() { for rev in $(git rev-list --reverse \"$@\"); do git show $rev; done; }; f"
 	unstage = reset -q HEAD
 	info = remote show -n origin
-	graph = log --graph --all --full-history --color --branches --decorate
+	graph = log --all --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
 	prune-all = !git remote | xargs -n 1 git remote prune
 	alias = "!f() { local name=$1; shift; git config --global alias.$name \"$*\"; }; f"
 	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
