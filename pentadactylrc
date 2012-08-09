@@ -1,5 +1,6 @@
 map ; <Leader>
-nmap -builtin <Leader><Leader> <Leader>
+map -builtin <Leader><Leader> <Leader>
+map -builtin \" ;
 
 " single line status/command bar
 set go-=C
