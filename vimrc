@@ -304,6 +304,58 @@ endfunction
 " Try harder to keep syntax highlighting in sync {{{
 autocmd BufEnter,CursorHold,CursorHoldI * syntax sync fromstart
 " }}}
+" Update zsh history when editing a new file - see 'vim' wrapper in .zshrc {{{
+if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
+    let s:initial_files = {}
+
+    autocmd VimEnter * call <SID>init_zsh_hist()
+    autocmd BufNewFile,BufRead * call <SID>zsh_hist_append()
+    autocmd BufDelete * call <SID>remove_initial_file(expand("<afile>"))
+
+    function! s:remove_initial_file (file)
+        if has_key(s:initial_files, a:file)
+            unlet s:initial_files[a:file]
+        endif
+    endfunction
+    function! s:get_buffer_list_text ()
+        redir => output
+        ls!
+        redir END
+        return output
+    endfunction
+    function! s:get_buffer_list ()
+        silent let output = <SID>get_buffer_list_text()
+        let buffer_list = []
+        for buffer_desc in split(output, "\n")
+            let buffer_bits = split(buffer_desc, '"')
+            call add(buffer_list, buffer_bits[1])
+        endfor
+        return buffer_list
+    endfunction
+    function! s:init_zsh_hist ()
+        for fname in <SID>get_buffer_list()
+            let s:initial_files[fname] = 1
+        endfor
+        call delete(g:_zsh_hist_fname)
+    endfunction
+    function! s:zsh_hist_append ()
+        let to_append = expand("%")
+        " XXX fuzzyfinder sets buftype too late to be caught by this... this
+        " is broken, but not sure what a better fix is
+        if &buftype == '' && to_append != "[fuf]"
+            if !has_key(s:initial_files, to_append)
+                if filereadable(g:_zsh_hist_fname)
+                    let hist = readfile(g:_zsh_hist_fname)
+                else
+                    let hist = []
+                endif
+                call add(hist, to_append)
+                call writefile(hist, g:_zsh_hist_fname)
+            endif
+        endif
+    endfunction
+endif
+" }}}
 " Misc {{{
 autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
 " }}}
