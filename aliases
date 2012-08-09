@@ -59,6 +59,7 @@ function perldoc {
         command perldoc "$@"
     fi
 }
+alias pd=perldoc
 function incoming {
     cpanm http://pause.cpan.org/incoming/$1.tar.gz
 }
