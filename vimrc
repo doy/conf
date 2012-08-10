@@ -33,7 +33,7 @@ syntax on
 set ruler
 
 " display more information in the ruler
-set rulerformat=%40(%=%t%h%m%r%w%<\ (%n)\ %4.7l,%-7.(%c%V%)\ %P%)
+set rulerformat=%26(%y%r%m\ (%n)\ %.7l,%.7c\ %=\ %P%)
 
 " current mode in status line
 set showmode
@@ -269,6 +269,9 @@ if has('win32') || has('win64') || has('win32unix')
 elseif has('unix')
     set guifont=Monospace\ 8
 endif
+" }}}
+" ruler {{{
+highlight Ruler ctermfg=darkgrey guifg=darkgrey
 " }}}
 " }}}
 " Autocommands {{{
