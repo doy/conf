@@ -642,8 +642,6 @@ let g:Foldtext_perl_enable = 1
 " }}}
 " FuzzyFinder {{{
 nmap t :FufCoverageFile<CR>
-nmap b :FufBuffer<CR>
-nmap f :FufLine!<CR>
 let g:fuf_modesDisable = [
             \'mrufile', 'mrucmd', 'bookmarkfile', 'bookmarkdir',
             \'tag', 'buffertag', 'taggedfile', 'jumplist', 'changelist',
