@@ -10,4 +10,6 @@ pidof svscan || (svscan $HOME/.services 2>&1 | readproctitle $USER .............
 setxkbmap -option compose:menu
 synclient HorizEdgeScroll=1
 
-exec xmonad
+upower -e
+
+exec i3

@@ -1,0 +1,86 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.010;
+
+use JSON;
+
+open my $i3status, '-|', 'i3status';
+
+print scalar(<$i3status>);
+print scalar(<$i3status>);
+
+while (<$i3status>) {
+    my $comma = s/^,//;
+    my $line = decode_json($_);
+    for my $item (@$line) {
+        next unless $item->{name} eq 'wireless' || $item->{name} eq 'ethernet';
+        my $iface = $item->{instance};
+        my ($up, $down) = map { human_bytes(net_rate($iface, $_)) } 'rx', 'tx';
+        $item->{full_text} =~ s{^($iface:)}{sprintf("%s %6s/%6s", $1, $up, $down)}e;
+    }
+    unshift @$line, { name => 'title', full_text => get_title() };
+    say(($comma ? ',' : ''), encode_json($line));
+}
+
+print <$i3status>;
+
+sub get_title {
+    my $node = find(decode_json(`i3-msg -t get_tree`));
+    if ($node->{window}) {
+        return $node->{name};
+    }
+    else {
+        return '-none-';
+    }
+}
+
+sub find {
+    my ($t) = @_;
+    if ($t->{focused}) {
+        return $t;
+    }
+
+    for my $subtree (@{ $t->{nodes} }) {
+        my $found = find($subtree);
+        return $found if $found;
+    }
+
+    return;
+}
+
+{
+    my %last_bytes;
+    sub net_rate {
+        my ($iface, $which) = @_;
+        my $stat_file = "/sys/class/net/$iface/statistics/${which}_bytes";
+        chomp(my $bytes = slurp($stat_file));
+        my $prev = $last_bytes{$iface}{$which};
+        $last_bytes{$iface}{$which} = $bytes;
+        return 0 unless defined $prev;
+        return $bytes - $prev;
+    }
+}
+
+sub human_bytes {
+    my ($bytes) = @_;
+    my @prefixes = ('', qw(k M G T));
+    my $prefix_index = 0;
+    while ($bytes > 512) {
+        $bytes /= 1024;
+        $prefix_index++;
+    }
+    my $prec = ($prefix_index == 0 ? 0 : 1);
+    return sprintf("%0.${prec}f%sB", $bytes, $prefixes[$prefix_index]);
+}
+
+sub slurp {
+    open my $fh, '<', $_[0] or die "Couldn't open $_[0]: $!";
+    if (wantarray) {
+        <$fh>
+    }
+    else {
+        local $/;
+        <$fh>
+    }
+}

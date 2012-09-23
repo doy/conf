@@ -12,6 +12,7 @@ INSTALL   = abcde.conf \
 	    gitignore \
 	    gtkrc \
 	    gtkrc-2.0 \
+	    i3status.conf \
 	    inputrc \
 	    logout \
 	    minicpanrc \
@@ -34,6 +35,7 @@ INSTALL   = abcde.conf \
 	    sh \
 	    bin \
 	    dzil \
+	    i3 \
 	    interhack \
 	    irssi \
 	    fortune \
