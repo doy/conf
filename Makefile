@@ -4,7 +4,6 @@ INSTALL   = abcde.conf \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \
-	    conkerorrc \
 	    conkyrc \
 	    crawlrc \
 	    env \
@@ -39,7 +38,6 @@ INSTALL   = abcde.conf \
 	    interhack \
 	    irssi \
 	    fortune \
-	    module-setup \
 	    ncmpc \
 	    newsbeuter \
 	    procmail \
