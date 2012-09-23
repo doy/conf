@@ -463,9 +463,6 @@ imap <down> <C-o>gj
 imap <home> <C-o>g<home>
 imap <end> <C-o>g<end>
 " }}}
-" Hit <C-a> in insert mode after a bad paste (thanks absolon) {{{
-inoremap <silent> <C-a> <ESC>u:set paste<CR>.:set nopaste<CR>gi
-" }}}
 " Ctags {{{
 nmap <Leader>t :silent !ctags -a %<CR><C-L>
 nmap <Leader>T :silent !make tags<CR><C-L>
