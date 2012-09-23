@@ -5,6 +5,7 @@ vim/.netrwhist
 vim/.VimballRecord
 vim/fuf-data/
 vim/undo/
+vim/hist*
 newsbeuter/cache.db
 newsbeuter/cache.db.lock
 newsbeuter/error.log
