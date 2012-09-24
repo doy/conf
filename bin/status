@@ -41,7 +41,7 @@ sub find {
         return $t;
     }
 
-    for my $subtree (@{ $t->{nodes} }) {
+    for my $subtree (@{ $t->{nodes} }, @{ $t->{floating_nodes} }) {
         my $found = find($subtree);
         return $found if $found;
     }
