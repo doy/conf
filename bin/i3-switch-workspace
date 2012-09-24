@@ -1,0 +1,99 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use IO::Socket::UNIX;
+use JSON;
+
+my $json = JSON->new;
+
+my %message_types = (
+    command        => 0,
+    get_workspaces => 1,
+    subscribe      => 2,
+    get_outputs    => 3,
+    get_tree       => 4,
+    get_marks      => 5,
+    get_bar_config => 6,
+    get_version    => 7,
+);
+
+my %message_codes = (reverse %message_types);
+
+my $dir = $ARGV[0];
+
+chomp(my $path = qx(i3 --get-socketpath));
+my $sock = IO::Socket::UNIX->new(Peer => $path);
+
+my $workspace_data = $json->decode(i3_msg('get_workspaces'));
+my $next_workspace = $workspace_data->[-1]{num} + 1;
+
+if ($workspace_data->[0]{focused} && $dir eq 'prev') {
+    i3_msg('command', "workspace number $next_workspace");
+}
+elsif ($workspace_data->[-1]{focused} && $dir eq 'next') {
+    my $current_num = $workspace_data->[-1]{num};
+    my $tree_data = $json->decode(i3_msg('get_tree'));
+    my $workspace_tree = find_workspace($tree_data, $current_num);
+    if (@{ $workspace_tree->{nodes} }) { # note: not floating_nodes
+        i3_msg('command', "workspace number $next_workspace");
+    }
+    else {
+        i3_msg('command', "workspace $dir");
+    }
+}
+else {
+    i3_msg('command', "workspace $dir");
+}
+
+sub find_workspace {
+    my ($tree, $num) = @_;
+    if (exists $tree->{num} && $tree->{num} == $num) {
+        return $tree;
+    }
+    for my $node (@{ $tree->{nodes} }) {
+        my $found = find_workspace($node, $num);
+        return $found if $found;
+    }
+    return;
+}
+
+sub build_i3_msg {
+    my ($type, $payload) = @_;
+
+    $payload = ''
+        unless $type eq 'command' || $type eq 'subscribe';
+
+    utf8::encode($payload);
+
+    return 'i3-ipc'
+         . pack('LL', length($payload), $message_types{$type})
+         . $payload;
+}
+
+sub get_i3_msg {
+    my $bytes = $sock->read(my $header, 14);
+    die "invalid read" if $bytes != 14;
+    die "invalid format: $header" if substr($header, 0, 6) ne 'i3-ipc';
+    my ($length, $type) = unpack('LL', substr($header, 6, 8));
+
+    if ($length) {
+        my $bytes = $sock->read(my $payload, $length);
+        die "invalid read" if $bytes != $length;
+        utf8::decode($payload);
+        return ($message_codes{$type}, $payload);
+    }
+    else {
+        return ($message_codes{$type});
+    }
+}
+
+sub i3_msg {
+    my ($type, $payload) = @_;
+    my $msg = build_i3_msg($type, $payload);
+    $sock->write($msg);
+    my ($got_type, $got_payload) = get_i3_msg();
+    die "got $got_type message, expected $type message"
+        unless $type eq $got_type;
+    return $got_payload;
+}

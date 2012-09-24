@@ -74,8 +74,8 @@ bindsym $layout_mod+Shift+space floating toggle
 bindsym $layout_mod+space       focus mode_toggle
 
 # workspace manipulation
-bindsym $mod+Left  workspace prev
-bindsym $mod+Right workspace next
+bindsym $mod+Left  exec i3-switch-workspace prev
+bindsym $mod+Right exec i3-switch-workspace next
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
