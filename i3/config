@@ -70,6 +70,8 @@ bindsym $layout_mod+v split v
 
 bindsym $layout_mod+f fullscreen
 
+bindsym $layout_mod+l exec xscreensaver-command -lock
+
 bindsym $layout_mod+Shift+space floating toggle
 bindsym $layout_mod+space       focus mode_toggle
 
