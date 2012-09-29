@@ -34,6 +34,18 @@ _test () {
     fi
 }
 
+_test_porting () {
+    if [[ ! -e perl ]]; then
+        _make
+    fi
+    export TEST_JOBS=9
+    if [ -n "$*" ]; then
+        make test_porting TEST_FILES="$*"
+    else
+        make test_porting
+    fi
+}
+
 cmd=$1
 shift
 
@@ -49,6 +61,9 @@ case $cmd in
         ;;
     t|test)
         _test $@
+        ;;
+    tp|test_porting)
+        _test_porting $@
         ;;
     a|all)
         _clean
