@@ -1,0 +1,65 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use List::Util 'max';
+
+my $keyboard = do {
+    no warnings 'qw';
+    [
+        [ qw(1 2 3 4 5 6 7 8 9 0 - =)  ],
+        [  qw(q w e r t y u i o p [ ]) ],
+        [   qw(a s d f g h j k l ; ')  ],
+        [    qw(z x c v b n m , . /)   ],
+    ]
+};
+
+if ($ARGV[0] eq '--debug') {
+    require Term::ReadKey;
+    my ($xres, $yres) = Term::ReadKey::GetTerminalSize();
+    my %offset_map = _calculate_offset_map($keyboard, $xres, $yres);
+    print "\e[2J";
+    for my $row (@$keyboard) {
+        for my $key (@$row) {
+            my $offset = $offset_map{$key};
+            print "\e[$offset->[1];$offset->[0]H$key";
+        }
+    }
+    getc;
+}
+else {
+    my $key = $ARGV[0];
+    my ($xres, $yres) = `xrandr` =~ /Screen 0:.*current (\d+) x (\d+),/;
+    my %offset_map = _calculate_offset_map($keyboard, $xres, $yres);
+    my $offset = $offset_map{$key};
+
+    # make sure the new location gains focus
+    system("swarp", 0, 0);
+    system("swarp", $xres, $yres);
+
+    system("swarp", $offset->[0], $offset->[1]);
+}
+
+sub _calculate_offset_map {
+    my ($keyboard, $xres, $yres) = @_;
+
+    my %map;
+
+    my $width  = max map { $_ + 2 * @{ $keyboard->[$_] } } 0..$#$keyboard;
+    my $xincr  = $xres / $width;
+
+    my $height = @$keyboard;
+    my $yincr  = $yres / $height;
+
+    my $ypos = 0.5 * $yincr;
+    for my $row (0..$#$keyboard) {
+        my $xpos = (0.5 + $row) * $xincr;
+        for my $key (@{ $keyboard->[$row] }) {
+            $map{$key} = [int($xpos + 0.5), int($ypos + 0.5)];
+            $xpos += 2 * $xincr;
+        }
+        $ypos += $yincr;
+    }
+
+    return %map;
+}
