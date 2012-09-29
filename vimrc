@@ -664,8 +664,7 @@ function! s:set_excludes()
         let g:fuf_coveragefile_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
     endif
 endfunction
-autocmd BufReadPost * call <SID>set_excludes()
-" call <SID>set_excludes()
+autocmd VimEnter * call <SID>set_excludes()
 " }}}
 " }}}
 " zencoding {{{
