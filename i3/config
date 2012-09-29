@@ -36,6 +36,7 @@ for_window [instance="explorer.exe"]    floating enable
 for_window [instance="winecfg.exe"]     floating enable
 for_window [instance="winedbg.exe"]     floating enable
 for_window [window_role="CallWindow"]   floating enable
+for_window [class="rdesktop"]           floating enable
 
 # special desktops
 for_window [class="Xpdf"] move window to workspace 4
