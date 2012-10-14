@@ -26,15 +26,30 @@ chomp(my $path = qx(i3 --get-socketpath));
 my $sock = IO::Socket::UNIX->new(Peer => $path);
 
 my $workspace_data = $json->decode(i3_msg('get_workspaces'));
+
 my $next_workspace = $workspace_data->[-1]{num} + 1;
+my $prev_workspace = $workspace_data->[0]{num} - 1;
 
 if ($workspace_data->[0]{focused} && $dir eq 'prev') {
-    i3_msg('command', "workspace number $next_workspace");
+    if ($prev_workspace < 0) {
+        i3_msg('command', "workspace number $next_workspace");
+    }
+    else {
+        my $current_workspace = $workspace_data->[0]{num};
+        my $tree_data = $json->decode(i3_msg('get_tree'));
+        my $workspace_tree = find_workspace($tree_data, $current_workspace);
+        if (@{ $workspace_tree->{nodes} }) { # note: not floating_nodes
+            i3_msg('command', "workspace number $prev_workspace");
+        }
+        else {
+            i3_msg('command', "workspace $dir");
+        }
+    }
 }
 elsif ($workspace_data->[-1]{focused} && $dir eq 'next') {
-    my $current_num = $workspace_data->[-1]{num};
+    my $current_workspace = $workspace_data->[-1]{num};
     my $tree_data = $json->decode(i3_msg('get_tree'));
-    my $workspace_tree = find_workspace($tree_data, $current_num);
+    my $workspace_tree = find_workspace($tree_data, $current_workspace);
     if (@{ $workspace_tree->{nodes} }) { # note: not floating_nodes
         i3_msg('command', "workspace number $next_workspace");
     }
