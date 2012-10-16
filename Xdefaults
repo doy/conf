@@ -19,7 +19,8 @@ URxvt*perl-lib:/home/doy/.urxvt/
 URxvt*matcher.button:3
 URxvt*keysym.C-Return: perl:matcher
 URxvt.urlLauncher:firefox
-URxvt*14755_52:false
+URxvt*iso14755:false
+URxvt*iso14755_52:false
 URxvt.urgentOnBell: true
 ! }}}
 ! rxvt {{{
