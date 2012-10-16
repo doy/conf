@@ -141,7 +141,7 @@ function! s:set_excludes()
         for line in readfile("dist.ini", '', 10)
             let name = matchstr(line, '\s*name\s*=\s*\zs.*')
             if name != ""
-                exe 'set wildignore+=' . name . '-*'
+                exe 'set wildignore+=' . name . '-*/*'
                 break
             endif
         endfor
