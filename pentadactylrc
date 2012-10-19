@@ -43,4 +43,14 @@ javascript dactyl.beep = function() { return false; }
 
 autocmd Enter * set fbwhitelist=youtube.com,kongregate.com
 
+command! wish js add_to_amazon_wishlist();
+:js <<EOJS
+  add_to_amazon_wishlist = function() {
+    var amazon_wishlist_url = 'http://www.amazon.com/wishlist/add'
+                            + '?u=' + encodeURIComponent(window.getBrowser().currentURI.spec)
+                            + '&t=' + encodeURIComponent(window.getBrowser().contentDocument.title);
+    window.open(amazon_wishlist_url, 'amzwishlist', 'width=900,height=553');
+  }
+EOJS
+
 " vim:ft=vim:
