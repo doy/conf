@@ -6,7 +6,7 @@ alias cp="cp -i"
 alias mv="mv -i"
 alias bc="bc -lq"
 alias truecrypt="sudo truecrypt -t"
-alias prove="prove -rj5"
+alias prove="prove -rj5 --timer"
 alias cpan-outdated="cpan-outdated --mirror file://${HOME}/perl5/minicpan/"
 alias netstat="netstat -a --inet --numeric-port"
 # }}}
@@ -133,6 +133,20 @@ function svst {
 function pick_music {
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
     sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM tracks WHERE strftime('%s') - timestamp < 60*60*24*365 GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
+}
+function t {
+    if [[ -d blib ]]; then
+        perl -Mblib -MTest::Pretty "$@"
+    else
+        perl -Ilib -MTest::Pretty "$@"
+    fi
+}
+function pt {
+    if [[ -d blib ]]; then
+        prove -MTest::Pretty -b "$@" t
+    else
+        prove -MTest::Pretty -l "$@" t
+    fi
 }
 # }}}
 
