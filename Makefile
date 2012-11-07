@@ -19,6 +19,7 @@ INSTALL   = abcde.conf \
 	    nethackrc \
 	    pentadactylrc \
 	    procmailrc \
+	    proverc \
 	    pwsafe.dat \
 	    screenrc \
 	    tmux.conf \
