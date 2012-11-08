@@ -143,9 +143,9 @@ function t {
 }
 function pt {
     if [[ -d blib ]]; then
-        prove -MTest::Pretty -b "$@" t
+        prove -Pretty -b "$@" t
     else
-        prove -MTest::Pretty -l "$@" t
+        prove -Pretty -l "$@" t
     fi
 }
 # }}}
