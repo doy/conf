@@ -44,6 +44,7 @@ alias pm="find lib -type f | sort"
 alias bootstrap_cpanm="wget -O- -q http://xrl.us/cpanm | perl - App::cpanminus"
 alias v="vim -c 'call feedkeys(\"t\")'"
 alias wifi="sudo systemctl restart net-auto-wireless.service"
+alias prove="forkprove"
 function web {
     local port=$1
     if [[ -z $port ]]; then
