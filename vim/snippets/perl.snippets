@@ -44,6 +44,16 @@ snippet package
 	${2}
 
 	1;
+snippet test_psgi
+	test_psgi
+		app    => ${1:MyApp}->new->to_app,
+		client => sub {
+			my $cb = shift;
+
+			{
+				${2}
+			}
+		};
 #
 # Moose
 #
