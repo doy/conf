@@ -1,1 +1,1 @@
--rj5 --timer
+-rj5 --timer --state=slow,save
