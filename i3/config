@@ -49,6 +49,9 @@ bindsym $mod+i exec dmenu -p "pwsafe -p" < /dev/null | xargs -I{} urxvtc -name p
 bindsym $mod+Shift+i exec dmenu -p "pwsafe -up" < /dev/null | xargs -I{} urxvtc -name pwsafe -geometry 47x2 -e pwsafe -up {}
 bindsym $mod+r exec dmenu_run
 
+bindsym --release $mod+s exec screenshot
+bindsym Print exec screenshot --full
+
 # XXX
 # bindsym $mod+Shift+o exec urxvtc; exec urxvtc; exec sleep 1; split v; exec urxvtc; exec urxvtc; exec sleep 1; focus left; split v; exec urxvtc
 
