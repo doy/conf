@@ -299,16 +299,23 @@ sub darcs_info {
 sub git_info {
     my ($git_dir) = @_;
 
+    my $HEAD = `git rev-parse --short HEAD 2>/dev/null`;
+
     my $dirty = '';
-    if (system(q[git diff --no-ext-diff --ignore-submodules --quiet --exit-code])) {
-        $dirty .= '*';
+    if ($HEAD) {
+        if (system(q[git diff --no-ext-diff --ignore-submodules --quiet --exit-code])) {
+            $dirty .= '*';
+        }
+        if (system(q[git diff-index --cached --quiet --ignore-submodules HEAD])) {
+            $dirty .= '+';
+        }
     }
-    if (system(q[git diff-index --cached --quiet --ignore-submodules HEAD])) {
-        $dirty .= '+';
+    else {
+        $dirty = '?';
     }
 
     chomp(my $branch = `git symbolic-ref -q HEAD 2>/dev/null`
-                    || `git rev-parse --short HEAD`);
+                    || $HEAD);
     $branch =~ s{^refs/heads/}{};
 
     my $local_commits = '';
