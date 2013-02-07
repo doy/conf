@@ -39,8 +39,8 @@ for_window [window_role="CallWindow"]   floating enable
 for_window [class="rdesktop"]           floating enable
 
 # special desktops
-for_window [class="Xpdf"] move window to workspace 4
-for_window [class="feh"]  move window to workspace 4
+for_window [class="Xpdf"] move window to workspace 7
+for_window [class="feh"]  move window to workspace 7
 
 # start programs
 bindsym $mod+o exec urxvtc
