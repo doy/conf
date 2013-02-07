@@ -55,5 +55,7 @@
 	commitBeforeMerge = false
 	resolveConflict = false
 	detachedHead = false
+[rerere]
+	enabled = true
 
 ; vim:ft=gitconfig:
