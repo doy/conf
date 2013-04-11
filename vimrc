@@ -653,7 +653,7 @@ function! s:set_excludes()
     let fuf_coveragefile_exclude_base = '\('
             \. '\(^\|/\)\.\|'
             \. '\~$\|'
-            \. '^\(blib\|nytprof\)\|'
+            \. '^\(blib\|nytprof\|project\|target\)\|'
             \. '\.\('
                 \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|'
                 \. 'png\|jpg\|gif\|pdf\|doc\|d\|vsprops\|pbxproj\|sln'
