@@ -24,5 +24,6 @@ type git > /dev/null 2>&1 && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec
 [ -x /usr/bin/lesspipe ] && export LESSOPEN='|/usr/bin/lesspipe %s'
 [ -x /usr/bin/lesspipe.sh ] && export LESSOPEN='|/usr/bin/lesspipe.sh %s'
 [ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
+[ -f $HOME/python/bin/activate ] && source $HOME/python/bin/activate
 
 # vim:ft=sh:
