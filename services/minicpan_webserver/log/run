@@ -1,3 +1,0 @@
-#!/bin/sh
-
-multilog t * $HOME/.log/minicpan_webserver

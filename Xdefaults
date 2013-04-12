@@ -12,8 +12,8 @@ URxvt*scrollTtyOutput:false
 URxvt*scrollTtyKeypress:true
 URxvt*scrollBar_right:true
 URxvt*scrollBar:false
-URxvt*font:6x12
-URxvt*boldFont:6x12
+URxvt*font:6x10
+URxvt*boldFont:6x10
 URxvt*perl-ext-common:default,matcher,pwsafe<M-p>
 URxvt*perl-lib:/home/doy/.urxvt/
 URxvt*matcher.button:3

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-cairo-compmgr 2>&1
