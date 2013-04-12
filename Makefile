@@ -71,7 +71,6 @@ install : build $(INSTALLED)
 clean :
 	$(ECHO) Cleaning from $(INTO)
 	$(RM) $(BUILD) $(INSTALLED)
-	@crontab -d
 
 $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
