@@ -17,6 +17,7 @@ INSTALL   = abcde.conf \
 	    minicpanrc \
 	    mutt \
 	    nethackrc \
+	    notmuch-config \
 	    pentadactylrc \
 	    procmailrc \
 	    proverc \

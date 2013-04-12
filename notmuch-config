@@ -1,0 +1,18 @@
+[database]
+path=/home/doy/Maildir
+
+[user]
+name=Jesse Luehrs
+primary_email=doy@tozt.net
+other_email=jesse.luehrs@iinteractive.com;doy@cpan.org;
+
+[new]
+tags=unread;new;
+
+ignore=
+
+[maildir]
+synchronize_flags=true
+
+[search]
+exclude_tags=spam;
