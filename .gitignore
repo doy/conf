@@ -17,7 +17,6 @@ xmonad/xmonad.errors
 xmonad/xmonad.hi
 xmonad/xmonad.o
 xmonad/history
-irssi/default.theme
 bin/nethack/ipbt
 bin/nethack/ttydump
 bin/nethack/ttygrep
@@ -39,3 +38,5 @@ mutt/cache
 fortune/*.dat
 pentadactyl/info
 abook/addressbook*
+weechat/weechat.log
+weechat/weechat_fifo_*

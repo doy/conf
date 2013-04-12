@@ -36,7 +36,6 @@ INSTALL   = abcde.conf \
 	    dzil \
 	    i3 \
 	    interhack \
-	    irssi \
 	    fortune \
 	    ncmpc \
 	    procmail \
@@ -49,6 +48,7 @@ INSTALL   = abcde.conf \
 	    themes \
 	    urxvt \
 	    vim \
+	    weechat \
 	    zsh
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
