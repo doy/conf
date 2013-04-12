@@ -1,2 +1,0 @@
-0 */3 * * * newsbeuter -x reload
-0   5 * * * . $HOME/.bashrc && perlbrew switch perl-5.16.0 && minicpan && killall minicpan_webserver

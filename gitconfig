@@ -10,7 +10,6 @@
 	log-branch = !git log master..HEAD
 	review-branch = !git review master..HEAD
 	review = "!f() { for rev in $(git rev-list --reverse \"$@\"); do git show $rev; done; }; f"
-	unstage = reset -q HEAD
 	info = remote show -n origin
 	graph = log --all --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
 	prune-all = !git remote | xargs -n 1 git remote prune

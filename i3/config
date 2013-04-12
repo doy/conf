@@ -70,52 +70,6 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-bindsym $mod+Mod4+1            exec keyboard-swarp 1
-bindsym $mod+Mod4+2            exec keyboard-swarp 2
-bindsym $mod+Mod4+3            exec keyboard-swarp 3
-bindsym $mod+Mod4+4            exec keyboard-swarp 4
-bindsym $mod+Mod4+5            exec keyboard-swarp 5
-bindsym $mod+Mod4+6            exec keyboard-swarp 6
-bindsym $mod+Mod4+7            exec keyboard-swarp 7
-bindsym $mod+Mod4+8            exec keyboard-swarp 8
-bindsym $mod+Mod4+9            exec keyboard-swarp 9
-bindsym $mod+Mod4+0            exec keyboard-swarp 0
-bindsym $mod+Mod4+minus        exec keyboard-swarp -
-bindsym $mod+Mod4+equal        exec keyboard-swarp =
-bindsym $mod+Mod4+q            exec keyboard-swarp q
-bindsym $mod+Mod4+w            exec keyboard-swarp w
-bindsym $mod+Mod4+e            exec keyboard-swarp e
-bindsym $mod+Mod4+r            exec keyboard-swarp r
-bindsym $mod+Mod4+t            exec keyboard-swarp t
-bindsym $mod+Mod4+y            exec keyboard-swarp y
-bindsym $mod+Mod4+u            exec keyboard-swarp u
-bindsym $mod+Mod4+i            exec keyboard-swarp i
-bindsym $mod+Mod4+o            exec keyboard-swarp o
-bindsym $mod+Mod4+p            exec keyboard-swarp p
-bindsym $mod+Mod4+bracketleft  exec keyboard-swarp [
-bindsym $mod+Mod4+bracketright exec keyboard-swarp ]
-bindsym $mod+Mod4+a            exec keyboard-swarp a
-bindsym $mod+Mod4+s            exec keyboard-swarp s
-bindsym $mod+Mod4+d            exec keyboard-swarp d
-bindsym $mod+Mod4+f            exec keyboard-swarp f
-bindsym $mod+Mod4+g            exec keyboard-swarp g
-bindsym $mod+Mod4+h            exec keyboard-swarp h
-bindsym $mod+Mod4+j            exec keyboard-swarp j
-bindsym $mod+Mod4+k            exec keyboard-swarp k
-bindsym $mod+Mod4+l            exec keyboard-swarp l
-bindsym $mod+Mod4+semicolon    exec keyboard-swarp ;
-bindsym $mod+Mod4+apostrophe   exec keyboard-swarp '
-bindsym $mod+Mod4+z            exec keyboard-swarp z
-bindsym $mod+Mod4+x            exec keyboard-swarp x
-bindsym $mod+Mod4+c            exec keyboard-swarp c
-bindsym $mod+Mod4+v            exec keyboard-swarp v
-bindsym $mod+Mod4+b            exec keyboard-swarp b
-bindsym $mod+Mod4+n            exec keyboard-swarp n
-bindsym $mod+Mod4+m            exec keyboard-swarp m
-bindsym $mod+Mod4+comma        exec keyboard-swarp ,
-bindsym $mod+Mod4+period       exec keyboard-swarp .
-bindsym $mod+Mod4+slash        exec keyboard-swarp /
-
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up

@@ -26,7 +26,6 @@ INSTALL   = abcde.conf \
 	    vimrc \
 	    Xdefaults \
 	    xinitrc \
-	    xmobarrc \
 	    zlogout \
 	    zshcomplete \
 	    zshinput \
@@ -40,7 +39,6 @@ INSTALL   = abcde.conf \
 	    irssi \
 	    fortune \
 	    ncmpc \
-	    newsbeuter \
 	    procmail \
 	    pentadactyl \
 	    re.pl \
@@ -51,7 +49,6 @@ INSTALL   = abcde.conf \
 	    themes \
 	    urxvt \
 	    vim \
-	    xmonad \
 	    zsh
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
@@ -66,7 +63,7 @@ RM        = @rm -f
 
 build : $(BUILD)
 
-install : build $(INSTALLED) /var/spool/cron/$(USER)
+install : build $(INSTALLED)
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	$(ECHO) Installed into $(INTO)
 
