@@ -1,0 +1,57 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.010;
+
+use Getopt::Long;
+use HTTP::Request;
+use JSON;
+use LWP::UserAgent;
+use Pithub;
+use Term::ReadKey;
+
+GetOptions(
+    "mirror" => \(my $mirror),
+    "all"    => \(my $all),
+);
+
+sub git {
+    my ($cmd) = @_;
+    `git $cmd`;
+    return $? == 0;
+}
+
+my ($user) = @ARGV;
+die "user required" unless defined $user;
+
+print "Password: ";
+Term::ReadKey::ReadMode(2);
+chomp(my $pass = <STDIN>);
+Term::ReadKey::ReadMode(0);
+print "\n";
+
+my $ua = LWP::UserAgent->new;
+my $req = HTTP::Request->new(
+    POST => 'https://api.github.com/authorizations',
+);
+$req->content('{}');
+$req->authorization_basic($user, $pass);
+my $res = $ua->request($req);
+if (!$res->is_success) {
+    require Data::Dumper; die Data::Dumper::Dumper($res);
+}
+my $token = JSON::decode_json($res->content)->{token};
+
+my $ph = Pithub->new(token => $token, ua => $ua, auto_pagination => 1);
+my $rows = $ph->repos->list(user => $user);
+while (my $row = $rows->next) {
+    next unless $all || !$row->{fork};
+    if (!-e $row->{name}) {
+        print "Cloning $row->{name}\n";
+        my $opts = $mirror ? "--mirror" : "";
+        git "clone $opts $row->{ssh_url}";
+    }
+    else {
+        print "Skipping $row->{name}\n";
+    }
+}
