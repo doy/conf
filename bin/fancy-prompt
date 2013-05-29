@@ -303,10 +303,10 @@ sub git_info {
 
     my $dirty = '';
     if ($HEAD) {
-        if (system(q[git diff --no-ext-diff --ignore-submodules --quiet --exit-code])) {
+        if (system(q[git diff-files --no-ext-diff --ignore-submodules --quiet])) {
             $dirty .= '*';
         }
-        if (system(q[git diff-index --cached --quiet --ignore-submodules HEAD])) {
+        if (system(q[git diff-index --cached --no-ext-diff --ignore-submodules --quiet HEAD])) {
             $dirty .= '+';
         }
     }
@@ -319,8 +319,7 @@ sub git_info {
     $branch =~ s{^refs/heads/}{};
 
     my $local_commits = '';
-    system(qq[git show-ref -q --verify "refs/remotes/origin/$branch"]);
-    if (!$?) {
+    if (!system(qq[git show-ref -q --verify "refs/remotes/origin/$branch"])) {
         chomp(my $base = `git merge-base HEAD origin/$branch`);
         chomp(my $head = `git rev-parse HEAD`);
         chomp(my $remote = `git rev-parse origin/$branch`);
