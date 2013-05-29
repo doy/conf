@@ -56,5 +56,7 @@
 	detachedHead = false
 [rerere]
 	enabled = true
+[include]
+	path = .gitconfig.private
 
 ; vim:ft=gitconfig:
