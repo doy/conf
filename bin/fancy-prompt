@@ -309,16 +309,19 @@ sub git_info {
         if (system(q[git diff-index --cached --no-ext-diff --ignore-submodules --quiet HEAD])) {
             $dirty .= '+';
         }
+        if (`git ls-files -o --exclude-standard 2>/dev/null`) {
+            $dirty .= '?';
+        }
     }
     else {
-        $dirty = '?';
+        $dirty = '!';
     }
 
     chomp(my $branch = `git symbolic-ref -q HEAD 2>/dev/null`
                     || $HEAD);
     $branch =~ s{^refs/heads/}{};
 
-    my $local_commits = '';
+    my $local_commits = '-';
     if (!system(qq[git show-ref -q --verify "refs/remotes/origin/$branch"])) {
         chomp(my $base = `git merge-base HEAD origin/$branch`);
         chomp(my $head = `git rev-parse HEAD`);
