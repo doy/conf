@@ -43,6 +43,9 @@ for_window [class="Dredmor-amd64"]      floating enable
 for_window [class="FTL"]                floating enable
 for_window [class="Trine2_linux_launcher_32bit"] floating enable
 for_window [class="DungeonDefenders-x86"] floating enable
+for_window [class="VVVVVV_32"]          floating enable
+for_window [class="hl2_linux"]          floating enable
+for_window [class="alephone"]           floating enable
 
 # special desktops
 for_window [class="Xpdf"] move window to workspace 7
