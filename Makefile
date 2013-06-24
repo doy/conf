@@ -22,6 +22,7 @@ INSTALL   = abcde.conf \
 	    procmailrc \
 	    proverc \
 	    pwsafe.dat \
+	    replyrc \
 	    screenrc \
 	    tmux.conf \
 	    vimrc \
@@ -41,7 +42,6 @@ INSTALL   = abcde.conf \
 	    ncmpc \
 	    procmail \
 	    pentadactyl \
-	    re.pl \
 	    services \
 	    ssh \
 	    taeb \
