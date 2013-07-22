@@ -123,9 +123,9 @@ function t {
 }
 function pt {
     if [[ -d blib ]]; then
-        prove -Pretty -b "$@" t
+        prove -Mlib::require::all=blib/lib,blib/arch -Pretty -b "$@" t
     else
-        prove -Pretty -l "$@" t
+        prove -Mlib::require::all=lib -Pretty -l "$@" t
     fi
 }
 # }}}
