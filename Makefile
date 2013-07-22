@@ -7,6 +7,7 @@ INSTALL   = abcde.conf \
 	    conkyrc \
 	    crawlrc \
 	    env \
+	    gdbinit \
 	    gitconfig \
 	    gitignore \
 	    gtkrc \
