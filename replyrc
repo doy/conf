@@ -3,6 +3,13 @@ script_line2 = use warnings
 script_line3 = use 5.018000
 script_line4 = use lib 'lib'
 
+[Autocomplete::Globals]
+[Autocomplete::Keywords]
+[Autocomplete::Lexicals]
+[Autocomplete::Methods]
+[Autocomplete::Packages]
+[Autocomplete::Functions]
+[Autocomplete::Commands]
 [Nopaste]
 [Interrupt]
 [FancyPrompt]
@@ -15,3 +22,4 @@ script_line4 = use lib 'lib'
 [LoadClass]
 [Editor]
 [ResultCache]
+[CollapseStack]
