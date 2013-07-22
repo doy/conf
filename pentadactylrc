@@ -41,8 +41,6 @@ map , :pb
 " no beeps
 javascript dactyl.beep = function() { return false; }
 
-autocmd Enter * set fbwhitelist=youtube.com,kongregate.com
-
 command! wish js add_to_amazon_wishlist();
 :js <<EOJS
   add_to_amazon_wishlist = function() {
