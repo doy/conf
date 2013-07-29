@@ -580,8 +580,8 @@ nmap <silent> <Leader>= :call <SID>align_assignments()<CR>
 nmap Y y$
 
 " try 'e' instead of 'c' for change
-map e c
-map E C
+nmap e c
+nmap E C
 
 " buffer switching
 nmap H :bp<CR>
