@@ -40,6 +40,7 @@ set menu_scroll
 set pager_context=1
 set pager_index_lines=6
 set status_on_top
+set sort=threads
 
 # header display
 ignore *

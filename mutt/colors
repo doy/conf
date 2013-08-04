@@ -1,12 +1,23 @@
-color quoted  green       default
-color quoted1 brightgreen default
-color quoted2 green       default
-color quoted3 brightgreen default
-color quoted4 green       default
-color quoted5 brightgreen default
-color quoted6 green       default
-color quoted7 brightgreen default
-color quoted8 green       default
-color quoted9 brightgreen default
+color normal     white        black
+color attachment brightyellow black
+color hdrdefault cyan         black
+color indicator  black        cyan
+color markers    brightred    black
+color quoted     green        black
+color signature  cyan         black
+color status     brightgreen  blue
+color tilde      blue         black
+color tree       red          black
+
+color quoted     green        default
+color quoted1    brightgreen  default
+color quoted2    green        default
+color quoted3    brightgreen  default
+color quoted4    green        default
+color quoted5    brightgreen  default
+color quoted6    green        default
+color quoted7    brightgreen  default
+color quoted8    green        default
+color quoted9    brightgreen  default
 
 # vim:ft=muttrc:
