@@ -93,6 +93,10 @@ UIUC=(uiuc|illinois|uillinois)
 * 1^0 ^TO_alar@dudgeonmaster.org
 .mailing\ lists.alar-rpg/
 # }}}
+:0: # rust {{{
+* ^TO_rust-dev@mozilla.org
+.mailing\ lists.rust-dev/
+# }}}
 # }}}
 # school {{{
 # acm {{{
@@ -493,6 +497,62 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # pinboard {{{
 * ^TO_pinboard@tozt.net
 .websites.community.pinboard/
+# }}}
+:0: # ally {{{
+* ^TO_ally@tozt.net
+.websites.money.bank/
+# }}}
+:0: # steam {{{
+* ^TO_steam@tozt.net
+.websites.fun.steam/
+# }}}
+:0: # allegiant {{{
+* ^TO_allegiant@tozt.net
+.websites.travel.airlines/
+# }}}
+:0: # fitbit {{{
+* ^TO_fitbit@tozt.net
+.websites.fun.fitbit/
+# }}}
+:0: # etix {{{
+* ^TO_etix@tozt.net
+.websites.fun.concerts/
+# }}}
+:0: # freefilefillableforms {{{
+* ^TO_freefilefillableforms@tozt.net
+.websites.money.taxes/
+# }}}
+:0: # meetup {{{
+* ^TO_meetup@tozt.net
+.websites.community.meetup/
+# }}}
+:0: # ebookers {{{
+* ^TO_ebookers@tozt.net
+.websites.travel.airlines/
+# }}}
+:0: # crawl devteam {{{
+* ^TO_crawl-private@dobrazupa.org
+.mailing\ lists.crawl/
+# }}}
+:0: # sonatype {{{
+* ^TO_sonatype@tozt.net
+.websites.projects.scala/
+# }}}
+:0: # indiegogo {{{
+* ^TO_indiegogo@tozt.net
+.websites.shopping.indiegogo/
+# }}}
+:0: # kickstarter {{{
+* ^TO_kickstarter@tozt.net
+.websites.shopping.kickstarter/
+# }}}
+:0: # newsblur {{{
+* ^TO_newsblur@tozt.net
+.websites.community.newsblur/
+# }}}
+:0: # scala {{{
+* ^TO_scala@tozt.net
+.websites.projects.scala/
 # }}}
 # }}}
 # work {{{
