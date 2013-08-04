@@ -41,6 +41,8 @@ set pager_context=1
 set pager_index_lines=6
 set status_on_top
 set sort=threads
+set implicit_autoview
+alternative_order text/plain text/html
 
 # header display
 ignore *

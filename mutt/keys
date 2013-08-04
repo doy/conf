@@ -24,7 +24,7 @@ bind index p search-opposite
 bind index A group-reply
 bind index g first-entry
 bind index G last-entry
-bind index ^G imap-fetch-mail
+bind index R imap-fetch-mail
 macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>"
 
 bind compose i exit
