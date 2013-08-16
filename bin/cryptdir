@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if [[ -e /dev/mapper/cryptdir ]]; then
+    echo "only one instance can run at a time" 1>&2
+    exit 1
+fi
+
+sudo -v || exit 1
+
+if [[ -z $1 ]]; then
+    size='16M'
+else
+    size=$1
+fi
+
+cryptfile=$(mktemp)
+cryptdir=$(mktemp -d)
+
+dd if=/dev/urandom of=$cryptfile bs=$size count=1
+echo "secretpass" | sudo cryptsetup luksFormat $cryptfile -
+echo "secretpass" | sudo cryptsetup open $cryptfile cryptdir --key-file -
+sudo mkfs.ext2 /dev/mapper/cryptdir
+sudo mount /dev/mapper/cryptdir $cryptdir
+sudo chown $USER $cryptdir
+cd $cryptdir
+$SHELL
+cd
+sudo umount $cryptdir
+sudo cryptsetup close cryptdir
+rm -f $cryptfile
+rmdir $cryptdir
