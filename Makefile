@@ -38,6 +38,7 @@ INSTALL   = abcde.conf \
 	    sh \
 	    bin \
 	    dzil \
+	    gnupg \
 	    i3 \
 	    interhack \
 	    fortune \

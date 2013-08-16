@@ -40,3 +40,6 @@ pentadactyl/info
 abook/addressbook*
 weechat/weechat.log
 weechat/weechat_fifo_*
+gnupg
+!gnupg/gpg.conf
+!gnupg/gpg-agent.conf
