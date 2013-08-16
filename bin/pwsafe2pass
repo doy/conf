@@ -1,0 +1,32 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+# run as pwsafe --exportdb | pwsafe2pass
+# requires an already initialized pass database
+
+# headers
+readline;
+readline;
+
+while (my $line = <>) {
+    my ($uuid, $group, $name, $login, $passwd, $notes) = map {
+        s/^"(.*)"$/$1/; $_
+    } split /\t/, $line;
+
+    # XXX pass doesn't handle filenames with spaces properly
+    s/\s/-/g for $group, $name;
+    die "pass can't handle files with spaces" if $login =~ /\s/;
+
+    my $entry = join '/', $group, $name, length($login) ? ($login) : ();
+
+    open my $fh, '|-', 'pass', 'insert', ($notes ? ('-m') : ()), $entry
+        or die "Couldn't insert!";
+    $fh->print("$passwd\n");
+    $fh->print("$notes\n") if $notes;
+    $fh->close;
+
+    # XXX pass doesn't propagate git failure exit codes to the overall process,
+    # so failures in 'git add' or whatever will fail silently
+    die "Failed to insert $entry: $?" if $?;
+}
