@@ -15,6 +15,7 @@ INSTALL   = abcde.conf \
 	    i3status.conf \
 	    inputrc \
 	    logout \
+	    mailcap \
 	    minicpanrc \
 	    mutt \
 	    nethackrc \
