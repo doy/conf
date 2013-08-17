@@ -11,7 +11,15 @@ readline;
 
 while (my $line = <>) {
     my ($uuid, $group, $name, $login, $passwd, $notes) = map {
-        s/^"(.*)"$/$1/; $_
+        s/^"(.*)"$/$1/;
+
+        # sigh
+        s/\\\\/\\/g;
+        s/&gt/>/g; # not a typo, they really forgot the ;
+        s/&lt;/</g;
+        s/&amp;/\&/g;
+
+        $_
     } split /\t/, $line;
 
     # XXX pass doesn't handle filenames with spaces properly
