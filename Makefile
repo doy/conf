@@ -23,7 +23,6 @@ INSTALL   = abcde.conf \
 	    pentadactylrc \
 	    procmailrc \
 	    proverc \
-	    pwsafe.dat \
 	    replyrc \
 	    screenrc \
 	    tmux.conf \
@@ -56,7 +55,7 @@ INSTALL   = abcde.conf \
 	    zsh
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
-BUILD     = bin/nethack/timettyrec pwsafe.dat $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*)))
+BUILD     = bin/nethack/timettyrec $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*)))
 
 EMPTYDIRS = .log .vim/undo .vim/yankring-data
 
@@ -81,9 +80,6 @@ $(INTO)/.% : %
 
 /var/spool/cron/$(USER) : crontab
 	@crontab crontab
-
-pwsafe.dat :
-	wget -q http://tozt.net/.pwsafe.dat -O pwsafe.dat
 
 fortune/%.dat : fortune/%
 	@echo "Compiling $@"
