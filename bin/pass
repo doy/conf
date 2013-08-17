@@ -1,0 +1,78 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+my $PASS = '/usr/bin/pass';
+
+my $cmd = $ARGV[0];
+
+if ($cmd && $cmd eq 'search') {
+    shift @ARGV;
+
+    chdir "$ENV{HOME}/.password-store"
+        or die "password store not initialized";
+
+    require Path::Class;
+
+    my $pat_str = pop @ARGV;
+    my $pattern = qr/$pat_str/;
+
+    my $username = grep { $_ eq '-u' } @ARGV;
+    @ARGV = grep { $_ ne '-u' } @ARGV;
+
+    my $clipboard = grep { $_ eq '-c' || $_ eq '--clip' } @ARGV;
+
+    my @found = Path::Class::Dir->new('.')->traverse(sub {
+        my ($file, $c) = @_;
+        return if $file eq '.git';
+        return (
+            $c->(),
+            ((-f $file && $file =~ s/\.gpg$// && $file =~ $pattern)
+                ? ($file)
+                : ()),
+        );
+    });
+
+    if (@found < 1) {
+        die "No passwords found matching '$pat_str'\n";
+    }
+    elsif (@found > 1) {
+        die "Ambiguous pattern '$pat_str': could match any of @found\n";
+    }
+    else {
+        if ($username) {
+            if ($found[0] =~ m{^[^/]*/[^/]*/([^/]*)$}) {
+                my $user = $1;
+                if ($clipboard) {
+                    clip($user);
+                }
+                else {
+                    print "$user\n";
+                }
+            }
+            else {
+                die "$found[0] has no username";
+            }
+        }
+
+        my $pass = `$PASS show $found[0]`;
+        $pass =~ s/\s+$//;
+        if ($clipboard) {
+            clip($pass);
+        }
+        else {
+            print "$pass\n";
+        }
+    }
+}
+else {
+    exec { $PASS } $PASS, @ARGV
+}
+
+sub clip {
+    my ($text) = @_;
+    open my $fh, '|-', 'xclip -loops 1 -quiet 2> /dev/null'
+        or die "couldn't run xclip";
+    $fh->write("$text\n");
+    $fh->close;
+}
