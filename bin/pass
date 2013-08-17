@@ -55,8 +55,7 @@ if ($cmd && $cmd eq 'search') {
             }
         }
 
-        my $pass = `$PASS show $found[0]`;
-        $pass =~ s/\s+$//;
+        chomp(my $pass = `$PASS show $found[0]`);
         if ($clipboard) {
             clip($pass);
         }

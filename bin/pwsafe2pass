@@ -10,6 +10,7 @@ readline;
 readline;
 
 while (my $line = <>) {
+    chomp $line;
     my ($uuid, $group, $name, $login, $passwd, $notes) = map {
         s/^"(.*)"$/$1/;
 
@@ -28,7 +29,7 @@ while (my $line = <>) {
 
     my $entry = join '/', $group, $name, length($login) ? ($login) : ();
 
-    open my $fh, '|-', 'pass', 'insert', ($notes ? ('-m') : ()), $entry
+    open my $fh, '|-', 'pass', 'insert', ($notes ? ('-m') : ('-e')), $entry
         or die "Couldn't insert!";
     $fh->print("$passwd\n");
     $fh->print("$notes\n") if $notes;
