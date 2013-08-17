@@ -4,8 +4,7 @@ use warnings;
 use IO::Pty::Easy;
 
 my $hostname = `hostname`;
-open STDIN, '<', '/dev/tty';
-my $pass = `pwsafe -pE ssh.$hostname`;
+my $pass = `pass search ssh.$hostname`;
 my $pty = IO::Pty::Easy->new;
 $pty->spawn("ssh-add -t 1800 $ARGV[0]");
 $pty->read;

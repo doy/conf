@@ -26,8 +26,6 @@ floating_maximum_size -1 x -1
 for_window [class="Xmessage"]           floating enable
 for_window [class="qemu"]               floating enable
 for_window [class="Gimp"]               floating enable
-for_window [instance="pwsafe"]          floating enable
-for_window [instance="pwsafe"]          move absolute position 0 px 0 px
 for_window [instance="urxvt-kuake"]     floating enable
 for_window [instance="urxvt-kuake"]     move absolute position 0 px 0 px
 for_window [class="qemu-system-x86_64"] floating enable
@@ -54,8 +52,8 @@ for_window [class="feh"]  move window to workspace 7
 # start programs
 bindsym $mod+o exec urxvtc
 bindsym $mod+b exec firefox
-bindsym $mod+i exec dmenu -p "pwsafe -p" < /dev/null | xargs -I{} urxvtc -name pwsafe -geometry 47x2 -e pwsafe -p {}
-bindsym $mod+Shift+i exec dmenu -p "pwsafe -up" < /dev/null | xargs -I{} urxvtc -name pwsafe -geometry 47x2 -e pwsafe -up {}
+bindsym $mod+i exec dmenu -p "pass search" < /dev/null | xargs -I{} pass search -c {}
+bindsym $mod+Shift+i exec dmenu -p "pass search -u" < /dev/null | xargs -I{} pass search -u -c {}
 bindsym $mod+r exec dmenu_run
 
 bindsym --release $mod+s exec screenshot

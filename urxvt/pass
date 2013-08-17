@@ -1,16 +1,14 @@
 #! perl
 
-use IO::Pty::Easy;
-
 sub on_init {
     my ($self) = @_;
 
     my $hotkey = $self->{argv}[0]
-      || $self->x_resource ("pwsafe")
+      || $self->x_resource ("pass")
       || "M-w";
 
-    $self->parse_keysym ($hotkey, "perl:pwsafe:start")
-      or warn "unable to register '$hotkey' as pwsafe start hotkey\n";
+    $self->parse_keysym ($hotkey, "perl:pass:start")
+      or warn "unable to register '$hotkey' as pass start hotkey\n";
 
     return;
 }
@@ -18,7 +16,7 @@ sub on_init {
 sub on_user_command {
     my ($self, $cmd) = @_;
 
-    $self->enter if $cmd eq 'pwsafe:start';
+    $self->enter if $cmd eq 'pass:start';
 
     return;
 }
@@ -33,7 +31,7 @@ sub enter {
     );
 
     #eval {
-        $self->do_password;
+        $self->which_password;
     #};
     #if ($@) {
         #$self->timed_message($@);
@@ -117,56 +115,19 @@ sub prompt_finish {
     return;
 }
 
-sub do_password {
-    my ($self) = @_;
-
-    $self->prompt('Password database password: ', 1, sub {
-        my $pass = shift;
-        if ($pass) {
-            $self->which_password($pass);
-        }
-        else {
-            $self->timed_msg('Aborted.');
-            $self->leave;
-            return;
-        }
-    });
-}
-
 sub which_password {
     my $self = shift;
-    my $pass = shift;
 
     $self->prompt('Password to insert: ', 0, sub {
         my $passname = shift;
-        my $pty = IO::Pty::Easy->new;
-        $pty->spawn("pwsafe -pE $passname");
-        my $read;
-        while (1) {
-            $read = $pty->read(0);
-            last if $read =~ /passphrase for/;
-        }
-        $pty->write("$pass\n");
-        my $password;
-        while (1) {
-            $password = $pty->read(0);
-            last if $password =~ s/password for.*?: //;
-            if ($password =~ /incorrect/) {
-                $self->do_password;
-                return;
-            }
-            if ($password =~ /(?:No|More than one) matching entr/) {
-                $self->which_password($pass);
-                return;
-            }
-        }
+        my $password = `pass search $passname`;
+
         if ($password) {
             $self->tt_write($password);
             $self->leave;
         }
         else {
             $self->msg("Unknown password $passname");
-            $self->which_password($pass);
         }
     });
 }
