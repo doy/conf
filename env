@@ -1,3 +1,4 @@
+export GPG_TTY=`tty`
 export PATH="${HOME}/.bin/nethack:${HOME}/.bin:/usr/local/sbin:/usr/local/bin:/usr/lib/ccache/bin:$PATH"
 export MPD_HOST=bishamon
 export MANPAGER="${HOME}/.bin/vimmanpager"
