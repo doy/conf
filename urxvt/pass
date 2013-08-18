@@ -124,11 +124,11 @@ sub which_password {
 
         if ($password) {
             $self->tt_write($password);
-            $self->leave;
         }
         else {
             $self->msg("Unknown password $passname");
         }
+        $self->leave;
     });
 }
 
