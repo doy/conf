@@ -78,5 +78,5 @@ fi
 # }}}
 # }}}
 # fortune {{{
-fortune -n300 -s ~/.fortune | grep -v -E "^$"
+fortune -n600 -s ~/.fortune | grep -v -E "^$"
 # }}}
