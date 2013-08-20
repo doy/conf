@@ -57,7 +57,7 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/nethack/timettyrec $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*)))
 
-EMPTYDIRS = .log .vim/undo .vim/yankring-data
+EMPTYDIRS = .log .vim/undo
 
 ECHO      = @echo
 LN        = @ln -sf
