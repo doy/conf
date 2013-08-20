@@ -703,11 +703,6 @@ else
     let g:gundo_disable = 1
 endif
 " }}}
-" easymotion {{{
-let g:EasyMotion_mapping_f = 'f'
-let g:EasyMotion_do_shade = 0
-hi EasyMotionTarget ctermbg=yellow ctermfg=black
-" }}}
 " vim-move {{{
 let g:move_key_modifier = 'C'
 " }}}
