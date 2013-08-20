@@ -40,3 +40,6 @@
 [submodule "vim/bundle/vim-scala"]
 	path = vim/bundle/vim-scala
 	url = git://github.com/derekwyatt/vim-scala.git
+[submodule "vim/bundle/vim-move"]
+	path = vim/bundle/vim-move
+	url = git://github.com/matze/vim-move
