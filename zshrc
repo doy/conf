@@ -64,14 +64,22 @@ export KEYTIMEOUT=5
 source ~/.sh/cdhist.sh
 # }}}
 # zsh-syntax-highlighting {{{
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_STYLES[path]='fg=blue,bold'
-ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=green'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=green'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=green'
+ZSH_HIGHLIGHT_STYLES[function]='fg=green'
 ZSH_HIGHLIGHT_STYLES[command]='fg=green'
 ZSH_HIGHLIGHT_STYLES[precommand]='fg=yellow'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=yellow'
-ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=green'
+ZSH_HIGHLIGHT_STYLES[path]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=blue,underline'
+ZSH_HIGHLIGHT_STYLES[path_approx]='underline'
 ZSH_HIGHLIGHT_STYLES[globbing]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='none'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=green'
+ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 # }}}
 # }}}
 # prompt {{{
