@@ -40,28 +40,29 @@ if ($cmd && $cmd eq 'search') {
         die "Ambiguous pattern '$pat_str': could match any of @found\n";
     }
     else {
-        if ($username) {
-            if ($found[0] =~ m{^[^/]*/[^/]*/([^/]*)$}) {
-                my $user = $1;
-                if ($clipboard) {
-                    clip($user);
+        if (my $pass = `$PASS show '$found[0]'`) {
+            if ($username) {
+                if ($found[0] =~ m{^[^/]*/[^/]*/([^/]*)$}) {
+                    my $user = $1;
+                    if ($clipboard) {
+                        clip($user);
+                    }
+                    else {
+                        print "$user\n";
+                    }
                 }
                 else {
-                    print "$user\n";
+                    die "$found[0] has no username";
                 }
             }
-            else {
-                die "$found[0] has no username";
-            }
-        }
 
-        my $pass = `$PASS show $found[0]`;
-        if ($clipboard) {
-            $pass =~ s/\n.*//s;
-            clip($pass);
-        }
-        else {
-            print $pass;
+            if ($clipboard) {
+                $pass =~ s/\n.*//s;
+                clip($pass);
+            }
+            else {
+                print $pass;
+            }
         }
     }
 }

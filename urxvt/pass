@@ -126,7 +126,7 @@ sub which_password {
             $self->tt_write($password);
         }
         else {
-            $self->msg("Unknown password $passname");
+            $self->timed_msg("Unknown password $passname");
         }
         $self->leave;
     });
