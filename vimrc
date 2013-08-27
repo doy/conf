@@ -1,5 +1,9 @@
 " based on Eidolos's .vimrc, at http://sartak.org/conf/vimrc
 
+" pathogen {{{
+runtime bundle/pathogen/autoload/pathogen.vim
+call pathogen#infect()
+" }}}
 " General options {{{
 " Miscellaneous {{{
 set nocompatible
@@ -601,10 +605,6 @@ nmap <Space> i
 " }}}
 " }}}
 " Plugin settings {{{
-" pathogen {{{
-runtime bundle/pathogen/autoload/pathogen.vim
-call pathogen#infect()
-" }}}
 " matchit {{{
 runtime macros/matchit.vim
 " }}}
