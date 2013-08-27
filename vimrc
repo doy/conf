@@ -680,7 +680,4 @@ else
     let g:gundo_disable = 1
 endif
 " }}}
-" vim-move {{{
-let g:move_key_modifier = 'C'
-" }}}
 " }}}
