@@ -238,7 +238,7 @@ set cinkeys+==break;
 if has("gui_running")
     colorscheme torte
 else
-    colorscheme peachpuff
+    set background=light
 endif
 " }}}
 " word completion menu {{{
