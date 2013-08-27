@@ -19,9 +19,6 @@
 [submodule "vim/bundle/l9"]
 	path = vim/bundle/l9
 	url = git://github.com/vim-scripts/L9
-[submodule "vim/bundle/move"]
-	path = vim/bundle/move
-	url = git://github.com/matze/vim-move
 [submodule "vim/bundle/perl"]
 	path = vim/bundle/perl
 	url = git://github.com/vim-perl/vim-perl
