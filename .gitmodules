@@ -1,45 +1,45 @@
 [submodule "vim/bundle/pathogen"]
 	path = vim/bundle/pathogen
-	url = git://github.com/tpope/vim-pathogen.git
+	url = git://github.com/tpope/vim-pathogen
+[submodule "vim/bundle/emmet"]
+	path = vim/bundle/emmet
+	url = git://github.com/mattn/emmet-vim
+[submodule "vim/bundle/foldtext"]
+	path = vim/bundle/foldtext
+	url = git://github.com/doy/vim-foldtext
+[submodule "vim/bundle/fuzzyfinder"]
+	path = vim/bundle/fuzzyfinder
+	url = git://github.com/vim-scripts/FuzzyFinder
+[submodule "vim/bundle/git"]
+	path = vim/bundle/git
+	url = git://github.com/tpope/vim-git
+[submodule "vim/bundle/gundo"]
+	path = vim/bundle/gundo
+	url = git://github.com/sjl/gundo.vim
+[submodule "vim/bundle/l9"]
+	path = vim/bundle/l9
+	url = git://github.com/vim-scripts/L9
+[submodule "vim/bundle/move"]
+	path = vim/bundle/move
+	url = git://github.com/matze/vim-move
+[submodule "vim/bundle/perl"]
+	path = vim/bundle/perl
+	url = git://github.com/vim-perl/vim-perl
+[submodule "vim/bundle/scala"]
+	path = vim/bundle/scala
+	url = git://github.com/derekwyatt/vim-scala
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
 	url = git://github.com/msanders/snipmate.vim
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
-	url = git://github.com/ervandew/supertab.git
-[submodule "vim/bundle/emmet"]
-	path = vim/bundle/emmet
-	url = git://github.com/mattn/emmet-vim
+	url = git://github.com/ervandew/supertab
 [submodule "vim/bundle/tcomment"]
 	path = vim/bundle/tcomment
-	url = git://github.com/tomtom/tcomment_vim.git
-[submodule "vim/bundle/git"]
-	path = vim/bundle/git
-	url = git://github.com/tpope/vim-git.git
-[submodule "vim/bundle/fuzzyfinder"]
-	path = vim/bundle/fuzzyfinder
-	url = git://github.com/vim-scripts/FuzzyFinder.git
-[submodule "vim/bundle/l9"]
-	path = vim/bundle/l9
-	url = git://github.com/vim-scripts/L9.git
-[submodule "vim/bundle/perl"]
-	path = vim/bundle/perl
-	url = git://github.com/vim-perl/vim-perl.git
+	url = git://github.com/tomtom/tcomment_vim
 [submodule "vim/bundle/textobj"]
 	path = vim/bundle/textobj
-	url = git://github.com/doy/vim-textobj.git
-[submodule "vim/bundle/foldtext"]
-	path = vim/bundle/foldtext
-	url = git://github.com/doy/vim-foldtext.git
-[submodule "vim/bundle/gundo"]
-	path = vim/bundle/gundo
-	url = git://github.com/sjl/gundo.vim.git
+	url = git://github.com/doy/vim-textobj
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "vim/bundle/vim-scala"]
-	path = vim/bundle/vim-scala
-	url = git://github.com/derekwyatt/vim-scala.git
-[submodule "vim/bundle/vim-move"]
-	path = vim/bundle/vim-move
-	url = git://github.com/matze/vim-move
