@@ -1,9 +1,6 @@
 [submodule "vim/bundle/pathogen"]
 	path = vim/bundle/pathogen
 	url = git://github.com/tpope/vim-pathogen
-[submodule "vim/bundle/emmet"]
-	path = vim/bundle/emmet
-	url = git://github.com/mattn/emmet-vim
 [submodule "vim/bundle/foldtext"]
 	path = vim/bundle/foldtext
 	url = git://github.com/doy/vim-foldtext

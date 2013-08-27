@@ -670,29 +670,6 @@ endfunction
 autocmd VimEnter * call <SID>set_excludes()
 " }}}
 " }}}
-" zencoding {{{
-let g:user_zen_settings = {
-\    'indentation' : '    ',
-\    'html' : {
-\        'indentation' : '  '
-\    },
-\    'xhtml' : {
-\        'extends' : 'html',
-\        'indentation' : '  '
-\    },
-\    'tt2' : {
-\        'extends' : 'html',
-\        'indentation' : '  '
-\    },
-\    'tt2html' : {
-\        'extends' : 'html',
-\        'indentation' : '  '
-\    },
-\}
-let g:user_zen_leader_key = '<C-Z>'
-imap <C-Z><C-Z> <C-Z>,
-autocmd FileType html,xhtml,tt2,tt2html,css imap <buffer> <Tab> <C-Z>, | imap <buffer> <C-N> <C-Z>n
-" }}}
 " gundo {{{
 if has("python")
     nnoremap U :GundoToggle<CR>
