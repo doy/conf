@@ -1,0 +1,51 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.010;
+
+use open ':encoding(UTF-8)', ':std';
+
+use DateTime;
+use Path::Class;
+use WWW::Wunderground::API;
+
+chomp(my $api_key = file("$ENV{HOME}/.wunderground")->slurp);
+
+my %weather_pics = (
+    'Thunderstorm'     => "\x{26a1}",
+    'Rain'             => "\x{2614}",
+    'Partly Cloudy'    => "\x{2601}",
+    'Scattered Clouds' => "\x{2601}",
+    'Overcast'         => "\x{2601}",
+    'Clear'            => "\x{2600}",
+);
+
+my $wu = WWW::Wunderground::API->new(
+    location => 'Providence, RI',
+    auto_api => 1,
+    api_key  => $api_key,
+);
+
+my $forecast   = $wu->forecast->simpleforecast->forecastday->[0];
+my $conditions = $wu->conditions;
+
+my $temp      = int($conditions->temp_f);
+my $high      = $forecast->{high}{fahrenheit};
+my $low       = $forecast->{low}{fahrenheit};
+my $feelslike = int($conditions->feelslike_f);
+my $precip    = $forecast->{pop};
+my $weather   = $weather_pics{$conditions->weather};
+
+my $time = DateTime->now(time_zone => 'local');
+
+say join(' ',
+    "$precip%",
+    $weather,
+    "${temp}F",
+    (($feelslike != $temp)
+        ? ("(\x{2252}${feelslike}F)")
+        : ()),
+    (($time->hour > 16 || $time->hour < 4)
+        ? ("\x{2193}${low}F")
+        : ("\x{2191}${high}F")),
+);
