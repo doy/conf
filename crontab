@@ -1,0 +1,1 @@
+*/15 * * * * . ~/.env && export PATH=~/.bin:$PATH && update-weather

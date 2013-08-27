@@ -1,0 +1,9 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use Path::Class;
+
+if (my $weather = `weather`) {
+    file("$ENV{HOME}/.weather")->openw->print($weather);
+}

@@ -66,12 +66,13 @@ RM        = @rm -f
 
 build : $(BUILD)
 
-install : build $(INSTALLED)
+install : build $(INSTALLED) /var/spool/cron/$(USER)
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	$(ECHO) Installed into $(INTO)
 
 clean :
 	$(ECHO) Cleaning from $(INTO)
+	@crontab -d
 	$(RM) $(BUILD) $(INSTALLED)
 
 $(INTO)/.% : %

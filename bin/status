@@ -19,7 +19,15 @@ while (<$i3status>) {
         my ($up, $down) = map { human_bytes(net_rate($iface, $_)) } 'rx', 'tx';
         $item->{full_text} =~ s{^($iface:)}{sprintf("%s %6s/%6s", $1, $up, $down)}e;
     }
+
+    my $weather_file = "$ENV{HOME}/.weather";
+    if (-r $weather_file && -f $weather_file) {
+        my $weather = slurp($weather_file);
+        unshift @$line, { name => 'weather', full_text => $weather };
+    }
+
     unshift @$line, { name => 'title', full_text => get_title() };
+
     say(($comma ? ',' : ''), encode_json($line));
 }
 
@@ -75,7 +83,7 @@ sub human_bytes {
 }
 
 sub slurp {
-    open my $fh, '<', $_[0] or die "Couldn't open $_[0]: $!";
+    open my $fh, '<:encoding(UTF-8)', $_[0] or die "Couldn't open $_[0]: $!";
     if (wantarray) {
         <$fh>
     }
