@@ -30,7 +30,7 @@
 	url = git://github.com/derekwyatt/vim-scala
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim
+	url = git://github.com/garbas/vim-snipmate
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = git://github.com/ervandew/supertab
@@ -43,3 +43,9 @@
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "vim/bundle/tlib"]
+	path = vim/bundle/tlib
+	url = git://github.com/tomtom/tlib_vim
+[submodule "vim/bundle/addon-mw-utils"]
+	path = vim/bundle/addon-mw-utils
+	url = git://github.com/MarcWeber/vim-addon-mw-utils
