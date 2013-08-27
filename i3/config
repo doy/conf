@@ -125,4 +125,5 @@ bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bar {
     tray_output primary
     status_command ~/.bin/status
+    font xft:DejaVuSansMono 7
 }
