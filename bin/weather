@@ -15,6 +15,7 @@ my %weather_pics = (
     'Thunderstorm'     => "\x{26a1}",
     'Rain'             => "\x{2614}",
     'Partly Cloudy'    => "\x{2601}",
+    'Mostly Cloudy'    => "\x{2601}",
     'Scattered Clouds' => "\x{2601}",
     'Overcast'         => "\x{2601}",
     'Clear'            => "\x{2600}",
@@ -43,9 +44,9 @@ say join(' ',
     $weather,
     "${temp}F",
     (($feelslike != $temp)
-        ? ("(\x{2252}${feelslike}F)")
+        ? ("(\x{2245}${feelslike}F)")
         : ()),
-    (($time->hour > 16 || $time->hour < 4)
+    (($time->hour > 16 || $time->hour <= 4)
         ? ("\x{2193}${low}F")
         : ("\x{2191}${high}F")),
 );
