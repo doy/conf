@@ -1,0 +1,220 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.016;
+
+use Archive::Tar;
+use Getopt::Long;
+use Parse::CPAN::Meta;
+use Parse::CPAN::Packages::Fast;
+
+my ($all, $minicpan);
+my $cpanid = uc($ENV{USER});
+GetOptions(
+    'all'        => \$all,
+    'minicpan=s' => \$minicpan,
+    'cpanid'     => \$cpanid,
+) or die;
+
+my @dists = $all
+    ? (get_all_dists_for($cpanid, $minicpan))
+    : (get_info_for_dists(\@ARGV, $minicpan));
+
+for my $dist (@dists) {
+    lint_dist($dist, $minicpan);
+}
+
+sub get_all_dists_for {
+    my ($cpanid, $minicpan) = @_;
+
+    return sort { fc($a->dist) cmp fc($b->dist) }
+           grep { $_->dist ne 'perl' }
+           grep { $_->cpanid eq $cpanid }
+           _packages($minicpan)->latest_distributions;
+}
+
+sub get_info_for_dists {
+    my ($dists, $minicpan) = @_;
+
+    my $p = _packages($minicpan);
+
+    return map {
+        $p->latest_distribution($_)
+            || die "Couldn't find $_ in the index"
+    } @$dists;
+}
+
+sub _packages {
+    my ($minicpan) = @_;
+
+    my ($packages_file, $packages_fh);
+
+    if ($minicpan) {
+        $packages_file = "$minicpan/modules/02packages.details.txt.gz";
+    }
+    else {
+        require HTTP::Tiny;
+        my $res = HTTP::Tiny->new->get(
+            'http://cpan.metacpan.org/modules/02packages.details.txt.gz'
+        );
+        die "Couldn't get package file" unless $res->{status} == 200;
+
+        require File::Temp;
+        $packages_fh = File::Temp->new;
+        $packages_file = $packages_fh->filename;
+        $packages_fh->print($res->{content});
+    }
+
+    return Parse::CPAN::Packages::Fast->new($packages_file);
+}
+
+sub lint_dist {
+    my ($dist, $minicpan) = @_;
+
+    say $dist->dist;
+    say "===============";
+
+    my @lint;
+
+    my $dist_tarball = find_dist_tarball($dist);
+
+    my $tar = Archive::Tar->new($dist_tarball);
+    my $directory = ($tar->list_files)[0] =~ s/\/.*//r;
+    my $has_file  = sub { $tar->contains_file("$directory/$_[0]") };
+    my $read_file = sub { $tar->get_content("$directory/$_[0]")   };
+
+    my $meta;
+    if ($has_file->('META.json')) {
+        $meta = Parse::CPAN::Meta->load_json_string(
+            $read_file->('META.json')
+        );
+    }
+    elsif ($has_file->('META.yml')) {
+        push @lint, "No META.json file found, using META.yml";
+        $meta = Parse::CPAN::Meta->load_yaml_string(
+            $read_file->('META.yml')
+        );
+    }
+
+    if (grep { $has_file->($_) } ('MYMETA.yml', 'MYMETA.json')) {
+        push @lint, "MYMETA found in dist";
+    }
+
+    if ($meta) {
+        my $spec_version = $meta->{'meta-spec'}{version};
+        if ($spec_version && $spec_version >= 2) {
+            if (!grep { $_ eq 'mit' } @{ $meta->{license} }) {
+                push @lint, "not using the MIT license";
+            }
+
+            if (my $bugtracker = $meta->{resources}{bugtracker}{web}) {
+                if ($bugtracker && $bugtracker !~ /github\.com/) {
+                    push @lint, "not using github issues";
+                }
+            }
+
+            if (my $repo = $meta->{resources}{repository}{url}) {
+                if ($repo !~ /github\.com/) {
+                    push @lint, "repository not on github";
+                }
+                elsif ($repo !~ /\/\L$meta->{name}\.git$/) {
+                    push @lint, "repository named incorrectly";
+                }
+            }
+        }
+        else {
+            push @lint, "not using META spec version 2";
+
+            if ($meta->{license} ne 'mit') {
+                push @lint, "not using the MIT license";
+            }
+
+            if (my $bugtracker = $meta->{resources}{bugtracker}) {
+                if ($bugtracker !~ /github\.com/) {
+                    push @lint, "not using github issues";
+                }
+            }
+
+            if (my $repo = $meta->{resources}{repository}) {
+                if ($repo !~ /github\.com/) {
+                    push @lint, "repository not on github";
+                }
+                elsif ($repo !~ /\/\L$meta->{name}\.git$/) {
+                    push @lint, "repository named incorrectly";
+                }
+            }
+        }
+
+        if ($meta->{generated_by} !~ /Dist::Zilla/) {
+            push @lint, "not using Dist::Zilla";
+        }
+        else {
+            if ($meta->{generated_by} !~ /Dist::Zilla version .*, CPAN::Meta::Converter version .*/) {
+                push @lint, "using ancient Dist::Zilla";
+            }
+
+            if ($has_file->('weaver.ini')) {
+                push @lint, "still using weaver.ini";
+            }
+
+            if (!grep { $_->{class} eq 'Dist::Zilla::Plugin::AutoPrereqs' } @{ $meta->{x_Dist_Zilla}{plugins} }) {
+                push @lint, "not using [AutoPrereqs]";
+            }
+
+            if (!grep { $_->{class} eq 'Dist::Zilla::Plugin::ContributorsFromGit' } @{ $meta->{x_Dist_Zilla}{plugins} }) {
+                push @lint, "not using [ContributorsFromGit]";
+            }
+        }
+
+        my ($author) = grep { /Jesse Luehrs/ } @{ $meta->{author} };
+        if ($author && $author !~ /<doy\@tozt\.net>/) {
+            push @lint, "using the wrong email address";
+        }
+
+        if (!$meta->{x_authority}) {
+            push @lint, "no AUTHORITY info set";
+        }
+    }
+
+    my $main_module = 'lib/' . ($dist->dist =~ s/-/\//gr) . '.pm';
+    if ($read_file->($main_module) =~ /search\.cpan\.org/) {
+        push @lint, "module docs link to s.c.o";
+    }
+
+    # TODO:
+    # using @DOY? probably have to parse dist.ini to detect this
+    # github description
+    # number of github issues
+    # number of rt.cpan tickets
+    # kwalitee score
+    # .travis.yml and .gitignore in the repository
+
+    push @lint, 'No issues found'
+        if !@lint;
+
+    say for @lint, '';
+
+    unlink $dist_tarball if !$minicpan;
+}
+
+sub find_dist_tarball {
+    my ($dist) = @_;
+
+    if ($minicpan) {
+        return "$minicpan/authors/id/" . $dist->pathname
+    }
+    else {
+        require HTTP::Tiny;
+        my $res = HTTP::Tiny->new->get(
+            'http://cpan.metacpan.org/authors/id/' . $dist->pathname
+        );
+        die "Couldn't get distribution tarball" unless $res->{status} == 200;
+
+        require File::Temp;
+        my $fh = File::Temp->new(UNLINK => 0);
+        $fh->print($res->{content});
+        $fh->seek(0, 0);
+
+        return $fh->filename;
+    }
+}
