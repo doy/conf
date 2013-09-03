@@ -5,6 +5,8 @@ use 5.016;
 
 use Archive::Tar;
 use Getopt::Long;
+use HTTP::Tiny;
+use JSON;
 use Parse::CPAN::Meta;
 use Parse::CPAN::Packages::Fast;
 
@@ -135,31 +137,136 @@ my @checks = (
         },
         "not using [ContributorsFromGit]"
     ],
+    [
+        sub { $_[0]->has_file('dist.ini') },
+        sub {
+            require Config::INI::Reader;
+            my $contents = Config::INI::Reader->read_string(
+                $_[0]->read_file('dist.ini')
+            );
+            !exists $contents->{'@DOY'}
+            || !exists $contents->{'@DOY'}{':version'}
+            || $contents->{'@DOY'}{':version'} < 0.11;
+        },
+        "not using the latest version of \@DOY"
+    ],
+    [
+        sub { 1 },
+        sub {
+            grep { $_->get_content =~ m{\A\#!/usr/bin/env perl} }
+                 grep { $_->has_content && $_->name !~ /\.t$/ }
+                      $_[0]->tar->get_files
+        },
+        "using #!/usr/bin/env perl"
+    ],
+    [
+        sub { 1 },
+        sub {
+            my %allowed = map { $_ => 1 } qw(
+                00-compile.t
+            );
+            grep { /\/\d+.*\.t$/ }
+                 grep { !$allowed{s/.*\///r} }
+                      $_[0]->tar->list_files
+        },
+        "has tests with numbers"
+    ],
+    [
+        sub { 1 },
+        sub {
+            grep { $_->get_content =~ /\$ENV{RELEASE_TESTING}/ }
+                 grep { $_->has_content && $_->full_path =~ /\/t\/.*\.t$/ }
+                      $_[0]->tar->get_files
+        },
+        "has release tests in t/"
+    ],
+    [
+        sub { 1 },
+        sub {
+            my $kwalitee = $_[0]->get_json(
+                'http://cpants.cpanauthors.org/dist/' . $_[0]->name . '.json'
+            );
 
-    # TODO:
-    # using @DOY? probably have to parse dist.ini to detect this
-    # github description
-    # number of github issues
-    # number of rt.cpan tickets
-    # kwalitee score
-    # .travis.yml and .gitignore in the repository
-    # travis configuration should show build.log on cpanm errors
-    # tests should not have test numbers
-    # scripts shouldn't use #!/usr/bin/env perl
+            # - use_strict and use_warnings don't notice Moose::Exporter, or
+            #   things that use Moose::Exporter, so they will give a lot of
+            #   false positives
+            # - is_prereq isn't something i can control
+            # - metayml_declares_perl_version i just don't care about
+            my %ignored = map { $_ => 1 } qw(
+                use_strict
+                use_warnings
+                is_prereq
+                metayml_declares_perl_version
+            );
+            my @res = grep { defined }
+                      map  { $_->{error} }
+                      grep { !$ignored{$_->{key}} }
+                      map  { @$_ }
+                      @{ $kwalitee->{kwalitee} };
+            return unless @res;
+            return \@res;
+        },
+        sub { map { "Kwalitee: $_" } @{ $_[1] } }
+    ],
+    [
+        sub { 1 },
+        sub {
+            state $rt_data //= $_[0]->get_json(
+                'https://rt.cpan.org/Public/bugs-per-dist.json'
+            );
+            return $rt_data->{$_[0]->name}{counts}{active}
+
+        },
+        sub { "has $_[1] bug(s) on rt.cpan.org" }
+    ],
+    [
+        sub { $_[0]->repository && $_[0]->repository =~ m{/github\.com/} },
+        sub { !$_[0]->has_github_data },
+        "github repository doesn't exist"
+    ],
+    [
+        sub { $_[0]->has_github_data },
+        sub { $_[0]->github_data->{open_issues_count} },
+        sub { "has $_[1] bug(s) on github issues" }
+    ],
+    [
+        sub { $_[0]->has_github_data },
+        sub {
+            my $abstract = $_[0]->meta->{abstract} // '';
+            my $description = $_[0]->github_data->{description} // '';
+            $description ne $abstract;
+        },
+        sub { "github description doesn't match abstract" }
+    ],
+    [
+        sub { $_[0]->has_github_data },
+        sub { !$_[0]->repo_has_file('.gitignore') },
+        sub { "repository doesn't contain .gitignore" }
+    ],
+    [
+        sub { $_[0]->has_github_data },
+        sub { !$_[0]->repo_has_file('.travis.yml') },
+        sub { "repository doesn't contain .travis.yml" }
+    ],
+    [
+        sub { $_[0]->has_github_data && $_[0]->repo_has_file('.travis.yml') },
+        sub {
+            my $travis = $_[0]->repo_read_file('.travis.yml');
+            grep { /cpanm/ && !/build\.log/ } split /\n/, $travis;
+        },
+        sub { "travis.yml doesn't display build.log on failures" }
+    ],
 );
 
 package Dist::To::Lint {
     sub new {
         my $class = shift;
-        my ($dist, $minicpan) = @_;
+        my (%args) = @_;
 
-        my %args = (
-            dist => $dist,
-            lint => [],
-        );
+        $args{lint} = [];
 
-        if ($minicpan) {
-            bless { %args, minicpan => $minicpan }, "Dist::To::Lint::Minicpan";
+        if ($args{minicpan}) {
+            bless { %args }, "Dist::To::Lint::Minicpan";
         }
         else {
             bless { %args }, "Dist::To::Lint::HTTPTiny";
@@ -225,6 +332,73 @@ package Dist::To::Lint {
         $self->meta && ($self->meta->{'meta-spec'}{version} // 0) >= 2
     }
 
+    sub repository {
+        my $self = shift;
+        return unless $self->meta;
+        return $self->has_meta_2
+            ? $self->meta->{resources}{repository}{url}
+            : $self->meta->{resources}{repository};
+    }
+
+    # XXX doesn't handle files not in the repo root
+    sub repo_has_file {
+        my $self = shift;
+        my ($file) = @_;
+
+        my $repo_name =
+            $self->repository =~ s{.*://github\.com/(.*?)(?:\.git)?$}{$1}r;
+
+        my $gh_data = $self->github_data;
+
+        my $tree_data = $self->get_json(
+            $gh_data->{trees_url} =~ s!{/sha}!/$gh_data->{default_branch}!r
+        );
+
+        grep { $_->{path} eq $file } @{ $tree_data->{tree} };
+    }
+
+    # XXX doesn't handle files not in the repo root
+    sub repo_read_file {
+        my $self = shift;
+        my ($file) = @_;
+
+        my $repo_name =
+            $self->repository =~ s{.*://github\.com/(.*?)(?:\.git)?$}{$1}r;
+
+        my $gh_data = $self->github_data;
+
+        my $tree_data = $self->get_json(
+            $gh_data->{trees_url} =~ s!{/sha}!/$gh_data->{default_branch}!r
+        );
+
+        my ($url) =
+            map { $_->{url} }
+            grep { $_->{path} eq $file }
+            @{ $tree_data->{tree} };
+        my $data = $self->get_json($url);
+        die "unknown encoding"
+            unless $data->{encoding} eq 'base64';
+
+        require MIME::Base64;
+        return MIME::Base64::decode_base64($data->{content});
+    }
+
+    sub github_data {
+        my $self = shift;
+
+        return unless $self->repository;
+
+        my $repo_name =
+            $self->repository =~ s{.*://github\.com/(.*?)(?:\.git)?$}{$1}r;
+
+        return $self->get_json("https://api.github.com/repos/$repo_name");
+    }
+
+    sub has_github_data {
+        my $self = shift;
+        eval { $self->github_data };
+    }
+
     sub report {
         my $self = shift;
 
@@ -237,6 +411,58 @@ package Dist::To::Lint {
         else {
             say "No issues found";
         }
+
+        STDOUT->flush;
+    }
+
+    sub get_json {
+        my $self = shift;
+        my ($url) = @_;
+
+        my $auth_url = $url;
+        if ($url =~ /api\.github\.com/) {
+            state $auth //= $self->github_auth;
+            $auth_url =~ s{://api\.github\.com}{://$auth\@api.github.com};
+        }
+
+        $self->{_json}{$url} //= do {
+            my $res = HTTP::Tiny->new->get($auth_url);
+            die "couldn't get data for $url ($res->{status}): $res->{content}"
+                unless $res->{success};
+            warn "$res->{headers}{'x-ratelimit-remaining'}\n"
+                if $url =~ /github\.com/;
+            JSON->new->utf8->decode($res->{content});
+        }
+    }
+
+    sub github_auth {
+        my $self = shift;
+
+        return '' unless $self->{github_user};
+
+        $self->{github_pass} //= do {
+            require Term::ReadKey;
+
+            open my $read, '<', '/dev/tty'
+                or die "couldn't get the terminal for reading: $!";
+            open my $write, '>', '/dev/tty'
+                or die "couldn't get the terminal for reading: $!";
+            $write->print("Github API secret: ");
+            $write->flush;
+
+            Term::ReadKey::ReadMode(2);
+            chomp(my $pass = <$read>);
+            Term::ReadKey::ReadMode(0);
+
+            $write->print("\n");
+
+            $pass;
+        };
+
+        return join(':',
+            map { HTTP::Tiny->_uri_escape($self->{$_}) }
+                'github_user', 'github_pass'
+        );
     }
 }
 
@@ -263,17 +489,16 @@ package Dist::To::Lint::HTTPTiny {
     sub _fetch_tarball {
         my $self = shift;
 
-        require HTTP::Tiny;
-
         my $res = HTTP::Tiny->new->get(
             'http://cpan.metacpan.org/authors/id/' . $self->dist->pathname
         );
         die "Couldn't get distribution tarball"
-            unless $res->{status} == 200;
+            unless $res->{success};
 
         require File::Temp;
         my $fh = File::Temp->new;
         $fh->print($res->{content});
+        $fh->flush;
         $fh->seek(0, 0);
         $self->{_tar_fh} = $fh;
 
@@ -281,12 +506,13 @@ package Dist::To::Lint::HTTPTiny {
     }
 }
 
-my ($all, $minicpan);
+my ($all, $minicpan, $github_user);
 my $cpanid = uc($ENV{USER});
 GetOptions(
-    'all'        => \$all,
-    'minicpan=s' => \$minicpan,
-    'cpanid'     => \$cpanid,
+    'all'           => \$all,
+    'minicpan=s'    => \$minicpan,
+    'cpanid'        => \$cpanid,
+    'github_user=s' => \$github_user,
 ) or die;
 
 my @dists = $all
@@ -294,7 +520,7 @@ my @dists = $all
     : (get_info_for_dists(\@ARGV, $minicpan));
 
 for my $dist (@dists) {
-    lint_dist($dist, $minicpan);
+    lint_dist($dist, $minicpan, $github_user);
     say '';
 }
 
@@ -327,30 +553,37 @@ sub _packages {
         $packages_file = "$minicpan/modules/02packages.details.txt.gz";
     }
     else {
-        require HTTP::Tiny;
         my $res = HTTP::Tiny->new->get(
             'http://cpan.metacpan.org/modules/02packages.details.txt.gz'
         );
-        die "Couldn't get package file" unless $res->{status} == 200;
+        die "Couldn't get package file" unless $res->{success};
 
         require File::Temp;
         $packages_fh = File::Temp->new;
         $packages_file = $packages_fh->filename;
         $packages_fh->print($res->{content});
+        $packages_fh->flush;
     }
 
     return Parse::CPAN::Packages::Fast->new($packages_file);
 }
 
 sub lint_dist {
-    my ($dist, $minicpan) = @_;
+    my ($dist, $minicpan, $github_user) = @_;
 
-    my $to_lint = Dist::To::Lint->new($dist, $minicpan);
+    my $to_lint = Dist::To::Lint->new(
+        dist        => $dist,
+        minicpan    => $minicpan,
+        github_user => $github_user,
+    );
 
     for my $check (@checks) {
         next unless $check->[0]->($to_lint);
-        if ($check->[1]->($to_lint)) {
-            $to_lint->add_lint($check->[2]);
+        if (my $ret = $check->[1]->($to_lint)) {
+            my @messages = ref($check->[2])
+                ? $check->[2]->($to_lint, $ret)
+                : $check->[2];
+            $to_lint->add_lint($_) for @messages;
         }
     }
 
