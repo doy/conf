@@ -429,8 +429,6 @@ package Dist::To::Lint {
             my $res = HTTP::Tiny->new->get($auth_url);
             die "couldn't get data for $url ($res->{status}): $res->{content}"
                 unless $res->{success};
-            warn "$res->{headers}{'x-ratelimit-remaining'}\n"
-                if $url =~ /github\.com/;
             JSON->new->utf8->decode($res->{content});
         }
     }
