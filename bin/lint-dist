@@ -140,6 +140,7 @@ my @checks = (
     [
         sub { $_[0]->has_file('dist.ini') },
         sub {
+            return if $_[0]->name eq 'Dist-Zilla-PluginBundle-DOY';
             require Config::INI::Reader;
             my $contents = Config::INI::Reader->read_string(
                 $_[0]->read_file('dist.ini')
