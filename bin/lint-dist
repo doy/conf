@@ -186,6 +186,8 @@ my @checks = (
             my $kwalitee = $_[0]->get_json(
                 'http://cpants.cpanauthors.org/dist/' . $_[0]->name . '.json'
             );
+            return ['Most recent dist has not yet been processed.']
+                if $kwalitee->{recent}[0]{distv} ne $_[0]->distvname;
 
             # - use_strict and use_warnings don't notice Moose::Exporter, or
             #   things that use Moose::Exporter, so they will give a lot of
@@ -275,6 +277,7 @@ package Dist::To::Lint {
 
     sub dist { shift->{dist} }
     sub name { shift->dist->dist }
+    sub distvname { shift->dist->distvname }
     sub lint { @{ shift->{lint} } }
     sub add_lint {
         my $self = shift;
@@ -402,7 +405,7 @@ package Dist::To::Lint {
     sub report {
         my $self = shift;
 
-        say $self->name;
+        say $self->distvname;
         say "=====================";
 
         if ($self->lint) {
