@@ -92,6 +92,11 @@ my @checks = (
     ],
     [
         sub { $_[0]->meta },
+        sub { !$_[0]->meta->{resources}{homepage} },
+        "no homepage set"
+    ],
+    [
+        sub { $_[0]->meta },
         sub {
             my ($author) = grep { /Jesse Luehrs/ } @{ $_[0]->meta->{author} };
             $author && $author !~ /<doy\@tozt\.net>/
@@ -240,6 +245,15 @@ my @checks = (
             $description ne $abstract;
         },
         sub { "github description doesn't match abstract" }
+    ],
+    [
+        sub { $_[0]->has_github_data },
+        sub {
+            my $meta_site = $_[0]->meta->{resources}{homepage} // '';
+            my $gh_site = $_[0]->github_data->{homepage} // '';
+            $meta_site ne $gh_site;
+        },
+        sub { "github homepage doesn't match meta homepage" }
     ],
     [
         sub { $_[0]->has_github_data },
