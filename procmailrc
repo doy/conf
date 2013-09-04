@@ -97,6 +97,10 @@ UIUC=(uiuc|illinois|uillinois)
 * ^TO_rust-dev@mozilla.org
 .mailing\ lists.rust-dev/
 # }}}
+:0: # codewar {{{
+* ^TO_codewar@lists.codesimply.com
+.mailing\ lists.codewar/
+# }}}
 # }}}
 # school {{{
 # acm {{{
@@ -260,7 +264,7 @@ UIUC=(uiuc|illinois|uillinois)
 # }}}
 :0: # dynadot {{{
 * ^From.*@dynadot.com
-.websites.other.dynadot/
+.websites.hosting.dynadot/
 # }}}
 :0: # sg {{{
 * ^From.*@suicidegirls.com
@@ -325,7 +329,7 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # everydns {{{
 * 1^0 ^From.*@everydns.(net|com)
 * 1^0 ^From.*@dyn.com
-.websites.other.everydns/
+.websites.hosting.everydns/
 # }}}
 :0: # scuba diving {{{
 * 1^0 ^From.*webmaster@padi.com
@@ -492,7 +496,7 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # dropbox {{{
 * 1^0 ^From.*@dropboxmail.com
 * 1^0 ^From.*@dropbox.com
-.websites.dropbox/
+.websites.backups.dropbox/
 # }}}
 :0: # pinboard {{{
 * ^TO_pinboard@tozt.net
@@ -554,6 +558,18 @@ UIUC=(uiuc|illinois|uillinois)
 * ^TO_scala@tozt.net
 .websites.projects.scala/
 # }}}
+:0: # travis {{{
+* ^From.*notifications@travis-ci.org
+.websites.projects.travis/
+# }}}
+:0: # crashplan {{{
+* ^TO_crashplan@tozt.net
+.websites.backups.crashplan/
+# }}}
+:0: # linode {{{
+* ^TO_linode@tozt.net
+.websites.hosting.linode/
+# }}}
 # }}}
 # work {{{
 :0: # ii {{{
@@ -598,6 +614,14 @@ UIUC=(uiuc|illinois|uillinois)
 :0: # quantumrecruitment {{{
 * ^From.*quantumrecruitment.com
 .jobs/
+# }}}
+:0: # apartment {{{
+* ^TO_apartment@tozt.net
+.housing/
+# }}}
+:0: # apartment {{{
+* ^From.*rose@diamondrose.com
+.housing/
 # }}}
 # }}}
 # local {{{
