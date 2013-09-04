@@ -194,6 +194,14 @@ my @checks = (
     [
         sub { $_[0]->has_file('Changes') },
         sub {
+            my $dist = $_[0]->name;
+            $_[0]->read_file('Changes') !~ /\ARevision history for $dist$/m
+        },
+        "changelog has incorrect header"
+    ],
+    [
+        sub { $_[0]->has_file('Changes') },
+        sub {
             require CPAN::Changes;
             require version;
 
