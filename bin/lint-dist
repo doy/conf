@@ -188,6 +188,38 @@ my @checks = (
     ],
     [
         sub { 1 },
+        sub { !$_[0]->has_file('Changes') },
+        "no Changes file"
+    ],
+    [
+        sub { $_[0]->has_file('Changes') },
+        sub {
+            require CPAN::Changes;
+            require version;
+
+            my $changes = eval {
+                CPAN::Changes->load_string($_[0]->read_file('Changes'))
+            };
+
+            return "Couldn't parse file" unless $changes;
+            return "No releases"         unless @{[$changes->releases]};
+
+            return "Invalid date format" if grep {
+                ($_->date // '') eq ''
+            } $changes->releases;
+            return "Invalid version format" if grep {
+                !version::is_lax($_->version =~ s/-TRIAL$//r)
+            } $changes->releases;
+            return "No entry for the current version" if !grep {
+                $_->version =~ s/-TRIAL$//r eq $_[0]->version
+            } $changes->releases;
+
+            return;
+        },
+        sub { "changelog doesn't follow the CPAN::Changes format: $_[1]" }
+    ],
+    [
+        sub { 1 },
         sub {
             my $kwalitee = $_[0]->get_json(
                 'http://cpants.cpanauthors.org/dist/' . $_[0]->name . '.json'
@@ -292,6 +324,7 @@ package Dist::To::Lint {
 
     sub dist { shift->{dist} }
     sub name { shift->dist->dist }
+    sub version { shift->dist->version }
     sub distvname { shift->dist->distvname }
     sub lint { @{ shift->{lint} } }
     sub add_lint {
