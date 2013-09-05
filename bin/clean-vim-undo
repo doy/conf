@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+my $undodir = "$ENV{HOME}/.vim/undo";
+opendir my $undo, $undodir
+    or die "can't open $undodir: $!";
+
+for my $undofile (readdir($undo)) {
+    next unless -f "$undodir/$undofile";
+    (my $file = $undofile) =~ s{%}{/}g;
+    unlink "$undodir/$undofile" unless -e $file && $file =~ m{^/};
+}
