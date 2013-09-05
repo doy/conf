@@ -321,6 +321,18 @@ my @checks = (
         },
         sub { "travis.yml doesn't display build.log on failures" }
     ],
+    [
+        sub { $_[0]->has_github_data },
+        sub {
+            my $gh = $_[0]->github_data;
+            my $tags = $_[0]->get_json($gh->{tags_url});
+            my $commit = $_[0]->get_json(
+                $gh->{commits_url} =~ s!{/sha}!/$gh->{default_branch}!r
+            );
+            !grep { $_->{commit}{sha} eq $commit->{sha} } @$tags
+        },
+        "repository has unreleased changes"
+    ],
 );
 
 package Dist::To::Lint {
