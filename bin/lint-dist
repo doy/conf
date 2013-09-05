@@ -31,6 +31,14 @@ my @checks = (
     ],
     [
         sub { 1 },
+        sub {
+            my $main_module = 'lib/' . ($_[0]->name =~ s/-/\//gr) . '.pm';
+            $_[0]->read_file($main_module) =~ m{rt\.cpan\.org/NoAuth/ReportBug};
+        },
+        "module docs link to rt.cpan"
+    ],
+    [
+        sub { 1 },
         sub { !$_[0]->has_meta_2 },
         "not using META spec version 2"
     ],
