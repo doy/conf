@@ -31,6 +31,7 @@ taeb
 ssh
 !ssh/authorized_keys
 !ssh/config
+!ssh/cao_key
 pwsafe.dat
 mutt/aliases
 mutt/extra
