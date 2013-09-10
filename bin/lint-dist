@@ -624,14 +624,15 @@ my @dists = $all
     : (get_info_for_dists(\@ARGV, $minicpan));
 
 for my $dist (@dists) {
-    lint_dist($dist, $minicpan, $github_user);
+    lint_dist(@$dist, $minicpan, $github_user);
     say '';
 }
 
 sub get_all_dists_for {
     my ($cpanid, $minicpan) = @_;
 
-    return sort { fc($a->dist) cmp fc($b->dist) }
+    return map { [ $_, undef ] }
+           sort { fc($a->dist) cmp fc($b->dist) }
            grep { $_->dist ne 'perl' }
            grep { $_->cpanid eq $cpanid }
            _packages($minicpan)->latest_distributions;
@@ -643,9 +644,20 @@ sub get_info_for_dists {
     my $p = _packages($minicpan);
 
     return map {
-        $p->latest_distribution($_)
-            || die "Couldn't find $_ in the index"
+        my $name = (-e) ? get_name_for_tarball($_) : $_;
+        [
+            ($p->latest_distribution($name)
+                || die "Couldn't find $_ in the index"),
+            ((-e) ? $_ : undef)
+        ]
     } @$dists;
+}
+
+sub get_name_for_tarball {
+    my ($tarball_name) = @_;
+    require CPAN::DistnameInfo;
+    my $d = CPAN::DistnameInfo->new($tarball_name);
+    return $d->dist;
 }
 
 sub _packages {
@@ -673,12 +685,13 @@ sub _packages {
 }
 
 sub lint_dist {
-    my ($dist, $minicpan, $github_user) = @_;
+    my ($dist, $tarball_name, $minicpan, $github_user) = @_;
 
     my $to_lint = Dist::To::Lint->new(
-        dist        => $dist,
-        minicpan    => $minicpan,
-        github_user => $github_user,
+        dist         => $dist,
+        tarball_name => $tarball_name,
+        minicpan     => $minicpan,
+        github_user  => $github_user,
     );
 
     for my $check (@checks) {
