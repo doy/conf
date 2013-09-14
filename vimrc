@@ -599,9 +599,6 @@ nmap <silent><Leader>/ :nohl<CR>
 
 " manually resync the syntax highlighting
 nmap <silent><Leader>s :syntax sync fromstart<CR>
-
-" space to reenter insert mode
-nmap <Space> i
 " }}}
 " }}}
 " Plugin settings {{{
