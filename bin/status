@@ -12,21 +12,86 @@ print scalar(<$i3status>);
 
 while (<$i3status>) {
     my $comma = s/^,//;
-    my $line = decode_json($_);
+    my $line = [
+        grep {
+            !($_->{name} eq 'wireless' || $_->{name} eq 'ethernet')
+         || ($_->{instance} ne $_->{full_text})
+        } @{ decode_json($_) }
+    ];
+
+    my $discharge_rate;
+    my $battery_index = 0;
+
     for my $item (@$line) {
-        next unless $item->{name} eq 'wireless' || $item->{name} eq 'ethernet';
-        my $iface = $item->{instance};
-        my ($up, $down) = map { human_bytes(net_rate($iface, $_)) } 'rx', 'tx';
-        $item->{full_text} =~ s{^($iface:)}{sprintf("%s %6s/%6s", $1, $up, $down)}e;
+        if ($item->{name} eq 'wireless' || $item->{name} eq 'ethernet') {
+            my $iface = $item->{instance};
+            my ($up, $down) = map { net_rate($iface, $_) } 'rx', 'tx';
+            my $rate = sprintf("%6s/%6s", map { human_bytes($_) } $up, $down);
+            $item->{full_text} =~ s{^($iface:)}{$1 $rate};
+            $item->{color} =
+                $up + $down >= 512000                   ? '#FF0000'
+              : $up + $down >= 51200                    ? '#FFFF00'
+              : $up + $down >= 5120                     ? '#00FF00'
+              :                                           '#FFFFFF';
+        }
+        if ($item->{name} eq 'cpu_usage') {
+            my ($val) = $item->{full_text} =~ /CPU: (\d+)%/;
+            $item->{color} =
+                $val >= 50 ? '#FF0000'
+              : $val >= 25 ? '#FFFF00'
+              : $val >= 5  ? '#00FF00'
+              :              '#FFFFFF';
+        }
+        if ($item->{name} eq 'battery') {
+            my ($state, $val) = $item->{full_text} =~ /(\w+) (\d+(?:\.\d+))%/;
+            ($discharge_rate) = $item->{full_text} =~ /\(.* (.*)W\)/;
+            $discharge_rate *= -1 if $state ne 'BAT';
+            $item->{full_text} =~ s/\((.*) (.*)W\)/\($1\)/;
+            $item->{color} =
+                $val >= 80      ? '#00FF00'
+              : $state ne 'BAT' ? '#FFFFFF'
+              : $val >= 40      ? '#FFFFFF'
+              : $val >= 15      ? '#FFFF00'
+              : $val >= 5       ? '#880000'
+              :                   '#FF0000';
+        }
+        $battery_index++ unless defined $discharge_rate;
+    }
+
+    if (defined $discharge_rate) {
+        splice @$line, $battery_index + 1, 0, {
+            name      => 'battery_discharge',
+            full_text => "${discharge_rate}W",
+            color     => (
+                $discharge_rate < 8  ? '#FFFFFF'
+              : $discharge_rate < 12 ? '#00FF00'
+              : $discharge_rate < 20 ? '#FFFF00'
+              :                        '#FF0000'
+            ),
+        };
     }
 
     my $weather_file = "$ENV{HOME}/.weather";
     if (-r $weather_file && -f $weather_file) {
         my $weather = slurp($weather_file);
-        unshift @$line, { name => 'weather', full_text => $weather };
+        my ($temp) = $weather =~ /\d+%.*?(-?\d+)F.*?-?\d+F/;
+        unshift @$line, {
+            name      => 'weather',
+            full_text => $weather,
+            color     => (
+                $temp >= 90 ? '#FF0000'
+              : $temp >= 72 ? '#FFFF00'
+              : $temp >= 50 ? '#FFFFFF'
+              : $temp >= 32 ? '#8888FF'
+              :               '#0000FF'
+            ),
+        };
     }
 
     unshift @$line, { name => 'title', full_text => get_title() };
+
+    # XXX split battery discharge rate to a separate entry, so it can be
+    # colored separately
 
     say(($comma ? ',' : ''), encode_json($line));
 }
