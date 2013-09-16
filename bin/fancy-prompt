@@ -141,7 +141,10 @@ my $errstr    = color('error') . sprintf('%03d', $err);
 my $promptstr = color('user') . $prompt . color('reset');
 
 my $full_length = int(($battery || 0) / 100 * $meter_length) + 1;
-$full_length = 10 if $full_length > 10;
+if ($full_length > 10) {
+    $full_length = 10;
+    $meter_end = $meter;
+}
 my $battstr     = wrap(($empty_meter x ($meter_length - $full_length))
                      . $meter_end . ($meter x ($full_length - 1)),
                        '{}',
