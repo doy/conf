@@ -76,10 +76,11 @@ my %colornames = (
     user       => 'lightblue',
     root       => 'lightred',
 
-    path       => 'lightblue',
+    path       => 'darkgrey',
     ropath     => 'red',
 
-    vcs        => 'cyan',
+    vcs         => 'darkgrey',
+    vcsmodified => 'cyan',
 
     battwarn   => 'brown',
     battcrit   => 'red',
@@ -164,10 +165,11 @@ my $maxpathlen = $cols
                - length($time) - 2
                - 1;
 
+my $vcsmodified = ($vcs =~ /:[+-]/) || ($vcs =~ s/:.*//r) =~ /\W$/;
 my $trimmed_pwd = trimpath($pwd, $maxpathlen - 1);
 my $path_info = $trimmed_pwd
-              . ($trimmed_vcs ? (color('background') . '|') : '')
-              . color('vcs') . $trimmed_vcs;
+              . ($trimmed_vcs ? (color('hostname') . '|') : '')
+              . color($vcsmodified ? 'vcsmodified' : 'vcs') . $trimmed_vcs;
 my $pathstr   = wrap($path_info, '()', color('path'))
               . ' ' . color('background') . ($border x ($maxpathlen - length($trimmed_pwd)));
 
