@@ -23,6 +23,8 @@ my $charging       = charging();
 my $in_tmux        = exists $ENV{TMUX};
 my $in_ssh         = exists $ENV{SSH_CONNECTION};
 my $vcs            = vcs();
+my $vcsmodified    =
+    ($vcs =~ /:[+-]/) || do { (my $v = $vcs) =~ s/:.*//; $v =~ /\W$/ };
 
 # initialize colors
 my $tput = join("\n", map { "setf $_" } 0..15);
@@ -71,37 +73,33 @@ my %colornames = (
     host_zaon     => 'lightgreen',
     unknown_host  => 'brown',
 
-    error => 'red',
-
     user_doy     => 'lightblue',
     root         => 'lightred',
     unknown_user => 'brown',
-
-    path   => 'darkgrey',
-    ropath => 'red',
-
-    vcs         => 'darkgrey',
-    vcsmodified => 'cyan',
 
     battwarn  => 'brown',
     battcrit  => 'red',
     battemerg => 'lightred',
     battfull  => 'green',
 
-    time => 'darkgrey',
-
+    error      => 'red',
     background => 'darkgrey',
     reset      => 'reset',
 );
+
+$colornames{path}   =
+    -w $pwd ? $colornames{background} : $colornames{error};
+$colornames{cmderr} =
+    $err ? $colornames{error} : $colornames{background};
+$colornames{vcs}    =
+    $vcsmodified ? $colornames{error} : $colornames{background};
+$colornames{time}   = $colornames{background};
 
 $colornames{hostname} =
     $colornames{"host_$hostname"} || $colornames{unknown_host};
 $colornames{user} = $root
     ? $colornames{root}
     : $colornames{"user_$user"} || $colornames{"unknown_user"};
-
-$colornames{path}  = $colornames{ropath} unless -w $pwd;
-$colornames{error} = $colornames{background} unless $err;
 
 $colornames{battery} =
     $battery >= 80     ? $colornames{battfull}
@@ -146,7 +144,7 @@ my $nested = '';
 # build the pieces of the prompt
 my $timestr   = wrap($time, '[]', color('time'));
 
-my $errstr    = color('error') . sprintf('%03d', $err);
+my $errstr    = color('cmderr') . sprintf('%03d', $err);
 
 my $promptstr = color('user') . $prompt . color('reset');
 
@@ -174,12 +172,10 @@ my $maxpathlen = $cols
                - length($time) - 2
                - 1;
 
-my $vcsmodified = ($vcs =~ /:[+-]/)
-               || do { (my $v = $vcs) =~ s/:.*//; $v =~ /\W$/ };
 my $trimmed_pwd = trimpath($pwd, $maxpathlen - 1);
 my $path_info = $trimmed_pwd
               . ($trimmed_vcs ? (color('hostname') . '|') : '')
-              . color($vcsmodified ? 'vcsmodified' : 'vcs') . $trimmed_vcs;
+              . color('vcs') . $trimmed_vcs;
 my $pathstr   = wrap($path_info, '()', color('path'))
               . ' ' . color('background') . ($border x ($maxpathlen - length($trimmed_pwd)));
 
