@@ -174,7 +174,8 @@ my $maxpathlen = $cols
                - length($time) - 2
                - 1;
 
-my $vcsmodified = ($vcs =~ /:[+-]/) || ($vcs =~ s/:.*//r) =~ /\W$/;
+my $vcsmodified = ($vcs =~ /:[+-]/)
+               || do { (my $v = $vcs) =~ s/:.*//; $v =~ /\W$/ };
 my $trimmed_pwd = trimpath($pwd, $maxpathlen - 1);
 my $path_info = $trimmed_pwd
               . ($trimmed_vcs ? (color('hostname') . '|') : '')
