@@ -14,6 +14,7 @@ chomp(my $api_key = file("$ENV{HOME}/.wunderground")->slurp);
 my %weather_pics = (
     'Thunderstorm'     => "\x{26a1}",
     'Rain'             => "\x{2614}",
+    'Light Rain'       => "\x{2614}",
     'Partly Cloudy'    => "\x{2601}",
     'Mostly Cloudy'    => "\x{2601}",
     'Scattered Clouds' => "\x{2601}",
