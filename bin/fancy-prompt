@@ -67,10 +67,8 @@ else {
 my %colornames = (
     host_bishamon => 'blue',
     host_erim     => 'white',
-    host_magus    => 'darkgrey',
     host_tozt     => 'yellow',
     host_xtahua   => 'lightmagenta',
-    host_zaon     => 'lightgreen',
     unknown_host  => 'brown',
 
     user_doy     => 'lightblue',
