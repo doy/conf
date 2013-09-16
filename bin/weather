@@ -36,7 +36,7 @@ my $high      = $forecast->{high}{fahrenheit};
 my $low       = $forecast->{low}{fahrenheit};
 my $feelslike = int($conditions->feelslike_f);
 my $precip    = $forecast->{pop};
-my $weather   = $weather_pics{$conditions->weather};
+my $weather   = $weather_pics{$conditions->weather} // '?';
 
 my $time = DateTime->now(time_zone => 'local');
 
