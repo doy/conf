@@ -291,6 +291,11 @@ my @checks = (
     ],
     [
         sub { $_[0]->has_github_data },
+        sub { !$_[0]->github_data->{has_issues} },
+        "github issues is not enabled"
+    ],
+    [
+        sub { $_[0]->has_github_data },
         sub { $_[0]->github_data->{open_issues_count} },
         sub { "has $_[1] bug(s) on github issues" }
     ],
