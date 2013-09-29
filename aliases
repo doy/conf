@@ -107,12 +107,12 @@ function svst {
 }
 function pick_music {
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
-    sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM tracks WHERE strftime('%s') - timestamp < 60*60*24*365 GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
+    sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM yearly_tracks GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
 }
 function rand_music {
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
     for i in $(seq 1 $([ -z "$1" ] && echo 20 || echo $1)); do
-        echo "select distinct(artist) from tracks where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 .tracks.sqlite | rand_line | sed 's/.*/select artist, album from tracks where artist = "&" group by artist, album;/' | sqlite3 .tracks.sqlite | rand_line | sed 's/|/ - /'
+        echo "select distinct(artist) from yearly_tracks where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 .tracks.sqlite | rand_line | sed 's/.*/select artist, album from tracks where artist = "&" group by artist, album;/' | sqlite3 .tracks.sqlite | rand_line | sed 's/|/ - /'
     done
 }
 function t {
