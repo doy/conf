@@ -243,6 +243,9 @@ if has("gui_running")
     colorscheme torte
 else
     set background=light
+    if &t_Co > 16
+        set t_Co=16
+    endif
 endif
 " }}}
 " word completion menu {{{
