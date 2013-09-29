@@ -52,7 +52,7 @@ while (<$i3status>) {
               : $state ne 'BAT' ? '#FFFFFF'
               : $val >= 40      ? '#FFFFFF'
               : $val >= 15      ? '#FFFF00'
-              : $val >= 5       ? '#880000'
+              : $val >= 5       ? '#CD0000'
               :                   '#FF0000';
         }
         $battery_index++ unless defined $discharge_rate;
@@ -61,7 +61,7 @@ while (<$i3status>) {
     if (defined $discharge_rate) {
         splice @$line, $battery_index + 1, 0, {
             name      => 'battery_discharge',
-            full_text => "${discharge_rate}W",
+            full_text => sprintf("%0.2fW", $discharge_rate),
             color     => (
                 $discharge_rate < 8  ? '#FFFFFF'
               : $discharge_rate < 12 ? '#00FF00'
@@ -80,9 +80,10 @@ while (<$i3status>) {
             full_text => $weather,
             color     => (
                 $temp >= 90 ? '#FF0000'
-              : $temp >= 72 ? '#FFFF00'
-              : $temp >= 50 ? '#FFFFFF'
-              : $temp >= 32 ? '#8888FF'
+              : $temp >= 78 ? '#FFFF00'
+              : $temp >= 73 ? '#00FF00'
+              : $temp >= 55 ? '#FFFFFF'
+              : $temp >= 32 ? '#CDCDFF'
               :               '#0000FF'
             ),
         };
