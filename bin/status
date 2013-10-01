@@ -12,11 +12,15 @@ print scalar(<$i3status>);
 
 while (<$i3status>) {
     my $comma = s/^,//;
+    my $data = decode_json($_);
+
+    my %line = map { $_->{name} => $_ } @$data;
     my $line = [
         grep {
-            !($_->{name} eq 'wireless' || $_->{name} eq 'ethernet')
-         || ($_->{instance} ne $_->{full_text})
-        } @{ decode_json($_) }
+            $_->{name} eq 'wireless' || $_->{name} eq 'ethernet'
+                ? $_->{instance} ne $_->{full_text}
+                : $_->{name} ne 'load'
+        } @$data
     ];
 
     my $discharge_rate;
@@ -35,7 +39,7 @@ while (<$i3status>) {
               :                                           '#FFFFFF';
         }
         if ($item->{name} eq 'cpu_usage') {
-            my ($val) = $item->{full_text} =~ /CPU: (\d+)%/;
+            my ($val) = $line{load}{full_text} * 100 / ncpu();
             $item->{color} =
                 $val >= 50 ? '#FF0000'
               : $val >= 25 ? '#FFFF00'
@@ -134,6 +138,10 @@ sub find {
         return 0 unless defined $prev;
         return $bytes - $prev;
     }
+}
+
+sub ncpu {
+    scalar grep { !/^#/ } `lscpu -p=cpu`
 }
 
 sub human_bytes {
