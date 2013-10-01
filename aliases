@@ -107,7 +107,7 @@ function svst {
 }
 function pick_music {
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
-    sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM yearly_tracks GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
+    sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM yearly_tracks WHERE artist NOT IN (SELECT DISTINCT(artist) FROM weekly_tracks) GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
 }
 function rand_music {
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
