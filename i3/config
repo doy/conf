@@ -2,15 +2,14 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod        Mod1+Ctrl
-set $layout_mod Mod4
+set $mod        Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font 6x10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $layout_mod
+floating_modifier $mod
 
 # window decorations
 new_window 1pixel
@@ -77,19 +76,17 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-bindsym $layout_mod+h split h
-bindsym $layout_mod+v split v
+bindsym $mod+Mod1+h split h
+bindsym $mod+Mod1+v split v
 
-bindsym $layout_mod+f fullscreen
+bindsym $mod+f fullscreen
 
-bindsym $layout_mod+l exec xscreensaver-command -lock
-
-bindsym $layout_mod+Shift+space floating toggle
-bindsym $layout_mod+space       focus mode_toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space       focus mode_toggle
 
 # workspace manipulation
-bindsym $mod+Left  exec i3-switch-workspace prev
-bindsym $mod+Right exec i3-switch-workspace next
+bindsym $mod+bracketleft  exec i3-switch-workspace prev
+bindsym $mod+bracketright exec i3-switch-workspace next
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -100,9 +97,6 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-
-bindsym $mod+Shift+Left  move window to workspace prev
-bindsym $mod+Shift+Right move window to workspace next
 
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2

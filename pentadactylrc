@@ -11,6 +11,10 @@ map L :bn<CR>
 map J 20j
 map K 20k
 
+" navigation
+map <C-h> :back<CR>
+map <C-L> :forward<CR>
+
 " disable autocompletion entirely
 set au=
 " when completing, only show 5 at a time
@@ -21,7 +25,7 @@ highlight Hint -append font-size:11px;font-weight:bold;background:#fff;border:1p
 
 " backspace to open panorama
 map <BS> <C-v><C-S-e>
-map <C-a><C-a> <C-v><C-S-e>
+map <C-f><C-f> <C-v><C-S-e>
 
 " default to using the 'g' search keyword
 set defsearch=g

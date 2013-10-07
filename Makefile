@@ -28,6 +28,7 @@ INSTALL   = abcde.conf \
 	    tmux.conf \
 	    vimrc \
 	    Xdefaults \
+	    Xmodmap \
 	    xinitrc \
 	    zlogout \
 	    zshcomplete \
