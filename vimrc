@@ -604,6 +604,8 @@ nmap <silent><Leader>/ :nohl<CR>
 nmap <silent><Leader>s :syntax sync fromstart<CR>
 
 nnoremap , :
+
+nmap \ :q<CR>
 " }}}
 " }}}
 " Plugin settings {{{
