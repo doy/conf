@@ -17,7 +17,8 @@ URxvt*boldFont:6x10
 URxvt*perl-ext-common:default,matcher,pass<M-p>
 URxvt*perl-lib:/home/doy/.urxvt/
 URxvt*matcher.button:3
-URxvt*keysym.C-Return: perl:matcher
+URxvt*keysym.C-Return: perl:matcher:last
+URxvt*keysym.M-Return: perl:matcher:list
 URxvt.url-launcher:firefox
 URxvt*iso14755:false
 URxvt*iso14755_52:false
