@@ -602,6 +602,9 @@ nmap <silent><Leader>/ :nohl<CR>
 
 " manually resync the syntax highlighting
 nmap <silent><Leader>s :syntax sync fromstart<CR>
+
+nnoremap , :
+nnoremap <silent>: <Esc>
 " }}}
 " }}}
 " Plugin settings {{{
