@@ -606,6 +606,7 @@ nmap <silent><Leader>s :syntax sync fromstart<CR>
 nnoremap , :
 
 nmap \ :q<CR>
+nmap <silent><Tab> :w<CR>
 " }}}
 " }}}
 " Plugin settings {{{
