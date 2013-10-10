@@ -1,0 +1,15 @@
+snippet xs
+	#include "EXTERN.h"
+	#include "perl.h"
+	#include "XSUB.h"
+
+	MODULE = ${1:`matchstr(expand("%"), '^.*\ze\.xs')`}  PACKAGE = ${2:$1}
+
+	PROTOTYPES: DISABLE
+
+
+snippet xsub
+	${3:void}
+	${1:name}(${2})
+	  CODE:
+		
