@@ -1,0 +1,20 @@
+"urxvtc"
+  Mod4 + o
+
+"firefox"
+  Mod4 + b
+
+"dmenu -p 'pass search' < /dev/null | xargs -I{} pass search -c {}"
+  Mod4 + i
+
+"dmenu -p 'pass search -u' < /dev/null | xargs -I{} pass search -u -c {}"
+  Shift+Mod4 + i
+
+"dmenu_run"
+  Mod4 + r
+
+"screenshot"
+  Mod4 + s
+
+"screenshot --full"
+  Print

@@ -27,6 +27,7 @@ INSTALL   = abcde.conf \
 	    screenrc \
 	    tmux.conf \
 	    vimrc \
+	    xbindkeysrc \
 	    Xdefaults \
 	    Xmodmap \
 	    xinitrc \
