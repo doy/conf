@@ -1,10 +1,12 @@
 #!/bin/sh
 
+# these have to all happen before xcape is started
+setxkbmap -option ctrl:nocaps
+setxkbmap -option compose:caps
+xmodmap $HOME/.Xmodmap
+
 pidof svscan || (svscan $HOME/.services 2>&1 | readproctitle $USER ........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................) &
 
-setxkbmap -option ctrl:nocaps  # disables caps lock
-setxkbmap -option compose:caps  # sets caps key to compose
-xmodmap $HOME/.Xmodmap
 synclient HorizEdgeScroll=1
 
 upower -e
