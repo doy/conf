@@ -74,7 +74,7 @@ install : build $(INSTALLED) /var/spool/cron/$(USER)
 
 clean :
 	$(ECHO) Cleaning from $(INTO)
-	@crontab -d
+	@crontab -r
 	$(RM) $(BUILD) $(INSTALLED)
 
 $(INTO)/.% : %
