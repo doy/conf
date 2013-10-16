@@ -1,0 +1,31 @@
+#!/bin/sh
+
+if xmodmap -pk | grep -q '(1).*(exclam).*(1).*(exclam)'; then
+    xmodmap -e 'keycode 10 = exclam 1'
+    xmodmap -e 'keycode 11 = at 2'
+    xmodmap -e 'keycode 12 = numbersign 3'
+    xmodmap -e 'keycode 13 = dollar 4'
+    xmodmap -e 'keycode 14 = percent 5'
+    xmodmap -e 'keycode 15 = asciicircum 6'
+    xmodmap -e 'keycode 16 = ampersand 7'
+    xmodmap -e 'keycode 17 = asterisk 8'
+    xmodmap -e 'keycode 18 = parenleft 9'
+    xmodmap -e 'keycode 19 = parenright 0'
+    xmodmap -e 'keycode 20 = underscore minus'
+    xmodmap -e 'keycode 34 = braceleft bracketleft'
+    xmodmap -e 'keycode 35 = braceright bracketright'
+else
+    xmodmap -e 'keycode 10 = 1 exclam'
+    xmodmap -e 'keycode 11 = 2 at'
+    xmodmap -e 'keycode 12 = 3 numbersign'
+    xmodmap -e 'keycode 13 = 4 dollar'
+    xmodmap -e 'keycode 14 = 5 percent'
+    xmodmap -e 'keycode 15 = 6 asciicircum'
+    xmodmap -e 'keycode 16 = 7 ampersand'
+    xmodmap -e 'keycode 17 = 8 asterisk'
+    xmodmap -e 'keycode 18 = 9 parenleft'
+    xmodmap -e 'keycode 19 = 0 parenright'
+    xmodmap -e 'keycode 20 = minus underscore'
+    xmodmap -e 'keycode 34 = bracketleft braceleft'
+    xmodmap -e 'keycode 35 = bracketright braceright'
+fi

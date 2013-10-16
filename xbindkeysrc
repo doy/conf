@@ -18,3 +18,9 @@
 
 "screenshot --full"
   Print
+
+"toggle_numkeys"
+  Shift + Shift_R
+
+"toggle_numkeys"
+  Shift + Shift_L
