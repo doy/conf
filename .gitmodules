@@ -43,3 +43,6 @@
 [submodule "vim/bundle/addon-mw-utils"]
 	path = vim/bundle/addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils
+[submodule "vim/bundle/signify"]
+	path = vim/bundle/signify
+	url = git://github.com/mhinz/vim-signify
