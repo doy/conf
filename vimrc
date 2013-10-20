@@ -604,6 +604,7 @@ nmap <silent><Leader>/ :nohl<CR>
 nmap <silent><Leader>s :syntax sync fromstart<CR>
 
 nnoremap , :
+vnoremap , :
 
 nmap \ :q<CR>
 nmap <silent><Tab> :w<CR>
