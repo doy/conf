@@ -22,6 +22,7 @@ set maxitems=5
 
 " prettier hint numbering
 highlight Hint -append font-size:11px;font-weight:bold;background:#fff;border:1px solid red;color:#000;font-family:monospace
+set hintkeys=")!@#$%^&*("
 
 " backspace to open panorama
 map <BS> <C-v><C-S-e>
