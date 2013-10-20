@@ -19,7 +19,7 @@ _make () {
         _configure
     fi
     # -Werror at configure time seems to confuse Configure, so do it here
-    make -j9 OPTIMIZE="-O2 -Werror"
+    make -j9 OPTIMIZE="-g -Werror"
 }
 
 _test () {
