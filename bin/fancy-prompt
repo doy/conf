@@ -13,8 +13,8 @@ if ($ARGV[0] eq '--prompt-escape') {
 # collect information
 chomp(my $hostname = `hostname`);
 my $cols           = `tput cols`;
-my $pwd            = $ENV{PWD} // '???';
-my $user           = $ENV{USER} // '???';
+my $pwd            = defined $ENV{PWD} ? $ENV{PWD} : '???';
+my $user           = defined $ENV{USER} ? $ENV{USER} : '???';
 my $root           = ($> == 0);
 (my $time          = localtime) =~ s/.*(\d\d:\d\d:\d\d).*/$1/;
 my $err            = $ARGV[0] || 0; # bash's $? is passed on the command line
