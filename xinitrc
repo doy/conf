@@ -11,4 +11,6 @@ synclient HorizEdgeScroll=1
 
 upower -e
 
+$HOME/.bin/toggle_numkeys
+
 exec i3
