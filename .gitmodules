@@ -46,3 +46,6 @@
 [submodule "vim/bundle/signify"]
 	path = vim/bundle/signify
 	url = git://github.com/mhinz/vim-signify
+[submodule "vim/bundle/startify"]
+	path = vim/bundle/startify
+	url = git://github.com/mhinz/vim-startify

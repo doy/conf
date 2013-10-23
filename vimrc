@@ -698,4 +698,27 @@ let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:signify_disable_by_default = 1
 nmap <silent>dv :SignifyToggle<CR>
 " }}}
+" startify {{{
+let g:startify_files_number = 4
+let g:startify_change_to_vcs_root = 1
+let g:startify_custom_indices = [
+            \'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
+            \]
+let fortune = system('fortune -n200 -s ~/.fortune | grep -v -E "^$"')
+let g:startify_custom_footer = [''] + map(split(fortune, '\n'), '"   ".v:val')
+let g:startify_skiplist = ['^/usr/share/vim', '/.git/']
+for file in [ '.gitignore', expand('~/.gitignore') ]
+    if filereadable(file)
+        for line in readfile(file)
+            let line = substitute(line, '#.*', '', '')
+            if line != ''
+                let line = substitute(line, '\.', '\\.', 'g')
+                let line = substitute(line, '*', '.*', 'g')
+                let line = substitute(line, '?', '.?', 'g')
+                call add(g:startify_skiplist, '/' . line . '$')
+            endif
+        endfor
+    endif
+endfor
+" }}}
 " }}}
