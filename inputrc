@@ -11,5 +11,7 @@ set visible-stats on
 set editing-mode vi
 set keymap vi
 
+")": beginning-of-line
+
 # my shell should never use the bell
 set bell-style none
