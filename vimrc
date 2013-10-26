@@ -655,36 +655,6 @@ let g:Foldtext_tex_enable = 1
 let g:Foldtext_cpp_enable = 1
 let g:Foldtext_perl_enable = 1
 " }}}
-" FuzzyFinder {{{
-nmap t :FufCoverageFile<CR>
-let g:fuf_modesDisable = [
-            \'mrufile', 'mrucmd', 'bookmarkfile', 'bookmarkdir',
-            \'tag', 'buffertag', 'taggedfile', 'jumplist', 'changelist',
-            \'quickfix',
-\]
-let g:fuf_keyPrevPattern = '<Up>'
-let g:fuf_keyNextPattern = '<Down>'
-let g:fuf_dataDir = '~/.vim/fuf-data'
-let g:fuf_enumeratingLimit = 10
-" exclusions {{{
-function! s:set_excludes()
-    let fuf_coveragefile_exclude_base = '\('
-            \. '\(^\|/\)\.\|'
-            \. '\~$\|'
-            \. '^\(blib\|nytprof\|project\|target\)\|'
-            \. '\.\('
-                \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|'
-                \. 'png\|jpg\|gif\|pdf\|doc\|d\|vsprops\|pbxproj\|sln'
-            \. '\)$'
-        \. '\)'
-    let g:fuf_coveragefile_exclude = fuf_coveragefile_exclude_base
-    if filereadable("dist.ini")
-        let g:fuf_coveragefile_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
-    endif
-endfunction
-autocmd VimEnter * call <SID>set_excludes()
-" }}}
-" }}}
 " gundo {{{
 if has("python")
     nnoremap U :GundoToggle<CR>
@@ -719,5 +689,31 @@ for file in [ '.gitignore', expand('~/.gitignore') ]
         endfor
     endif
 endfor
+" }}}
+" unite {{{
+let g:unite_data_directory = '~/.vim/unite'
+let rec_exclude = '\('
+        \. '\(^\|/\)\.\|'
+        \. '\~$\|'
+        \. '\<\(blib\|nytprof\|project\|target\)\|'
+        \. '\.\('
+            \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|'
+            \. 'png\|jpg\|gif\|pdf\|doc\|d\|vsprops\|pbxproj\|sln'
+        \. '\)$'
+    \. '\)'
+if filereadable("dist.ini")
+    let rec_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
+endif
+call unite#custom#source('file_rec', 'ignore_pattern', rec_exclude)
+call unite#custom#profile('default', 'ignorecase', 1)
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+    nmap <silent><buffer> \ <Plug>(unite_exit)
+    nmap <silent><buffer> <Tab> <Plug>(unite_select_next_line)
+    nmap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
+    imap <silent><buffer> <Tab> <Plug>(unite_select_next_line)
+    imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
+endfunction
+nmap <silent> t :Unite -start-insert -silent buffer file_rec<CR>
 " }}}
 " }}}

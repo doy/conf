@@ -49,3 +49,6 @@
 [submodule "vim/bundle/startify"]
 	path = vim/bundle/startify
 	url = git://github.com/mhinz/vim-startify
+[submodule "vim/bundle/unite"]
+	path = vim/bundle/unite
+	url = git://github.com/Shougo/unite.vim
