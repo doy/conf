@@ -191,6 +191,8 @@ if has("persistent_undo")
     set undofile
     set undodir=~/.vim/undo
 endif
+
+set smartcase
 " }}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
