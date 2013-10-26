@@ -7,6 +7,7 @@ vim/fuf-data/
 vim/undo/
 vim/hist*
 vim/unite/
+vim/vimfiler/
 newsbeuter/cache.db
 newsbeuter/cache.db.lock
 newsbeuter/error.log

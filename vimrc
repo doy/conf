@@ -592,8 +592,8 @@ nmap <silent> <Leader>= :call <SID>align_assignments()<CR>
 nmap Y y$
 
 " try 'e' instead of 'c' for change
-nmap e c
-nmap E C
+nnoremap e c
+nnoremap E C
 
 " buffer switching
 nmap H :bp<CR>
@@ -715,5 +715,16 @@ function! s:unite_my_settings()
     imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
 endfunction
 nmap <silent> t :Unite -start-insert -silent buffer file_rec<CR>
+" }}}
+" vimfiler {{{
+let g:vimfiler_data_directory = '~/.vim/vimfiler'
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_execute_file_list = { "_": "vim" }
+autocmd FileType vimfiler call s:vimfiler_my_settings()
+function! s:vimfiler_my_settings()
+    nmap <silent><buffer> \ <Plug>(vimfiler_exit)
+    nmap <silent><buffer> <Return> <Plug>(vimfiler_edit_file)
+endfunction
+nmap c :VimFilerSimple -quit -explorer<CR>
 " }}}
 " }}}
