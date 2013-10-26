@@ -617,6 +617,7 @@ nmap <silent><Tab> :w<CR>
 nmap <silent><C-D> :bd<CR>
 
 nmap <silent>) 0
+nmap <Bar> \
 " }}}
 " }}}
 " Plugin settings {{{

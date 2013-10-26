@@ -15,6 +15,7 @@ if xmodmap -pk | grep -q '(1).*(exclam).*(1).*(exclam)'; then
     xmodmap -e 'keycode 34 = braceleft bracketleft'
     xmodmap -e 'keycode 35 = braceright bracketright'
     xmodmap -e 'keycode 49 = asciitilde grave'
+    xmodmap -e 'keycode 51 = bar backslash'
 else
     xmodmap -e 'keycode 10 = 1 exclam'
     xmodmap -e 'keycode 11 = 2 at'
@@ -30,4 +31,5 @@ else
     xmodmap -e 'keycode 34 = bracketleft braceleft'
     xmodmap -e 'keycode 35 = bracketright braceright'
     xmodmap -e 'keycode 49 = grave asciitilde'
+    xmodmap -e 'keycode 51 = backslash bar'
 fi
