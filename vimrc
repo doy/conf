@@ -369,7 +369,7 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
 endif
 " }}}
 " start with the current fold open {{{
-au BufEnter * normal zv
+au BufReadPost * normal zv
 " }}}
 " Misc {{{
 autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
