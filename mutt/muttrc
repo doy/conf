@@ -21,7 +21,7 @@ set quit=ask-yes
 set include
 set reverse_name
 set fast_reply
-set reply_to=no
+set reply_to=yes
 send-hook . '\
     set from=doy@tozt.net ;\
     unset signature \
