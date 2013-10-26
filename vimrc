@@ -475,12 +475,6 @@ imap <down> <C-o>gj
 imap <home> <C-o>g<home>
 imap <end> <C-o>g<end>
 " }}}
-" Ctags {{{
-nmap <Leader>t :silent !ctags -a %<CR><C-L>
-nmap <Leader>T :silent !make tags<CR><C-L>
-nmap <CR> <C-]>
-nmap <BS> <C-T>
-" }}}
 " Nopaste {{{
 function! s:nopaste(visual)
     let nopaste_services = $NOPASTE_SERVICES
@@ -587,39 +581,41 @@ nmap <silent> <Leader>= :call <SID>align_assignments()<CR>
 " fix this to work in visual mode properly
 "xmap <silent> <Leader>= :call <SID>align_assignments()<CR>
 " }}}
-" Miscellaneous {{{
-" have Y behave analogously to D rather than to dd
-nmap Y y$
+" keystroke reducers {{{
+" tags
+nnoremap <CR> <C-]>
+nnoremap <BS> <C-T>
 
-" try 'e' instead of 'c' for change
+" 'e' instead of 'c' for change
 nnoremap e c
 nnoremap E C
 
-" buffer switching
-nmap H :bp<CR>
-nmap L :bn<CR>
+" 'r' instead of '^R' for redo
+nnoremap r <C-r>
 
-" easily cancel hitting the leader key once
-nnoremap <Leader><Leader> <Leader>
+" buffer switching
+nnoremap H :bp<CR>
+nnoremap L :bn<CR>
 
 " clear the search highlight
-nmap <silent><Leader>/ :nohl<CR>
+nnoremap <silent><Leader>/ :nohl<CR>
 
-" manually resync the syntax highlighting
-nmap <silent><Leader>s :syntax sync fromstart<CR>
-
+" easier commands
 nnoremap , :
 vnoremap , :
 
-nmap \ :q<CR>
-nmap <silent><Tab> :w<CR>
+" writing, quitting
+nnoremap <silent><Tab> :w<CR>
+nnoremap <silent>\ :q<CR>
+nnoremap <silent><C-D> :bd<CR>
 
-nmap <silent><C-D> :bd<CR>
-
+" allow some commands to work regardless of keyboard mode
 nmap <silent>) 0
 nmap <Bar> \
-
-nmap r <C-r>
+" }}}
+" Miscellaneous {{{
+" have Y behave analogously to D rather than to dd
+nmap Y y$
 " }}}
 " }}}
 " Plugin settings {{{
