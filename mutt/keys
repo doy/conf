@@ -2,6 +2,7 @@ bind generic i exit
 bind generic p search-opposite
 bind generic ? search-reverse
 bind generic B help
+bind generic , enter-command
 
 bind pager j next-line
 bind pager k previous-line
