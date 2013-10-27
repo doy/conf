@@ -687,7 +687,6 @@ if filereadable("dist.ini")
     let rec_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
 endif
 call unite#custom#source('file_rec', 'ignore_pattern', rec_exclude)
-call unite#custom#profile('default', 'ignorecase', 1)
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
     nmap <silent><buffer> \ <Plug>(unite_exit)
