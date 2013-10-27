@@ -677,6 +677,15 @@ let g:unite_data_directory = '~/.vim/data/unite'
 let g:unite_source_rec_max_cache_files = 20000
 let g:unite_enable_start_insert = 1
 let g:unite_enable_short_source_names = 1
+let g:unite_source_grep_max_candidates = 200
+if executable('ag')
+    " Use ag in unite grep source.
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts =
+                \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
+                \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+    let g:unite_source_grep_recursive_opt = ''
+endif
 let rec_exclude = '\('
         \. '\(^\|/\)\.\|'
         \. '\~$\|'
@@ -701,6 +710,7 @@ function! s:unite_my_settings()
 endfunction
 nmap <silent> t :Unite -silent buffer file_rec/async<CR>
 nmap <silent> f :Unite -silent buffer file<CR>
+nmap <silent> & :Unite -silent grep<CR>
 " }}}
 " vimfiler {{{
 let g:vimfiler_data_directory = '~/.vim/data/vimfiler'
