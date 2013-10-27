@@ -190,6 +190,7 @@ endif
 
 " ; is easier to reach than \
 let mapleader = ';'
+let maplocalleader = ';'
 
 " enable persistent undo
 if has("persistent_undo")
