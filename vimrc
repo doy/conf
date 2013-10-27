@@ -499,6 +499,7 @@ function! Help(visual, iskeyword, command)
     endfor
     if a:visual
         let oldreg = @a
+        " XXX this seems to not include the end of the selection - why?
         normal `<"ay`>gv
         let word = @a
         let @a = oldreg
