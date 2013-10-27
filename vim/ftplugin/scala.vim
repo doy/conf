@@ -1,1 +1,1 @@
-nnoremap <buffer> t :FufCoverageFile src/<CR>
+nmap <silent> t :Unite -start-insert -silent -input=src/ buffer file_rec<CR>

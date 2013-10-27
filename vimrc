@@ -352,9 +352,9 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
     endfunction
     function! s:zsh_hist_append ()
         let to_append = expand("%")
-        " XXX fuzzyfinder sets buftype too late to be caught by this... this
+        " XXX gundo sets buftype too late to be caught by this... this
         " is broken, but not sure what a better fix is
-        if &buftype == '' && to_append != "[fuf]" && to_append !~ "^__Gundo"
+        if &buftype == '' && to_append !~ "^__Gundo"
             if !has_key(s:initial_files, to_append)
                 if filereadable(g:_zsh_hist_fname)
                     let hist = readfile(g:_zsh_hist_fname)
