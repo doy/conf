@@ -346,7 +346,7 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
         call delete(g:_zsh_hist_fname)
     endfunction
     function! s:zsh_hist_append ()
-        let to_append = expand("%")
+        let to_append = expand("%:~:.")
         " XXX gundo sets buftype too late to be caught by this... this
         " is broken, but not sure what a better fix is
         if &buftype == '' && to_append !~ "^__Gundo"
