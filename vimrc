@@ -732,4 +732,24 @@ let g:bufferline_modified = ''
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = -1
 " }}}
+" neocomplete {{{
+let g:neocomplete#data_directory = '~/.vim/data/neocomplete'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 4
+let g:neocomplete#auto_completion_start_length = 4
+let g:neocomplete#manual_completion_start_length = 4
+let g:neocomplete#max_list = 8
+let g:neocomplete#enable_fuzzy_completion = 0
+inoremap <expr><Tab> pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ neocomplete#start_manual_complete()
+inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ neocomplete#start_manual_complete()
+function! s:check_back_space()
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~ '\s'
+endfunction
+inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
+" }}}
 " }}}
