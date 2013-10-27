@@ -39,9 +39,6 @@ set ruler
 " display more information in the ruler
 set rulerformat=%26(%y%r%m\ (%n)\ %.7l,%.7c\ %=\ %P%)
 
-" current mode in status line
-set showmode
-
 " display the number of (characters|lines) in visual mode, also cur command
 set showcmd
 
@@ -69,7 +66,7 @@ set lazyredraw
 " highlight all matches, we'll see if this works with a different hilight
 set hlsearch
 
-" highlight matching parens for .2s
+" highlight matching parens for .1s
 set showmatch
 set matchtime=1
 
@@ -166,18 +163,16 @@ set viminfo=!,'1000,f1,/1000,:1000,<1000,@1000,h,n~/.viminfo
 " more stuff to remember
 set history=1000
 
-" add : as a file-name character (allow gf to work with http://foo.bar/)
+" add : as a filename character (allow gf to work with http://foo.bar/)
 set isfname+=:
 
 " tab completion stuff for the command line
 set wildmode=longest,list,full
 
-" don't jump to search results until i actually do the search
-set noincsearch
-
 " always make the help window cover the entire screen
 set helpheight=9999
 
+" fall back to syntax completion when possible
 if has("autocmd") && exists("+omnifunc")
     autocmd FileType *
                 \   if &omnifunc == "" |
@@ -185,13 +180,17 @@ if has("autocmd") && exists("+omnifunc")
                 \   endif
 endif
 
+" ; is easier to reach than \
 let mapleader = ';'
 
+" enable persistent undo
 if has("persistent_undo")
     set undofile
     set undodir=~/.vim/undo
 endif
 
+" case insensitive searching, unless i type a capital letter
+set ignorecase
 set smartcase
 " }}}
 " Make vim less whiny {{{
@@ -208,6 +207,8 @@ set confirm
 set ttimeoutlen=50
 
 " send more data to the terminal in a way that makes the screen update faster
+" more importantly, wraps lines at the terminal level so that copying a single
+" line that spans multiple screen lines works properly
 set ttyfast
 " }}}
 " Indentation {{{
@@ -218,7 +219,7 @@ set tabstop=8
 set shiftwidth=4
 
 " if it looks like a tab, we can delete it like a tab
-set softtabstop=4
+set softtabstop=-1
 
 " no tabs! spaces only..
 set expandtab
@@ -228,9 +229,6 @@ set shiftround
 
 " new line has indentation equal to previous line
 set autoindent
-
-" braces affect autoindentation
-set smartindent
 
 " configure cindent for my coding style
 set cinoptions+=b1,:0,l1,g0,(0,W1
@@ -278,9 +276,6 @@ if has('win32') || has('win64') || has('win32unix')
 elseif has('unix')
     set guifont=Monospace\ 8
 endif
-" }}}
-" ruler {{{
-highlight Ruler ctermfg=darkgrey guifg=darkgrey
 " }}}
 " }}}
 " Autocommands {{{
@@ -369,7 +364,7 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
 endif
 " }}}
 " start with the current fold open {{{
-au BufReadPost * normal zv
+autocmd BufReadPost * normal zv
 " }}}
 " Misc {{{
 autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
@@ -387,11 +382,9 @@ imap <F5> <C-O>:make<CR><CR><C-O><C-W>k
 " Painless spell checking (F11) {{{
 function! s:spell()
     if !exists("s:spell_check") || s:spell_check == 0
-        echo "Spell check on"
         let s:spell_check = 1
         setlocal spell spelllang=en_us
     else
-        echo "Spell check off"
         let s:spell_check = 0
         setlocal spell spelllang=
     endif
@@ -468,20 +461,11 @@ nmap <silent> de :call <SID>diffstop()<CR>
 " Arrow keys {{{
 map <up> gk
 map <down> gj
-map <home> g<home>
-map <end> g<end>
 imap <up> <C-o>gk
 imap <down> <C-o>gj
-imap <home> <C-o>g<home>
-imap <end> <C-o>g<end>
 " }}}
 " Nopaste {{{
 function! s:nopaste(visual)
-    let nopaste_services = $NOPASTE_SERVICES
-    if &filetype == 'tex'
-        let $NOPASTE_SERVICES = "Mathbin ".$NOPASTE_SERVICES
-    endif
-
     if a:visual
         silent exe "normal gv!nopaste\<CR>"
     else
@@ -496,7 +480,6 @@ function! s:nopaste(visual)
     else
         call setpos('.', pos)
     endif
-    let $NOPASTE_SERVICES = nopaste_services
     echo @+
 endfunction
 nmap <silent> <Leader>p :call <SID>nopaste(0)<CR>
