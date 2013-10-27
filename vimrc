@@ -382,8 +382,8 @@ xnoremap < <gv
 xnoremap > >gv
 " }}}
 " F5 to :make {{{
-map  <F5> :make<CR><CR><C-W>k
-imap <F5> <C-O>:make<CR><CR><C-O><C-W>k
+noremap  <silent><F5> :<C-u>make<CR><CR><C-W>k
+inoremap <silent><F5> <C-O>:make<CR><CR><C-O><C-W>k
 " }}}
 " Painless spell checking (F11) {{{
 function! s:spell()
@@ -395,8 +395,8 @@ function! s:spell()
         setlocal spell spelllang=
     endif
 endfunction
-map <F11> :call <SID>spell()<CR>
-imap <F11> <C-o>:call <SID>spell()<CR>
+noremap  <silent><F11> :<C-u>call <SID>spell()<CR>
+inoremap <silent><F11> <C-o>:call <SID>spell()<CR>
 " }}}
 " diff between current file and its original state {{{
 let s:foldmethod = &foldmethod
@@ -460,36 +460,35 @@ function! s:vcs_orig(file)
         throw 'No VCS directory found'
     endif
 endfunction
-nmap <silent> ds :call <SID>diffstart('read # <bar> normal ggdd')<CR>
-nmap <silent> dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#:.")), "\n", 1)) <bar> normal Gdddd')<CR>
-nmap <silent> de :call <SID>diffstop()<CR>
+nnoremap <silent>ds :call <SID>diffstart('read # <bar> normal ggdd')<CR>
+nnoremap <silent>dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#:.")), "\n", 1)) <bar> normal Gdddd')<CR>
+nnoremap <silent>de :call <SID>diffstop()<CR>
 " }}}
 " Arrow keys {{{
-map <up> gk
-map <down> gj
-imap <up> <C-o>gk
-imap <down> <C-o>gj
+noremap  <up>   gk
+noremap  <down> gj
+inoremap <up>   <C-o>gk
+inoremap <down> <C-o>gj
 " }}}
 " Nopaste {{{
 function! s:nopaste(visual)
     if a:visual
-        silent exe "normal gv!nopaste\<CR>"
+        silent exe "normal gv:!nopaste\<CR>"
     else
         let pos = getpos('.')
-        silent exe "normal gg!Gnopaste\<CR>"
+        silent exe "normal :%!nopaste\<CR>"
     endif
     silent normal "+yy
     let @* = @+
     silent undo
-    if a:visual
-        normal gv
-    else
+    " can't restore visual selection because that will overwrite "*
+    if !a:visual
         call setpos('.', pos)
     endif
     echo @+
 endfunction
-nmap <silent> <Leader>p :call <SID>nopaste(0)<CR>
-xmap <silent> <Leader>p :<C-U>call <SID>nopaste(1)<CR>
+nnoremap <silent><Leader>p :call <SID>nopaste(0)<CR>
+xnoremap <silent><Leader>p :<C-U>call <SID>nopaste(1)<CR>
 " }}}
 " better version of keywordprg {{{
 function! Help(visual, iskeyword, command)
@@ -526,8 +525,8 @@ function! s:man(word)
     exe 'silent read! man -Pcat ' . a:word
     set ft=man
 endfunction
-nmap <silent>K :call Help(0, [], '<SID>man')<CR>
-xmap <silent>K :call Help(1, [], '<SID>man')<CR>
+nnoremap <silent>K :call Help(0, [], '<SID>man')<CR>
+xnoremap <silent>K :call Help(1, [], '<SID>man')<CR>
 " }}}
 " ;= to align = signs {{{
 function! s:align_assignments()
@@ -566,9 +565,9 @@ function! s:align_assignments()
         let linenum += 1
     endfor
 endfunction
-nmap <silent> <Leader>= :call <SID>align_assignments()<CR>
+nnoremap <silent><Leader>= :call <SID>align_assignments()<CR>
 " fix this to work in visual mode properly
-"xmap <silent> <Leader>= :call <SID>align_assignments()<CR>
+"xnoremap <silent><Leader>= :call <SID>align_assignments()<CR>
 " }}}
 " keystroke reducers {{{
 " tags
@@ -583,21 +582,21 @@ nnoremap E C
 nnoremap r <C-r>
 
 " buffer switching
-nnoremap H :bp<CR>
-nnoremap L :bn<CR>
+nnoremap <silent>H :bp<CR>
+nnoremap <silent>L :bn<CR>
 
 " clear the search highlight
 nnoremap <silent><Leader>/ :nohl<CR>
 
 " easier commands
 nnoremap , :
-vnoremap , :
+xnoremap , :
 nnoremap ! :!
-vnoremap ! :!
+xnoremap ! :!
 
 " writing, quitting
 nnoremap <silent><Tab> :w<CR>
-nnoremap <silent>\ :q<CR>
+nnoremap <silent>\     :q<CR>
 nnoremap <silent><C-D> :bd<CR>
 
 " allow some commands to work regardless of keyboard mode
@@ -606,7 +605,7 @@ nmap <Bar> \
 " }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
-nmap Y y$
+nnoremap Y y$
 " }}}
 " }}}
 " Plugin settings {{{
@@ -614,8 +613,8 @@ nmap Y y$
 runtime macros/matchit.vim
 " }}}
 " tComment {{{
-map  ;x gcc
-vmap ;x gc
+nmap ;x gcc
+xmap ;x gc
 let g:tcommentBlankLines = 0
 " }}}
 " Rainbow {{{
@@ -647,7 +646,7 @@ let g:Foldtext_perl_enable = 1
 " }}}
 " gundo {{{
 if has("python")
-    nnoremap U :GundoToggle<CR>
+    nnoremap <silent>U :GundoToggle<CR>
     let g:gundo_help = 0
     let g:gundo_preview_bottom = 1
     let g:gundo_width = 30
@@ -658,7 +657,7 @@ endif
 " signify {{{
 let g:signify_vcs_list = [ 'git', 'svn' ]
 let g:signify_disable_by_default = 1
-nmap <silent>dv :SignifyToggle<CR>
+nnoremap <silent>dv :SignifyToggle<CR>
 " }}}
 " startify {{{
 let g:startify_files_number = 4
@@ -710,15 +709,15 @@ call unite#custom#source('file_rec/async', 'ignore_pattern', rec_exclude)
 call unite#custom#source('file_rec/async', 'converters', ['converter_relative_word'])
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
-    nmap <silent><buffer> \ <Plug>(unite_exit)
-    nmap <silent><buffer> <Tab> <Plug>(unite_select_next_line)
+    nmap <silent><buffer> \       <Plug>(unite_exit)
+    nmap <silent><buffer> <Tab>   <Plug>(unite_select_next_line)
     nmap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
-    imap <silent><buffer> <Tab> <Plug>(unite_select_next_line)
+    imap <silent><buffer> <Tab>   <Plug>(unite_select_next_line)
     imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
 endfunction
-nmap <silent> t :Unite -silent -profile-name=with_dir buffer file_rec/async<CR>
-nmap <silent> f :Unite -silent buffer file<CR>
-nmap <silent> & :Unite -silent grep<CR>
+nnoremap <silent>t :Unite -silent -profile-name=with_dir buffer file_rec/async<CR>
+nnoremap <silent>f :Unite -silent buffer file<CR>
+nnoremap <silent>& :Unite -silent grep<CR>
 " }}}
 " vimfiler {{{
 let g:vimfiler_data_directory = '~/.vim/data/vimfiler'
@@ -726,10 +725,10 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_execute_file_list = { "_": "vim" }
 autocmd FileType vimfiler call s:vimfiler_my_settings()
 function! s:vimfiler_my_settings()
-    nmap <silent><buffer> \ <Plug>(vimfiler_exit)
-    nmap <silent><buffer> <Return> <Plug>(vimfiler_edit_file)
+    nmap <silent><buffer> \    <Plug>(vimfiler_exit)
+    nmap <silent><buffer> <CR> <Plug>(vimfiler_edit_file)
 endfunction
-nmap c :VimFilerSimple -quit -explorer<CR>
+nnoremap <silent>c :VimFilerSimple -quit -explorer<CR>
 " }}}
 " bufferline {{{
 let g:bufferline_echo = 0
@@ -751,19 +750,27 @@ endfunction
 " }}}
 " neosnippet {{{
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
-imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)"
-            \ : pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<Tab>" :
-            \ neocomplete#start_manual_complete()
-smap <expr><Tab> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)"
-            \ : <SID>check_back_space() ? "\<Tab>" :
-            \ neocomplete#start_manual_complete()
-imap <expr><S-Tab> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)"
-            \ : pumvisible() ? "\<C-p>" :
-            \ <SID>check_back_space() ? "\<Tab>" :
-            \ neocomplete#start_manual_complete()
+imap <expr><Tab>
+            \ neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ pumvisible() ?
+                \ "\<C-n>" :
+            \ <SID>check_back_space() ?
+                \ "\<Tab>" :
+                \ neocomplete#start_manual_complete()
+imap <expr><S-Tab>
+            \ neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ pumvisible() ?
+                \ "\<C-p>" :
+            \ <SID>check_back_space() ?
+                \ "\<Tab>" :
+                \ neocomplete#start_manual_complete()
+smap <expr><Tab>
+            \ neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ <SID>check_back_space() ?
+                \ "\<Tab>" :
+                \ neocomplete#start_manual_complete()
 " }}}
 " }}}
