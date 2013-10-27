@@ -740,16 +740,14 @@ let g:bufferline_fixed_index = -1
 let g:neocomplete#data_directory = '~/.vim/data/neocomplete'
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 4
-let g:neocomplete#auto_completion_start_length = 4
-let g:neocomplete#manual_completion_start_length = 4
-let g:neocomplete#max_list = 8
+let g:neocomplete#max_list = 4
 let g:neocomplete#enable_fuzzy_completion = 0
+let g:neocomplete#disable_auto_complete = 1
 " see neosnippet config for the tab mapping
 function! s:check_back_space()
     let col = col('.') - 1
     return !col || getline('.')[col - 1] =~ '\s'
 endfunction
-inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
 " }}}
 " neosnippet {{{
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
