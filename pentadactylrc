@@ -41,7 +41,9 @@ nmap -builtin gg mpgg
 nmap -builtin G mpG
 map `` `p
 
-map , :pb 
+map a :pb 
+
+map , :
 
 " no beeps
 javascript dactyl.beep = function() { return false; }
