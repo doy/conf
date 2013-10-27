@@ -3,7 +3,6 @@ bin/nethack/ttrtail
 procmail/log
 vim/.netrwhist
 vim/.VimballRecord
-vim/fuf-data/
 vim/undo/
 vim/hist*
 vim/unite/
