@@ -1,4 +1,3 @@
-# -- THEME AUTO-WRITTEN DO NOT EDIT
 include "/home/doy/.themes/H2O-gtk2-Saphire/gtk-2.0/gtkrc"
 
 style "user-font" {
@@ -8,7 +7,3 @@ style "user-font" {
 widget_class "*" style "user-font"
 
 gtk-font-name="Sans 8"
-
-include "/home/doy/.gtkrc.mine"
-
-# -- THEME AUTO-WRITTEN DO NOT EDIT
