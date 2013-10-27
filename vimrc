@@ -94,6 +94,11 @@ set foldmethod=marker
 " visually indicate wrapped lines
 set showbreak=>
 
+" enable concealing
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+
 " Language specific features {{{
 " Bash {{{
 " I use bash
@@ -740,16 +745,28 @@ let g:neocomplete#auto_completion_start_length = 4
 let g:neocomplete#manual_completion_start_length = 4
 let g:neocomplete#max_list = 8
 let g:neocomplete#enable_fuzzy_completion = 0
-inoremap <expr><Tab> pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ neocomplete#start_manual_complete()
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ neocomplete#start_manual_complete()
+" see neosnippet config for the tab mapping
 function! s:check_back_space()
     let col = col('.') - 1
     return !col || getline('.')[col - 1] =~ '\s'
 endfunction
 inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
+" }}}
+" neosnippet {{{
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+imap <expr><Tab> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \ : pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ neocomplete#start_manual_complete()
+smap <expr><Tab> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \ : <SID>check_back_space() ? "\<Tab>" :
+            \ neocomplete#start_manual_complete()
+imap <expr><S-Tab> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \ : pumvisible() ? "\<C-p>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ neocomplete#start_manual_complete()
 " }}}
 " }}}

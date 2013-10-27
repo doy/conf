@@ -67,3 +67,6 @@
 [submodule "vim/bundle/neocomplete"]
 	path = vim/bundle/neocomplete
 	url = https://github.com/Shougo/neocomplete.vim
+[submodule "vim/bundle/neosnippet"]
+	path = vim/bundle/neosnippet
+	url = git://github.com/Shougo/neosnippet.vim
