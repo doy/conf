@@ -1,5 +1,4 @@
 map ; <Leader>
-map -builtin <Leader><Leader> <Leader>
 map -builtin \" ;
 
 " single line status/command bar
