@@ -60,7 +60,16 @@ export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ynae] "
 export KEYTIMEOUT=5
+# keybindings {{{
 bindkey -M vicmd ')' vi-digit-or-beginning-of-line
+bindkey -M vicmd 'e' vi-change
+bindkey -M vicmd 'E' vi-change-eol
+bindkey -M vicmd ',' execute-named-command
+bindkey -M vicmd '!' vi-insert
+bindkey -M vicmd '_' vi-first-non-blank
+bindkey -M vicmd '|' send-break
+bindkey -M vicmd '\' send-break
+# }}}
 # plugins {{{
 # cdhist {{{
 source ~/.sh/cdhist.sh
