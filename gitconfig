@@ -49,7 +49,7 @@
 	renames = true
 	mnemonicprefix = true
 [advice]
-	pushNonFastForward = false
+	pushUpdateRejected = false
 	statusHints = false
 	commitBeforeMerge = false
 	resolveConflict = false
