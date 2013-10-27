@@ -675,6 +675,8 @@ endfor
 " unite {{{
 let g:unite_data_directory = '~/.vim/data/unite'
 let g:unite_source_rec_max_cache_files = 20000
+let g:unite_enable_start_insert = 1
+let g:unite_enable_short_source_names = 1
 let rec_exclude = '\('
         \. '\(^\|/\)\.\|'
         \. '\~$\|'
@@ -697,7 +699,8 @@ function! s:unite_my_settings()
     imap <silent><buffer> <Tab> <Plug>(unite_select_next_line)
     imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
 endfunction
-nmap <silent> t :Unite -start-insert -silent buffer file_rec/async<CR>
+nmap <silent> t :Unite -silent buffer file_rec/async<CR>
+nmap <silent> f :Unite -silent buffer file<CR>
 " }}}
 " vimfiler {{{
 let g:vimfiler_data_directory = '~/.vim/data/vimfiler'
