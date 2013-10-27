@@ -5,9 +5,6 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias bc="bc -lq"
-alias truecrypt="sudo truecrypt -t"
-alias cpan-outdated="cpan-outdated --mirror file://${HOME}/perl5/minicpan/"
-alias netstat="netstat -a --inet --numeric-port"
 alias ag="ag --pager=less"
 # }}}
 # games {{{
@@ -39,7 +36,6 @@ alias f="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"
 alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"&\")'"
 alias wifi="sudo systemctl restart netctl-auto@wlan0"
 alias prove="forkprove"
-alias ack="ag"
 function web {
     local port=$1
     if [[ -z $port ]]; then
