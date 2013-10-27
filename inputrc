@@ -12,6 +12,9 @@ set editing-mode vi
 set keymap vi
 
 ")": beginning-of-line
+"e": vi-change-to
+"E": vi-change-to
+"_": vi-first-print
 
 # my shell should never use the bell
 set bell-style none
