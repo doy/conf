@@ -22,9 +22,10 @@ case ${TERM} in
 esac # }}}
 # aliases {{{
 [ -f "$HOME/.aliases" ] && source $HOME/.aliases
+mkdir -p $HOME/.vim/data/hist
 function vim {
     local zsh_hist_fname
-    zsh_hist_fname=$HOME/.vim/hist$$
+    zsh_hist_fname=$HOME/.vim/data/hist/$$
     command vim --cmd "let g:_zsh_hist_fname = '$zsh_hist_fname'" "$@"
     if [[ -r $zsh_hist_fname ]]; then
         while read line; do

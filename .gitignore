@@ -3,10 +3,7 @@ bin/nethack/ttrtail
 procmail/log
 vim/.netrwhist
 vim/.VimballRecord
-vim/undo/
-vim/hist*
-vim/unite/
-vim/vimfiler/
+vim/data/
 newsbeuter/cache.db
 newsbeuter/cache.db.lock
 newsbeuter/error.log

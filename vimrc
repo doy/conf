@@ -186,7 +186,7 @@ let mapleader = ';'
 " enable persistent undo
 if has("persistent_undo")
     set undofile
-    set undodir=~/.vim/undo
+    set undodir=~/.vim/data/undo
 endif
 
 " case insensitive searching, unless i type a capital letter
@@ -673,7 +673,7 @@ for file in [ '.gitignore', expand('~/.gitignore') ]
 endfor
 " }}}
 " unite {{{
-let g:unite_data_directory = '~/.vim/unite'
+let g:unite_data_directory = '~/.vim/data/unite'
 let g:unite_source_rec_max_cache_files = 20000
 let rec_exclude = '\('
         \. '\(^\|/\)\.\|'
@@ -700,7 +700,7 @@ endfunction
 nmap <silent> t :Unite -start-insert -silent buffer file_rec/async<CR>
 " }}}
 " vimfiler {{{
-let g:vimfiler_data_directory = '~/.vim/vimfiler'
+let g:vimfiler_data_directory = '~/.vim/data/vimfiler'
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_execute_file_list = { "_": "vim" }
 autocmd FileType vimfiler call s:vimfiler_my_settings()
