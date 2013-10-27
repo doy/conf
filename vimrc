@@ -719,6 +719,7 @@ function! s:unite_my_settings()
     nmap <silent><buffer> \       <Plug>(unite_exit)
     imap <silent><buffer> <Tab>   <Plug>(unite_select_next_line)
     imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
+    imap <silent><buffer> <Esc>   <Plug>(unite_exit)
 endfunction
 nnoremap <silent>t :Unite -silent -profile-name=with_dir buffer file_rec/async<CR>
 nnoremap <silent>f :Unite -silent buffer file<CR>
