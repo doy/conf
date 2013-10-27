@@ -310,6 +310,7 @@ sub darcs_info {
 sub git_info {
     my ($git_dir) = @_;
 
+    system('git update-index --refresh > /dev/null');
     my $HEAD = `git rev-parse --short HEAD 2>/dev/null`;
 
     my $dirty = '';
