@@ -586,6 +586,8 @@ nnoremap <silent><Leader>/ :nohl<CR>
 " easier commands
 nnoremap , :
 vnoremap , :
+nnoremap ! :!
+vnoremap ! :!
 
 " writing, quitting
 nnoremap <silent><Tab> :w<CR>
