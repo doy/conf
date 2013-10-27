@@ -712,8 +712,6 @@ call unite#custom#source('file_rec/async', 'converters', ['converter_relative_wo
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
     nmap <silent><buffer> \       <Plug>(unite_exit)
-    nmap <silent><buffer> <Tab>   <Plug>(unite_select_next_line)
-    nmap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
     imap <silent><buffer> <Tab>   <Plug>(unite_select_next_line)
     imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
 endfunction
