@@ -648,7 +648,10 @@ let g:Foldtext_perl_enable = 1
 " }}}
 " gundo {{{
 if has("python")
-    nnoremap <silent>U :GundoToggle<CR>
+    function! s:gundo()
+        GundoToggle
+    endfunction
+    nnoremap <silent>U :silent call <SID>gundo()<CR>
     let g:gundo_help = 0
     let g:gundo_preview_bottom = 1
     let g:gundo_width = 30
