@@ -31,7 +31,6 @@ alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.
 alias pm="find lib -type f | sort"
 alias bootstrap_cpanm="wget -O- -q http://xrl.us/cpanm | perl - App::cpanminus"
 alias v="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"t\")'"
-alias t="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"t\")'"
 alias f="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"f\")'"
 alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"&\")'"
 alias wifi="sudo systemctl restart netctl-auto@wlan0"
