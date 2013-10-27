@@ -674,6 +674,7 @@ endfor
 " }}}
 " unite {{{
 let g:unite_data_directory = '~/.vim/unite'
+let g:unite_source_rec_max_cache_files = 20000
 let rec_exclude = '\('
         \. '\(^\|/\)\.\|'
         \. '\~$\|'
@@ -686,7 +687,8 @@ let rec_exclude = '\('
 if filereadable("dist.ini")
     let rec_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
 endif
-call unite#custom#source('file_rec', 'ignore_pattern', rec_exclude)
+call unite#custom#source('file_rec/async', 'ignore_pattern', rec_exclude)
+call unite#custom#source('file_rec/async', 'converters', ['converter_relative_word'])
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
     nmap <silent><buffer> \ <Plug>(unite_exit)
@@ -695,7 +697,7 @@ function! s:unite_my_settings()
     imap <silent><buffer> <Tab> <Plug>(unite_select_next_line)
     imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
 endfunction
-nmap <silent> t :Unite -start-insert -silent buffer file_rec<CR>
+nmap <silent> t :Unite -start-insert -silent buffer file_rec/async<CR>
 " }}}
 " vimfiler {{{
 let g:vimfiler_data_directory = '~/.vim/vimfiler'

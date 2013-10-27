@@ -55,3 +55,6 @@
 [submodule "vim/bundle/vimfiler"]
 	path = vim/bundle/vimfiler
 	url = git://github.com/Shougo/vimfiler.vim
+[submodule "vim/bundle/vimproc"]
+	path = vim/bundle/vimproc
+	url = git://github.com/Shougo/vimproc.vim

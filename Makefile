@@ -57,7 +57,9 @@ INSTALL   = abcde.conf \
 	    zsh
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
-BUILD     = bin/nethack/timettyrec $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*)))
+BUILD     = bin/nethack/timettyrec \
+	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
+	    vim/bundle/vimproc/autoload/vimproc_unix.so
 
 EMPTYDIRS = .log .vim/undo
 
@@ -87,5 +89,8 @@ $(INTO)/.% : %
 fortune/%.dat : fortune/%
 	@echo "Compiling $@"
 	@strfile -s $(basename $@)
+
+vim/bundle/vimproc/autoload/vimproc_unix.so : vim/bundle/vimproc/autoload/proc.c
+	cd vim/bundle/vimproc && make
 
 .PHONY: build install clean
