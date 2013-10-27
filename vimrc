@@ -42,6 +42,9 @@ set rulerformat=%26(%y%r%m\ (%n)\ %.7l,%.7c\ %=\ %P%)
 " display the number of (characters|lines) in visual mode, also cur command
 set showcmd
 
+" don't display the current mode, since airline does that
+set noshowmode
+
 " a - terse messages (like [+] instead of [Modified]
 " o - don't show both reading and writing messages if both occur at once
 " t - truncate file names
@@ -50,8 +53,8 @@ set showcmd
 " I - no intro message when starting vim fileless
 set shortmess=aotTWI
 
-" no extra status lines
-set laststatus=0
+" status line
+set laststatus=2
 
 " display as much of the last line as possible if it's really long
 " also display unprintable characters as hex
@@ -243,9 +246,7 @@ if has("gui_running")
     colorscheme torte
 else
     set background=light
-    if &t_Co > 16
-        set t_Co=16
-    endif
+    set t_Co=256
 endif
 " }}}
 " word completion menu {{{
@@ -724,5 +725,9 @@ function! s:vimfiler_my_settings()
     nmap <silent><buffer> <Return> <Plug>(vimfiler_edit_file)
 endfunction
 nmap c :VimFilerSimple -quit -explorer<CR>
+" }}}
+" bufferline {{{
+let g:bufferline_echo = 0
+let g:bufferline_modified = ''
 " }}}
 " }}}
