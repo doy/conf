@@ -1,9 +1,3 @@
-# notes {{{
-# This file is sourced by all *interactive* bash shells on startup,
-# including some apparently interactive shells such as scp and rcp
-# that can't tolerate any output.  So make sure this doesn't display
-# anything or bad things will happen !
-# }}}
 # environment {{{
 [ -f "$HOME/.env" ] && source $HOME/.env
 # }}}
@@ -15,14 +9,6 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 [ -z "$PS1" ] && return # }}}
-# Enable colors for ls, etc.  Prefer ~/.dir_colors {{{
-if [[ -f ~/.dir_colors ]]; then
-	eval `dircolors -b ~/.dir_colors`
-elif [[ -f /etc/DIR_COLORS ]]; then
-	eval `dircolors -b /etc/DIR_COLORS`
-else
-	eval `dircolors -b`
-fi # }}}
 # Change the window title of X terminals {{{
 case ${TERM} in
 	xterm*|rxvt*|Eterm|aterm|kterm|gnome|screen*)

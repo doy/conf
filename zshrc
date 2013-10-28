@@ -3,14 +3,6 @@
 # tends to hard-set $PATH and such
 [ -f "$HOME/.env" ] && source $HOME/.env
 # }}}
-# Enable colors for ls, etc.  Prefer ~/.dir_colors {{{
-if [[ -f ~/.dir_colors ]]; then
-    eval `dircolors -b ~/.dir_colors`
-elif [[ -f /etc/DIR_COLORS ]]; then
-    eval `dircolors -b /etc/DIR_COLORS`
-else
-    eval `dircolors -b`
-fi # }}}
 # Change the window title of X terminals {{{
 function term_title_precmd () {
     echo -ne "\033]0;${USER}@${HOST}:${PWD/$HOME/~}\007"
