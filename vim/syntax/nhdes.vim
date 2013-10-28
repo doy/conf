@@ -14,6 +14,9 @@ syn sync minlines=30
 " we're case sensitive
 syn case match
 
+" some keywords use '-'
+setlocal iskeyword+=-
+
 syn region nhDesComment start=/^[ \t]*#/ end=/$/
 
 syn keyword nhDesCommandNoArgs
@@ -40,6 +43,9 @@ syn keyword nhDesConstant
 syn region nhDesString start=/"/ end=/"/
 syn match nhDesChar /'.'/
 
+syn match nhDesCoord /(\s*\d\+\s*,\s*\d\+\s*)/
+syn match nhDesRegion /(\s*\d\+\s*,\s*\d\+\s*,\s*\d\+\s*,\s*\d\+\s*)/
+
 syn match nhDesMapCharDoor /[+S]/ contained
 syn match nhDesMapCharFloor /[\.B]/ contained
 syn match nhDesMapCharCorridor /[#H]/ contained
@@ -57,7 +63,12 @@ syn match nhDesMapCharLinenum /[0123456789]/ contained
 " TODO: Any better way to do this?
 syn match nhDesMapCharError /[^+S\.B#H\-\| WP}{\\ACLKITF0-9]/ contained
 
-syn region nhDesMap matchgroup=nhDesCommandNoArgs start=/^MAP$/ end=/^ENDMAP$/ contains=nhDesMapCharError,nhDesMapCharDoor,nhDesMapCharFloor,nhDesMapCharCorridor,nhDesMapCharWall,nhDesMapCharWater,nhDesMapCharThrone,nhDesMapCharAir,nhDesMapCharCloud,nhDesMapCharLava,nhDesMapCharSink,nhDesMapCharIce,nhDesMapCharTree,nhDesMapCharIronbars,nhDesMapCharLinenum
+syn region nhDesMap matchgroup=nhDesCommandNoArgs start=/^MAP$/ end=/^ENDMAP$/
+    \ contains=nhDesMapCharError,nhDesMapCharDoor,nhDesMapCharFloor,
+    \ nhDesMapCharCorridor,nhDesMapCharWall,nhDesMapCharWater,
+    \ nhDesMapCharThrone,nhDesMapCharAir,nhDesMapCharCloud,nhDesMapCharLava,
+    \ nhDesMapCharSink,nhDesMapCharIce,nhDesMapCharTree,nhDesMapCharIronbars,
+    \ nhDesMapCharLinenum
 
 hi def link nhDesComment	 Comment
 hi def link nhDesCommandNoArgs	 KeyWord
@@ -66,21 +77,23 @@ hi def link nhDesRegister	 Constant
 hi def link nhDesConstant	 Constant
 hi def link nhDesString		 String
 hi def link nhDesChar		 String
+hi def link nhDesCoord		 Number
+hi def link nhDesRegion		 Number
 
-highlight   nhDesMapCharDoor ctermbg=black   ctermfg=brown
-highlight   nhDesMapCharFloor ctermbg=black   ctermfg=grey
-highlight   nhDesMapCharCorridor ctermbg=black   ctermfg=grey
-highlight   nhDesMapCharWall ctermbg=black   ctermfg=grey
-highlight   nhDesMapCharWater ctermbg=black   ctermfg=darkblue
-highlight   nhDesMapCharThrone ctermbg=black   ctermfg=yellow
-highlight   nhDesMapCharAir ctermbg=black   ctermfg=lightblue
-highlight   nhDesMapCharCloud ctermbg=black   ctermfg=grey
-highlight   nhDesMapCharLava ctermbg=black   ctermfg=red
-highlight   nhDesMapCharSink ctermbg=black   ctermfg=grey
-highlight   nhDesMapCharIce ctermbg=black   ctermfg=lightblue
-highlight   nhDesMapCharTree ctermbg=black   ctermfg=green
-highlight   nhDesMapCharIronbars ctermbg=black   ctermfg=cyan
-highlight   nhDesMapCharLinenum ctermbg=black   ctermfg=darkgrey
-highlight   nhDesMapCharError ctermbg=red   ctermfg=yellow
+highlight   nhDesMapCharDoor	 ctermbg=black ctermfg=brown	 guibg=black guifg=brown
+highlight   nhDesMapCharFloor	 ctermbg=black ctermfg=grey	 guibg=black guifg=grey
+highlight   nhDesMapCharCorridor ctermbg=black ctermfg=grey	 guibg=black guifg=grey
+highlight   nhDesMapCharWall	 ctermbg=black ctermfg=grey	 guibg=black guifg=grey
+highlight   nhDesMapCharWater	 ctermbg=black ctermfg=darkblue	 guibg=black guifg=darkblue
+highlight   nhDesMapCharThrone	 ctermbg=black ctermfg=yellow	 guibg=black guifg=yellow
+highlight   nhDesMapCharAir	 ctermbg=black ctermfg=lightblue guibg=black guifg=lightblue
+highlight   nhDesMapCharCloud	 ctermbg=black ctermfg=grey	 guibg=black guifg=grey
+highlight   nhDesMapCharLava	 ctermbg=black ctermfg=red	 guibg=black guifg=red
+highlight   nhDesMapCharSink	 ctermbg=black ctermfg=grey	 guibg=black guifg=grey
+highlight   nhDesMapCharIce	 ctermbg=black ctermfg=lightblue guibg=black guifg=lightblue
+highlight   nhDesMapCharTree	 ctermbg=black ctermfg=green	 guibg=black guifg=green
+highlight   nhDesMapCharIronbars ctermbg=black ctermfg=cyan	 guibg=black guifg=cyan
+highlight   nhDesMapCharLinenum	 ctermbg=black ctermfg=darkgrey	 guibg=black guifg=darkgrey
+highlight   nhDesMapCharError	 ctermbg=red   ctermfg=yellow    guibg=red   guifg=yellow
 
 let b:current_syntax = "nhdes"
