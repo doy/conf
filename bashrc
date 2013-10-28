@@ -21,6 +21,7 @@ esac # }}}
 # completion {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
+[ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
 # }}}
 # bash configuration {{{
 shopt -s extglob
