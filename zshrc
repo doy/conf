@@ -32,11 +32,11 @@ function vim {
     fi
 }
 # }}}
-# external files {{{
+# completion {{{
 source ~/.zshcomplete
-source ~/.zshinput
 # }}}
 # zsh configuration {{{
+source ~/.zshinput
 autoload -U colors
 colors
 setopt incappendhistory

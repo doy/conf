@@ -18,10 +18,9 @@ esac # }}}
 # aliases {{{
 [ -f "$HOME/.aliases" ] && source $HOME/.aliases
 # }}}
-# external files {{{
+# completion {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
 [ -f /etc/profile.d/bash-completion ] && source /etc/profile.d/bash-completion
-source ~/.sh/cdhist.sh
 # }}}
 # bash configuration {{{
 shopt -s extglob
@@ -40,6 +39,9 @@ if [[ -z "$PROMPT_COMMAND" ]]; then
 else
     export PROMPT_COMMAND="${PROMPT_COMMAND};history -a"
 fi
+# plugins {{{
+source ~/.sh/cdhist.sh
+# }}}
 # prompt {{{
 export PROMPT_COMMAND="__err=\$?;$PROMPT_COMMAND;PS1=\"\$(fancy-prompt --prompt-escape bash "\$__err")\""
 # }}}
