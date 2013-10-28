@@ -12,6 +12,15 @@ bindkey -M vicmd '/' history-incremental-search-backward
 bindkey -M vicmd '?' history-incremental-search-forward
 bindkey -rM viins '^[/'
 
+bindkey -M vicmd ')' vi-digit-or-beginning-of-line
+bindkey -M vicmd 'e' vi-change
+bindkey -M vicmd 'E' vi-change-eol
+bindkey -M vicmd ',' execute-named-command
+bindkey -M vicmd '!' vi-insert
+bindkey -M vicmd '_' vi-first-non-blank
+bindkey -M vicmd '|' send-break
+bindkey -M vicmd '\' send-break
+
 bindkey "^?" backward-delete-char
 bindkey "^H" backward-delete-char
 bindkey "^U" backward-kill-line
