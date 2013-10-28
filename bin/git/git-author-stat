@@ -1,8 +1,0 @@
-#!/bin/bash
-
-git log "$@" | \
-git shortlog | \
-perl -ne 'print if/^\S+/' | \
-perl -pe 's/(.*)\((\d+)\).*/$2: $1/' | \
-sort -gr | \
-less -MSi;
