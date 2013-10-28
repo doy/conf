@@ -2,60 +2,39 @@
 URxvt*visualBell:true
 URxvt*background:black
 URxvt*foreground:lightgrey
-URxvt*shading:50
 URxvt*saveLines:4096
 URxvt*cursorColor:green
 URxvt*pointerColor:yellow
-URxvt*pointerColor2:black
 URxvt*borderWidth:1
 URxvt*scrollTtyOutput:false
 URxvt*scrollTtyKeypress:true
-URxvt*scrollBar_right:true
 URxvt*scrollBar:false
 URxvt*font:6x10
 URxvt*boldFont:6x10
+URxvt*urgentOnBell: true
 URxvt*perl-ext-common:default,matcher,pass<M-p>
 URxvt*perl-lib:/home/doy/.urxvt/
 URxvt*matcher.button:3
 URxvt*keysym.C-Return: perl:matcher:last
 URxvt*keysym.M-Return: perl:matcher:list
-URxvt.url-launcher:firefox
+URxvt*url-launcher:firefox
 URxvt*iso14755:false
 URxvt*iso14755_52:false
-URxvt.urgentOnBell: true
-! }}}
-! rxvt {{{
-Rxvt*visualBell:true
-Rxvt*background:black
-Rxvt*foreground:lightgrey
-Rxvt*shading:50
-Rxvt*saveLines:4096
-Rxvt*cursorColor:green
-Rxvt*pointerColor:yellow
-Rxvt*pointerColor2:black
-Rxvt*borderWidth:1
-Rxvt*scrollTtyOutput:false
-Rxvt*scrollTtyKeypress:true
-Rxvt*scrollBar_right:true
-Rxvt*scrollBar:false
-Rxvt*font:7x14
-Rxvt*boldFont:7x14
 ! }}}
 ! xterm {{{
 xterm*visualBell:true
-xterm*loginShell:true
 xterm*background:black
 xterm*foreground:lightgrey
-xterm*shading:50
 xterm*saveLines:4096
 xterm*cursorColor:green
 xterm*colorMode:true
 xterm*pointerColor:yellow
-xterm*pointerColor2:yellow
 xterm*borderWidth:1
 xterm*scrollTtyOutput:false
-xterm*scrollBar_right:true
 xterm*scrollBar:false
+xterm*font:6x10
+xterm*boldFont:6x10
+xterm*bellIsUrgent: true
 ! }}}
 
 ! vim:ft=xdefaults:
