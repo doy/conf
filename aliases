@@ -108,9 +108,16 @@ function pick_music {
     sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM yearly_tracks WHERE artist NOT IN (SELECT DISTINCT(artist) FROM weekly_tracks) GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
 }
 function rand_music {
+    local db
+    if [[ $1 == '--old' ]]; then
+        db=old_tracks
+        shift
+    else
+        db=yearly_tracks
+    fi
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
     for i in $(seq 1 $([ -z "$1" ] && echo 20 || echo $1)); do
-        echo "select distinct(artist) from yearly_tracks where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 .tracks.sqlite | rand_line | sed 's/.*/select artist, album from tracks where artist = "&" group by artist, album;/' | sqlite3 .tracks.sqlite | rand_line | sed 's/|/ - /'
+        echo "select distinct(artist) from $db where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 .tracks.sqlite | rand_line | sed "s/.*/select artist, album from $db where artist = '&' group by artist, album;/" | sqlite3 .tracks.sqlite | rand_line | sed 's/|/ - /'
     done
 }
 function t {
