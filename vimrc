@@ -618,7 +618,6 @@ runtime macros/matchit.vim
 nmap ;x gcc
 xmap ;x gc
 let g:tcommentBlankLines = 0
-let g:tcomment_types = { 'xs': '/* %s */' }
 " }}}
 " Rainbow {{{
 let g:rainbow = 1
