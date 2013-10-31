@@ -27,6 +27,8 @@
 	vim = "!f() { vim \"$@\"; }; f"
 	up = !git remote update && git pull && git prune-all
 	co = checkout
+	r = !git add -p && git commit --verbose
+	br = branch
 [github]
 	user = doy
 [color]
