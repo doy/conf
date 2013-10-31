@@ -1,6 +1,5 @@
 INTO      = $(HOME)
-INSTALL   = abcde.conf \
-	    aliases \
+INSTALL   = aliases \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \
