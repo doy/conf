@@ -28,6 +28,9 @@ set nostartofline
 
 " call CursorHold autocommands (and write swap files to disk) more often
 set updatetime=2000
+
+" strip leading comment characters when joining multiline comments
+set formatoptions+=j
 " }}}
 " Display {{{
 " color!
