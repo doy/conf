@@ -578,6 +578,20 @@ nnoremap <silent><Leader>= :call <SID>align_assignments()<CR>
 " fix this to work in visual mode properly
 "xnoremap <silent><Leader>= :call <SID>align_assignments()<CR>
 " }}}
+" ;i/;I/;a/;A/;o/;O for entering insert mode with paste set {{{
+function! s:temporary_paste()
+    setlocal paste
+    augroup temporary_paste
+        autocmd InsertLeave <buffer> setlocal nopaste | autocmd! temporary_paste
+    augroup END
+endfunction
+nnoremap <silent>;i :call <SID>temporary_paste()<CR>i
+nnoremap <silent>;I :call <SID>temporary_paste()<CR>I
+nnoremap <silent>;a :call <SID>temporary_paste()<CR>a
+nnoremap <silent>;A :call <SID>temporary_paste()<CR>A
+nnoremap <silent>;o :call <SID>temporary_paste()<CR>o
+nnoremap <silent>;O :call <SID>temporary_paste()<CR>O
+" }}}
 " keystroke reducers {{{
 " tags
 nnoremap <CR> <C-]>
