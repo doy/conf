@@ -78,8 +78,19 @@ ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 # prompt {{{
 function shell_prompt_precmd () {
     PROMPT=`fancy-prompt --prompt-escape zsh $?`
+    RPS1=''
 }
 precmd_functions+=(shell_prompt_precmd)
+function zle-line-init zle-keymap-select () {
+    if [[ "x$KEYMAP" == 'xmain' ]]; then
+        RPS1=''
+    else
+        RPS1="%{$fg_bold[yellow]%}[${KEYMAP/vicmd/NORMAL}]%{$reset_color%}"
+    fi
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 # }}}
 # set the correct perl {{{
 if type perlbrew > /dev/null 2>&1; then
