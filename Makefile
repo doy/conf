@@ -58,7 +58,8 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/nethack/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-	    vim/bundle/vimproc/autoload/vimproc_unix.so
+	    vim/bundle/vimproc/autoload/vimproc_unix.so \
+	    vim/spell/en.utf-8.add.spl
 
 EMPTYDIRS = .log .vim/undo
 
@@ -91,5 +92,8 @@ fortune/%.dat : fortune/%
 
 vim/bundle/vimproc/autoload/vimproc_unix.so : vim/bundle/vimproc/autoload/proc.c
 	cd vim/bundle/vimproc && make
+
+%.spl : %
+	@vim -u NONE -c':mkspell $< | :q'
 
 .PHONY: build install clean

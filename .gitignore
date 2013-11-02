@@ -20,5 +20,6 @@ taeb
 !taeb/config.yml
 vim/data/
 vim/.netrwhist
+vim/spell/*.spl
 weechat/weechat_fifo_*
 weechat/weechat.log
