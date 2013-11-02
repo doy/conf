@@ -201,6 +201,10 @@ endif
 " case insensitive searching, unless i type a capital letter
 set ignorecase
 set smartcase
+
+" better way to recall command line history
+set cedit=<Up>
+au CmdWinEnter * normal k
 " }}}
 " Make vim less whiny {{{
 " :bn with a change in the current buffer? no prob!
@@ -578,6 +582,7 @@ nnoremap <silent><Leader>= :call <SID>align_assignments()<CR>
 " tags
 nnoremap <CR> <C-]>
 nnoremap <BS> <C-T>
+autocmd CmdWinEnter * nnoremap <buffer><CR> <CR>
 
 " 'e' instead of 'c' for change
 nnoremap e c
