@@ -95,9 +95,6 @@ while (<$i3status>) {
 
     unshift @$line, { name => 'title', full_text => get_title() };
 
-    # XXX split battery discharge rate to a separate entry, so it can be
-    # colored separately
-
     say(($comma ? ',' : ''), encode_json($line));
 }
 
