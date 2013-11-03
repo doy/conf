@@ -43,7 +43,8 @@ for_window [class="DungeonDefenders-x86"] floating enable
 for_window [class="VVVVVV_32"]          floating enable
 for_window [class="hl2_linux"]          floating enable
 for_window [class="alephone"]           floating enable
-for_window [class="VirtualBox"]      floating enable
+for_window [class="VirtualBox"]         floating enable
+for_window [class="zsnes"]              floating enable
 
 # special desktops
 for_window [class="Xpdf"] move window to workspace 7
