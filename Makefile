@@ -94,6 +94,6 @@ vim/bundle/vimproc/autoload/vimproc_unix.so : vim/bundle/vimproc/autoload/proc.c
 	cd vim/bundle/vimproc && make
 
 %.spl : %
-	@vim -u NONE -c':mkspell $< | :q'
+	@vim -u NONE -c':mkspell! $< | :q'
 
 .PHONY: build install clean
