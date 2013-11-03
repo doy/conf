@@ -762,7 +762,7 @@ nnoremap <silent>c :VimFilerSimple -quit -explorer<CR>
 " bufferline {{{
 let g:bufferline_echo = 0
 let g:bufferline_rotate = 1
-let g:bufferline_fixed_index = -1
+let g:bufferline_fixed_index = -2
 " }}}
 " neocomplete {{{
 let g:neocomplete#data_directory = '~/.vim/data/neocomplete'
