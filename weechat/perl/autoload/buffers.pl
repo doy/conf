@@ -930,32 +930,40 @@ sub build_buffers
 
         if (weechat::config_boolean( $options{"short_names"} ) eq 1)
         {
+            my $name = $buffer->{"short_name"};
+            $name = '?' . $name if $buffer->{"type"} eq 'private';
+            $name =~ s|#iinteractive/|#|;
+
             if (weechat::config_integer($options{"name_size_max"}) >= 1)                # check max_size of buffer name
             {
-                $str .= encode("UTF-8", substr(decode("UTF-8", $buffer->{"short_name"}), 0, weechat::config_integer($options{"name_size_max"})));
-                $str .= weechat::color(weechat::config_color( $options{"color_number_char"})).weechat::config_string($options{"name_crop_suffix"}) if (length($buffer->{"short_name"}) > weechat::config_integer($options{"name_size_max"}));
+                $str .= encode("UTF-8", substr(decode("UTF-8", $name), 0, weechat::config_integer($options{"name_size_max"})));
+                $str .= weechat::color(weechat::config_color( $options{"color_number_char"})).weechat::config_string($options{"name_crop_suffix"}) if (length($name) > weechat::config_integer($options{"name_size_max"}));
                 $str .= add_inactive_parentless($buffer->{"type"},$buffer->{"nicks_count"});
                 $str .= add_hotlist_count($buffer->{"pointer"},%hotlist);
             }
             else
             {
-                $str .= $buffer->{"short_name"};
+                $str .= $name;
                 $str .= add_inactive_parentless($buffer->{"type"},$buffer->{"nicks_count"});
                 $str .= add_hotlist_count($buffer->{"pointer"},%hotlist);
             }
         }
         else
         {
+            my $name = $buffer->{"name"};
+            $name = '?' . $name if $buffer->{"type"} eq 'private';
+            $name =~ s|#iinteractive/|#|;
+
             if (weechat::config_integer($options{"name_size_max"}) >= 1)                # check max_size of buffer name
             {
-                $str .= encode("UTF-8", substr(decode("UTF-8", $buffer->{"name"},), 0, weechat::config_integer($options{"name_size_max"})));
-                $str .= weechat::color(weechat::config_color( $options{"color_number_char"})).weechat::config_string($options{"name_crop_suffix"}) if (length($buffer->{"name"}) > weechat::config_integer($options{"name_size_max"}));
+                $str .= encode("UTF-8", substr(decode("UTF-8", $name,), 0, weechat::config_integer($options{"name_size_max"})));
+                $str .= weechat::color(weechat::config_color( $options{"color_number_char"})).weechat::config_string($options{"name_crop_suffix"}) if (length($name) > weechat::config_integer($options{"name_size_max"}));
                 $str .= add_inactive_parentless($buffer->{"type"},$buffer->{"nicks_count"});
                 $str .= add_hotlist_count($buffer->{"pointer"},%hotlist);
             }
             else
             {
-                $str .= $buffer->{"name"};
+                $str .= $name;
                 $str .= add_inactive_parentless($buffer->{"type"},$buffer->{"nicks_count"});
                 $str .= add_hotlist_count($buffer->{"pointer"},%hotlist);
             }
