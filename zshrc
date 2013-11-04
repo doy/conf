@@ -87,7 +87,9 @@ function shell_prompt_precmd () {
     RPS1=''
 }
 precmd_functions+=(shell_prompt_precmd)
-function zle-line-init zle-keymap-select () {
+function zle-keymap-select () {
+    setopt localoptions no_ksharrays
+    { [[ "${@[2]-main}" == opp ]] } && return
     if [[ "x$KEYMAP" == 'xmain' ]]; then
         RPS1=''
     else
@@ -95,7 +97,6 @@ function zle-line-init zle-keymap-select () {
     fi
     zle reset-prompt
 }
-zle -N zle-line-init
 zle -N zle-keymap-select
 # }}}
 # set the correct perl {{{
