@@ -747,6 +747,7 @@ endfunction
 nnoremap <silent>t :Unite -silent -profile-name=with_dir buffer file_rec/async<CR>
 nnoremap <silent>f :Unite -silent buffer file<CR>
 nnoremap <silent>& :Unite -silent grep:.<CR>
+nnoremap <silent>T :Unite -silent tag<CR>
 " }}}
 " vimfiler {{{
 let g:vimfiler_data_directory = '~/.vim/data/vimfiler'

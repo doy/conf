@@ -73,3 +73,6 @@
 [submodule "zsh/opp"]
 	path = zsh/opp
 	url = git://github.com/hchbaw/opp.zsh
+[submodule "vim/bundle/unite-tag"]
+	path = vim/bundle/unite-tag
+	url = git://github.com/tsukkee/unite-tag

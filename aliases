@@ -33,6 +33,7 @@ alias bootstrap_cpanm="wget -O- -q http://xrl.us/cpanm | perl - App::cpanminus"
 alias v="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"t\")'"
 alias f="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"f\")'"
 alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"&\")'"
+alias T="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"T\")'"
 alias wifi="sudo systemctl restart netctl-auto@wlan0"
 alias prove="forkprove"
 function web {
