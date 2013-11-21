@@ -28,6 +28,16 @@ function! s:make_errors()
     endfor
     return 0
 endfunction
+let b:automake_enabled = 0
+function! s:automake()
+    let old_shellpipe = &shellpipe
+    let &shellpipe = '>'
+    try
+        silent make!
+    finally
+        let &shellpipe = old_shellpipe
+    endtry
+endfunction
 augroup _tex
 autocmd!
 if executable('xpdf') && strlen(expand('$DISPLAY'))
@@ -35,7 +45,11 @@ if executable('xpdf') && strlen(expand('$DISPLAY'))
 elseif executable('evince') && strlen(expand('$DISPLAY'))
     autocmd QuickFixCmdPost make if !s:make_errors() | call s:evince() | endif
 endif
+autocmd CursorHold,CursorHoldI,InsertLeave <buffer> if b:automake_enabled | call s:automake() | endif
 augroup END
+
+noremap <silent><F6> :let b:automake_enabled = !b:automake_enabled<CR><F5>
+inoremap <silent><F6> <C-O>:let b:automake_enabled = !b:automake_enabled<CR><C-O><F5>
 
 " see :help errorformat-LaTeX
 setlocal errorformat=
