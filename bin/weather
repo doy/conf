@@ -15,11 +15,14 @@ my %weather_pics = (
     'Thunderstorm'     => "\x{26a1}",
     'Rain'             => "\x{2614}",
     'Light Rain'       => "\x{2614}",
+    'Light Drizzle'    => "\x{2614}",
     'Partly Cloudy'    => "\x{2601}",
     'Mostly Cloudy'    => "\x{2601}",
     'Scattered Clouds' => "\x{2601}",
     'Overcast'         => "\x{2601}",
+    'Fog'              => "\x{2601}",
     'Clear'            => "\x{2600}",
+    'Light Snow'       => "\x{2744}",
 );
 
 my $wu = WWW::Wunderground::API->new(
