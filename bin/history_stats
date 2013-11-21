@@ -24,25 +24,23 @@ while (<$fh>) {
     # strip zsh history timestamps
     s/^[^;]*;// if /^:/;
 
-    for my $cmd (split /;/, $_) {
-        $cmd =~ s/^\s*(.*?)\s*$/$1/;
-        my @words = split /\s+/, $cmd;
-        next unless @words;
-        shift @words while @words && $words[0] =~ /^[A-Z][A-Z0-9_]*=/;
-        next unless @words;
-        my $sudo;
-        if ($words[0] eq 'sudo') {
-            $sudo = 1;
-            shift @words;
-        }
-        if ($subcommand) {
-            next unless $words[0] eq $subcommand;
-            shift @words;
-            shift @words while @words && $words[0] =~ /^-/;
-        }
-        $cmds{($words[0] || '')}++;
-        $sudo_cmds{$words[0]}++ if $sudo;
+    s/^\s*(.*?)\s*$/$1/;
+    my @words = split /\s+/;
+    next unless @words;
+    shift @words while @words && $words[0] =~ /^[A-Z][A-Z0-9_]*=/;
+    next unless @words;
+    my $sudo;
+    if ($words[0] eq 'sudo') {
+        $sudo = 1;
+        shift @words;
     }
+    if ($subcommand) {
+        next unless $words[0] eq $subcommand;
+        shift @words;
+        shift @words while @words && $words[0] =~ /^-/;
+    }
+    $cmds{($words[0] || '')}++;
+    $sudo_cmds{$words[0]}++ if $sudo;
 }
 
 for my $cmd (sort { $cmds{$b} <=> $cmds{$a} } keys %cmds) {
