@@ -1,7 +1,7 @@
 # TEAMCAPTAIN doy
 # TEAMNAME cabal
 # TEAMMEMBERS doy stabwound cbus wasp Grimm 78291
-# Dungeon Crawl Stone Soup 0.12.0
+# Dungeon Crawl Stone Soup 0.13.1
 
 ##### 1-  Starting Screen {{{
 name                       = doy
@@ -131,6 +131,7 @@ sort_menus               = true : charged,equipped,identified,curse,art,ego,glow
 autofight_stop           = 40
 # autofight_throw        = false
 # autofight_throw_nomove = true
+# autofight_fire_stop    = false
 # }}}
 ##### 3-i       Messages and Display Enhancements {{{
 hp_warning                     = 40
