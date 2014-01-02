@@ -1,27 +1,4 @@
-# vars {{{
-#VERBOSE=yes
-UIUC=(uiuc|illinois|uillinois)
-# }}}
 # spam {{{
-# at least two of these conditions have to match (this is a bit more
-# permissive than perhaps it should be, but i don't think it will catch
-# any false positives
-:0
-* -1^0
-*  1^0 ^Subject:.*Daily error monitoring report
-*  1^0 ^Subject: INSOMNIACS.*(left the list|error report from)
-*  1^0 ^Subject: (You have been added|Your removal).*INSOMNIACS
-*  1^0 ^From.*LISTSERV@LISTSERV.ILLINOIS.EDU
-*  1^0 ^Subject:.*Luairc-commits moderator request
-*  1^0 ^Subject:.*Luairc-commits post .* requires approval
-*  1^0 ^TO_luairc-commits-owner@lists.luaforge.net
-*  1^0 ^Subject:.*mozdev.org mailing list memberships reminder
-*  1^0 ^From.*mailman-owner@mozdev.org
-{
-    folder=${DEFAULT}.Trash/
-    SWITCHRC=$HOME/.procmail/mark_as_read
-}
-
 :0
 * ^X-Spam-Flag: YES
 {
@@ -29,12 +6,34 @@ UIUC=(uiuc|illinois|uillinois)
     SWITCHRC=$HOME/.procmail/mark_as_read
 }
 # }}}
-# filters {{{
-:0: # gravatar {{{
+# gravatar {{{
+:0:
 * ^From.*@gravatar.com
-.websites.community.gravatar/
+.websites/
 # }}}
-# mailing lists/trackers {{{
+# events {{{
+:0:
+* 1^0 ^TO_bonaroo@tozt.net
+* 1^0 ^TO_c2e2@tozt.net
+* 1^0 ^TO_etix@tozt.net
+* 1^0 ^TO_meetup@tozt.net
+* 1^0 ^TO_stubhub@tozt.net
+* 1^0 ^TO_ticketmaster@tozt.net
+.events/
+# }}}
+# housing {{{
+:0:
+* 1^0 ^TO_apartment@tozt.net
+* 1^0 ^From.*rose@diamondrose.com
+.housing/
+# }}}
+# mailing lists {{{
+:0: # alar-rpg {{{
+* 1^0 ^TO_alar-rpg@tozt.net
+* 1^0 ^TO_alar-rpg@listbox.com
+* 1^0 ^TO_alar@dudgeonmaster.org
+.mailing\ lists.alar-rpg/
+# }}}
 :0: # crawl {{{
 * ^Subject:.*crawl-ref
 * ^From.*sourceforge.*
@@ -47,34 +46,23 @@ UIUC=(uiuc|illinois|uillinois)
 * ^From.*ploog@mi.fu-berlin.de
 .mailing\ lists.crawl/
 # }}}
-:0: # hiveminder-api {{{
-* ^TO_hiveminder-api@googlegroups.com
-.mailing\ lists.hiveminder/
-# }}}
-:0: # aleph one {{{
-* ^TO_marathon-devel@lists.sourceforge.net
-.mailing\ lists.alephone/
-# }}}
-:0: # trace bundy {{{
-* 1^0 ^TO_.*trace@tracebundy.com
-* 1^0 ^From.*trace@tracebundy.com
-.mailing\ lists.trace\ bundy/
-# }}}
-:0: # nomic {{{
-* ^TO_netmonster-nomic@googlegroups.com
-.mailing\ lists.nomic/
+:0: # crawl devteam {{{
+* ^TO_crawl-private@dobrazupa.org
+.mailing\ lists.crawl/
 # }}}
 :0: # moose {{{
 * ^TO_moose@perl.org
 .mailing\ lists.moose/
 # }}}
-:0: # conkeror {{{
-* ^TO_conkeror@mozdev.org
-.mailing\ lists.conkeror/
-# }}}
-:0: # swing society {{{
-*$ ^TO_swing-l@listserv.${UIUC}.edu
-.mailing\ lists.swing-society/
+:0: # perl conferences {{{
+* 1^0 ^From.*root@mongueurs.net
+* 1^0 ^From.*YET ANOTHER SOCIETY
+* 1^0 ^TO_frozen-perl-2009@googlegroups.com
+* 1^0 ^From.*leonard@umn.edu
+* 1^0 ^From.*confserv@andrew.cmu.edu
+* 1^0 ^From.*eay@andrew.cmu.edu
+* 1^0 ^From.*@yapc10.org
+.mailing\ lists.perl\ conferences/
 # }}}
 :0: # perl5-porters {{{
 * 1^0 ^TO_smokers-reports@perl.org
@@ -87,554 +75,80 @@ UIUC=(uiuc|illinois|uillinois)
 * 1^0 ^TO_perl-thanks@perl.org
 .mailing\ lists.perl5-porters/
 # }}}
-:0: # alar-rpg {{{
-* 1^0 ^TO_alar-rpg@tozt.net
-* 1^0 ^TO_alar-rpg@listbox.com
-* 1^0 ^TO_alar@dudgeonmaster.org
-.mailing\ lists.alar-rpg/
-# }}}
 :0: # rust {{{
 * ^TO_rust-dev@mozilla.org
 .mailing\ lists.rust-dev/
 # }}}
-:0: # codewar {{{
-* ^TO_codewar@lists.codesimply.com
-.mailing\ lists.codewar/
 # }}}
+# money {{{
+:0:
+* 1^0 ^TO_ally@tozt.net
+* 1^0 ^TO_chase@tozt.net
+* 1^0 ^TO_geico@tozt.net
+* 1^0 ^TO_mint@tozt.net
+* 1^0 ^TO_verizon@tozt.net
+* 1^0 ^TO_verizonwireless@tozt.net
+.money/
 # }}}
-# school {{{
-# acm {{{
-:0
-*$ ^TO_.*@acm.${UIUC}.edu
-{
-    :0: # gamebuilders {{{
-    * ^TO_gamebuilders
-    .old.acm.gamebuilders/
-    # }}}
-    :0: # gb-dev {{{
-    * ^TO_gb-dev
-    .old.acm.gb-dev/
-    # }}}
-    :0: # job list {{{
-    * ^TO_jobs-l
-    .school.acm.job\ list/
-    # }}}
-    :0: # lug {{{
-    * ^TO_lug-l
-    .old.acm.lug/
-    # }}}
-    :0: # sigembedded {{{
-    * ^TO_sigembedded-l
-    .old.acm.sigembedded/
-    # }}}
-    :0: # sigmusic {{{
-    * ^TO_sigmusic-l
-    .old.acm.sigmusic/
-    # }}}
-    :0: # sigops {{{
-    * ^TO_sigops-l
-    .old.acm.sigops/
-    # }}}
-    :0: # sigsoft {{{
-    * ^TO_sigsoft-l
-    .old.acm.sigsoft/
-    # }}}
-    :0: # sigunix {{{
-    * ^TO_sigunix-l
-    .old.acm.sigunix/
-    # }}}
-    :0:
-    .school.acm/
-}
-# }}}
-# clubs {{{
-:0: # falling illini {{{
-* ^TO_fallingillini-club@fallingillini.org
-.school.clubs.falling\ illini/
-# }}}
-:0: # inline {{{
-* ^TO_INSOMNIACS-L@LISTSERV.ILLINOIS.EDU
-.school.clubs.inline\ insomniacs/
-# }}}
-:0: # dance {{{
-* 1^0 ^From.*@isalsa2.org
-* 1^0 ^From.*@mamboitaliano.us
-* 1^0 ^From.*jim@ks.uiuc.edu
-.clubs.dance/
-# }}}
-:0: # listserv {{{
-* ^TO_cites-listserv-owners@illinois.edu
-.school.clubs/
-# }}}
-:0: # iurso {{{
-* ^From.*iurso@${UIUC}.edu
-.school.clubs/
-# }}}
-# }}}
-:0 # massmail {{{
-*$ ^TO_everybody@${UIUC}.edu
-{
-    :0:
-    * 1^0 ^Subject: MASSMAIL
-    * 1^0 B ?? ^This Message sent via MASSMAIL\.
-    .school.massmail/
-}
-# }}}
-:0: # study abroad {{{
-* ^TO_STUDYABROAD-L@LISTSERV.ILLINOIS.EDU
-.study\ abroad/
-# }}}
-:0: # housing {{{
-* 1^0 ^From.*@jsmapts.com
-* 1^0 ^From.*@rentpayment.com
-.housing/
-# }}}
-:0: # ecs {{{
-*$ 1^0 ^From.*ecs@engineering.${UIUC}.edu
-*$ 1^0 ^From.*ecs@engr.${UIUC}.edu
-.school.ecs/
-# }}}
-:0: # eweek {{{
-*$ ^From.*eweek@${UIUC}.edu
-.school.eweek/
-# }}}
-# }}}
-# websites {{{
-:0: # 30 boxes {{{
-* ^From.*@30boxes.com
-.websites.organization.30boxes/
-# }}}
-:0: # campusfood {{{
-* ^From.*@campusfood.com
-.websites.shopping.food/
-# }}}
-:0: # couchsurfing {{{
-* ^From.*@couchsurfing.(com|org)
-.websites.community.couchsurfing/
-# }}}
-:0: # cpan {{{
-* 1^0 ^TO_DOY@cpan.org
+# projects {{{
+:0:
 * 1^0 ^TO_cpan-testers@perl.org
+* 1^0 ^TO_DOY@cpan.org
+* 1^0 ^TO_gitorious@tozt.net
+* 1^0 ^TO_scala@tozt.net
+* 1^0 ^TO_sonatype@tozt.net
 * 1^0 ^From.*upload@pause.fiz-chemie.de
 * 1^0 ^From.*upload@pause.perl.org
 * 1^0 ^From.*@rt.cpan.org
-.websites.projects.cpan/
+* 1^0 ^From.*@github.com
+* 1^0 ^From.*notifications@travis-ci.org
+.projects/
 # }}}
-:0: # facebook {{{
-* 1^0 ^From.*@facebookmail.com
-* 1^0 ^From.*@facebookappmail.com
-.websites.community.facebook/
-# }}}
-:0: # hiveminder {{{
-* 1^0 ^X-Hiveminder
-* 1^0 ^X-Twittersendername: Hiveminder
-.websites.organization.hiveminder/
-# }}}
-:0: # last.fm {{{
-* ^From.*no-reply@(mailer.)last.fm
-.websites.community.lastfm/
-# }}}
-:0: # livejournal {{{
-* ^From.*@livejournal.com
-.websites.community.lj/
-# }}}
-:0: # luaforge {{{
-* ^Sender:.*www-data@luaforge.net
-.websites.projects.luaforge/
-# }}}
-:0: # jott {{{
-* ^From.*notify@jott.com
-.websites.organization.jott/
-# }}}
-:0: # aerlingus {{{
-* ^From.*@aerlingus.chtah.com
-.websites.travel.airlines/
-# }}}
-:0: # orbitz {{{
-* ^From.*@.*orbitz.com
-.websites.travel.airlines/
-# }}}
-:0: # babeland {{{
-* ^From.*@babeland.com
-.websites.shopping.babeland/
-# }}}
-:0: # sky europe {{{
-* ^From.*skyeurope.com
-.websites.travel.airlines/
-# }}}
-:0: # dynadot {{{
-* ^From.*@dynadot.com
-.websites.hosting.dynadot/
-# }}}
-:0: # sg {{{
-* ^From.*@suicidegirls.com
-.websites.fun.sg/
-# }}}
-:0: # wegottickets {{{
-* ^From.*@wegottickets.com
-.websites.fun.concerts/
-# }}}
-:0: # greeka {{{
-* ^From.*@greeka.com
-.websites.travel/
-# }}}
-:0: # skating {{{
-* 1^0 ^From.*@summitonline.*.com
-* 1^0 ^From.*@vxb.com
-.websites.shopping.skating/
-# }}}
-:0: # kongregate {{{
-* ^From.*@kongregate.com
-.websites.fun.kongregate/
-# }}}
-:0: # newegg {{{
-* ^From.*@newegg.com
-.websites.shopping.newegg/
-# }}}
-:0: # easyjet {{{
-* ^From.*@mail.easyjet.com
-.websites.travel.airlines/
-# }}}
-:0: # amazon {{{
-* 1^0 ^From.*@amazon.com
-* 1^0 TO_amazon@tozt.net
-.websites.shopping.amazon/
-# }}}
-:0: # wachovia {{{
-* 1^0 ^From.*wachovia.com
-* 1^0 ^From.*acs-education.com
-.websites.money.loans/
-# }}}
-:0: # codeweavers {{{
-* ^From.*@codeweavers.com
-.websites.projects/
-# }}}
-:0: # boingo {{{
-* ^From.*@boingo.*.com
-.websites.travel.internet/
-# }}}
-:0: # hostelworld {{{
-* 1^0 ^From.*@hostelworld.com
-* 1^0 ^From.*@.*.hostelworld.com
-.websites.travel.hostels/
-# }}}
-:0: # achewood {{{
-* ^From.*@achewood.com
-.websites.fun.webcomics/
-# }}}
-:0: # paypal {{{
-* ^From.*paypal.com
-.websites.money.paypal/
-# }}}
-:0: # everydns {{{
-* 1^0 ^From.*@everydns.(net|com)
-* 1^0 ^From.*@dyn.com
-.websites.hosting.everydns/
-# }}}
-:0: # scuba diving {{{
-* 1^0 ^From.*webmaster@padi.com
-* 1^0 ^From.*@.*padidiver.com
-* 1^0 ^From.*info@naxosdiving.com
-.websites.fun.scuba\ diving/
-# }}}
-:0: # ticketmaster {{{
-* ^From.*@.*ticketmaster.com
-.websites.fun.concerts/
-# }}}
-:0: # livenation {{{
-* ^From.*@.*livenationent.com
-.websites.fun.concerts/
-# }}}
-:0: # sourceforge {{{
-* ^From.*@.*sourceforge.net
-.websites.projects.sourceforge/
-# }}}
-:0: # perl conferences {{{
-* 1^0 ^From.*root@mongueurs.net
-* 1^0 ^From.*YET ANOTHER SOCIETY
-* 1^0 ^TO_frozen-perl-2009@googlegroups.com
-* 1^0 ^From.*leonard@umn.edu
-* 1^0 ^From.*confserv@andrew.cmu.edu
-* 1^0 ^From.*eay@andrew.cmu.edu
-* 1^0 ^From.*@yapc10.org
-.mailing\ lists.perl\ conferences/
-# }}}
-:0: # aes {{{
-* ^From.*elabs7.com
-.websites.money.loans/
-# }}}
-:0: # youtube {{{
-* ^From.*@youtube.com
-.websites.community.youtube/
-# }}}
-:0: # redoctane {{{
-* 1^0 ^From.*@redoctane.com
-* 1^0 ^From.*@guitarherostore.com
-.websites.shopping.redoctane/
-# }}}
-:0: # github {{{
-* ^From.*@github.com
-.websites.projects.github/
-# }}}
-:0: # livemocha {{{
-* ^From.*@.*.livemocha.com
-.websites.fun.livemocha/
-# }}}
-:0: # ebay {{{
-* 1^0 ^From.*@.*.ebay.com
-* 1^0 ^From.*@ebay.com
-* 1^0 ^TO_ebay@tozt.net
-.websites.shopping.ebay/
-# }}}
-:0: # att {{{
-* ^From.*@.*sbc.com
-.bills.internet/
-# }}}
-:0: # borders {{{
-* ^From.*@.*borders.com
-.websites.shopping.borders/
-# }}}
-:0: # dailymotion {{{
-* ^From.*@.*dailymotion.com
-.websites.community.dailymotion/
-# }}}
-:0: # twitter {{{
-* ^From.*@.*twitter.com
-.websites.community.twitter/
-# }}}
-:0: # emusic {{{
-* ^From.*@.*emusic.com
-.websites.shopping.emusic/
-# }}}
-:0: # groupon {{{
-* ^TO_groupon@tozt.net
-.websites.shopping.groupon/
-# }}}
-:0: # mint {{{
-* ^TO_mint@tozt.net
-.websites.money.mint/
-# }}}
-:0: # geico {{{
-* ^TO_geico@tozt.net
-.websites.insurance.geico/
-# }}}
-:0: # opentable {{{
-* ^TO_opentable@tozt.net
-.websites.shopping.food/
-# }}}
-:0: # bonnaroo {{{
-* ^TO_bonaroo@tozt.net
-.websites.fun.concerts/
-# }}}
-:0: # ticketfly {{{
-* ^From.*@ticketfly.com
-.websites.fun.concerts/
-# }}}
-:0: # foodler {{{
+# shopping {{{
+:0:
+* 1^0 ^TO_amazon@tozt.net
+* 1^0 ^TO_emusic@tozt.net
 * 1^0 ^TO_foodler@tozt.net
-* 1^0 ^From.*@foodler.com
-.websites.shopping.food/
+* 1^0 ^TO_groupon@tozt.net
+* 1^0 ^TO_indiegogo@tozt.net
+* 1^0 ^TO_kickstarter@tozt.net
+* 1^0 ^TO_newegg@tozt.net
+* 1^0 ^TO_opentable@tozt.net
+* 1^0 ^TO_steam@tozt.net
+.shopping/
 # }}}
-:0: # gitorious {{{
-* ^TO_gitorious@tozt.net
-.websites.projects.gitorious/
+# tools {{{
+:0:
+* 1^0 ^TO_crashplan@tozt.net
+* 1^0 ^TO_fitbit@tozt.net
+* 1^0 ^TO_linode@tozt.net
+* 1^0 ^TO_newsblur@tozt.net
+* 1^0 ^TO_pinboard@tozt.net
+* 1^0 ^TO_skype@tozt.net
+.tools/
 # }}}
-:0: # hotwire {{{
-* 1^0 ^TO_hotwire@tozt.net
-* 1^0 ^From.*@hotwire.com
-.websites.travel.hotel/
-# }}}
-:0: # expedia {{{
-* ^TO_expedia@tozt.net
-.websites.travel/
-# }}}
-:0: # amtrak {{{
+# travel {{{
+:0:
 * 1^0 ^TO_amtrak@tozt.net
-* 1^0 ^From.*@amtrak.com
-.websites.travel.train/
+* 1^0 ^TO_expedia@tozt.net
+* 1^0 ^TO_hotwire@tozt.net
+.travel/
 # }}}
-:0: # chase {{{
-* ^TO_chase@tozt.net
-.websites.money.loans/
-# }}}
-:0: # stubhub {{{
-* ^TO_stubhub@tozt.net
-.websites.fun.concerts/
-# }}}
-:0: # coderwall {{{
-* ^From.*@coderwall.com
-.websites.community/
-# }}}
-:0: # verizon {{{
-* ^From.*@verizonwireless.com
-.bills.internet/
-# }}}
-:0: # thinkgeek {{{
-* ^From.*@.*.thinkgeek.com
-.websites.shopping.thinkgeek/
-# }}}
-:0: # humblebundle {{{
-* ^From.*@humblebundle.com
-.websites.shopping.humblebundle/
-# }}}
-:0: # flixster {{{
-* ^TO_flixster@tozt.net
-.websites.community.flixster/
-# }}}
-:0: # wells fargo {{{
-* ^From.*@wellsfargo.com
-.websites.money.loans/
-# }}}
-:0: # livingsocial {{{
-* ^From.*@livingsocial.com
-.websites.shopping.livingsocial/
-# }}}
-:0: # skype {{{
-* ^TO_skype@tozt.net
-.websites.community.skype/
-# }}}
-:0: # dropbox {{{
-* 1^0 ^From.*@dropboxmail.com
-* 1^0 ^From.*@dropbox.com
-.websites.backups.dropbox/
-# }}}
-:0: # pinboard {{{
-* ^TO_pinboard@tozt.net
-.websites.community.pinboard/
-# }}}
-:0: # ally {{{
-* ^TO_ally@tozt.net
-.websites.money.bank/
-# }}}
-:0: # steam {{{
-* ^TO_steam@tozt.net
-.websites.fun.steam/
-# }}}
-:0: # allegiant {{{
-* ^TO_allegiant@tozt.net
-.websites.travel.airlines/
-# }}}
-:0: # fitbit {{{
-* ^TO_fitbit@tozt.net
-.websites.fun.fitbit/
-# }}}
-:0: # etix {{{
-* ^TO_etix@tozt.net
-.websites.fun.concerts/
-# }}}
-:0: # freefilefillableforms {{{
-* ^TO_freefilefillableforms@tozt.net
-.websites.money.taxes/
-# }}}
-:0: # meetup {{{
-* ^TO_meetup@tozt.net
-.websites.community.meetup/
-# }}}
-:0: # ebookers {{{
-* ^TO_ebookers@tozt.net
-.websites.travel.airlines/
-# }}}
-:0: # crawl devteam {{{
-* ^TO_crawl-private@dobrazupa.org
-.mailing\ lists.crawl/
-# }}}
-:0: # sonatype {{{
-* ^TO_sonatype@tozt.net
-.websites.projects.scala/
-# }}}
-:0: # indiegogo {{{
-* ^TO_indiegogo@tozt.net
-.websites.shopping.indiegogo/
-# }}}
-:0: # kickstarter {{{
-* ^TO_kickstarter@tozt.net
-.websites.shopping.kickstarter/
-# }}}
-:0: # newsblur {{{
-* ^TO_newsblur@tozt.net
-.websites.community.newsblur/
-# }}}
-:0: # scala {{{
-* ^TO_scala@tozt.net
-.websites.projects.scala/
-# }}}
-:0: # travis {{{
-* ^From.*notifications@travis-ci.org
-.websites.projects.travis/
-# }}}
-:0: # crashplan {{{
-* ^TO_crashplan@tozt.net
-.websites.backups.crashplan/
-# }}}
-:0: # linode {{{
-* ^TO_linode@tozt.net
-.websites.hosting.linode/
-# }}}
+# websites {{{
+:0:
+* 1^0 ^TO_kongregate@tozt.net
+* 1^0 ^TO_twitter@tozt.net
+* 1^0 ^From.*@couchsurfing.org
+* 1^0 ^From.*no-reply@mailer.last.fm
+* 1^0 ^From.*@livejournal.com
+.websites/
 # }}}
 # work {{{
-:0: # ii {{{
+:0:
 * ^From.*iinteractive.com
 .work/
-# }}}
-:0 # old {{{
-*$ 1^0 ^TO_hydro-lab@${UIUC}.edu
-*$ 1^0 ^TO_.*@aquifer.geology.${UIUC}.edu
-*$ 1^0 ^From.*uihrcomm@${UIUC}.edu
-*$ 1^0 ^TO_sese-(everyone|all-faculty)@earth.${UIUC}.edu
-*  1^0 ^TO_uiucvisiting@gmail.com
-*$ 1^0 ^TO_nhb@.*geology.${UIUC}.edu
-*$ 1^0 ^TO_jobs@.*geology.${UIUC}.edu
-*$ 1^0 ^From.*mkt@ad.${UIUC}.edu
-*$ 1^0 ^From.*phays@${UIUC}.edu
-*  1^0 ^From.*@.*sursls.org
-*$ 1^0 ^From.*bethke@${UIUC}.edu
-*  1^0 ^From.*@rockware.com
-*$ 1^0 ^From.*hatchel@ad.${UIUC}.edu
-*$ 1^0 ^From.*jbarrett@cyrus.psych.${UIUC}.edu
-*  1^0 ^From.*jenny.barrett@ieanea.org
-*$ 1^0 ^From.*dyar@earth.${UIUC}.edu
-*$ 1^0 ^From.*smarshak@${UIUC}.edu
-*$ 1^0 ^From.*fouke@${UIUC}.edu
-*$ 1^0 ^From.*wpchen@${UIUC}.edu
-*$ 1^0 ^From.*no_reply_hr@${UIUC}.edu
-*$ 1^0 ^From.*stackler@${UIUC}.edu
-*$ 1^0 ^From.*tmflynn2@${UIUC}.edu
-{
-    :0: # commits {{{
-    *  ^Subject: commit - revision
-    *$ ^From.*@aquifer.geology.${UIUC}.edu
-    .work-gwb.commits/
-    # }}}
-    :0:
-    .work-gwb/
-}
-# }}}
-# }}}
-# other {{{
-:0: # quantumrecruitment {{{
-* ^From.*quantumrecruitment.com
-.jobs/
-# }}}
-:0: # apartment {{{
-* ^TO_apartment@tozt.net
-.housing/
-# }}}
-:0: # apartment {{{
-* ^From.*rose@diamondrose.com
-.housing/
-# }}}
 # }}}
 # local {{{
 INCLUDERC=$PMDIR/local.rc
 # }}}
-# defaults {{{
-:0: # school catch-all {{{
-*$ 1^0 ^TO_.*@${UIUC}.edu
-*  1^0 ^From.*illini-alert@.*
-*$ 1^0 ^From.*consult@${UIUC}.edu
-.school/
-# }}}
-# }}}
-# }}}
-
 # vim:ft=procmail:
