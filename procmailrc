@@ -11,9 +11,13 @@
 * ^From.*@gravatar.com
 .websites/
 # }}}
+# local {{{
+INCLUDERC=$PMDIR/local.rc
+# }}}
 # events {{{
 :0:
 * 1^0 ^TO_bonaroo@tozt.net
+* 1^0 ^TO_citicenter@tozt.net
 * 1^0 ^TO_c2e2@tozt.net
 * 1^0 ^TO_etix@tozt.net
 * 1^0 ^TO_meetup@tozt.net
@@ -73,10 +77,12 @@
 * 1^0 ^From.*perlbug-followup@perl.org
 * 1^0 ^TO_perlbug-followup@perl.org
 * 1^0 ^TO_perl-thanks@perl.org
+* 1^0 ^From.*perl5-porters-help@perl.org
 .mailing\ lists.perl5-porters/
 # }}}
 :0: # rust {{{
-* ^TO_rust-dev@mozilla.org
+* 1^0 ^TO_rust-dev@mozilla.org
+* 1^0 ^From.*mailman-owner@mozilla.org
 .mailing\ lists.rust-dev/
 # }}}
 # }}}
@@ -84,8 +90,12 @@
 :0:
 * 1^0 ^TO_ally@tozt.net
 * 1^0 ^TO_chase@tozt.net
+* 1^0 ^TO_creditcard@tozt.net
 * 1^0 ^TO_geico@tozt.net
 * 1^0 ^TO_mint@tozt.net
+* 1^0 ^TO_nationalgrid@tozt.net
+* 1^0 ^TO_progressive@tozt.net
+* 1^0 ^TO_vanguard@tozt.net
 * 1^0 ^TO_verizon@tozt.net
 * 1^0 ^TO_verizonwireless@tozt.net
 .money/
@@ -109,21 +119,25 @@
 * 1^0 ^TO_amazon@tozt.net
 * 1^0 ^TO_emusic@tozt.net
 * 1^0 ^TO_foodler@tozt.net
+* 1^0 ^TO_graze@tozt.net
 * 1^0 ^TO_groupon@tozt.net
 * 1^0 ^TO_indiegogo@tozt.net
 * 1^0 ^TO_kickstarter@tozt.net
 * 1^0 ^TO_newegg@tozt.net
 * 1^0 ^TO_opentable@tozt.net
 * 1^0 ^TO_steam@tozt.net
+* 1^0 ^TO_vibram@tozt.net
 .shopping/
 # }}}
 # tools {{{
 :0:
 * 1^0 ^TO_crashplan@tozt.net
 * 1^0 ^TO_fitbit@tozt.net
+* 1^0 ^TO_fruux@tozt.net
 * 1^0 ^TO_linode@tozt.net
 * 1^0 ^TO_newsblur@tozt.net
 * 1^0 ^TO_pinboard@tozt.net
+* 1^0 ^TO_roku@tozt.net
 * 1^0 ^TO_skype@tozt.net
 .tools/
 # }}}
@@ -132,10 +146,14 @@
 * 1^0 ^TO_amtrak@tozt.net
 * 1^0 ^TO_expedia@tozt.net
 * 1^0 ^TO_hotwire@tozt.net
+* 1^0 ^TO_megabus@tozt.net
+* 1^0 ^TO_priceline@tozt.net
+* 1^0 ^TO_southwest@tozt.net
 .travel/
 # }}}
 # websites {{{
 :0:
+* 1^0 ^TO_disqus@tozt.net
 * 1^0 ^TO_kongregate@tozt.net
 * 1^0 ^TO_twitter@tozt.net
 * 1^0 ^From.*@couchsurfing.org
@@ -145,10 +163,22 @@
 # }}}
 # work {{{
 :0:
+* 1^0 ^From.*notify@adminitrack.com
+* 1^0 ^From.*jira@iinteractive.com
+.work.tickets/
+:0:
+* 1^0 ^Sender.*calendar-notification@google.com
+* 1^0 ^From.*noreply@icloud.com
+.work.events/
+:0:
+* 1^0 ^From.*flowdock.com
+* 1^0 ^From.*files@iinteractive.com
+.work.tools/
+:0:
+* 1^0 ^From.*confluence@iinteractive.com
+.work.wiki/
+:0:
 * ^From.*iinteractive.com
 .work/
-# }}}
-# local {{{
-INCLUDERC=$PMDIR/local.rc
 # }}}
 # vim:ft=procmail:
