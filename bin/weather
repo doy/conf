@@ -12,18 +12,15 @@ use WWW::Wunderground::API;
 chomp(my $api_key = file("$ENV{HOME}/.wunderground")->slurp);
 
 my %weather_pics = (
-    'Thunderstorm'     => "\x{26a1}",
-    'Rain'             => "\x{2614}",
-    'Heavy Rain'       => "\x{2614}",
-    'Light Rain'       => "\x{2614}",
-    'Light Drizzle'    => "\x{2614}",
-    'Partly Cloudy'    => "\x{2601}",
-    'Mostly Cloudy'    => "\x{2601}",
-    'Scattered Clouds' => "\x{2601}",
-    'Overcast'         => "\x{2601}",
-    'Fog'              => "\x{2601}",
-    'Clear'            => "\x{2600}",
-    'Light Snow'       => "\x{2744}",
+    'Thunderstorm' => "\x{26a1}",
+    'Rain'         => "\x{2614}",
+    'Drizzle'      => "\x{2614}",
+    'Cloudy'       => "\x{2601}",
+    'Clouds'       => "\x{2601}",
+    'Overcast'     => "\x{2601}",
+    'Fog'          => "\x{2601}",
+    'Clear'        => "\x{2600}",
+    'Snow'         => "\x{2744}",
 );
 
 my $wu = WWW::Wunderground::API->new(
@@ -40,7 +37,9 @@ my $high      = $forecast->{high}{fahrenheit};
 my $low       = $forecast->{low}{fahrenheit};
 my $feelslike = int($conditions->feelslike_f);
 my $precip    = $forecast->{pop};
-my $weather   = $weather_pics{$conditions->weather} // '?';
+
+(my $description = $conditions->weather) =~ s/.* //;
+my $weather = $weather_pics{$description} // '?';
 
 my $time = DateTime->now(time_zone => 'local');
 
