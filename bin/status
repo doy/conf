@@ -78,6 +78,7 @@ while (<$i3status>) {
     my $weather_file = "$ENV{HOME}/.weather";
     if (-r $weather_file && -f $weather_file) {
         my $weather = slurp($weather_file);
+        chomp($weather);
         my ($temp) = $weather =~ /\d+%.*?(-?\d+)F.*?-?\d+F/;
         unshift @$line, {
             name      => 'weather',
