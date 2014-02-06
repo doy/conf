@@ -49,7 +49,7 @@ while (<$i3status>) {
         if ($item->{name} eq 'battery') {
             my ($state, $val) = $item->{full_text} =~ /(\w+) (\d+(?:\.\d+))%/;
             ($discharge_rate) = $item->{full_text} =~ /\(.* (.*)W\)/;
-            $discharge_rate *= -1 if $state ne 'BAT';
+            $discharge_rate *= -1 if defined($discharge_rate) && $state ne 'BAT';
             $item->{full_text} =~ s/\((.*) (.*)W\)/\($1\)/;
             $item->{color} =
                 $val >= 80      ? '#00FF00'
