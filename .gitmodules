@@ -76,3 +76,6 @@
 [submodule "vim/bundle/unite-tag"]
 	path = vim/bundle/unite-tag
 	url = git://github.com/tsukkee/unite-tag
+[submodule "vim/bundle/typescript"]
+	path = vim/bundle/typescript
+	url = git://github.com/leafgarland/typescript-vim
