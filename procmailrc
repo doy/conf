@@ -21,6 +21,8 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_c2e2@tozt.net
 * 1^0 ^TO_etix@tozt.net
 * 1^0 ^TO_meetup@tozt.net
+* 1^0 ^TO_.*announce@meetup.com
+* 1^0 ^TO_mtg@tozt.net
 * 1^0 ^TO_stubhub@tozt.net
 * 1^0 ^TO_ticketmaster@tozt.net
 .events/
@@ -126,12 +128,14 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_newegg@tozt.net
 * 1^0 ^TO_opentable@tozt.net
 * 1^0 ^TO_steam@tozt.net
+* 1^0 ^TO_subaru@tozt.net
 * 1^0 ^TO_vibram@tozt.net
 .shopping/
 # }}}
 # tools {{{
 :0:
 * 1^0 ^TO_crashplan@tozt.net
+* 1^0 ^TO_dynadot@tozt.net
 * 1^0 ^TO_fitbit@tozt.net
 * 1^0 ^TO_fruux@tozt.net
 * 1^0 ^TO_linode@tozt.net
@@ -139,6 +143,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_pinboard@tozt.net
 * 1^0 ^TO_roku@tozt.net
 * 1^0 ^TO_skype@tozt.net
+* 1^0 ^From.*@gistboxapp.com
 .tools/
 # }}}
 # travel {{{
@@ -155,11 +160,18 @@ INCLUDERC=$PMDIR/local.rc
 :0:
 * 1^0 ^TO_disqus@tozt.net
 * 1^0 ^TO_kongregate@tozt.net
+* 1^0 ^TO_letterboxd@tozt.net
 * 1^0 ^TO_twitter@tozt.net
 * 1^0 ^From.*@couchsurfing.org
 * 1^0 ^From.*no-reply@mailer.last.fm
 * 1^0 ^From.*@livejournal.com
+* 1^0 ^From.*info@twitter.com
 .websites/
+# }}}
+# school {{{
+:0:
+* 1^0 ^TO_risd@tozt.net
+.school/
 # }}}
 # work {{{
 :0:
