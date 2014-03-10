@@ -185,6 +185,7 @@ INCLUDERC=$PMDIR/local.rc
 :0:
 * 1^0 ^From.*flowdock.com
 * 1^0 ^From.*files@iinteractive.com
+* 1^0 ^From.*no-reply@slack.com
 .work.tools/
 :0:
 * 1^0 ^From.*confluence@iinteractive.com
