@@ -43,6 +43,7 @@ map `` `p
 map a :pb 
 
 map , :
+nmap ) 0
 
 " no beeps
 javascript dactyl.beep = function() { return false; }
