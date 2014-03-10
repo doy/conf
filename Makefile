@@ -19,6 +19,7 @@ INSTALL   = aliases \
 	    mutt \
 	    nethackrc \
 	    notmuch-config \
+	    offlineimaprc \
 	    pentadactylrc \
 	    procmailrc \
 	    proverc \
@@ -44,6 +45,7 @@ INSTALL   = aliases \
 	    fortune \
 	    ncmpc \
 	    procmail \
+	    offlineimap \
 	    pentadactyl \
 	    services \
 	    ssh \

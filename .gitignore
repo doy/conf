@@ -9,6 +9,8 @@ interhack/ttyrec
 mutt/aliases
 mutt/cache
 mutt/extra
+offlineimap
+!offlineimap/pass.py
 pentadactyl/info
 procmail/log
 ssh

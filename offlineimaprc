@@ -1,0 +1,31 @@
+[general]
+accounts = main
+maxsyncaccounts = 1
+fsync = false
+status_backend = sqlite
+pythonfile = ~/.offlineimap/pass.py
+
+[Account main]
+localrepository = main-local
+remoterepository = main-remote
+autorefresh = 5
+quick = 10
+
+[Repository main-local]
+type = Maildir
+localfolders = ~/Maildir
+
+[Repository main-remote]
+type = IMAP
+ssl = yes
+cert_fingerprint = aa7eaf38f6d1f00a91dc1024aadfc973d5f5266f
+remotehost = mail.tozt.net
+remoteuser = doy
+remotepasseval = get_password("mail/mail.tozt.net/doy")
+maxconnections = 2
+keepalive = 60
+holdconnectionopen = yes
+idlefolders = ['work', 'work.tickets', 'work.events', 'work.notifications', 'work.tools']
+subscribedonly = no
+
+# vim:ft=dosini:

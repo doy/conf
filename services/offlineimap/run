@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec offlineimap 2>&1
