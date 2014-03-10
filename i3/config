@@ -46,6 +46,7 @@ for_window [class="alephone"]           floating enable
 for_window [class="VirtualBox"]         floating enable
 for_window [class="zsnes"]              floating enable
 for_window [class="Phoenix"]            floating enable
+for_window [class="gambatte"]           floating enable
 
 # special desktops
 for_window [class="Xpdf"] move window to workspace 7
