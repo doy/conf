@@ -1,9 +1,10 @@
 [general]
 accounts = main
-maxsyncaccounts = 1
+maxsyncaccounts = 3
 fsync = false
 status_backend = sqlite
 pythonfile = ~/.offlineimap/pass.py
+ui = basic
 
 [Account main]
 localrepository = main-local
@@ -22,10 +23,11 @@ cert_fingerprint = aa7eaf38f6d1f00a91dc1024aadfc973d5f5266f
 remotehost = mail.tozt.net
 remoteuser = doy
 remotepasseval = get_password("mail/mail.tozt.net/doy")
-maxconnections = 2
+maxconnections = 5
 keepalive = 60
 holdconnectionopen = yes
 idlefolders = ['work', 'work.tickets', 'work.events', 'work.notifications', 'work.tools']
+folderfilter = lambda foldername: foldername not in ['notmuch'] and not re.search('^old(\.|$)', foldername)
 subscribedonly = no
 
 # vim:ft=dosini:
