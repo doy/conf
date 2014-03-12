@@ -5,3 +5,11 @@ application/x-tar; /bin/tar tvf -; print=/bin/tar tvf - | print text/plain:-; co
 application/x-gtar; /bin/tar tvzf -; print=/bin/tar tvzf - | print text/plain:-; copiousoutput
 application/zip; unzip -l '%s'; nametemplate=%s.zip; copiousoutput
 text/*; less '%s'; needsterminal
+image/png; firefox '%s'
+image/jpeg; firefox '%s'
+image/gif; firefox '%s'
+application/pdf; firefox '%s'
+application/msword; libreoffice '%s'
+application/vnd.ms-excel; libreoffice '%s'
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice '%s'
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice '%s'
