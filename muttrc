@@ -176,3 +176,6 @@ set imap_check_subscribed
 set timeout=3
 set mail_check=0
 # }}}
+# aliases {{{
+set query_command = "abook --mutt-query '%s'"
+# }}}
