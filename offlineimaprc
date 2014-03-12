@@ -11,6 +11,7 @@ localrepository = main-local
 remoterepository = main-remote
 autorefresh = 5
 quick = 10
+postsynchook = notmuch new
 
 [Repository main-local]
 type = Maildir
