@@ -17,6 +17,7 @@ INSTALL   = aliases \
 	    logout \
 	    mailcap \
 	    minicpanrc \
+	    msmtprc \
 	    muttrc \
 	    nethackrc \
 	    notmuch-config \
