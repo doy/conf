@@ -156,6 +156,7 @@ bind index g first-entry
 bind index G last-entry
 bind index R imap-fetch-mail
 bind index <Tab> sync-mailbox
+bind index n next-unread
 macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
 macro index \Cn "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
