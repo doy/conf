@@ -102,6 +102,11 @@ $(INTO)/Maildir/.notmuch: notmuch
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
 
+$(INTO)/.msmtprc: msmtprc
+	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(LN) $(PWD)/$< $@
+	@chmod 600 $(PWD)/$<
+
 %.spl : %
 	@vim -u NONE -c':mkspell! $< | :q'
 
