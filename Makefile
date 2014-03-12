@@ -16,7 +16,7 @@ INSTALL   = aliases \
 	    logout \
 	    mailcap \
 	    minicpanrc \
-	    mutt \
+	    muttrc \
 	    nethackrc \
 	    notmuch-config \
 	    offlineimaprc \
@@ -25,6 +25,7 @@ INSTALL   = aliases \
 	    proverc \
 	    replyrc \
 	    screenrc \
+	    signature \
 	    tmux.conf \
 	    vimrc \
 	    xbindkeysrc \

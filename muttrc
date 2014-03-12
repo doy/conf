@@ -1,0 +1,178 @@
+# folders {{{
+set mbox_type=Maildir
+set folder="~/Maildir"
+set spoolfile="~/Maildir/INBOX"
+set record="=Sent"
+set postponed="=Drafts"
+set header_cache="~/.cache/mutt/headers"
+set message_cachedir="~/.cache/mutt/bodies"
+set mailcap_path="~/.mailcap"
+mailboxes = `\
+    for folder in ~/Maildir/*; do\
+        basename=$(basename "$folder");\
+        if [ "x${basename:0:4}"  != "xold." \
+          -a "x${basename:0:14}" != "xmailing lists."\
+          -a "x$basename"        != "xspam" ]; then\
+            echo -n "\"=$basename\" ";\
+        fi\
+    done`
+# }}}
+# identity {{{
+# i am "Jesse Luehrs <doy@tozt.net>"
+set realname="Jesse Luehrs"
+set from="doy@tozt.net"
+# use whatever is in the From header as my envelope-from
+set envelope_from
+# use whatever is in the To header as my From for replies
+set reverse_name
+# my other email addresses
+alternates ^.*@tozt.net$  ^jesse\.luehrs@iinteractive\.com$  ^doy@cpan\.org$
+# }}}
+# display {{{
+# attachments {{{
+# automatically view html emails via mailcap configuration
+set implicit_autoview
+auto_view text/html
+alternative_order text/plain text/html
+# }}}
+# headers {{{
+ignore *
+unignore from date to cc reply-to list-id x-mailing-list x-spam-status subject
+hdr_order from date to cc reply-to list-id x-mailing-list x-spam-status subject
+# }}}
+# colors {{{
+color normal     white        black
+color attachment brightyellow black
+color hdrdefault cyan         black
+color indicator  black        cyan
+color markers    brightred    black
+color quoted     green        black
+color signature  cyan         black
+color status     brightgreen  blue
+color tilde      blue         black
+color tree       red          black
+
+color quoted     green        default
+color quoted1    brightgreen  default
+color quoted2    green        default
+color quoted3    brightgreen  default
+color quoted4    green        default
+color quoted5    brightgreen  default
+color quoted6    green        default
+color quoted7    brightgreen  default
+color quoted8    green        default
+color quoted9    brightgreen  default
+# }}}
+# misc {{{
+# no + on wrapped lines
+unset markers
+# show tildes at the end of messages (like vi)
+set tilde
+# keep some of the index shown when reading an email
+set pager_index_lines=6
+# put the status bar on top
+set status_on_top
+# customize the status bar
+set status_chars=" *%A"
+set status_format="───[ %f%r (%s%?V?:%V?): %?M?%M/?%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)?%?F? (%F flagged)? ]───%?b?[ %b more ]───?───%*─(%P)───"
+# customize the index view
+set index_format=" %{%Y-%m-%d %H:%M}  │%Z│  %-20.20L  │  %s"
+# }}}
+# }}}
+# interaction {{{
+# reading {{{
+# don't beep for errors, only new messages
+unset beep
+set beep_new
+# scroll menus, rather than paging
+set menu_scroll
+# page up/page down should have one line of context
+set pager_context=1
+# sort by thread, with threads with new messages last
+set sort=threads
+set sort_aux=last-date-received
+# don't automatically move to the next message
+set pager_stop
+# don't use the 'old' status
+unset mark_old
+# notify about all folders with new mail, even if i've seen it
+unset mail_check_recent
+# use the decoded mail body for pipe commands and searching
+set pipe_decode
+set thorough_search
+# }}}
+# composing {{{
+# always include a copy of the message in replies
+set include
+# don't prompt for unnecessary things when replying and forwarding
+set fast_reply
+# use the Reply-To header in preference to the From header
+set reply_to
+# set up work signatures
+send-hook . '\
+    set from=doy@tozt.net ;\
+    unset signature'
+send-hook ^.*@iinteractive\\.com$ '\
+    set from=jesse.luehrs@iinteractive.com ;\
+    set signature="~/.signature"'
+# }}}
+# prompts {{{
+# never automatically move read messages
+unset move
+# never prompt for purging deleted messages
+set delete
+# never prompt for appending messages to an existing mailbox
+unset confirmappend
+# never prompt for quitting
+set quit
+# }}}
+# bindings {{{
+bind generic i exit
+bind generic p search-opposite
+bind generic ? search-reverse
+bind generic B help
+bind generic , enter-command
+
+bind pager j next-line
+bind pager k previous-line
+bind pager J half-down
+bind pager K half-up
+bind pager p search-opposite
+bind pager ? search-reverse
+bind pager N next-undeleted
+bind pager P previous-undeleted
+bind pager g top
+bind pager G bottom
+bind pager A group-reply
+
+bind index i noop
+bind index <Down> next-entry
+bind index <Up> previous-entry
+bind index J half-down
+bind index K half-up
+bind index p search-opposite
+bind index A group-reply
+bind index g first-entry
+bind index G last-entry
+bind index R imap-fetch-mail
+bind index <Tab> sync-mailbox
+macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
+macro index \Cn "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+
+bind compose i exit
+bind compose S ispell
+
+macro index <F8> "<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt -r --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" "notmuch: search mail"
+macro index <F9> "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt -r thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" "notmuch: reconstruct thread"
+# }}}
+# }}}
+# checking mail {{{
+# always open new imap connections when required
+set imap_passive=no
+# populate the mailboxes list from the imap subscription list
+set imap_check_subscribed
+# check mail frequently
+# NOTE: change this with an account hook if a non-local account is added
+set timeout=3
+set mail_check=0
+# }}}
