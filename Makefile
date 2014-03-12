@@ -6,6 +6,7 @@ INSTALL   = aliases \
 	    conkyrc \
 	    crawlrc \
 	    env \
+	    extract_urlview \
 	    gdbinit \
 	    gitconfig \
 	    gitignore \
