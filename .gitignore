@@ -9,6 +9,8 @@
 /mutt/aliases
 /mutt/cache
 /mutt/extra
+/notmuch
+!/notmuch/hooks/post-new
 /offlineimap
 !/offlineimap/pass.py
 /pentadactyl/info

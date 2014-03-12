@@ -73,7 +73,7 @@ RM        = @rm -f
 
 build : $(BUILD)
 
-install : build $(INSTALLED) /var/spool/cron/$(USER)
+install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	$(ECHO) Installed into $(INTO)
 
@@ -95,6 +95,10 @@ fortune/%.dat : fortune/%
 
 vim/bundle/vimproc/autoload/vimproc_unix.so : vim/bundle/vimproc/autoload/proc.c
 	cd vim/bundle/vimproc && make
+
+$(INTO)/Maildir/.notmuch: notmuch
+	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(LN) $(PWD)/$< $@
 
 %.spl : %
 	@vim -u NONE -c':mkspell! $< | :q'
