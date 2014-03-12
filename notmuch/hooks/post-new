@@ -1,4 +1,4 @@
 #!/bin/sh
 
-notmuch tag +spam -- tag:new and folder:spam
-notmuch tag -new -- tag:new
+notmuch tag +spam -new -- tag:new and folder:spam
+# notmuch tag -new -- tag:new
