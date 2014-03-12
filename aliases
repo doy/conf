@@ -22,6 +22,7 @@ alias tozt="ssh -t ${USER}@tozt.net tmux -u a"
 # }}}
 # tmux sessions {{{
 alias main='tmux a -t main'
+alias chat='tmux a -t chat'
 alias work='tmux a -t work'
 alias docs='tmux a -t docs'
 alias misc='tmux a -t misc'
