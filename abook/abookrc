@@ -20,7 +20,7 @@ view Address  = address, address2, city, state, zip, country
 view Address2 = 2address, 2address2, 2city, 2state, 2zip, 2country
 view Other    = notes
 
-set index_format=" {name:15}    {email:27}    {mobile:12|phone|workphone}    {birthday:10}    {nick}"
+set index_format=" {name:23}    {email:34}    {mobile:12|phone|workphone}    {birthday:10}    {nick}"
 
 set preserve_fields=all
 set show_all_emails=false
