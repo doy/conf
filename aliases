@@ -18,7 +18,7 @@ alias tc="telnet termcast.org"
 # shells {{{
 alias bishamon='ssh bishamon'
 alias apt="ssh ${USER}@apt.tozt.net"
-alias tozt="ssh -t ${USER}@tozt.net tmux -u a"
+alias tozt="ssh ${USER}@tozt.net"
 # }}}
 # tmux sessions {{{
 alias main='tmux a -t main'
