@@ -3,4 +3,4 @@
 SSH=/usr/bin/$(basename $0)
 
 . ssh-key-unlock
-$SSH $*
+exec $SSH $*
