@@ -105,6 +105,9 @@ function svdn {
 function svst {
     svstat "$HOME/.services/$1"
 }
+function svlog {
+    cat $HOME/.log/$1/@* $HOME/.log/$1/current | tai64nlocal
+}
 function pick_music {
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
     sqlite3 ${HOME}/.tracks.sqlite "SELECT artist FROM yearly_tracks WHERE artist NOT IN (SELECT DISTINCT(artist) FROM weekly_tracks) GROUP BY artist ORDER BY count(artist) * (strftime('%s') - max(timestamp)) DESC LIMIT $([ -z "$1" ] && echo 20 || echo $1)"
