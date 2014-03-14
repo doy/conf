@@ -105,6 +105,15 @@ function svdn {
 function svst {
     svstat "$HOME/.services/$1"
 }
+function svre {
+    svc -d "$HOME/.services/$1"
+    while svstat "$HOME/.services/$1" | grep -q ": up ("; do
+        sleep 1
+    done
+    svstat "$HOME/.services/$1"
+    svc -u "$HOME/.services/$1"
+    svstat "$HOME/.services/$1"
+}
 function svlog {
     cat $HOME/.log/$1/@* $HOME/.log/$1/current | tai64nlocal
 }
