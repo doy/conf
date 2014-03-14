@@ -1,3 +1,3 @@
 #!/bin/sh
 
-multilog t * $HOME/.log/kuake
+multilog t s16777215 $HOME/.log/kuake
