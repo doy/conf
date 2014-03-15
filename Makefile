@@ -66,7 +66,7 @@ BUILD     = bin/nethack/timettyrec \
 	    vim/bundle/vimproc/autoload/vimproc_unix.so \
 	    vim/spell/en.utf-8.add.spl
 
-EMPTYDIRS = .log .vim/undo
+EMPTYDIRS = $(patsubst services/%,$(INTO)/.log/%,$(wildcard services/*)) .vim/undo .cache/mutt/headers .cache/mutt/bodies
 
 ECHO      = @echo
 LN        = @ln -sf
