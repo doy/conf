@@ -1,0 +1,168 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use Data::ICal;
+use Data::ICal::DateTime;
+use Term::ReadKey;
+use Text::Wrap;
+
+my $ics = do { local $/; <> };
+
+my $calendar = Data::ICal->new(data => $ics)
+            || Data::ICal->new(data => $ics, vcal10 => 1);
+
+if (!$calendar) {
+    die "Couldn't parse calendar file: " . $calendar->error_message;
+}
+
+my $tz_offsets = parse_tz_offsets($calendar);
+print_events($calendar, $tz_offsets);
+
+
+sub get_tz_offset {
+    my ($dt, $tzid, $tz_offsets) = @_;
+    my $offsets = $tz_offsets->{$tzid};
+
+    my $closest;
+    for my $offset (@$offsets) {
+        my $prev = $offset->[0]->previous($dt);
+        if (!$closest || $closest->[0] < $prev) {
+            $closest = [ $prev, $offset->[1] ];
+        }
+    }
+
+    return $closest->[1];
+}
+
+sub parse_tz_offsets {
+    my ($cal) = @_;
+
+    my %tz_offsets;
+    for my $entry (entries_by_type('VTIMEZONE', @{ $cal->entries })) {
+        my $name = $entry->property('TZID')->[0]->value;
+        for my $dstentry (@{ $entry->entries }) {
+            my ($rrule, $dtstart, $dtend) = map {
+                $dstentry->property($_)
+                    ? $dstentry->property($_)->[0]->value
+                    : undef
+            } ('RRULE', 'DTSTART', 'DTEND');
+            my $recurrence = DateTime::Format::ICal->parse_recurrence(
+                recurrence => $rrule,
+                # XXX this makes the calculations way too slow, and probably
+                # will never matter
+                # (defined($dtstart)
+                #     ? (dtstart =>
+                #            DateTime::Format::ICal->parse_datetime($dtstart))
+                #     : ()),
+                # (defined($dtend)
+                #     ? (dtend =>
+                #            DateTime::Format::ICal->parse_datetime($dtend))
+                #     : ()),
+            );
+            push @{ $tz_offsets{$name} ||= [] }, [
+                $recurrence,
+                $dstentry->property('TZOFFSETTO')->[0]->value,
+            ];
+        }
+    }
+
+    return \%tz_offsets;
+}
+
+sub print_events {
+    my ($cal, $tz_offsets) = @_;
+
+    my ($width, $height, undef, undef) = GetTerminalSize(*STDOUT);
+    local $Text::Wrap::columns = $width - 8
+        if defined $width;
+
+    for my $entry (entries_by_type('VEVENT', @{ $cal->entries })) {
+        my $props = $entry->properties;
+        delete $props->{$_} for grep { /^x-microsoft/ } keys %$props;
+        delete $props->{$_} for qw(
+            sequence status transp dtstamp priority class uid
+            created last-modified
+        );
+
+        my $organizer = format_person(
+            (delete $props->{organizer})->[0]
+        ) if $props->{organizer};
+        my $summary = format_text(
+            (delete $props->{summary})->[0]->value, 13
+        ) if $props->{summary};
+        my $start_time = format_time(
+            (delete $props->{dtstart})->[0], $tz_offsets
+        ) if $props->{dtstart};
+        my $end_time = format_time(
+            (delete $props->{dtend})->[0], $tz_offsets
+        ) if $props->{dtend};
+        # XXX actually handle these
+        delete $props->{rrule};
+        delete $props->{exdate};
+        delete $props->{'recurrence-id'};
+        my $location = format_text(
+            (delete $props->{location})->[0]->value, 13
+        ) if $props->{location};
+        my $attendees = format_text(
+            join(', ',
+                map { format_person($_) } @{ delete $props->{attendee} }
+            ),
+            13
+        ) if $props->{attendee};
+        my $description = format_text(
+            (delete $props->{description})->[0]->value, 0
+        );
+
+        warn "unparsed keys: ", join(', ', keys %$props)
+            if keys %$props;
+
+        print "-" x $Text::Wrap::columns, "\n";
+        printf "%-11s: %s\n", 'Organizer',  $organizer  if defined $organizer;
+        printf "%-11s: %s\n", 'Summary',    $summary    if defined $summary;
+        printf "%-11s: %s\n", 'Start time', $start_time if defined $start_time;
+        printf "%-11s: %s\n", 'End time',   $end_time   if defined $end_time;
+        printf "%-11s: %s\n", 'Location',   $location   if defined $location;
+        printf "%-11s: %s\n", 'Attendees',  $attendees  if defined $attendees;
+        print "\n";
+        print $description;
+        print "\n";
+    }
+}
+
+sub format_person {
+    my ($person) = @_;
+    (my $email = $person->value) =~ s/^mailto://i;
+    if (my $name = $person->parameters->{CN}) {
+        return "$name <$email>";
+    }
+    else {
+        return $email;
+    }
+}
+
+sub format_text {
+    my ($text, $indent) = @_;
+    return wrap('', ' ' x $indent, $text);
+}
+
+sub format_time {
+    my ($time, $tz_offsets) = @_;
+    my $dt = DateTime::Format::ICal->parse_datetime($time->value);
+    my $offset;
+    if (my $tzid = $time->parameters->{TZID}) {
+        $offset = get_tz_offset($dt, $tzid, $tz_offsets);
+        die "unknown time zone: $tzid" if !$offset;
+    }
+    else {
+        $offset = 'UTC';
+    }
+    $dt->set_time_zone($offset);
+    $dt->set_time_zone('local');
+    return "$dt";
+}
+
+sub entries_by_type {
+    my ($type, @entries) = @_;
+    return grep { $_->ical_entry_type eq $type } @entries;
+}

@@ -33,7 +33,7 @@ alternates ^.*@tozt.net$  ^jesse\.luehrs@iinteractive\.com$  ^doy@cpan\.org$
 # automatically view html emails via mailcap configuration
 set implicit_autoview
 auto_view text/html
-alternative_order text/plain text/html
+alternative_order text/calendar text/plain text/html
 # }}}
 # headers {{{
 ignore *
