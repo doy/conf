@@ -20,8 +20,6 @@ my $root           = ($> == 0);
 my $err            = $ARGV[0] || 0; # bash's $? is passed on the command line
 my $battery        = battery();
 my $charging       = charging();
-my $in_tmux        = exists $ENV{TMUX};
-my $in_ssh         = exists $ENV{SSH_CONNECTION};
 my $vcs            = vcs();
 my $vcsmodified    =
     ($vcs =~ /:[+-]/) || do { (my $v = $vcs) =~ s/:.*//; $v =~ /\W$/ };
@@ -132,13 +130,6 @@ my $prompt       = $root ? '#' : '$';
 my $meter_length = 10;
 my $maxvcslen    = 20; # at least 17
 
-# snippets
-my $nested = '';
-# not sure how useful this really is, let's leave it off for now
-# if ($in_tmux || $in_ssh) {
-#     $nested = '(' . ($in_tmux ? 'T' : '') . ($in_ssh ? 'S' : '') . ')';
-# }
-
 # build the pieces of the prompt
 my $timestr   = wrap($time, '[]', color('time'));
 
@@ -165,7 +156,7 @@ my $maxpathlen = $cols
                - 1
                - $meter_length - 2
                - 1
-               - length($user) - length($hostname) - length($nested) - 1
+               - length($user) - length($hostname) - 1
                - 1
                - length($time) - 2
                - 1;
@@ -179,8 +170,7 @@ my $pathstr   = wrap($path_info, '()', color('path'))
 
 my $locstr    = color('user') . $user
               . color('background') . '@'
-              . color('hostname') . $hostname
-              . color('background') . $nested;
+              . color('hostname') . $hostname;
 
 # assemble the prompt
 print join(' ', '', $pathstr, $battstr, $locstr, $timestr, '');
