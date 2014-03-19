@@ -23,9 +23,10 @@ while (<$i3status>) {
         } @$data
     ];
 
-    my $discharge_rate;
-    my $battery_index = 0;
+    my %discharge_rate;
+    my %battery_index;
 
+    my $index = 0;
     for my $item (@$line) {
         if ($item->{name} eq 'wireless' || $item->{name} eq 'ethernet') {
             my $iface = $item->{instance};
@@ -48,8 +49,9 @@ while (<$i3status>) {
         }
         if ($item->{name} eq 'battery') {
             my ($state, $val) = $item->{full_text} =~ /(\w+) (\d+(?:\.\d+))%/;
-            ($discharge_rate) = $item->{full_text} =~ /\(.* (.*)W\)/;
-            $discharge_rate *= -1 if defined($discharge_rate) && $state ne 'BAT';
+            ($discharge_rate{$item->{instance}}) = $item->{full_text} =~ /\(.* (.*)W\)/;
+            $discharge_rate{$item->{instance}} *= -1 if defined($discharge_rate{$item->{instance}}) && $state ne 'BAT';
+            $battery_index{$item->{instance}} = $index;
             $item->{full_text} =~ s/\((.*) (.*)W\)/\($1\)/;
             $item->{color} =
                 $val >= 80      ? '#00FF00'
@@ -59,18 +61,18 @@ while (<$i3status>) {
               : $val >= 5       ? '#CD0000'
               :                   '#FF0000';
         }
-        $battery_index++ unless defined $discharge_rate;
+        $index++;
     }
 
-    if (defined $discharge_rate) {
-        splice @$line, $battery_index + 1, 0, {
+    for my $battery (sort { $battery_index{$b} <=> $battery_index{$a} } keys %battery_index) {
+        splice @$line, $battery_index{$battery} + 1, 0, {
             name      => 'battery_discharge',
-            full_text => sprintf("%0.2fW", $discharge_rate),
+            full_text => sprintf("%0.2fW", $discharge_rate{$battery}),
             color     => (
-                $discharge_rate < 8  ? '#FFFFFF'
-              : $discharge_rate < 12 ? '#00FF00'
-              : $discharge_rate < 20 ? '#FFFF00'
-              :                        '#FF0000'
+                $discharge_rate{$battery} < 8  ? '#FFFFFF'
+            : $discharge_rate{$battery} < 12 ? '#00FF00'
+            : $discharge_rate{$battery} < 20 ? '#FFFF00'
+            :                        '#FF0000'
             ),
         };
     }
