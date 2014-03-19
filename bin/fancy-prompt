@@ -68,6 +68,7 @@ my %colornames = (
     host_erim     => 'white',
     host_tozt     => 'yellow',
     host_xtahua   => 'lightmagenta',
+    host_lance    => 'red',
     unknown_host  => 'brown',
 
     user_doy     => 'lightblue',
