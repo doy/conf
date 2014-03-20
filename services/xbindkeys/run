@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd $HOME
-exec xbindkeys -n
+exec xbindkeys -p -n
