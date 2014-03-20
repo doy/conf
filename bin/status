@@ -34,10 +34,10 @@ while (<$i3status>) {
             my $rate = sprintf("%6s/%6s", map { human_bytes($_) } $up, $down);
             $item->{full_text} =~ s{^($iface:)}{$1 $rate};
             $item->{color} =
-                $up + $down >= 512000                   ? '#FF0000'
-              : $up + $down >= 51200                    ? '#FFFF00'
-              : $up + $down >= 5120                     ? '#00FF00'
-              :                                           '#FFFFFF';
+                $up + $down >= 512000 ? '#FF0000'
+              : $up + $down >= 51200  ? '#FFFF00'
+              : $up + $down >= 5120   ? '#00FF00'
+              :                         '#FFFFFF';
         }
         if ($item->{name} eq 'cpu_usage') {
             my ($val) = $line{load}{full_text} * 100 / ncpu();
@@ -49,10 +49,13 @@ while (<$i3status>) {
         }
         if ($item->{name} eq 'battery') {
             my ($state, $val) = $item->{full_text} =~ /(\w+) (\d+(?:\.\d+))%/;
-            ($discharge_rate{$item->{instance}}) = $item->{full_text} =~ /\(.* (.*)W\)/;
-            $discharge_rate{$item->{instance}} *= -1 if defined($discharge_rate{$item->{instance}}) && $state ne 'BAT';
-            $discharge_rate{$item->{instance}} //= 0;
+            my ($rate) = $item->{full_text} =~ /\(.* (.*)W\)/;
+            $rate *= -1 if defined($rate) && $state ne 'BAT';
+            $rate //= 0;
+
+            $discharge_rate{$item->{instance}} = $rate;
             $battery_index{$item->{instance}} = $index;
+
             $item->{full_text} =~ s/\((.*) (.*)W\)/\($1\)/;
             $item->{color} =
                 $val >= 80      ? '#00FF00'
@@ -65,15 +68,17 @@ while (<$i3status>) {
         $index++;
     }
 
-    for my $battery (sort { $battery_index{$b} <=> $battery_index{$a} } keys %battery_index) {
+    my @batteries = sort { $battery_index{$b} <=> $battery_index{$a} }
+                         keys %battery_index;
+    for my $battery (@batteries) {
         splice @$line, $battery_index{$battery} + 1, 0, {
             name      => 'battery_discharge',
             full_text => sprintf("%0.2fW", $discharge_rate{$battery}),
             color     => (
                 $discharge_rate{$battery} < 8  ? '#FFFFFF'
-            : $discharge_rate{$battery} < 12 ? '#00FF00'
-            : $discharge_rate{$battery} < 20 ? '#FFFF00'
-            :                        '#FF0000'
+              : $discharge_rate{$battery} < 12 ? '#00FF00'
+              : $discharge_rate{$battery} < 20 ? '#FFFF00'
+              :                                  '#FF0000'
             ),
         };
     }
