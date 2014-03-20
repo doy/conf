@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# it's too noisy for now
+exec ginn > /dev/null 2>&1
