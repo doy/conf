@@ -24,3 +24,18 @@
 
 "toggle_numkeys"
   Shift + Shift_L
+
+"amixer set Master 1+"
+  XF86AudioRaiseVolume
+
+"amixer set Master 1-"
+  XF86AudioLowerVolume
+
+"amixer set Capture toggle"
+  XF86AudioMicMute
+
+"xrandr --auto"
+  XF86Display
+
+"xset dpms force off"
+  XF86Launch3
