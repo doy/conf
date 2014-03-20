@@ -51,6 +51,7 @@ while (<$i3status>) {
             my ($state, $val) = $item->{full_text} =~ /(\w+) (\d+(?:\.\d+))%/;
             ($discharge_rate{$item->{instance}}) = $item->{full_text} =~ /\(.* (.*)W\)/;
             $discharge_rate{$item->{instance}} *= -1 if defined($discharge_rate{$item->{instance}}) && $state ne 'BAT';
+            $discharge_rate{$item->{instance}} //= 0;
             $battery_index{$item->{instance}} = $index;
             $item->{full_text} =~ s/\((.*) (.*)W\)/\($1\)/;
             $item->{color} =
