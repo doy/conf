@@ -35,7 +35,7 @@ alias v="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"
 alias f="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"f\")'"
 alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"&\")'"
 alias T="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"T\")'"
-alias wifi="sudo systemctl restart netctl-auto@wlan0"
+alias wifi="sudo systemctl restart netctl-auto@wlp3s0"
 alias prove="forkprove"
 function web {
     local port=$1

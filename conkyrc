@@ -44,13 +44,13 @@ ${color white}File systems:
  /home ${color green}${fs_used /home}/${fs_size /home} ${fs_bar /home}
    Read:${color magenta}${diskio_read sda}${color green}       Write:${color blue}${diskio_write sda}
 ${color green}${hr}
-${color white}Networking: ${color green}${gw_iface} (${texeci 3600 get_ip})${if_up eth0}
- eth0:  ${color green}${addr eth0}${color white}
-   Down:${color magenta}${downspeed eth0}/s${color green}         Up:${color blue}${upspeed eth0}/s
-${color white}${endif}${if_up wlan0}
- wlan0: ${color green}${addr wlan0} - ${wireless_essid wlan0}
-   ${color white}Wireless: ${color green}${wireless_bitrate wlan0} - ${wireless_link_bar wlan0}
-   Down:${color magenta}${downspeed wlan0}/s${color green}         Up:${color blue}${upspeed wlan0}/s
+${color white}Networking: ${color green}${gw_iface} (${texeci 3600 get_ip})${if_up enp0s25}
+ enp0s25:  ${color green}${addr enp0s25}${color white}
+   Down:${color magenta}${downspeed enp0s25}/s${color green}         Up:${color blue}${upspeed enp0s25}/s
+${color white}${endif}${if_up wlp3s0}
+ wlp3s0:  ${color green}${addr wlp3s0} - ${wireless_essid wlp3s0}
+   ${color white}Wireless: ${color green}${wireless_bitrate wlp3s0} - ${wireless_link_bar wlp3s0}
+   Down:${color magenta}${downspeed wlp3s0}/s${color green}         Up:${color blue}${upspeed wlp3s0}/s
 ${color white}${endif}${endif}
 ${color white}Processes:${color green} ${processes}  ${color white}Running:${color green} ${running_processes}           ${color white}Mem usage
 ${color green} Name               PID   CPU%   MEM%     Name               PID   CPU%   MEM%
