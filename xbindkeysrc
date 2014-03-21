@@ -17,7 +17,7 @@
   Mod4 + s
 
 "screenshot --full"
-  Print
+  Shift+Mod4 + s
 
 "toggle_numkeys"
   Shift + Shift_R
