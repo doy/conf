@@ -76,8 +76,8 @@ while (<$i3status>) {
             full_text => sprintf("%0.2fW", $discharge_rate{$battery}),
             color     => (
                 $discharge_rate{$battery} < 6  ? '#FFFFFF'
-              : $discharge_rate{$battery} < 12 ? '#00FF00'
-              : $discharge_rate{$battery} < 18 ? '#FFFF00'
+              : $discharge_rate{$battery} < 10 ? '#00FF00'
+              : $discharge_rate{$battery} < 14 ? '#FFFF00'
               :                                  '#FF0000'
             ),
         };
