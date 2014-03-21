@@ -41,6 +41,7 @@ INSTALL   = aliases \
 	    sh \
 	    bin \
 	    dzil \
+	    ginn \
 	    gnupg \
 	    i3 \
 	    interhack \
