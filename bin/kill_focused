@@ -1,0 +1,36 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use JSON;
+
+my ($sig) = @ARGV;
+my $pid = get_pid();
+kill $sig, $pid;
+
+sub get_pid {
+    my $window_id = get_window_id();
+    die "couldn't find window" unless defined $window_id;
+    my $prop = `xprop -id $window_id _NET_WM_PID`;
+    chomp($prop);
+    $prop =~ s/^_NET_WM_PID\(CARDINAL\) = //;
+    return $prop;
+}
+
+sub get_window_id {
+    return find(decode_json(`i3-msg -t get_tree`))->{window};
+}
+
+sub find {
+    my ($t) = @_;
+    if ($t->{focused}) {
+        return $t;
+    }
+
+    for my $subtree (@{ $t->{nodes} }, @{ $t->{floating_nodes} }) {
+        my $found = find($subtree);
+        return $found if $found;
+    }
+
+    return;
+}

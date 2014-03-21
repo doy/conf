@@ -38,4 +38,10 @@
   XF86Display
 
 "xset dpms force off"
+  XF86Search
+
+"kill_focused STOP"
   XF86Launch3
+
+"kill_focused CONT"
+  XF86Launch4
