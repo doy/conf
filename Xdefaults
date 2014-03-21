@@ -9,8 +9,8 @@ URxvt*borderWidth:1
 URxvt*scrollTtyOutput:false
 URxvt*scrollTtyKeypress:true
 URxvt*scrollBar:false
-URxvt*font:6x10
-URxvt*boldFont:6x10
+URxvt*font:7x14
+URxvt*boldFont:7x14
 URxvt*urgentOnBell: true
 URxvt*perl-ext-common:default,matcher,pass<M-p>
 URxvt*perl-lib:/home/doy/.urxvt/
@@ -32,8 +32,8 @@ xterm*pointerColor:yellow
 xterm*borderWidth:1
 xterm*scrollTtyOutput:false
 xterm*scrollBar:false
-xterm*font:6x10
-xterm*boldFont:6x10
+xterm*font:7x14
+xterm*boldFont:7x14
 xterm*bellIsUrgent: true
 ! }}}
 

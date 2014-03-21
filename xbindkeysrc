@@ -4,13 +4,13 @@
 "firefox"
   Mod4 + b
 
-"dmenu -p 'pass search' < /dev/null | xargs -I{} pass search -c {}"
+"dmenu -fn '7x14' -p 'pass search' < /dev/null | xargs -I{} pass search -c {}"
   Mod4 + i
 
-"dmenu -p 'pass search -u' < /dev/null | xargs -I{} pass search -u -c {}"
+"dmenu -fn '7x14' -p 'pass search -u' < /dev/null | xargs -I{} pass search -u -c {}"
   Shift+Mod4 + i
 
-"dmenu_run"
+"dmenu_run -fn '7x14'"
   Mod4 + r
 
 "screenshot"

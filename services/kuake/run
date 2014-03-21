@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd
-exec urxvt -pe "kuake<F2>" -fn 6x10 -g 80x24 -name urxvt-kuake
+exec urxvt -pe "kuake<F2>" -fn 7x14 -g 80x24 -name urxvt-kuake
