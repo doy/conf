@@ -143,7 +143,12 @@ sub format_person {
 
 sub format_text {
     my ($text, $indent) = @_;
-    return wrap('', ' ' x $indent, $text);
+    my $wrapped;
+    if (!eval { $wrapped = wrap('', ' ' x $indent, $text); 1 }) {
+        warn "Couldn't wrap text: $@";
+        $wrapped = $text;
+    }
+    return $wrapped;
 }
 
 sub format_time {
