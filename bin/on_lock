@@ -2,3 +2,4 @@
 
 sudo -k
 keychain -q --clear
+keybase logout
