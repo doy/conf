@@ -25,11 +25,14 @@
 "toggle_numkeys"
   Shift + Shift_L
 
-"amixer set Master 1+"
+"volume up"
   XF86AudioRaiseVolume
 
-"amixer set Master 1-"
+"volume down"
   XF86AudioLowerVolume
+
+"volume mute"
+  XF86AudioMute
 
 "amixer set Capture toggle"
   XF86AudioMicMute

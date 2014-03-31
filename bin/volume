@@ -1,0 +1,24 @@
+#!/bin/sh
+
+case $1 in
+    up)
+        amixer set Master unmute > /dev/null
+        amixer set Master 5%+ > /dev/null
+        ;;
+    down)
+        amixer set Master unmute > /dev/null
+        amixer set Master 5%- > /dev/null
+        ;;
+    mute)
+        amixer set Master toggle > /dev/null
+        ;;
+esac
+
+INFO=$(amixer get Master)
+VOLUME=$(echo "$INFO" | grep '^  Mono' | sed 's/.*\[\([[:digit:]]\+\)\%\].*/\1/')
+STATE=$(echo "$INFO" | grep '^  Mono' | sed 's/.*\[\(on\|off\)\].*/\1/')
+if [[ "x$STATE" == "xoff" ]]; then
+    volnoti-show -m
+else
+    volnoti-show $VOLUME
+fi
