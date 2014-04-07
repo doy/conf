@@ -9,6 +9,7 @@ text/*; less '%s'; needsterminal
 image/png; firefox '%s'
 image/jpeg; firefox '%s'
 image/gif; firefox '%s'
+image/bmp; firefox '%s'
 application/pdf; firefox '%s'
 application/msword; libreoffice '%s'
 application/vnd.ms-excel; libreoffice '%s'
