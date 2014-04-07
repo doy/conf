@@ -278,7 +278,7 @@ autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
 " }}}
 " conflict markers {{{
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+match ErrorMsg '^\(<\||\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " fonts {{{
 if has('win32') || has('win64') || has('win32unix')
