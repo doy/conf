@@ -131,7 +131,7 @@ function rand_music {
     fi
     lastfm_export --user doyster --dsn dbi:SQLite:${HOME}/.tracks.sqlite
     for i in $(seq 1 $([ -z "$1" ] && echo 20 || echo $1)); do
-        echo "select distinct(artist) from $db where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 .tracks.sqlite | rand_line | sed "s/'/''/" | sed "s/.*/select artist, album from $db where artist = '&' group by artist, album;/" | sqlite3 .tracks.sqlite | rand_line | sed 's/|/ - /'
+        echo "select distinct(artist) from $db where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 ~/.tracks.sqlite | rand_line | sed "s/'/''/" | sed "s/.*/select artist, album from $db where artist = '&' group by artist, album;/" | sqlite3 ~/.tracks.sqlite | rand_line | sed 's/|/ - /'
     done
 }
 function t {
