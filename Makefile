@@ -27,6 +27,7 @@ INSTALL   = aliases \
 	    replyrc \
 	    screenrc \
 	    signature \
+	    tigrc \
 	    tmux.conf \
 	    vimrc \
 	    xbindkeysrc \

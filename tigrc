@@ -1,0 +1,4 @@
+bind generic i view-close
+bind main i none
+bind generic g move-first-line
+bind generic G move-last-line
