@@ -136,7 +136,7 @@ function rand_music {
 }
 function unread_posts {
     pinboard_export --token $(cat ~/.pinboard) --dsn dbi:SQLite:${HOME}/.posts.sqlite
-    sqlite3 ${HOME}/.posts.sqlite "SELECT href FROM posts WHERE toread = 'yes'"
+    sqlite3 ${HOME}/.posts.sqlite "SELECT href || ' - ' || description FROM posts WHERE toread = 'yes'"
 }
 function t {
     if [[ -d blib ]]; then
