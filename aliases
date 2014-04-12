@@ -134,6 +134,10 @@ function rand_music {
         echo "select distinct(artist) from $db where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 ~/.tracks.sqlite | rand_line | sed "s/'/''/" | sed "s/.*/select artist, album from $db where artist = '&' group by artist, album;/" | sqlite3 ~/.tracks.sqlite | rand_line | sed 's/|/ - /'
     done
 }
+function unread_posts {
+    pinboard_export --token $(cat ~/.pinboard) --dsn dbi:SQLite:${HOME}/.posts.sqlite
+    sqlite3 ${HOME}/.posts.sqlite "SELECT href FROM posts WHERE toread = 'yes'"
+}
 function t {
     if [[ -d blib ]]; then
         perl -Mblib -MTest::Pretty "$@"
