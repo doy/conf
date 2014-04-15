@@ -35,7 +35,7 @@
                        ['extended', note],
                        ['tags', args.join(" ")],
                        ['shared', shared],
-                       ['toread', 'yes']]), function(xhr) {
+                       ['toread', args.length ? 'no' : 'yes']]), function(xhr) {
       var result = xhr.status == 200 ?
                     xhr.responseXML.documentElement.getAttribute('code') :
                     'failed with status ' + xhr.status;
