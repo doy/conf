@@ -49,6 +49,7 @@ for_window [class="Phoenix"]            floating enable
 for_window [class="gambatte"]           floating enable
 for_window [class="mednafen"]           floating enable
 for_window [class="Nestopia"]           floating enable
+for_window [class="runes"]              floating enable
 
 # special desktops
 for_window [class="Xpdf"] move window to workspace 7
