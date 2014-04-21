@@ -72,7 +72,7 @@ function setfont {
     printf '\e]710;%s\007\e]711;%s\007' "$1" "$1"
 }
 function mem_usage {
-    ps -eo size,ucmd | sort -rn | head -n$([ -z "$1" ] && echo 20 || echo $1)
+    ps -eo rss,ucmd | sort -rn | head -n$([ -z "$1" ] && echo 20 || echo $1)
 }
 function opened_files {
     strace $* 2>&1 | grep -E '^open\('   | \
