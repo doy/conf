@@ -16,6 +16,7 @@ INSTALL   = aliases \
 	    logout \
 	    mailcap \
 	    minicpanrc \
+	    mpdconf \
 	    msmtprc \
 	    muttrc \
 	    nethackrc \
@@ -47,6 +48,7 @@ INSTALL   = aliases \
 	    i3 \
 	    interhack \
 	    fortune \
+	    mpdscribble \
 	    ncmpc \
 	    procmail \
 	    offlineimap \
@@ -67,7 +69,13 @@ BUILD     = bin/nethack/timettyrec \
 	    vim/bundle/vimproc/autoload/vimproc_unix.so \
 	    vim/spell/en.utf-8.add.spl
 
-EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) Maildir .vim/data/undo .cache/mutt/headers .cache/mutt/bodies
+EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
+	    Maildir \
+	    .vim/data/undo \
+	    .cache/mutt/headers \
+	    .cache/mutt/bodies \
+	    .cache/mpd \
+	    .config/mpd/playlists
 
 ECHO      = @echo
 LN        = @ln -sf

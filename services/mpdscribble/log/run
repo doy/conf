@@ -1,0 +1,3 @@
+#!/bin/sh
+
+multilog t s16777215 $HOME/.log/mpdscribble
