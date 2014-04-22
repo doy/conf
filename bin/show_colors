@@ -15,3 +15,12 @@ for attr in 0 1 2 3 4 5 6 7 ; do
     done
     printf '\033[0m'
 done
+
+printf '\n'
+for color in $(seq 0 255); do
+    printf '\033[%s;%s;%sm  \033[m' 48 5 $color
+    if [[ $color -eq 15 || $(echo "scale = 0; ($color - 15) % 36" | bc) -eq 0 ]]; then
+        printf '\n'
+    fi
+done
+printf '\033[0m\n'
