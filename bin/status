@@ -57,6 +57,7 @@ while (<$i3status>) {
             $battery_index{$item->{instance}} = $index;
 
             $item->{full_text} =~ s/\((.*) (.*)W\)/\($1\)/;
+            $item->{full_text} =~ s/ \(\)//;
             $item->{color} =
                 $val >= 80      ? '#00FF00'
               : $state ne 'BAT' ? '#FFFFFF'
@@ -71,6 +72,7 @@ while (<$i3status>) {
     my @batteries = sort { $battery_index{$b} <=> $battery_index{$a} }
                          keys %battery_index;
     for my $battery (@batteries) {
+        next unless $discharge_rate{$battery};
         splice @$line, $battery_index{$battery} + 1, 0, {
             name      => 'battery_discharge',
             full_text => sprintf("%0.2fW", $discharge_rate{$battery}),
