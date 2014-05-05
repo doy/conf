@@ -2,12 +2,17 @@
 use strict;
 use warnings;
 
-use Spreadsheet::ParseExcel;
+use Module::Runtime qw< require_module >;
 use Text::CSV;
 
 my $filename = $ARGV[0];
+my $parser_class = $filename =~ /\.xlsx$/
+    ? "Spreadsheet::ParseXLSX"
+    : "Spreadsheet::ParseExcel";
 
-my $parser = Spreadsheet::ParseExcel->new;
+require_module($parser_class);
+
+my $parser = $parser_class->new;
 my $wb = $parser->parse($filename) || die $parser->error;
 
 (my $dir = $filename) =~ s/\.[^.]*$//;
