@@ -5,6 +5,7 @@ fsync = false
 status_backend = sqlite
 pythonfile = ~/.offlineimap/pass.py
 ui = basic
+socktimeout = 10
 
 [Account main]
 localrepository = main-local
