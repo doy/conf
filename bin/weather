@@ -40,7 +40,7 @@ my $feelslike = int($conditions->feelslike_f);
 my $precip    = $forecast->{pop};
 
 (my $description = $conditions->weather) =~ s/.* //;
-my $weather = $weather_pics{$description} // '?';
+my $weather = $weather_pics{$description} // $description;
 
 my $time = DateTime->now(time_zone => 'local');
 
