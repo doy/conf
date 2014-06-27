@@ -29,6 +29,7 @@
 	co = checkout
 	r = !git add -p && git commit --verbose
 	br = branch
+	ri = rebase -i
 [github]
 	user = doy
 [color]
