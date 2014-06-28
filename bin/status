@@ -3,15 +3,48 @@ use strict;
 use warnings;
 use 5.010;
 
+use IO::Select;
+use IO::Socket::UNIX;
 use JSON;
 
-open my $i3status, '-|', 'i3status';
+my $i3status = get_i3status_handle();
+my $ipc = get_ipc_handle();
+$|++;
+say "[]";
 
-print scalar(<$i3status>);
-print scalar(<$i3status>);
+my $select = IO::Select->new;
+$select->add($i3status);
+$select->add($ipc);
 
-while (<$i3status>) {
-    my $comma = s/^,//;
+my $current_data;
+
+while (my @ready = $select->can_read) {
+    for my $fh (@ready) {
+        if ($fh == $i3status) {
+            handle_i3status(scalar <$fh>);
+        }
+        elsif ($fh == $ipc) {
+            handle_ipc(receive_ipc_message($fh));
+        }
+        else {
+            die "???";
+        }
+    }
+}
+
+sub get_i3status_handle {
+    open my $i3status, '-|', 'i3status';
+
+    print scalar(<$i3status>);
+    print scalar(<$i3status>);
+
+    return $i3status;
+}
+
+sub handle_i3status {
+    $_ = shift;
+    s/^,//;
+
     my $data = decode_json($_);
 
     my %line = map { $_->{name} => $_ } @$data;
@@ -104,12 +137,53 @@ while (<$i3status>) {
         };
     }
 
-    unshift @$line, { name => 'title', full_text => get_title() };
+    $current_data = $line;
 
-    say(($comma ? ',' : ''), encode_json($line));
+    show_status();
 }
 
-print <$i3status>;
+sub get_ipc_handle {
+    chomp(my $path = qx(i3 --get-socketpath));
+
+    my $sock = IO::Socket::UNIX->new(Peer => $path);
+    $sock->write(format_ipc_message(2, q{["window", "workspace"]}));
+    my ($type, $payload) = receive_ipc_message($sock);
+    die "Couldn't subscribe: ($type) $payload"
+        unless $type == 2 && decode_json($payload)->{success};
+
+    return $sock;
+}
+
+sub handle_ipc {
+    my ($type, $payload) = @_;
+    show_status();
+}
+
+sub format_ipc_message {
+    my ($type, $payload) = @_;
+    my $len = do { use bytes; length($payload) };
+    return "i3-ipc" . pack("LL", $len, $type) . $payload;
+}
+
+sub receive_ipc_message {
+    my ($sock) = @_;
+
+    $sock->read(my $magic, 6);
+    die "unknown response: $magic" unless $magic eq 'i3-ipc';
+    $sock->read(my $len, 4);
+    $len = unpack("L", $len);
+    $sock->read(my $type, 4);
+    $type = unpack("L", $type);
+    $sock->read(my $payload, $len);
+
+    return ($type, $payload);
+}
+
+sub show_status {
+    my @line = @$current_data;
+    unshift @line, { name => 'title', full_text => get_title() };
+    say "," . encode_json(\@line);
+}
 
 sub get_title {
     my $node = find(decode_json(`i3-msg -t get_tree`));
