@@ -15,8 +15,8 @@ case $1 in
 esac
 
 INFO=$(amixer get Master)
-VOLUME=$(echo "$INFO" | grep '^  Mono' | sed 's/.*\[\([[:digit:]]\+\)\%\].*/\1/')
-STATE=$(echo "$INFO" | grep '^  Mono' | sed 's/.*\[\(on\|off\)\].*/\1/')
+VOLUME=$(echo "$INFO" | grep '^  Front Left' | sed 's/.*\[\([[:digit:]]\+\)\%\].*/\1/')
+STATE=$(echo "$INFO" | grep '^  Front Left' | sed 's/.*\[\(on\|off\)\].*/\1/')
 if [[ "x$STATE" == "xoff" ]]; then
     volnoti-show -m
 else
