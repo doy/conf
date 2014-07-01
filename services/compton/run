@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec compton -m 0.9 -i 0.8 -f -D 7 --backend glx --vsync drm
