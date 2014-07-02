@@ -1,0 +1,109 @@
+{
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.295,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 564,
+               "x": 0,
+               "y": 0
+            },
+            "name": "main:0:zsh - \"doy@lance:~\"",
+            "percent": 0.333333333333333,
+            "swallows": [
+               {
+               "instance": "^urxvt$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 564,
+               "x": 0,
+               "y": 0
+            },
+            "name": "work:0:zsh - \"doy@lance:~/work\"",
+            "percent": 0.333333333333333,
+            "swallows": [
+               {
+               "instance": "^urxvt$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 564,
+               "x": 0,
+               "y": 0
+            },
+            "name": "misc:0:zsh - \"doy@lance:~\"",
+            "percent": 0.333333333333333,
+            "swallows": [
+               {
+               "instance": "^urxvt$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.705,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 564,
+               "x": 0,
+               "y": 0
+            },
+            "name": "chat:0:WeeChat 0.4.3 - \"WeeChat 0.4.3\"",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "instance": "^urxvt$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 564,
+               "x": 0,
+               "y": 0
+            },
+            "name": "docs:0:zsh - \"doy@lance:~\"",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "instance": "^urxvt$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}

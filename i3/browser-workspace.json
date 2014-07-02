@@ -1,0 +1,18 @@
+{
+    "border": "pixel",
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1056,
+       "width": 1918,
+       "x": 0,
+       "y": 0
+    },
+    "name": "Firefox",
+    "percent": 1,
+    "swallows": [
+       {
+       "class": "^Firefox$"
+       }
+    ],
+    "type": "con"
+}

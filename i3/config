@@ -115,3 +115,6 @@ bar {
     status_command ~/.bin/status
     font xft:DejaVuSansMono 7
 }
+
+exec --no-startup-id "i3-msg 'workspace 6; append_layout .i3/browser-workspace.json'"
+exec --no-startup-id "i3-msg 'workspace 5; append_layout .i3/terminal-workspace.json'"
