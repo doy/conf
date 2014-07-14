@@ -1,5 +1,6 @@
 INTO      = $(HOME)
-INSTALL   = aliases \
+INSTALL   = agignore \
+	    aliases \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \

@@ -723,7 +723,7 @@ endif
 let rec_exclude = '\('
         \. '\(^\|/\)\.\|'
         \. '\~$\|'
-        \. '\<\(blib\|nytprof\|project\|target\)\|'
+        \. '\<\(node_modules\|blib\|nytprof\|project\|target\)\|'
         \. '\.\('
             \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|'
             \. 'png\|jpg\|gif\|pdf\|doc\|d\|vsprops\|pbxproj\|sln'
