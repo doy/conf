@@ -19,9 +19,6 @@
 [submodule "vim/bundle/perl"]
 	path = vim/bundle/perl
 	url = git://github.com/vim-perl/vim-perl
-[submodule "vim/bundle/scala"]
-	path = vim/bundle/scala
-	url = git://github.com/derekwyatt/vim-scala
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
 	url = git://github.com/garbas/vim-snipmate
@@ -43,9 +40,6 @@
 [submodule "vim/bundle/addon-mw-utils"]
 	path = vim/bundle/addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils
-[submodule "vim/bundle/signify"]
-	path = vim/bundle/signify
-	url = git://github.com/mhinz/vim-signify
 [submodule "vim/bundle/startify"]
 	path = vim/bundle/startify
 	url = git://github.com/mhinz/vim-startify
