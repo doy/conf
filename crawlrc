@@ -1,7 +1,7 @@
 # TEAMCAPTAIN doy
 # TEAMNAME cabal
 # TEAMMEMBERS doy stabwound cbus wasp Grimm 78291
-# Dungeon Crawl Stone Soup 0.13.1
+# Dungeon Crawl Stone Soup 0.14.0
 
 ##### 1-  Starting Screen {{{
 name                       = doy
@@ -21,19 +21,20 @@ remember_name              = true
 # save_dir   = saves
 # macro_dir  = settings/
 # sound      =
+lang_name = pl
 # }}}
 ##### 3-  Interface {{{
 ##### 3-a       Picking up and Dropping {{{
-# autopickup              = $?!:"/%
+# autopickup              = $?!+"/%
 # autopickup_exceptions  +=
 # default_autopickup      = true
 # autopickup_no_burden    = true
 # pickup_thrown           = true
 # chunks_autopickup       = true
 assign_item_slot          = backward
-# drop_mode               = multi
-pickup_mode               = multi
-# drop_filter            += skeleton, corpse, useless_item
+# pickup_menu             = true
+# pickup_menu_limit       = 4
+# drop_filter            +=
 # default_friendly_pickup = friend
 # }}}
 ##### 3-b       Targetting {{{
@@ -80,9 +81,9 @@ rest_delay                    = -1
 # travel_avoid_terrain        =
 # explore_greedy              = true
 explore_stop                  = glowing_items, artefacts, runes
-explore_stop                 += greedy_pickup_smart, greedy_visited_item_stack
-explore_stop                 += greedy_sacrificeable, stairs, shops, altars
-explore_stop                 += gates
+explore_stop                 += greedy_pickup_smart, greedy_sacrificeable
+explore_stop                 += shops, altars, runed_doors
+explore_stop                 += stairs, portals, branches
 # explore_stop_pickup_ignore +=
 explore_wall_bias             = 1
 # explore_improved            = false
@@ -96,7 +97,7 @@ auto_sacrifice                = prompt_ignore
 runrest_ignore_message       += merges.*into the air
 runrest_ignore_message       += forms.*from the air
 runrest_stop_message         += duration:
-runrest_ignore_poison         = 2:30
+runrest_safe_poison           = 2:30
 runrest_ignore_monster       += fish:2
 runrest_ignore_monster       += mimic:2
 runrest_ignore_monster       += butterfly:1
@@ -109,7 +110,6 @@ auto_exclude                 += ice statue, silver statue
 auto_exclude                 += curse skull, Roxanne, Murray, archer statue
 # }}}
 ##### 3-h       Command Enhancements {{{
-# auto_list              = true
 # auto_switch            = false
 # easy_open              = true
 # easy_unequip           = true
@@ -117,10 +117,7 @@ auto_exclude                 += curse skull, Roxanne, Murray, archer statue
 # easy_confirm           = safe
 # allow_self_target      = prompt
 # confirm_butcher        = auto
-# prefer_safe_chunks     = true
 easy_eat_chunks          = true
-easy_eat_gourmand        = true
-# easy_eat_contaminated  = false
 auto_eat_chunks          = true
 auto_drop_chunks         = never
 # prompt_for_swap        = true
@@ -132,6 +129,11 @@ autofight_stop           = 40
 # autofight_throw        = false
 # autofight_throw_nomove = true
 # autofight_fire_stop    = false
+# autofight_caught       = false
+# automagic_enable       = false
+# automagic_slot         = a
+# automagic_fight        = false
+# automagic_stop         = 0
 # }}}
 ##### 3-i       Messages and Display Enhancements {{{
 hp_warning                     = 40
@@ -158,56 +160,32 @@ item_stack_summary_minimum     = 1
 
 # XXX you have got to be joking
 menu_colour -= $forbidden:.*forbidden.*
-menu_colour -= lightred:.*equipped.* cursed
-menu_colour -= red: (a|the) cursed
-menu_colour -= inventory:lightgreen:.*equipped.*
-menu_colour -= white:.*artefact.*
-menu_colour -= lightblue:(^identified armour.* pair of .* of )
-menu_colour -= lightgrey:(^identified armour.* pair of )
-menu_colour -= lightblue:(^identified (weapon|armour).* of )
-menu_colour -= lightblue:(^identified weapon.* vampiric .*)
-menu_colour -= lightblue:(^identified weapon.* anti-magic .*)
-menu_colour -= lightblue:^unidentified .*weapon.*(runed|glowing)
-menu_colour -= lightblue:^unidentified .*armour.*(runed|glowing|embroidered|shiny|dyed)
-menu_colour -= yellow:.*emergency_item.*
-menu_colour -= cyan:.*good_item.*
-menu_colour -= cyan:.*misc.*[lL]antern
-menu_colour -= $dangerous:.*dangerous_item.*
-menu_colour -= lightgrey:tried on uncursed
-menu_colour -= green:uncursed
-menu_colour -= pickup:green:god gift
+menu_colour += brown:.*forbidden.*
 
+menu_colour -= white:.*artefact.*
+menu_colour += magenta:.*artefact.*
+
+menu_colour -= yellow:.*emergency_item.*
 menu_colour += cyan:.*emergency_item.*
 menu_colour += cyan:potion.*berserk rage
 menu_colour += cyan:scroll.*fog
-menu_colour += cyan:.*misc.*[lL]antern
-menu_colour += brown:forbidden
-menu_colour += magenta:artefact
-menu_colour += lightred:dangerous_item
+menu_colour += cyan:scroll.*silence
 
-menu_colour += lightblue:(^identified armour.* pair of .* of )
-menu_colour += lightgrey:(^identified armour.* pair of )
-menu_colour += lightblue:(^identified (weapon|armour).* of )
-menu_colour += lightblue:(^identified weapon.* vampiric .*)
-menu_colour += lightblue:(^identified weapon.* anti-magic .*)
-menu_colour += lightblue:^unidentified .*weapon.*(runed|glowing)
-menu_colour += lightblue:^unidentified .*armour.*(runed|glowing|embroidered|shiny|dyed)
+menu_colour -= cyan:.*good_item.*
+menu_colour += magenta:.*good_item.*
 
-menu_colour += white:\s\+\s
-menu_colour += white:\s\#\s
+menu_colour -= $dangerous:.*dangerous_item.*
+menu_colour += lightred:.*dangerous_item.*
 
-menu_colour += lightgreen:equipped.*uncursed
-menu_colour += green:uncursed
-menu_colour += lightred:equipped.*cursed
-menu_colour += red:cursed
-menu_colour += white:equipped
+menu_colour -= lightblue:unidentified.*(potion|scroll|wand|jewellery)
 
-menu_colour += yellow:gluggy white potion
-
-menu_colour += lightgrey:potion.*(restore abilities|might)
-menu_colour += magenta:good_item
-
+menu_colour -= pickup:green:god gift
 menu_colour += pickup:magenta:god gift
+
+menu_colour += yellow:gluggy (white|brown) potion
+menu_colour += lightgrey:potion.*(restore abilities|might)
+
+message_colour += lightred:crystal spear.*you
 
 message_colour += mute:You start (searching|resting)
 message_colour += mute:Done searching
@@ -230,6 +208,7 @@ force_more_message += Found a gateway leading out of the Abyss
 show_travel_trail              = false
 # skill_focus                  = true
 # monster_list_colour         +=
+# view_delay                   = 600
 # }}}
 ##### 3-j       Missiles {{{
 # fire_items_start = a
@@ -327,7 +306,7 @@ show_god_gift           = unident
 # dump_on_save = true
 # }}}
 ##### 4-b       Items and Kill List {{{
-# kill_map               = friend:you, other:you
+# kill_map               =
 dump_kill_places         = all
 dump_item_origins        = artefacts, ego_arm, ego_weap, jewellery
 dump_item_origin_price   = 200
@@ -354,6 +333,7 @@ note_messages          += Your scales start
 note_messages          += protects you from harm
 note_messages          += You fall through a shaft
 note_chat_messages      = true
+# note_dgl_messages     = true
 # }}}
 # }}}
 ##### 5-  Miscellaneous {{{
@@ -373,20 +353,12 @@ mon_glyph                = curse skull : lightmagenta
 # use_fake_player_cursor = true
 show_player_species      = true
 # }}}
-##### 5-b   Windows console {{{
+##### 5-b   DOS and Windows {{{
 # dos_use_background_intensity = false
-# background                   = black
 # }}}
 ##### 5-c   Unix console {{{
 # background_colour = black
 # use_fake_cursor   = true
-# }}}
-##### 5-d   Alternative keybinding files {{{
-# Alternative vi bindings for Dvorak users.
-# include = dvorak_command_keys.txt
-#
-# Override the vi movement keys with a non-command.
-# include = no_vi_command_keys.txt
 # }}}
 # }}}
 ##### 6-  Lua {{{
@@ -395,9 +367,9 @@ show_player_species      = true
 ##### 6-b       Executing inline lua {{{
 # don't autopickup in the abyss {{{
 < do
-local old_ch_deny_autopickup = ch_deny_autopickup or function() return false end
+local old_cda = ch_deny_autopickup or function() return false end
 function ch_deny_autopickup(it)
-    return you.where() == "Abyss" or old_ch_deny_autopickup(it)
+    return you.where() == "Abyss" or old_cda(it)
 end
 end >
 # }}}
