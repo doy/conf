@@ -30,7 +30,7 @@ alias misc='tmux a -t misc'
 # other {{{
 alias wgetff='wget --user-agent="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.3) Gecko/20070404 Firefox/2.0.0.3"'
 alias pm="find lib -type f | sort"
-alias bootstrap_cpanm="wget -O- -q http://xrl.us/cpanm | perl - App::cpanminus"
+alias bootstrap_cpanm="curl -Ls http://cpanmin.us/ | perl - App::cpanminus"
 alias v="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"t\")'"
 alias f="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"f\")'"
 alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"&\")'"
