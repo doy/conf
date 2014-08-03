@@ -25,6 +25,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_mtg@tozt.net
 * 1^0 ^TO_stubhub@tozt.net
 * 1^0 ^TO_ticketmaster@tozt.net
+* 1^0 ^From.*@thepageant.com
 .events/
 # }}}
 # housing {{{
@@ -39,6 +40,10 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_alar-rpg@listbox.com
 * 1^0 ^TO_alar@dudgeonmaster.org
 .mailing\ lists.alar-rpg/
+# }}}
+:0: # codewar {{{
+* 1^0 ^TO_codewar@lists.codesimply.com
+.mailing\ lists.codewar/
 # }}}
 :0: # crawl {{{
 * ^Subject:.*crawl-ref
@@ -67,7 +72,11 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^From.*leonard@umn.edu
 * 1^0 ^From.*confserv@andrew.cmu.edu
 * 1^0 ^From.*eay@andrew.cmu.edu
-* 1^0 ^From.*@yapc10.org
+* 1^0 ^From.*@yapc(10|na).org
+* 1^0 ^From.*speakers-owner@yapcna.org
+* 1^0 ^From.*mailman-owner@lists.foo.no
+* 1^0 ^From.*barbie@(missbarbell.co.uk|birmingham.pm.org)
+* 1^0 ^TO_speakers@yapcna.org
 .mailing\ lists.perl\ conferences/
 # }}}
 :0: # perl5-porters {{{
@@ -85,6 +94,7 @@ INCLUDERC=$PMDIR/local.rc
 :0: # rust {{{
 * 1^0 ^TO_rust-dev@mozilla.org
 * 1^0 ^From.*mailman-owner@mozilla.org
+* 1^0 ^TO_rust-discuss@tozt.net
 .mailing\ lists.rust-dev/
 # }}}
 # }}}
@@ -100,6 +110,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_vanguard@tozt.net
 * 1^0 ^TO_verizon@tozt.net
 * 1^0 ^TO_verizonwireless@tozt.net
+* 1^0 ^TO_ridmv@tozt.net
 .money/
 # }}}
 # projects {{{
@@ -114,22 +125,32 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^From.*@rt.cpan.org
 * 1^0 ^From.*@github.com
 * 1^0 ^From.*notifications@travis-ci.org
+* 1^0 ^From.*bugs@lists.bitlbee.org
+* 1^0 ^From.*(trac|cr)@i3.zekjur.net
+* 1^0 ^From.*bugs@archlinux.org
+* 1^0 ^From.*@gitter.im
 .projects/
 # }}}
 # shopping {{{
 :0:
 * 1^0 ^TO_amazon@tozt.net
+* 1^0 ^TO_ebay@tozt.net
 * 1^0 ^TO_emusic@tozt.net
 * 1^0 ^TO_foodler@tozt.net
 * 1^0 ^TO_graze@tozt.net
 * 1^0 ^TO_groupon@tozt.net
 * 1^0 ^TO_indiegogo@tozt.net
 * 1^0 ^TO_kickstarter@tozt.net
+* 1^0 ^TO_lenovo@tozt.net
+* 1^0 ^TO_netflix@tozt.net
 * 1^0 ^TO_newegg@tozt.net
 * 1^0 ^TO_opentable@tozt.net
+* 1^0 ^TO_sentrysafe@tozt.net
 * 1^0 ^TO_steam@tozt.net
 * 1^0 ^TO_subaru@tozt.net
 * 1^0 ^TO_vibram@tozt.net
+* 1^0 ^From.*@bandcamp.com
+* 1^0 ^From.*@messaging.squareup.com
 .shopping/
 # }}}
 # tools {{{
@@ -154,6 +175,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_megabus@tozt.net
 * 1^0 ^TO_priceline@tozt.net
 * 1^0 ^TO_southwest@tozt.net
+* 1^0 ^From.*@dive.is
 .travel/
 # }}}
 # websites {{{
@@ -162,10 +184,13 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_kongregate@tozt.net
 * 1^0 ^TO_letterboxd@tozt.net
 * 1^0 ^TO_twitter@tozt.net
-* 1^0 ^From.*@couchsurfing.org
+* 1^0 ^From.*@couchsurfing.(org|com)
 * 1^0 ^From.*no-reply@mailer.last.fm
 * 1^0 ^From.*@livejournal.com
 * 1^0 ^From.*info@twitter.com
+* 1^0 ^From.*@keybase.io
+* 1^0 ^From.*@klout.com
+* 1^0 ^From.*@coderwall.com
 .websites/
 # }}}
 # school {{{
