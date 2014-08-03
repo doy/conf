@@ -30,6 +30,7 @@
 	r = !git add -p && git commit --verbose
 	br = branch
 	ri = rebase -i
+	fixup = "!f() { git record --fixup \"$@\"; }; f"
 [github]
 	user = doy
 [color]
