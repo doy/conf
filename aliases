@@ -5,7 +5,7 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias bc="bc -lq"
-alias ag="ag --pager=less"
+alias ag="ag --pager=less --smart-case"
 # }}}
 # games {{{
 alias nao="(TERM=rxvt telnet nethack.alt.org)"
