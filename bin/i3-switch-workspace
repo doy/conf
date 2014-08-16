@@ -30,7 +30,18 @@ my $workspace_data = $json->decode(i3_msg('get_workspaces'));
 my $next_workspace = $workspace_data->[-1]{num} + 1;
 my $prev_workspace = $workspace_data->[0]{num} - 1;
 
-if ($workspace_data->[0]{focused} && $dir eq 'prev') {
+if (@$workspace_data == 1) {
+    my $current_workspace = $workspace_data->[0]{num};
+    my $tree_data = $json->decode(i3_msg('get_tree'));
+    my $workspace_tree = find_workspace($tree_data, $current_workspace);
+    if ($dir eq 'prev') {
+        i3_msg('command', "workspace number $prev_workspace");
+    }
+    else {
+        i3_msg('command', "workspace number $next_workspace");
+    }
+}
+elsif ($workspace_data->[0]{focused} && $dir eq 'prev') {
     my $current_workspace = $workspace_data->[0]{num};
     my $tree_data = $json->decode(i3_msg('get_tree'));
     my $workspace_tree = find_workspace($tree_data, $current_workspace);
