@@ -162,6 +162,9 @@ function 2fa_linode {
 function 2fa_github {
     oathtool --totp -b $(pass show websites/github/doy | grep '^2fa:' | sed 's/^2fa: //')
 }
+function 2fa_dynadot {
+    oathtool --totp -b $(pass show websites/dynadot/doy | grep '^2fa:' | sed 's/^2fa: //')
+}
 # }}}
 
 # vim:ft=sh:
