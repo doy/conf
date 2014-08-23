@@ -109,6 +109,7 @@ vim/bundle/vimproc/autoload/vimproc_unix.so : vim/bundle/vimproc/autoload/proc.c
 	cd vim/bundle/vimproc && make
 
 $(INTO)/Maildir/.notmuch: notmuch
+	mkdir -p $(INTO)/Maildir
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
 
