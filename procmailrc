@@ -164,6 +164,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_pinboard@tozt.net
 * 1^0 ^TO_roku@tozt.net
 * 1^0 ^TO_skype@tozt.net
+* 1^0 ^TO_zone_edit@tozt.net
 * 1^0 ^From.*@gistboxapp.com
 .tools/
 # }}}
@@ -196,6 +197,8 @@ INCLUDERC=$PMDIR/local.rc
 # school {{{
 :0:
 * 1^0 ^TO_risd@tozt.net
+* 1^0 ^From.*faculty@hackerschool.com
+* 1^0 ^From.*bot@mail.community.hackerschool.com
 .school/
 # }}}
 # work {{{
