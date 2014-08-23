@@ -1,0 +1,120 @@
+% vim:foldmarker=<<<,>>>
+% This work is licensed under the Creative Commons
+% Attribution-NonCommercial-ShareAlike License. To view a copy of this license,
+% visit http://creativecommons.org/licenses/by-nc-sa/1.0/ or send a letter to
+% Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
+% This file is adapted from Todd Courtesan's resume, at
+% http://www.courtesan.com/todd/resume.html
+
+% <<< packages
+\RequirePackage{latexsym,amsmath,amssymb,charter,color,calc,jesse_macros}
+\RequirePackage[empty]{fullpage}
+% >>>
+% <<< dimensions/margins
+\setlength{\tabcolsep}{0in}
+\addtolength{\oddsidemargin}{-0.25in}
+\addtolength{\evensidemargin}{-0.25in}
+\addtolength{\textwidth}{0.5in}
+\addtolength{\topmargin}{-0.5in}
+\addtolength{\textheight}{1in}
+% >>>
+% <<< other definitions
+\definecolor{mygrey}{gray}{0.90}
+% >>>
+% <<< Custom commands
+% <<< \resheader
+\newcommand{\resheader}[5]{
+    \raggedleft
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}cr}
+    #2 & \textbf{\LARGE #1} & #4\\
+    #3 &                    & #5\\
+    \end{tabular*}
+    \\
+    \vspace{0.1in}
+}
+% >>>
+% <<< \begin{reslist}
+\newenvironment{reslist}{
+    \begin{list}{-}{
+        \setlength{\rightmargin}{0.25in}
+        \setlength{\leftmargin}{0.125in}
+        \setlength{\itemsep}{-2pt}
+    }
+}{
+    \end{list}
+}
+% >>>
+% <<< \resitem
+\newcommand{\resitem}[1]{\item {\small #1}}
+% >>>
+% <<< \resheading
+\newcommand{\resheading}[1]{
+    {\large \colorbox{mygrey}{
+        \begin{minipage}
+            {\textwidth-0.175in}
+            {\textbf{#1 \vphantom{p\^{E}}}}
+        \end{minipage}
+    }}
+}
+% >>>
+% \ressubheading <<<
+\newcommand{\ressubheading}[4]{
+    \begin{tabular*}{\textwidth-0.5in}{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & #2 \\
+        \textit{#3} & \textit{#4} \\
+    \end{tabular*}
+    \\
+    \vspace{-0.8pt}
+}
+% >>>
+% \resshortsubheading <<<
+\newcommand{\resshortsubheading}[2]{
+    \begin{tabular*}{\textwidth-0.5in}{l@{\extracolsep{\fill}}r}
+        \textbf{\small #1} & {\small #2} \\
+    \end{tabular*}
+    \vspace{-6pt}
+}
+% >>>
+% \resclasses <<<
+\newlength{\res@classcolwidth}
+\newlength{\resclasscolsep}
+\setlength{\resclasscolsep}{0.25in}
+\newcommand{\resclasses}[2]{
+\setlength{\res@classcolwidth}{\textwidth/2-0.5in}
+\begin{minipage}[t]{\textwidth}
+\begin{center}
+\vspace{0.01in}
+\begin{minipage}[t]{\res@classcolwidth}
+\begin{tabular*}{\res@classcolwidth}[t]
+                {l@{\extracolsep{\fill}}l}
+#1
+\end{tabular*}
+\end{minipage}
+\hspace{\resclasscolsep}
+\begin{minipage}[t]{\res@classcolwidth}
+\begin{tabular*}{\res@classcolwidth}[t]
+                {l@{\extracolsep{\fill}}l}
+#2
+\end{tabular*}
+\end{minipage}
+\vspace{0.01in}
+\end{center}
+\end{minipage}
+}
+% >>>
+% \resclass <<<
+\newcommand{\resclass}[2]{
+    \parbox[b]{\res@classcolwidth-0.5in}{\small \textbf{#1}:} & {\small #2}\\
+}
+% >>>
+% \restext <<<
+\newcommand{\restext}[1]{
+    % XXX: this 0in here seems like a hack, what do i really want?
+    \vspace{0in}
+    \\
+    #1
+    \\
+    \vspace{0.1in}
+}
+% >>>
+% >>>
