@@ -96,7 +96,7 @@ auto_sacrifice                = prompt_ignore
 runrest_ignore_message       += merges.*into the air
 runrest_ignore_message       += forms.*from the air
 runrest_stop_message         += duration:
-runrest_safe_poison           = 2:30
+# runrest_safe_poison         = 80:100
 runrest_ignore_monster       += fish:2
 runrest_ignore_monster       += mimic:2
 runrest_ignore_monster       += butterfly:1
@@ -198,7 +198,7 @@ message_colour += mute:peering into the
 message_colour += darkgrey:--more--
 
 force_more_message += You are starting to lose your buoyancy
-force_more_message += Space (bends|warps horribly) around
+force_more_message += Space (bends|warps horribly) around you
 force_more_message += danger:
 force_more_message += Found a gateway leading out of the Abyss
 
