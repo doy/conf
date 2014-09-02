@@ -2,4 +2,4 @@
 
 # for some reason, if you don't close stdin here, it uses 100% cpu. this
 # doesn't happen if you run it from a terminal, no idea what's going on
-exec xflux -z 02903 -nofork <&- 2>&1
+exec xflux -z 11220 -nofork <&- 2>&1
