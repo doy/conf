@@ -5,3 +5,9 @@ snippet main
 
 snippet pr
         println!(${1})
+
+snippet struct
+        #[deriving(PartialEq, Eq, Show)]
+        struct ${1} {
+                ${2}
+        }
