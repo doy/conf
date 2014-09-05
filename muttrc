@@ -116,9 +116,6 @@ set reply_to
 send-hook . '\
     set from=doy@tozt.net ;\
     unset signature'
-send-hook ^.*@iinteractive\\.com$ '\
-    set from=jesse.luehrs@iinteractive.com ;\
-    set signature="~/.signature"'
 # }}}
 # prompts {{{
 # never automatically move read messages

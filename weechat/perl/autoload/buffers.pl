@@ -932,7 +932,6 @@ sub build_buffers
         {
             my $name = $buffer->{"short_name"};
             $name = '?' . $name if $buffer->{"type"} eq 'private';
-            $name =~ s|#iinteractive/|#|;
 
             if (weechat::config_integer($options{"name_size_max"}) >= 1)                # check max_size of buffer name
             {
@@ -952,7 +951,6 @@ sub build_buffers
         {
             my $name = $buffer->{"name"};
             $name = '?' . $name if $buffer->{"type"} eq 'private';
-            $name =~ s|#iinteractive/|#|;
 
             if (weechat::config_integer($options{"name_size_max"}) >= 1)                # check max_size of buffer name
             {
