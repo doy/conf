@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+RUSTI_TEMP=$(mktemp -d)
+trap "rm -f $RUSTI_TEMP/test $RUSTI_TEMP/test.rs && rmdir $RUSTI_TEMP" EXIT
+
+cd $RUSTI_TEMP
+vim test.rs
+rustc test.rs
+./test
