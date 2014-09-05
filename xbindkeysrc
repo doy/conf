@@ -19,6 +19,9 @@
 "screenshot --full"
   Shift+Mod4 + s
 
+"xscreensaver-command -lock"
+  Mod4 + d
+
 "toggle_numkeys"
   Shift + Shift_R
 
