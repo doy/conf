@@ -744,7 +744,6 @@ function! s:unite_my_settings()
     autocmd InsertLeave <buffer>  call feedkeys("\<Plug>(unite_exit)")
 endfunction
 nnoremap <silent>t :Unite -silent -profile-name=with_dir buffer file_rec/async<CR>
-nnoremap <silent>f :Unite -silent buffer file<CR>
 nnoremap <silent>& :Unite -silent grep:.<CR>
 " }}}
 " vimfiler {{{
@@ -801,5 +800,25 @@ smap <expr><Tab>
             \ <SID>check_back_space() ?
                 \ "\<Tab>" :
                 \ neocomplete#start_manual_complete()
+" }}}
+" easymotion {{{
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_enter_jump_first = 1
+
+map ff <Plug>(easymotion-fl)
+omap ff <Plug>(easymotion-tl)
+
+map fj <Plug>(easymotion-j)
+map fk <Plug>(easymotion-k)
+map fh <Plug>(easymotion-linebackward)
+map fl <Plug>(easymotion-lineforward)
+
+map f/ <Plug>(easymotion-fn)
+omap f/ <Plug>(easymotion-tn)
+map f? <Plug>(easymotion-Fn)
+omap f? <Plug>(easymotion-Tn)
+map fn <Plug>(easymotion-vim-n)
+map fN <Plug>(easymotion-vim-N)
 " }}}
 " }}}
