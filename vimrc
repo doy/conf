@@ -389,8 +389,7 @@ xnoremap < <gv
 xnoremap > >gv
 " }}}
 " F5 to :make {{{
-noremap  <silent><F5> :<C-u>make<CR><CR><C-W>k
-inoremap <silent><F5> <C-O>:make<CR><CR><C-O><C-W>k
+noremap  <silent>M :<C-u>make<CR><CR><C-W>k
 " }}}
 " Painless spell checking (F11) {{{
 function! s:spell()
