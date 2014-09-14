@@ -26,6 +26,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_stubhub@tozt.net
 * 1^0 ^TO_ticketmaster@tozt.net
 * 1^0 ^From.*@thepageant.com
+* 1^0 ^TO_eventbrite@tozt.net
 .events/
 # }}}
 # housing {{{
@@ -100,6 +101,7 @@ INCLUDERC=$PMDIR/local.rc
 # }}}
 # money {{{
 :0:
+* 1^0 ^TO_aetna@tozt.net
 * 1^0 ^TO_ally@tozt.net
 * 1^0 ^TO_chase@tozt.net
 * 1^0 ^TO_creditcard@tozt.net
@@ -145,6 +147,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_netflix@tozt.net
 * 1^0 ^TO_newegg@tozt.net
 * 1^0 ^TO_opentable@tozt.net
+* 1^0 ^TO_rei@tozt.net
 * 1^0 ^TO_sentrysafe@tozt.net
 * 1^0 ^TO_steam@tozt.net
 * 1^0 ^TO_subaru@tozt.net
@@ -176,6 +179,7 @@ INCLUDERC=$PMDIR/local.rc
 * 1^0 ^TO_megabus@tozt.net
 * 1^0 ^TO_priceline@tozt.net
 * 1^0 ^TO_southwest@tozt.net
+* 1^0 ^TO_suncountry@tozt.net
 * 1^0 ^From.*@dive.is
 .travel/
 # }}}
