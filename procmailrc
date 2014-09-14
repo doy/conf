@@ -197,8 +197,7 @@ INCLUDERC=$PMDIR/local.rc
 # school {{{
 :0:
 * 1^0 ^TO_risd@tozt.net
-* 1^0 ^From.*faculty@hackerschool.com
-* 1^0 ^From.*bot@mail.community.hackerschool.com
+* 1^0 ^From.*@hackerschool.com
 .school/
 # }}}
 # work {{{
