@@ -590,6 +590,10 @@ nnoremap <silent>;A :call <SID>temporary_paste()<CR>A
 nnoremap <silent>;o :call <SID>temporary_paste()<CR>o
 nnoremap <silent>;O :call <SID>temporary_paste()<CR>O
 " }}}
+" editing binary files {{{
+nnoremap <C-B> :%!xxd<CR>
+nnoremap <C-R> :%!xxd -r<CR>
+" }}}
 " keystroke reducers {{{
 " tags
 nnoremap <CR> <C-]>
