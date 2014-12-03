@@ -1,5 +1,5 @@
 #!/bin/bash
 
 sudo -k
-keychain -q --clear
+keychain -k mine
 keybase logout
