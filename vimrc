@@ -627,11 +627,14 @@ nnoremap <silent><C-D> :bd<CR>
 
 " allow some commands to work regardless of keyboard mode
 nmap <silent>) 0
+nmap <silent>g) g0
 nmap <Bar> \
 " }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nnoremap Y y$
+
+nmap <silent>g_ g0
 
 autocmd BufEnter * exe "nnoremap T :e " . expand('%')
 " }}}
