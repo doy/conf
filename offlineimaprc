@@ -28,7 +28,7 @@ remotepasseval = get_password("mail/mail.tozt.net/doy")
 maxconnections = 5
 keepalive = 60
 holdconnectionopen = yes
-idlefolders = ['INBOX', 'websites', 'school']
+idlefolders = ['INBOX', 'websites', 'school', 'work']
 folderfilter = lambda foldername: foldername not in ['notmuch'] and not re.search('^old(\.|$)', foldername)
 subscribedonly = no
 
