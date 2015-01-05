@@ -15,6 +15,7 @@ my %weather_pics = (
     'Thunderstorm' => "\x{26a1}",
     'Rain'         => "\x{2614}",
     'Drizzle'      => "\x{2614}",
+    'Showers'      => "\x{2614}",
     'Cloudy'       => "\x{2601}",
     'Clouds'       => "\x{2601}",
     'Overcast'     => "\x{2601}",
@@ -22,6 +23,7 @@ my %weather_pics = (
     'Mist'         => "\x{2592}",
     'Haze'         => "\x{2592}",
     'Clear'        => "\x{2600}",
+    'Pellets'      => "\x{2744}",
     'Snow'         => "\x{2744}",
 );
 
