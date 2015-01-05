@@ -206,23 +206,7 @@ INCLUDERC=$PMDIR/local.rc
 # }}}
 # work {{{
 :0:
-* 1^0 ^From.*notify@adminitrack.com
-* 1^0 ^From.*jira@iinteractive.com
-.work.tickets/
-:0:
-* 1^0 ^Sender.*calendar-notification@google.com
-* 1^0 ^From.*noreply@icloud.com
-.work.events/
-:0:
-* 1^0 ^From.*flowdock.com
-* 1^0 ^From.*files@iinteractive.com
-* 1^0 ^From.*no-reply@slack.com
-.work.tools/
-:0:
-* 1^0 ^From.*confluence@iinteractive.com
-.work.wiki/
-:0:
-* ^From.*iinteractive.com
+* ^From.*@stripe.com
 .work/
 # }}}
 # vim:ft=procmail:
