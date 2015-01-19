@@ -92,7 +92,8 @@ sub handle_i3status {
             $item->{full_text} =~ s/\((.*) (.*)W\)/\($1\)/;
             $item->{full_text} =~ s/ \(\)//;
             $item->{color} =
-                $val >= 80      ? '#00FF00'
+                !defined($val)  ? '#FFFFFF'
+              : $val >= 80      ? '#00FF00'
               : $state ne 'BAT' ? '#FFFFFF'
               : $val >= 40      ? '#FFFFFF'
               : $val >= 15      ? '#FFFF00'
