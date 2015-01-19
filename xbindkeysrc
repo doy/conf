@@ -52,8 +52,8 @@
 "kill_focused CONT"
   XF86Launch4
 
-"xbacklight -inc 5"
+"xbacklight -inc 10"
   XF86MonBrightnessUp
 
-"xbacklight -dec 5"
+"xbacklight -dec 10"
   XF86MonBrightnessDown
