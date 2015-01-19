@@ -18,6 +18,7 @@ export PERL_CPANM_OPT="-q --mirror file://${HOME}/perl5/minicpan/ --mirror http:
 type git > /dev/null 2>&1 && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec-path`
 [ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
 [ -f $HOME/python/virtualenv/bin/activate ] && source $HOME/python/virtualenv/bin/activate
+[ -x rbenv ] && eval "$(rbenv init -)"
 true
 
 # vim:ft=sh:
