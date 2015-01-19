@@ -1,23 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
 case $1 in
     up)
-        amixer set Master unmute > /dev/null
-        amixer set Master 5%+ > /dev/null
+        pactl set-sink-mute 1 0
+        pactl set-sink-volume 1 -- +5%
         ;;
     down)
-        amixer set Master unmute > /dev/null
-        amixer set Master 5%- > /dev/null
+        pactl set-sink-mute 1 0
+        pactl set-sink-volume 1 -- -5%
         ;;
     mute)
-        amixer set Master toggle > /dev/null
+        pactl set-sink-mute 1 toggle
         ;;
 esac
 
-INFO=$(amixer get Master)
-VOLUME=$(echo "$INFO" | grep '^  Front Left' | sed 's/.*\[\([[:digit:]]\+\)\%\].*/\1/')
-STATE=$(echo "$INFO" | grep '^  Front Left' | sed 's/.*\[\(on\|off\)\].*/\1/')
-if [[ "x$STATE" == "xoff" ]]; then
+INFO=$(pacmd dump | grep analog-stereo)
+VOLUME=$(echo "$INFO" | grep 'set-sink-volume' | cut -d' ' -f 3 | perl -e'print 100*oct(<>)/0x10000')
+STATE=$(echo "$INFO" | grep 'set-sink-mute' | cut -d' ' -f 3)
+if [[ "x$STATE" == "xyes" ]]; then
     volnoti-show -m
 else
     volnoti-show $VOLUME

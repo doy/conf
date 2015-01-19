@@ -37,7 +37,7 @@
 "volume mute"
   XF86AudioMute
 
-"amixer set Capture toggle"
+"pactl set-source-mute 2 toggle"
   XF86AudioMicMute
 
 "xrandr --auto"
