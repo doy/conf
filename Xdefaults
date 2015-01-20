@@ -36,5 +36,23 @@ xterm*font:7x14
 xterm*boldFont:7x14
 xterm*bellIsUrgent: true
 ! }}}
+! colors {{{
+*.color0:#000000
+*.color1:#9f0000
+*.color2:#4e9a06
+*.color3:#c4a000
+*.color4:#3465a4
+*.color5:#903e9d
+*.color6:#06989a
+*.color7:#cdcdcd
+*.color8:#666666
+*.color9:#ef2929
+*.color10:#64f434
+*.color11:#fce94f
+*.color12:#79b8fb
+*.color13:#da8ed1
+*.color14:#5ae9e9
+*.color15:#ffffff
+! }}}
 
 ! vim:ft=xdefaults:
