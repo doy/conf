@@ -707,8 +707,12 @@ for file in [ '.gitignore', expand('~/.gitignore') ]
     if filereadable(file)
         for line in readfile(file)
             let line = substitute(line, '#.*', '', '')
-            if line != ''
-                call extend(g:startify_skiplist, map(glob(line, 1, 1), "substitute(v:val, '[~.*]', '\\\\&', 'g')"))
+            if line != '' && line[0] != '!'
+                let line = substitute(line, "[~.]", "\\\\&", 'g')
+                let line = substitute(line, "\\*\\*", ".*", 'g')
+                let line = substitute(line, "\\*", "[^/]*", 'g')
+                let line = substitute(line, "?", ".", 'g')
+                call add(g:startify_skiplist, line)
             endif
         endfor
     endif
