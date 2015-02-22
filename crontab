@@ -1,1 +1,1 @@
-*/15 * * * * . ~/.env && export PATH=~/.bin:$PATH && update-weather
+*/15 * * * * /bin/bash -c'. ~/.env && export PATH=~/.bin:$PATH && update-weather'
