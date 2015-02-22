@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec xcape -d -e 'Control_L=Escape;Control_R=Escape'
+exec xcape -d -e 'Control_L=Escape;Control_R=Escape' 2>&1
