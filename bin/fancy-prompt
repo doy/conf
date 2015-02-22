@@ -70,9 +70,11 @@ my %colornames = (
     host_tozt     => 'yellow',
     host_xtahua   => 'lightmagenta',
     host_lance    => 'red',
+    host_work     => 'lightblue',
     unknown_host  => 'brown',
 
     user_doy     => 'lightblue',
+    'user_jesse-luehrs' => 'white',
     root         => 'lightred',
     unknown_user => 'brown',
 
