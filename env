@@ -16,8 +16,8 @@ export NOPASTE_SSH_WEBPATH="http://paste.tozt.net"
 export NOPASTE_SSH_MODE=0644
 export PERL_CPANM_OPT="-q --mirror file://${HOME}/perl5/minicpan/ --mirror http://mirrors.kernel.org/cpan/ --mirror http://cpan.metacpan.org/ --prompt"
 type git > /dev/null 2>&1 && export GIT_EXEC_PATH="${HOME}/.bin/git:"`git --exec-path`
-[ -f $HOME/perl5/perlbrew/etc/bashrc ] && source $HOME/perl5/perlbrew/etc/bashrc
-[ -f $HOME/python/virtualenv/bin/activate ] && source $HOME/python/virtualenv/bin/activate
+[ -f $HOME/perl5/perlbrew/etc/bashrc ] && . $HOME/perl5/perlbrew/etc/bashrc
+[ -f $HOME/python/virtualenv/bin/activate ] && . $HOME/python/virtualenv/bin/activate
 type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 true
 
