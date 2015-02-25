@@ -357,9 +357,9 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
     endfunction
     function! s:zsh_hist_append ()
         let to_append = expand("%:~:.")
-        " XXX gundo sets buftype too late to be caught by this... this
-        " is broken, but not sure what a better fix is
-        if &buftype == '' && to_append !~ "^__Gundo"
+        " XXX gundo and vimfiler set buftype too late to be caught by this...
+        " this is broken, but not sure what a better fix is
+        if &buftype == '' && to_append !~ '^\(__Gundo\|vimfiler:\)'
             if !has_key(s:initial_files, to_append)
                 if filereadable(g:_zsh_hist_fname)
                     let hist = readfile(g:_zsh_hist_fname)
