@@ -353,6 +353,7 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
     function! s:init_zsh_hist ()
         for fname in <SID>get_buffer_list()
             let s:initial_files[fname] = 1
+            call histadd(":", "e " . fname)
         endfor
         call delete(g:_zsh_hist_fname)
     endfunction
