@@ -328,6 +328,7 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
     autocmd VimEnter * call <SID>init_zsh_hist()
     autocmd BufNewFile,BufRead * call <SID>zsh_hist_append()
     autocmd BufDelete * call <SID>remove_initial_file(expand("<afile>"))
+    autocmd VimLeave * call <SID>reorder_zsh_hist()
 
     function! s:remove_initial_file (file)
         if has_key(s:initial_files, a:file)
@@ -369,6 +370,17 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
                 call add(hist, to_append)
                 call writefile(hist, g:_zsh_hist_fname)
             endif
+        endif
+    endfunction
+    function! s:reorder_zsh_hist ()
+        let current_file = expand("%:~:.")
+        if filereadable(g:_zsh_hist_fname)
+            let hist = readfile(g:_zsh_hist_fname)
+            if !has_key(s:initial_files, current_file)
+                call filter(hist, 'v:val != current_file')
+            endif
+            call add(hist, current_file)
+            call writefile(hist, g:_zsh_hist_fname)
         endif
     endfunction
 endif
