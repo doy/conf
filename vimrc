@@ -345,8 +345,10 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
         silent let output = <SID>get_buffer_list_text()
         let buffer_list = []
         for buffer_desc in split(output, "\n")
-            let buffer_bits = split(buffer_desc, '"')
-            call add(buffer_list, buffer_bits[1])
+            let name = bufname(str2nr(buffer_desc))
+            if name != ""
+                call add(buffer_list, name)
+            endif
         endfor
         return buffer_list
     endfunction
