@@ -88,3 +88,6 @@
 [submodule "vim/bundle/go"]
 	path = vim/bundle/go
 	url = git://github.com/fatih/vim-go
+[submodule "vim/bundle/rust"]
+	path = vim/bundle/rust
+	url = https://github.com/rust-lang/rust.vim
