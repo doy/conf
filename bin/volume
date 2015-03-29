@@ -3,11 +3,11 @@
 case $1 in
     up)
         pactl set-sink-mute 1 0
-        pactl set-sink-volume 1 -- +5%
+        pactl set-sink-volume 1 +5%
         ;;
     down)
         pactl set-sink-mute 1 0
-        pactl set-sink-volume 1 -- -5%
+        pactl set-sink-volume 1 -5%
         ;;
     mute)
         pactl set-sink-mute 1 toggle
