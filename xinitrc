@@ -1,6 +1,5 @@
 #!/bin/sh
 
-xrandr --dpi 144
 start-pulseaudio-x11
 
 # these have to all happen before xcape is started

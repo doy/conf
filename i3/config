@@ -115,7 +115,7 @@ bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bar {
     tray_output primary
     status_command ~/.bin/status
-    font xft:DejaVuSansMono 7
+    font xft:DejaVuSansMono 10
 }
 
 exec --no-startup-id "i3-msg 'workspace 6; append_layout .i3/browser-workspace.json'"
