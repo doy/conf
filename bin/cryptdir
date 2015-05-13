@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [[ -e /dev/mapper/cryptdir ]]; then
     echo "only one instance can run at a time" 1>&2
@@ -15,17 +15,23 @@ fi
 
 cryptfile=$(mktemp)
 cryptdir=$(mktemp -d)
+pass=$(dd if=/dev/urandom bs=1 count=80 | base64)
+
+cleanup () {
+    cd
+    sudo umount $cryptdir
+    sudo cryptsetup close cryptdir
+    rm -f $cryptfile
+    rmdir $cryptdir
+}
+
+trap cleanup EXIT
 
 dd if=/dev/urandom of=$cryptfile bs=$size count=1
-echo "secretpass" | sudo cryptsetup luksFormat $cryptfile -
-echo "secretpass" | sudo cryptsetup open $cryptfile cryptdir --key-file -
+echo $pass | sudo cryptsetup luksFormat $cryptfile -
+echo $pass | sudo cryptsetup open $cryptfile cryptdir --key-file -
 sudo mkfs.ext2 /dev/mapper/cryptdir
 sudo mount /dev/mapper/cryptdir $cryptdir
 sudo chown $USER $cryptdir
 cd $cryptdir
 $SHELL
-cd
-sudo umount $cryptdir
-sudo cryptsetup close cryptdir
-rm -f $cryptfile
-rmdir $cryptdir
