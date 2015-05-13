@@ -21,7 +21,7 @@ localfolders = ~/Maildir
 [Repository main-remote]
 type = IMAP
 ssl = yes
-cert_fingerprint = 8ced9a00e16fa03cadfb4a3c6da2b9862d86b0bc
+cert_fingerprint = 13a83c5928ae3284ee29ca82547bb7a69cb3bf9b
 remotehost = mail.tozt.net
 remoteuser = doy
 remotepasseval = get_password("mail/mail.tozt.net/doy")
