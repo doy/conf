@@ -361,7 +361,7 @@ my @checks = (
                 unless $res->{success};
 
             require Digest::MD5;
-            Digest::MD5::md5_hex($res->{content}) ne '6df8b0d6154a26601b9a3ef1c9662de7';
+            Digest::MD5::md5_hex($res->{content}) ne '64f1b7ce47060cdfca7ac94338e92294';
         },
         sub { "travis isn't passing" }
     ],
