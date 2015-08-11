@@ -13,7 +13,8 @@ if ($ARGV[0] eq '--prompt-escape') {
 
 # collect information
 chomp(my $hostname = `hostname`);
-$hostname = 'work' if $hostname eq 'st-jesse-luehrs1';
+$hostname = 'work'    if $hostname eq 'st-jesse-luehrs1';
+$hostname = 'vagrant' if $hostname eq 'packer-vmware-iso';
 my $cols           = `tput cols`;
 my $pwd            = defined $ENV{PWD} ? $ENV{PWD} : '???';
 my $user           = defined $ENV{USER} ? $ENV{USER} : '???';
