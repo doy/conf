@@ -1,0 +1,87 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.014;
+
+use Email::Address;
+use List::MoreUtils 'any';
+use Path::Class;
+use Text::CSV;
+
+sub existing_addresses {
+    my ($addressbook) = @_;
+
+    open my $fh, '-|', (
+        'abook',
+        '--convert',
+        '--infile', $addressbook,
+        '--outformat', 'csv'
+    ) or die "Couldn't run abook: $!";
+
+    my $csv = Text::CSV->new;
+    my @out;
+    while (my $row = $csv->getline($fh)) {
+        push @out, Email::Address->new($row->[0], $row->[1]);
+    }
+
+    $fh->close;
+
+    return @out;
+}
+
+my @exclude_patterns = (
+    qr/^"?=\?/, # quoted-printable encoded addresses - punt for now
+    qr/<notifications\@github\.com>/,
+    qr/\@(?:.*\.)?stripe\.io\b/,
+    qr/(?:no|do-?not)-?reply/i,
+    qr/via (.*)"? <\1\@/,
+    qr/support\@stripe\.com/,
+);
+
+sub maildir_senders {
+    my ($maildir) = @_;
+
+    my $all_mail = dir($maildir)->subdir('[Gmail].All Mail')->subdir('cur');
+    my %senders;
+    for my $file ($all_mail->children) {
+        my $fh = $file->openr;
+        while (<$fh>) {
+            last if /^$/;
+            next unless /^(?:From|Sender): /;
+            my @addresses = Email::Address->parse($_);
+            $senders{$_->format} = $_ for @addresses;
+        }
+        $fh->close;
+    }
+
+    return grep {
+        my $address = $_->format;
+        !any { $address =~ $_ } @exclude_patterns
+    } values %senders;
+}
+
+{
+    my $addressbook       = "$ENV{HOME}/.abook/addressbook";
+    my $maildir           = "$ENV{HOME}/Maildir";
+
+    my @addresses = (
+        existing_addresses($addressbook),
+        maildir_senders($maildir),
+        # ... (hardcoded things?)
+    );
+    my %addresses = map { $_->address => $_ } @addresses;
+    @addresses = sort values %addresses;
+
+    file($addressbook)->move_to("$addressbook.bak");
+
+    open my $fh, '|-', (
+        'abook',
+        '--convert',
+        '--informat', 'csv',
+        '--outformat', 'abook',
+        '--outfile', $addressbook,
+    ) or die "Couldn't run abook: $!";
+    for my $address (@addresses) {
+        $fh->print(qq{"@{[$address->phrase || $address->address]}","@{[$address->address]}","","",""\n});
+    }
+}
