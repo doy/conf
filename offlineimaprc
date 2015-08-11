@@ -1,7 +1,6 @@
 [general]
 accounts = main
 maxsyncaccounts = 3
-fsync = false
 status_backend = sqlite
 pythonfile = ~/.offlineimap/pass.py
 ui = basic
