@@ -16,7 +16,7 @@ alias cdo="ssh -C -i ${HOME}/.ssh/cao_key crawl@crawl.develz.org"
 alias tc="telnet termcast.org"
 # }}}
 # shells {{{
-alias bishamon='ssh bishamon'
+alias bishamon='ssh doy@bishamon'
 alias apt="ssh doy@apt.tozt.net"
 alias tozt="ssh doy@tozt.net"
 # }}}
