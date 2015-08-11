@@ -31,6 +31,7 @@
 	br = branch
 	ri = rebase -i
 	fixup = "!f() { git record --fixup \"$@\"; }; f"
+	track = "!f() { local name=$(git name-rev --name-only @); git branch --set-upstream-to=origin/$name $name; }; f"
 [github]
 	user = doy
 [color]
