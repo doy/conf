@@ -12,5 +12,6 @@ pidof svscan || (svscan $HOME/.services 2>&1 | readproctitle $USER .............
 upower -e
 
 $HOME/.bin/toggle_numkeys
+xinput set-prop "TPPS/2 IBM TrackPoint" "Device Enabled" 0
 
 exec i3
