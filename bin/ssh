@@ -2,5 +2,7 @@
 
 SSH=/usr/bin/$(basename $0)
 
-. ssh-key-unlock
+if [[ $1 != '-V' ]]; then
+    . ssh-key-unlock
+fi
 exec $SSH $*
