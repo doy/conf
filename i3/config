@@ -52,6 +52,7 @@ for_window [class="Nestopia"]           floating enable
 for_window [class="runes"]              floating enable
 for_window [class="Fceux"]              floating enable
 for_window [title="ImageView"]          floating enable
+for_window [title="Desktop Dungeons"]   floating enable
 
 # special desktops
 for_window [class="Xpdf"] move window to workspace 7
