@@ -33,6 +33,7 @@
 	fixup = "!f() { git record --fixup \"$@\"; }; f"
 	track = "!f() { local name=$(git name-rev --name-only @); git branch --set-upstream-to=origin/$name $name; }; f"
 	stashed = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
+	refix = "!f() { env EDITOR=true git rebase -i \"$@\"; }; f"
 [github]
 	user = doy
 [color]
@@ -49,6 +50,7 @@
 [rebase]
 	stat = true
 	autosquash = true
+	autostash = true
 [help]
 	autocorrect = 5
 [diff]
