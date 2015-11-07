@@ -32,6 +32,7 @@
 	ri = rebase -i
 	fixup = "!f() { git record --fixup \"$@\"; }; f"
 	track = "!f() { local name=$(git name-rev --name-only @); git branch --set-upstream-to=origin/$name $name; }; f"
+	stashed = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
 [github]
 	user = doy
 [color]
