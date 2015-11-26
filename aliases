@@ -37,6 +37,7 @@ alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"
 alias T="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"T\")'"
 alias wifi="sudo systemctl restart netctl-auto@wlp3s0"
 alias prove="forkprove"
+alias utc="TZ=UTC date"
 function web {
     local port=$1
     if [[ -z $port ]]; then
