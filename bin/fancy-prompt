@@ -13,7 +13,7 @@ if ($ARGV[0] eq '--prompt-escape') {
 
 # collect information
 chomp(my $hostname = `hostname`);
-$hostname = 'work'    if $hostname eq 'st-jesse-luehrs1';
+$hostname = 'work'    if $hostname eq 'st-doy1';
 $hostname = 'vagrant' if $hostname eq 'packer-vmware-iso';
 my $cols           = `tput cols`;
 my $pwd            = defined $ENV{PWD} ? $ENV{PWD} : '???';
@@ -71,11 +71,10 @@ my %colornames = (
     host_tozt     => 'yellow',
     host_xtahua   => 'lightmagenta',
     host_lance    => 'red',
-    host_work     => 'lightblue',
+    host_work     => 'white',
     unknown_host  => 'brown',
 
     user_doy     => 'lightblue',
-    'user_jesse-luehrs' => 'white',
     root         => 'lightred',
     unknown_user => 'brown',
 
