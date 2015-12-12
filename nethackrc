@@ -28,15 +28,27 @@ OPTIONS=disclose:yi +avgc
 OPTIONS=!mail
 
 # map changes for code simplicity
-OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:wm
+SYMBOLS=S_mimic_def:m
+SYMBOLS=S_ghost:X
+SYMBOLS=S_worm_tail:w
 # "strange monster" = m (mimic)
 # ghost/shade = X     now space is solid rock
 # worm tail = w       now ~ is water
 
-OPTIONS=traps:\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^\^
+SYMBOLS=S_web:^
 # spider web = ^      now " is amulet
 
-OPTIONS=dungeon: |--------||.-|]]}}.##<><>_\\\\{{~.}..}} #}
+SYMBOLS=S_sink:{
+SYMBOLS=S_hcdbridge:}
+SYMBOLS=S_vcdbridge:}
+SYMBOLS=S_bars:}
+SYMBOLS=S_tree:}
+SYMBOLS=S_hcdoor:]
+SYMBOLS=S_vcdoor:]
+SYMBOLS=S_grave:\\
+SYMBOLS=S_pool:~
+SYMBOLS=S_water:~
+SYMBOLS=S_lava:~
 #  sink => {          one less #, walkable
 #  drawbridge => }    one less #, not walkable
 #  iron bars => }     one less #, not walkable (color: cyan)
@@ -44,7 +56,3 @@ OPTIONS=dungeon: |--------||.-|]]}}.##<><>_\\\\{{~.}..}} #}
 #  closed doors => ]  now + is spellbook
 #  grave => \         now gray | and - are walls, (grey -- thrones)
 #  water => ~         it looks cool (blue -- long worm tail)
-
-OPTIONS=objects:m
-# "strange object" = m (mimic)
-# now ] is closed door
