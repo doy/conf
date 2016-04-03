@@ -23,6 +23,7 @@ OPTIONS=!prayconfirm
 OPTIONS=pettype:none
 OPTIONS=!cmdassist
 OPTIONS=disclose:yi +avgc
+OPTIONS=!number_pad
 
 # miscellaneous
 OPTIONS=!mail
