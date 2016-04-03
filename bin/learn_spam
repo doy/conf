@@ -2,6 +2,7 @@
 
 MAILDIR=~/Maildir
 OPTS="--no-sync"
+SALEARN=/usr/bin/vendor_perl/sa-learn
 
 if [[ "$1" == "-q" ]]; then
     OPTS="$OPTS"
@@ -16,11 +17,11 @@ fi
 if [[ ! "$1" == "-q" ]]; then
     echo -n "Learning ham..."
 fi
-nice find $MAILDIR -type d ! -iwholename '*spam*' ! -iwholename '*sent*' ! -iwholename '*trash*' ! -iwholename '*draft*' ! -iwholename '*queue*' -name cur -printf "$PRINT" -exec sa-learn $OPTS --ham '{}' \; > $OUTFILE
+nice find $MAILDIR -type d ! -iwholename '*spam*' ! -iwholename '*sent*' ! -iwholename '*trash*' ! -iwholename '*draft*' ! -iwholename '*queue*' -name cur -printf "$PRINT" -exec $SALEARN $OPTS --ham '{}' \; > $OUTFILE
 
 if [[ ! "$1" == "-q" ]]; then
     echo -n "Learning spam..."
 fi
-nice find $MAILDIR -type d -iwholename '*spam*' -name cur -printf "$PRINT" -exec sa-learn $OPTS --spam '{}' \; > $OUTFILE
+nice find $MAILDIR -type d -iwholename '*spam*' -name cur -printf "$PRINT" -exec $SALEARN $OPTS --spam '{}' \; > $OUTFILE
 
-nice sa-learn --sync > $OUTFILE
+nice $SALEARN --sync > $OUTFILE
