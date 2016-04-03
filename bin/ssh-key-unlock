@@ -2,6 +2,6 @@
 
 keychain -q --timeout 30
 . ~/.keychain/${HOSTNAME}-sh
-if ! ssh-add -l | grep -q '.ssh/id_dsa'; then
-    ssh-add-helper ~/.ssh/id_dsa
+if ! ssh-add -l | grep -q '.ssh/id_rsa'; then
+    ssh-add-helper ~/.ssh/id_rsa
 fi
