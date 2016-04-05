@@ -6,7 +6,7 @@
 	amend = !git add -p && git commit --amend
 	record = !git add -p && git commit --verbose
 	rebase-branch = !git rebase -i $(git merge-base master HEAD)
-	diff-branch = !git diff master..HEAD
+	diff-branch = "!f() { local branch=${1:-HEAD}; git diff $(git merge-base master $branch) $branch; }; f"
 	log-branch = !git log master..HEAD
 	review-branch = !git review master..HEAD
 	review = "!f() { for rev in $(git rev-list --reverse \"$@\"); do git show $rev; done; }; f"
