@@ -853,5 +853,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 0
 let g:syntastic_perl_checkers = []
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 " }}}
 " }}}
