@@ -715,6 +715,7 @@ let g:startify_change_to_vcs_root = 1
 let g:startify_custom_indices = [
             \'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
             \]
+let g:startify_custom_header = []
 let fortune = system('fortune -n200 -s ~/.fortune | grep -v -E "^$"')
 let g:startify_custom_footer = [''] + map(split(fortune, '\n'), '"   ".v:val')
 let g:startify_skiplist = ['^/usr/share/vim', '/.git/']

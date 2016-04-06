@@ -67,7 +67,7 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/nethack/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-	    vim/bundle/vimproc/autoload/vimproc_unix.so \
+	    vim/bundle/vimproc/autoload/vimproc_linux64.so \
 	    vim/spell/en.utf-8.add.spl
 
 EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
@@ -105,7 +105,7 @@ fortune/%.dat : fortune/%
 	@echo "Compiling $@"
 	@strfile -s $(basename $@)
 
-vim/bundle/vimproc/autoload/vimproc_unix.so : vim/bundle/vimproc/autoload/proc.c
+vim/bundle/vimproc/autoload/vimproc_linux64.so :
 	cd vim/bundle/vimproc && make
 
 $(INTO)/Maildir/.notmuch: notmuch
