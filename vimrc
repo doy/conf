@@ -645,6 +645,18 @@ nmap <silent>) 0
 nmap <silent>g) g0
 nmap <Bar> \
 " }}}
+" auto-append closing characters {{{
+inoremap        {      {}<Left>
+inoremap        {<CR>  {<CR>}<Esc>O
+inoremap        {}     {}
+inoremap <expr> }      strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : col('.') == col('$') && match(getline(line('.') + 1), '^\s*}') != -1 ? "\<Down>\<C-o>$" : "}"
+inoremap        (      ()<Left>
+inoremap <expr> )      strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap        [      []<Left>
+inoremap <expr> ]      strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+inoremap <expr> '      strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<Left>" : "\'"
+inoremap <expr> "      strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
+" }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nnoremap Y y$
