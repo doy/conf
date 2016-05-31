@@ -1,0 +1,13 @@
+snippet guard
+        #ifndef ${1:`'_' . toupper(substitute(matchstr(expand("%"), '^.*/\zs.*\.h'), '[.-]', '_', 'g'))`}
+        #define $1
+
+        ${2}
+
+        #endif
+
+snippet main
+        int main(int argc, char *argv[])
+        {
+            ${1}
+        }
