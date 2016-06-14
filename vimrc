@@ -649,7 +649,7 @@ nmap <Bar> \
 inoremap        {      {}<Left>
 inoremap        {<CR>  {<CR>}<Esc>O
 inoremap        {}     {}
-inoremap <expr> }      strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : col('.') == col('$') && match(getline(line('.') + 1), '^\s*}') != -1 ? "\<Down>\<C-o>$" : "}"
+inoremap <expr> }      strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap        (      ()<Left>
 inoremap <expr> )      strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 inoremap        [      []<Left>
