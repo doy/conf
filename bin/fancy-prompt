@@ -310,10 +310,10 @@ sub git_info {
 
     my $dirty = '';
     if ($HEAD) {
-        if (system(q[git diff-files --no-ext-diff --ignore-submodules --quiet])) {
+        if (system(q[git diff-files --no-ext-diff --quiet])) {
             $dirty .= '*';
         }
-        if (system(q[git diff-index --cached --no-ext-diff --ignore-submodules --quiet HEAD])) {
+        if (system(q[git diff-index --cached --no-ext-diff --quiet HEAD])) {
             $dirty .= '+';
         }
         if (`git ls-files -o --exclude-standard 2>/dev/null`) {
