@@ -1,5 +1,5 @@
 export GPG_TTY=`tty`
-export PATH="${HOME}/.bin/nethack:${HOME}/.bin:/usr/local/sbin:/usr/local/bin:/usr/lib/ccache/bin:/usr/share/git/diff-highlight:$PATH"
+export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/nethack:${HOME}/.bin:/usr/local/sbin:/usr/local/bin:/usr/lib/ccache/bin:$PATH"
 export MPD_HOST=bishamon
 export MANPAGER="${HOME}/.bin/vimmanpager"
 export PERLDOC_PAGER="${HOME}/.bin/vimmanpager"
