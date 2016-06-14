@@ -763,7 +763,7 @@ endif
 let rec_exclude = '\('
         \. '\(^\|/\)\.\|'
         \. '\~$\|'
-        \. '\<\(__pycache__\|node_modules\|blib\|nytprof\|project\|target\|'
+        \. '\<\(__pycache__\|node_modules\|blib\|nytprof\|target\|'
         \. 'egg-info\)\|'
         \. '\.\('
             \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|pyc\|'
