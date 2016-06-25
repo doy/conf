@@ -87,6 +87,8 @@ build : $(BUILD)
 
 install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
+	@chmod 600 msmtprc
+	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
 
 clean :
@@ -112,11 +114,6 @@ $(INTO)/Maildir/.notmuch: notmuch
 	mkdir -p $(INTO)/Maildir
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
-
-$(INTO)/.msmtprc: msmtprc
-	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
-	$(LN) $(PWD)/$< $@
-	@chmod 600 $(PWD)/$<
 
 %.spl : %
 	@vim -u NONE -c':mkspell! $< | :q'
