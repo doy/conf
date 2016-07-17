@@ -96,6 +96,10 @@ clean :
 	@crontab -r
 	$(RM) $(BUILD) $(INSTALLED)
 
+update :
+	@git submodule foreach 'git checkout master && git pull'
+	@$(MAKE)
+
 $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
