@@ -167,6 +167,9 @@ function 2fa_github {
 function 2fa_dynadot {
     oathtool --totp -b $(pass show websites/dynadot/doy | grep '^2fa:' | sed 's/^2fa: //')
 }
+function hostcert {
+    openssl s_client -connect "$1" < /dev/null 2>/dev/null | perl -nle 'print if /BEGIN CERTIFICATE/../END CERTIFICATE/' | openssl x509 -text | perl -nle 'print unless /BEGIN CERTIFICATE/../END CERTIFICATE/'
+}
 # }}}
 
 # vim:ft=sh:
