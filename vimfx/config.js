@@ -107,6 +107,7 @@ vimfx.set('custom.mode.normal.paste', '<force><s-insert>');
 
 let {Preferences} = Cu.import('resource://gre/modules/Preferences.jsm', {});
 Preferences.set({
+    'accessibility.typeaheadfind.enablesound': false,
     'devtools.chrome.enabled': true,
     'privacy.donottrackheader.enabled': true,
     'toolkit.scrollbox.verticalScrollDistance': 1,
