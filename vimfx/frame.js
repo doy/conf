@@ -12,10 +12,26 @@ let insertAtCursor = (e, text) => {
     e.value = before + text + after;
     e.selectionStart = e.selectionEnd = before.length + text.length;
 };
+let killBackwardFromCursor = (e) => {
+    var before = e.value.substring(0, e.selectionStart);
+    var start = before.lastIndexOf('\n') + 1;
+    before = before.substring(0, start);
+    var after = e.value.substring(e.selectionEnd, e.value.length);
+    e.value = before + after;
+    e.selectionStart = e.selectionEnd = start;
+};
+
 vimfx.listen('paste', (text, cb) => {
     let active = content.document.activeElement;
     if (active && isEditableInput(active)) {
         insertAtCursor(active, text);
+    }
+})
+
+vimfx.listen('kill_backward', (data, cb) => {
+    let active = content.document.activeElement;
+    if (active && isEditableInput(active)) {
+        killBackwardFromCursor(active);
     }
 })
 
