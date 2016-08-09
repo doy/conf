@@ -5,9 +5,9 @@ const mm = Cc['@mozilla.org/globalmessagemanager;1']
     .getService(Ci.nsIMessageListenerManager);
 
 vimfx.set('mode.normal.copy_current_url', 'y');
-vimfx.set('mode.normal.history_back', '<C-h>');
-vimfx.set('mode.normal.history_forward', '<C-l>');
-vimfx.set('mode.normal.stop', '<C-c>');
+vimfx.set('mode.normal.history_back', '<force><C-h>');
+vimfx.set('mode.normal.history_forward', '<force><C-l>');
+vimfx.set('mode.normal.stop', '<force><C-c>');
 
 vimfx.set('mode.normal.scroll_half_page_down', 'J');
 vimfx.set('mode.normal.scroll_half_page_up', 'K');
@@ -20,7 +20,7 @@ vimfx.set('mode.normal.tab_select_next', 'L');
 vimfx.set('mode.normal.tab_close', 'd');
 vimfx.set('mode.normal.tab_restore', 'u');
 
-vimfx.set('mode.normal.enter_mode_ignore', '<C-v>');
+vimfx.set('mode.normal.enter_mode_ignore', '<force><C-v>');
 vimfx.set('mode.normal.dev', ': ,');
 
 vimfx.set('notify_entered_keys', true);
