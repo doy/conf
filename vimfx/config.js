@@ -29,7 +29,6 @@ vimfx.set('scroll.last_position_mark', '\'');
 let new_tab_url = null;
 (function () {
     let onTabCreated = ({target: browser}) => {
-        console.log('called with ' + new_tab_url);
         if (new_tab_url) {
             browser.ownerGlobal.gURLBar.value = new_tab_url;
             new_tab_url = null;
