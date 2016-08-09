@@ -78,6 +78,33 @@ vimfx.addCommand({
 })
 vimfx.set('custom.mode.normal.pocket', 's');
 
+let isEditableInput = (e) => {
+    let tag = e.tagName.split(':').pop().toLowerCase();
+    // XXX
+    return tag == "input" || tag == "textarea";
+};
+let insertAtCursor = (e, text) => {
+    text = text || "";
+    var before = e.value.substring(0, e.selectionStart);
+    var after = e.value.substring(e.selectionEnd, e.value.length);
+    e.value = before + text + after;
+    e.selectionStart = e.selectionEnd = before.length + text.length;
+};
+vimfx.addCommand({
+    name: 'paste',
+    description: 'paste',
+}, ({vim}) => {
+    let text = vim.window.readFromClipboard();
+    let active = vim.window.document.activeElement;
+    if (active && isEditableInput(active)) {
+        insertAtCursor(active, text);
+    }
+    else {
+        vimfx.send(vim, 'paste', text, null);
+    }
+});
+vimfx.set('custom.mode.normal.paste', '<force><s-insert>');
+
 let {Preferences} = Cu.import('resource://gre/modules/Preferences.jsm', {});
 Preferences.set({
     'devtools.chrome.enabled': true,
