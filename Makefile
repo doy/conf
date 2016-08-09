@@ -23,7 +23,6 @@ INSTALL   = agignore \
 	    nethackrc \
 	    notmuch-config \
 	    offlineimaprc \
-	    pentadactylrc \
 	    procmailrc \
 	    proverc \
 	    replyrc \
@@ -53,7 +52,6 @@ INSTALL   = agignore \
 	    ncmpc \
 	    procmail \
 	    offlineimap \
-	    pentadactyl \
 	    services \
 	    ssh \
 	    taeb \
@@ -61,6 +59,7 @@ INSTALL   = agignore \
 	    themes \
 	    urxvt \
 	    vim \
+	    vimfx \
 	    weechat \
 	    zsh
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
