@@ -20,7 +20,8 @@ vimfx.set('mode.normal.tab_select_next', 'L');
 vimfx.set('mode.normal.tab_close', 'd');
 vimfx.set('mode.normal.tab_restore', 'u');
 
-vimfx.set('mode.normal.enter_mode_ignore', '<force><C-v>');
+vimfx.set('mode.normal.quote', '<force><C-v>');
+vimfx.set('mode.normal.enter_mode_ignore', '<force><C-z>');
 vimfx.set('mode.normal.dev', ': ,');
 
 vimfx.set('notify_entered_keys', true);
