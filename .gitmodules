@@ -46,9 +46,6 @@
 [submodule "vim/bundle/unite"]
 	path = vim/bundle/unite
 	url = git://github.com/Shougo/unite.vim
-[submodule "vim/bundle/vimfiler"]
-	path = vim/bundle/vimfiler
-	url = git://github.com/Shougo/vimfiler.vim
 [submodule "vim/bundle/vimproc"]
 	path = vim/bundle/vimproc
 	url = git://github.com/Shougo/vimproc.vim
@@ -73,9 +70,6 @@
 [submodule "vim/bundle/typescript"]
 	path = vim/bundle/typescript
 	url = git://github.com/leafgarland/typescript-vim
-[submodule "vim/bundle/easymotion"]
-	path = vim/bundle/easymotion
-	url = https://github.com/Lokaltog/vim-easymotion.git
 [submodule "vim/bundle/julia"]
 	path = vim/bundle/julia
 	url = https://github.com/JuliaLang/julia-vim
