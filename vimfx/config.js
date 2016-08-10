@@ -69,7 +69,7 @@ vimfx.addCommand({
 }, (args) => {
     commands.focus_location_bar.run(args);
     args.vim.window.gURLBar.value = '% ';
-})
+});
 vimfx.set('custom.mode.normal.goto_tab', 'b');
 
 vimfx.addCommand({
@@ -77,7 +77,7 @@ vimfx.addCommand({
     description: 'Save to Pocket',
 }, ({vim}) => {
     vim.window.document.getElementById('pocket-button').click();
-})
+});
 vimfx.set('custom.mode.normal.pocket', 's');
 
 vimfx.addCommand({
@@ -148,4 +148,4 @@ Preferences.set({
     'devtools.chrome.enabled': true,
     'privacy.donottrackheader.enabled': true,
     'toolkit.scrollbox.verticalScrollDistance': 1,
-})
+});
