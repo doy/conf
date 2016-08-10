@@ -4,6 +4,7 @@ const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 const mm = Cc['@mozilla.org/globalmessagemanager;1']
     .getService(Ci.nsIMessageListenerManager);
 
+vimfx.set('mode.normal.focus_search_bar', '');
 vimfx.set('mode.normal.copy_current_url', 'y');
 vimfx.set('mode.normal.history_back', '<force><C-h>');
 vimfx.set('mode.normal.history_forward', '<force><C-l>');
@@ -78,6 +79,18 @@ vimfx.addCommand({
     vim.window.document.getElementById('pocket-button').click();
 })
 vimfx.set('custom.mode.normal.pocket', 's');
+
+vimfx.addCommand({
+    name: 'focus_unhighlighted_location_bar',
+    description: 'Focus the location bar with the URL unhighlighted',
+    category: 'location',
+    order: commands.focus_location_bar.order + 1,
+}, (args) => {
+    commands.focus_location_bar.run(args);
+    let active = args.vim.window.document.activeElement;
+    active.selectionStart = active.selectionEnd;
+});
+vimfx.set('custom.mode.normal.focus_unhighlighted_location_bar', 'O');
 
 let isEditableInput = (e) => {
     let tag = e.tagName.split(':').pop().toLowerCase();
