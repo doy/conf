@@ -98,23 +98,35 @@ function pdfcat {
 }
 function svup {
     svc -u "$HOME/.services/$1"
-    svstat "$HOME/.services/$1"
+    svget "$1"
 }
 function svdn {
     svc -d "$HOME/.services/$1"
+    svget "$1"
+}
+function svkill {
+    svc -k "$HOME/.services/$1"
+    svget "$1"
+}
+function svget {
     svstat "$HOME/.services/$1"
 }
 function svst {
-    svstat "$HOME/.services/$1"
+    svget "$1" | grep -q ": up ("
 }
 function svre {
-    svc -d "$HOME/.services/$1"
-    while svstat "$HOME/.services/$1" | grep -q ": up ("; do
-        sleep 1
+    svst "$1" && svdn "$1"
+    svst "$1" && sleep 1
+    svst "$1" && svdn "$1"
+    for i in 1..5; do
+        svst "$1" && sleep 1
     done
-    svstat "$HOME/.services/$1"
-    svc -u "$HOME/.services/$1"
-    svstat "$HOME/.services/$1"
+    svst "$1" && svdn "$1"
+    for i in 1..10; do
+        svst "$1" && sleep 1
+    done
+    svst "$1" && svkill "$1"
+    svup "$1"
 }
 function svlog {
     cat $HOME/.log/$1/@* $HOME/.log/$1/current | tai64nlocal
