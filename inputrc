@@ -1,4 +1,8 @@
 # use up and down to search in history
+set keymap vi-command
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+set keymap vi-insert
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 
