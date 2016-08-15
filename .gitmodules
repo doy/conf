@@ -88,3 +88,6 @@
 [submodule "vim/bundle/coffee-script"]
 	path = vim/bundle/coffee-script
 	url = https://github.com/kchmck/vim-coffee-script
+[submodule "vim/bundle/ft-bzl"]
+	path = vim/bundle/ft-bzl
+	url = git@github.com:google/vim-ft-bzl
