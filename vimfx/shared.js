@@ -2,10 +2,15 @@ const EXPORTED_SYMBOLS = [
     'isEditableInput',
     'insertAtCursor',
     'killBackwardFromCursor',
+    'cleanTagName',
 ];
 
+function cleanTagName(e) {
+    return e.tagName.split(':').pop().toLowerCase();
+}
+
 function isEditableInput(e) {
-    let tag = e.tagName.split(':').pop().toLowerCase();
+    let tag = cleanTagName(e);
     // XXX
     return tag == "input" || tag == "textarea";
 }
