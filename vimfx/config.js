@@ -4,6 +4,12 @@ const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
 const mm = Cc['@mozilla.org/globalmessagemanager;1']
     .getService(Ci.nsIMessageListenerManager);
 
+let {
+    isEditableInput,
+    insertAtCursor,
+    killBackwardFromCursor,
+} = Cu.import(`${__dirname}/shared.js`, {});
+
 vimfx.set('mode.normal.focus_search_bar', '');
 vimfx.set('mode.normal.copy_current_url', 'y');
 vimfx.set('mode.normal.history_back', '<force><C-h>');
@@ -91,27 +97,6 @@ vimfx.addCommand({
     active.selectionStart = active.selectionEnd;
 });
 vimfx.set('custom.mode.normal.focus_unhighlighted_location_bar', 'O');
-
-let isEditableInput = (e) => {
-    let tag = e.tagName.split(':').pop().toLowerCase();
-    // XXX
-    return tag == "input" || tag == "textarea";
-};
-let insertAtCursor = (e, text) => {
-    text = text || "";
-    var before = e.value.substring(0, e.selectionStart);
-    var after = e.value.substring(e.selectionEnd, e.value.length);
-    e.value = before + text + after;
-    e.selectionStart = e.selectionEnd = before.length + text.length;
-};
-let killBackwardFromCursor = (e) => {
-    var before = e.value.substring(0, e.selectionStart);
-    var start = before.lastIndexOf('\n') + 1;
-    before = before.substring(0, start);
-    var after = e.value.substring(e.selectionEnd, e.value.length);
-    e.value = before + after;
-    e.selectionStart = e.selectionEnd = start;
-};
 
 vimfx.addCommand({
     name: 'paste',
