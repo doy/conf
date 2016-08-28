@@ -130,6 +130,18 @@ lineEditingBinding({
 });
 vimfx.set('custom.mode.normal.kill_backward', '<force><c-u>');
 
+lineEditingBinding({
+    name: 'start_of_line',
+    description: 'move cursor to start of line',
+});
+vimfx.set('custom.mode.normal.start_of_line', '<force><c-a>');
+
+lineEditingBinding({
+    name: 'end_of_line',
+    description: 'move cursor to end of line',
+});
+vimfx.set('custom.mode.normal.end_of_line', '<force><c-e>');
+
 let {Preferences} = Cu.import('resource://gre/modules/Preferences.jsm', {});
 Preferences.set({
     'accessibility.typeaheadfind.enablesound': false,

@@ -34,5 +34,7 @@ let lineEditingBinding = (name) => {
 
 lineEditingBinding('paste');
 lineEditingBinding('kill_backward');
+lineEditingBinding('start_of_line');
+lineEditingBinding('end_of_line');
 
 sendAsyncMessage('VimFx-config:tabCreated');

@@ -14,6 +14,12 @@ var lineEditingCallbacks = {
     kill_backward: (input, data) => {
         killBackwardFromCursor(input);
     },
+    start_of_line: (input, data) => {
+        cursorToStartOfLine(input);
+    },
+    end_of_line: (input, data) => {
+        cursorToEndOfLine(input);
+    },
 };
 var lineEditingDataCallbacks = {
     paste: (vim) => {
@@ -46,4 +52,17 @@ function killBackwardFromCursor(e) {
     var after = e.value.substring(e.selectionEnd, e.value.length);
     e.value = before + after;
     e.selectionStart = e.selectionEnd = start;
+}
+
+function cursorToStartOfLine(e) {
+    var start = e.value.lastIndexOf('\n', e.selectionStart) + 1;
+    e.selectionStart = e.selectionEnd = start;
+}
+
+function cursorToEndOfLine(e) {
+    var end = e.value.indexOf('\n', e.selectionEnd) + 1;
+    if (end === 0) {
+        end = e.value.length;
+    }
+    e.selectionStart = e.selectionEnd = end;
 }
