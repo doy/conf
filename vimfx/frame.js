@@ -26,13 +26,13 @@ vimfx.listen('paste', (text, cb) => {
     if (active && isEditableInput(active)) {
         insertAtCursor(active, text);
     }
-})
+});
 
 vimfx.listen('kill_backward', (data, cb) => {
     let active = content.document.activeElement;
     if (active && isEditableInput(active)) {
         killBackwardFromCursor(active);
     }
-})
+});
 
 sendAsyncMessage('VimFx-config:tabCreated');
