@@ -100,7 +100,13 @@ vimfx.addCommand({
 });
 vimfx.set('custom.mode.normal.focus_unhighlighted_location_bar', 'O');
 
+let categories = vimfx.get('categories');
+categories.insert = {
+    name: 'Editing',
+    order: categories.misc.order - 1,
+};
 let lineEditingBinding = (opts) => {
+    opts.category = 'insert';
     vimfx.addCommand(
         opts,
         ({vim}) => {
