@@ -4,6 +4,7 @@ let {
     insertAtCursor,
     killBackwardFromCursor,
     cleanTagName,
+    lineEditingCallbacks,
 } = Cu.import(`${__dirname}/shared.js`, {});
 
 let findActiveElement = (document) => {
@@ -22,18 +23,16 @@ let findActiveElement = (document) => {
     return inner(document);
 };
 
-vimfx.listen('paste', (text, cb) => {
-    let active = findActiveElement(content.document);
-    if (active && isEditableInput(active)) {
-        insertAtCursor(active, text);
-    }
-});
+let lineEditingBinding = (name) => {
+    vimfx.listen(name, (data, cb) => {
+        let active = findActiveElement(content.document);
+        if (active && isEditableInput(active)) {
+            lineEditingCallbacks[name](active, data);
+        }
+    });
+};
 
-vimfx.listen('kill_backward', (data, cb) => {
-    let active = findActiveElement(content.document);
-    if (active && isEditableInput(active)) {
-        killBackwardFromCursor(active);
-    }
-});
+lineEditingBinding('paste');
+lineEditingBinding('kill_backward');
 
 sendAsyncMessage('VimFx-config:tabCreated');

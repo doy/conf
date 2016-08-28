@@ -3,7 +3,23 @@ const EXPORTED_SYMBOLS = [
     'insertAtCursor',
     'killBackwardFromCursor',
     'cleanTagName',
+    'lineEditingCallbacks',
+    'lineEditingDataCallbacks',
 ];
+
+var lineEditingCallbacks = {
+    paste: (input, data) => {
+        insertAtCursor(input, data);
+    },
+    kill_backward: (input, data) => {
+        killBackwardFromCursor(input);
+    },
+};
+var lineEditingDataCallbacks = {
+    paste: (vim) => {
+        return vim.window.readFromClipboard();
+    },
+};
 
 function cleanTagName(e) {
     return e.tagName.split(':').pop().toLowerCase();

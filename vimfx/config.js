@@ -8,6 +8,8 @@ let {
     isEditableInput,
     insertAtCursor,
     killBackwardFromCursor,
+    lineEditingCallbacks,
+    lineEditingDataCallbacks,
 } = Cu.import(`${__dirname}/shared.js`, {});
 
 vimfx.set('mode.normal.focus_search_bar', '');
@@ -98,34 +100,35 @@ vimfx.addCommand({
 });
 vimfx.set('custom.mode.normal.focus_unhighlighted_location_bar', 'O');
 
-vimfx.addCommand({
+let lineEditingBinding = (opts) => {
+    vimfx.addCommand(
+        opts,
+        ({vim}) => {
+            let cb = lineEditingCallbacks[opts.name];
+            let data_cb = lineEditingDataCallbacks[opts.name];
+            let data = data_cb ? data_cb(vim) : null;
+            let active = vim.window.document.activeElement;
+            if (active && isEditableInput(active)) {
+                cb(active, data);
+            }
+            else {
+                vimfx.send(vim, opts.name, data, null);
+            }
+        }
+    );
+};
+
+lineEditingBinding({
     name: 'paste',
     description: 'paste',
-}, ({vim}) => {
-    let text = vim.window.readFromClipboard();
-    let active = vim.window.document.activeElement;
-    if (active && isEditableInput(active)) {
-        insertAtCursor(active, text);
-    }
-    else {
-        vimfx.send(vim, 'paste', text, null);
-    }
 });
 vimfx.set('custom.mode.normal.paste', '<force><s-insert>');
 
-vimfx.addCommand({
+lineEditingBinding({
     name: 'kill_backward',
     description: 'delete line backward',
-}, ({vim}) => {
-    let active = vim.window.document.activeElement;
-    if (active && isEditableInput(active)) {
-        killBackwardFromCursor(active);
-    }
-    else {
-        vimfx.send(vim, 'kill_backward', null, null);
-    }
 });
-vimfx.set('custom.mode.normal.kill_backward', '<force><C-u>');
+vimfx.set('custom.mode.normal.kill_backward', '<force><c-u>');
 
 let {Preferences} = Cu.import('resource://gre/modules/Preferences.jsm', {});
 Preferences.set({
