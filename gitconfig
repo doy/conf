@@ -35,6 +35,12 @@
 	stashed = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
 	refix = "!f() { env EDITOR=true git rebase -i \"$@\"; }; f"
 	gc-aggressive = "!f() { git repack -Abd --window=250 --depth=250 --window-memory=1g && git prune --expire \"1 day ago\" && rm -f .git/gc.log && git gc; }; f"
+	blame-stats = !~/.bin/git/git-blame-stats
+	file-size = !~/.bin/git/git-file-size
+	imerge = !~/.bin/git/git-imerge
+	rebase-under = !~/.bin/git/git-rebase-under
+	re-edit = !~/.bin/git/git-re-edit
+	treehash = !~/.bin/git/git-treehash
 [github]
 	user = doy
 [color]
