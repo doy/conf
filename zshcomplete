@@ -14,4 +14,6 @@ zstyle :compinstall filename '/home/doy/.zshcomplete'
 
 autoload -Uz compinit
 compinit
+autoload -Uz bashcompinit
+bashcompinit
 # End of lines added by compinstall
