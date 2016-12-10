@@ -28,7 +28,7 @@
 	up = !git remote update && git pull && git prune-all
 	co = checkout
 	r = !git add -p && git commit --verbose
-	br = branch
+	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:green)(%(committerdate:relative))'
 	ri = rebase -i
 	fixup = "!f() { git record --fixup \"$@\"; }; f"
 	track = "!f() { local name=$(git name-rev --name-only @); git branch --set-upstream-to=origin/$name $name; }; f"
