@@ -17,5 +17,3 @@ compinit
 autoload -Uz bashcompinit
 bashcompinit
 # End of lines added by compinstall
-
-source ~/stripe/password-vault/bash_completion
