@@ -51,6 +51,7 @@ for_window [class="mednafen"]           floating enable
 for_window [class="Nestopia"]           floating enable
 for_window [class="runes"]              floating enable
 for_window [class="Fceux"]              floating enable
+for_window [class="Binding of Isaac: Afterbirth"] floating enable
 for_window [title="ImageView"]          floating enable
 for_window [title="Desktop Dungeons"]   floating enable
 
