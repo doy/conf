@@ -46,25 +46,6 @@ source ~/.sh/cdhist.sh
 # prompt {{{
 export PROMPT_COMMAND="__err=\$?;$PROMPT_COMMAND;PS1=\"\$(fancy-prompt --prompt-escape bash "\$__err")\""
 # }}}
-# set the correct perl {{{
-if type -a perlbrew > /dev/null 2>&1; then
-    function _setup_perlbrew {
-        local perl=$PERLBREW_PERL
-        [ -z $perl ] && perl="$(readlink ${HOME}/perl5/perlbrew/perls/current)"
-        local pwd="${PWD#${HOME}}/"
-        if [[ "${pwd:0:6}" == "/work/" ]]; then
-            if [[ "$perl" != "work-perl" ]]; then
-                perlbrew use work-perl
-            fi
-        else
-            if [[ "$perl" == "work-perl" ]]; then
-                perlbrew use perl-5.18
-            fi
-        fi
-    }
-    export PROMPT_COMMAND="${PROMPT_COMMAND};_setup_perlbrew"
-fi
-# }}}
 # }}}
 # fortune {{{
 fortune -n600 -s ~/.fortune | grep -v -E "^$"
