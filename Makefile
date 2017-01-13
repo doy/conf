@@ -4,14 +4,11 @@ INSTALL   = agignore \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \
-	    conkyrc \
 	    crawlrc \
 	    env \
 	    gdbinit \
 	    gitconfig \
 	    gitignore \
-	    gtkrc \
-	    gtkrc-2.0 \
 	    i3status.conf \
 	    inputrc \
 	    logout \
@@ -33,31 +30,29 @@ INSTALL   = agignore \
 	    vimrc \
 	    xbindkeysrc \
 	    Xdefaults \
-	    Xmodmap \
 	    xinitrc \
+	    Xmodmap \
 	    zlogout \
 	    zshcomplete \
 	    zshinput \
 	    zshrc \
 	    abook \
-	    sh \
 	    bin \
 	    dzil \
+	    fortune \
 	    ginn \
 	    gnupg \
 	    i3 \
 	    interhack \
-	    fortune \
 	    mpdscribble \
 	    ncmpc \
-	    procmail \
 	    offlineimap \
+	    procmail \
 	    services \
+	    sh \
 	    ssh \
-	    taeb \
 	    terminfo \
-	    themes \
-	    urxvt \
+	    tex \
 	    vim \
 	    vimfx \
 	    weechat \
@@ -121,4 +116,4 @@ $(INTO)/Maildir/.notmuch: notmuch
 %.spl : %
 	@vim -u NONE -c':mkspell! $< | :q'
 
-.PHONY: build install clean
+.PHONY: build install clean update
