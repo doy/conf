@@ -151,14 +151,6 @@ function rand_music {
         echo "select distinct(artist) from $db where artist not in (select distinct(artist) from weekly_tracks);" | sqlite3 ~/.tracks.sqlite | rand_line | sed "s/'/''/" | sed "s/.*/select artist, album from $db where artist = '&' group by artist, album;/" | sqlite3 ~/.tracks.sqlite | rand_line | sed 's/|/ - /'
     done
 }
-function unread_posts {
-    pinboard_export --token $(cat ~/.pinboard) --dsn dbi:SQLite:${HOME}/.posts.sqlite
-    sqlite3 ${HOME}/.posts.sqlite "SELECT href || ' - ' || description FROM posts WHERE toread = 'yes'"
-}
-function share_posts {
-    pinboard_export --token $(cat ~/.pinboard) --dsn dbi:SQLite:${HOME}/.posts.sqlite
-    sqlite3 ${HOME}/.posts.sqlite "SELECT href || ' - ' || description FROM posts WHERE tags like '%share%'"
-}
 function t {
     if [[ -d blib ]]; then
         perl -Mblib -MTest::Pretty "$@"
@@ -172,15 +164,6 @@ function pt {
     else
         prove -Mlib::require::all=lib -Pretty -l "$@" t
     fi
-}
-function 2fa_linode {
-    oathtool --totp -b $(pass show websites/linode/doy | grep '^2fa:' | sed 's/^2fa: //')
-}
-function 2fa_github {
-    oathtool --totp -b $(pass show websites/github/doy | grep '^2fa:' | sed 's/^2fa: //')
-}
-function 2fa_dynadot {
-    oathtool --totp -b $(pass show websites/dynadot/doy | grep '^2fa:' | sed 's/^2fa: //')
 }
 function hostcert {
     openssl s_client -connect "$1" < /dev/null 2>/dev/null | perl -nle 'print if /BEGIN CERTIFICATE/../END CERTIFICATE/' | openssl x509 -text | perl -nle 'print unless /BEGIN CERTIFICATE/../END CERTIFICATE/'
