@@ -1,6 +1,7 @@
 # environment {{{
 # not using .zshenv, because it runs before /etc/profile, and /etc/profile
 # tends to hard-set $PATH and such
+export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/nethack:${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
 [ -f "$HOME/.env" ] && source $HOME/.env
 # }}}
 # Change the window title of X terminals {{{
