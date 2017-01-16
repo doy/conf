@@ -1,0 +1,3 @@
+#!/bin/bash
+
+svget "$1" | grep -q ": up ("

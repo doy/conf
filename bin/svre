@@ -1,0 +1,4 @@
+#!/bin/bash
+
+svdn "$1"
+svup "$1"

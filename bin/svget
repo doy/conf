@@ -1,0 +1,3 @@
+#!/bin/bash
+
+svstat "$HOME/.services/$1"

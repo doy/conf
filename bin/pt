@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ -d blib ]]; then
+    prove -Mlib::require::all=blib/lib,blib/arch -Pretty -b "$@" t
+else
+    prove -Mlib::require::all=lib -Pretty -l "$@" t
+fi

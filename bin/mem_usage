@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ps -eo rss,ucmd | sort -rn | head -n$([ -z "$1" ] && echo 20 || echo $1)

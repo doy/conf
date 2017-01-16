@@ -1,0 +1,13 @@
+#!/bin/bash
+
+svst "$1" && svstop "$1"
+svst "$1" && sleep 1
+svst "$1" && svstop "$1"
+for i in 1..5; do
+    svst "$1" && sleep 1
+done
+svst "$1" && svstop "$1"
+for i in 1..10; do
+    svst "$1" && sleep 1
+done
+svst "$1" && svkill "$1"

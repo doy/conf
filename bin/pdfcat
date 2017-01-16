@@ -1,0 +1,5 @@
+#!/bin/bash
+
+local out=$1
+shift
+gs -q -sPAPERSIZE=letter -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$out $*

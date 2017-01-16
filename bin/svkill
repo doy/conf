@@ -1,0 +1,4 @@
+#!/bin/bash
+
+svc -k "$HOME/.services/$1"
+svget "$1"
