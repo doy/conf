@@ -6,6 +6,7 @@ INSTALL   = agignore \
 	    bashrc \
 	    crawlrc \
 	    env \
+	    functions \
 	    gdbinit \
 	    gitconfig \
 	    gitignore \

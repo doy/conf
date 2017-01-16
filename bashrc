@@ -22,6 +22,7 @@ case ${TERM} in
 esac # }}}
 # aliases {{{
 [ -f "$HOME/.aliases" ] && source $HOME/.aliases
+[ -f "$HOME/.functions" ] && source $HOME/.functions
 # }}}
 # completion {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
