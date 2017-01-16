@@ -80,7 +80,7 @@ RM        = @rm -f
 
 build : $(BUILD)
 
-install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
+install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch $(INTO)/.config/fish
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	@chmod 600 msmtprc
 	@chmod 700 gnupg
@@ -111,6 +111,11 @@ vim/bundle/vimproc/autoload/vimproc_linux64.so :
 
 $(INTO)/Maildir/.notmuch: notmuch
 	mkdir -p $(INTO)/Maildir
+	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(LN) $(PWD)/$< $@
+
+$(INTO)/.config/fish: fish
+	mkdir -p $(INTO)/.config
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
 
