@@ -8,9 +8,9 @@ alias bc="bc -lq"
 alias ag="ag --pager=less --smart-case"
 # }}}
 # games {{{
-alias nao="(TERM=rxvt telnet nethack.alt.org)"
-alias cao="(TERM=rxvt /usr/bin/ssh -C -i ${HOME}/.ssh/cao_key joshua@crawl.akrasiac.org)"
-alias cdo="ssh -C -i ${HOME}/.ssh/cao_key crawl@crawl.develz.org"
+alias nao="env TERM=rxvt telnet nethack.alt.org"
+alias cao="env TERM=rxvt /usr/bin/ssh -C -i $HOME/.ssh/cao_key joshua@crawl.akrasiac.org"
+alias cdo="ssh -C -i $HOME/.ssh/cao_key crawl@crawl.develz.org"
 # }}}
 # termcast {{{
 alias tc="telnet termcast.org"
@@ -37,7 +37,7 @@ alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"
 alias T="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"T\")'"
 alias wifi="sudo systemctl restart netctl-auto@wlp3s0"
 alias prove="forkprove"
-alias utc="TZ=UTC date"
+alias utc="env TZ=UTC date"
 alias windows="VBoxManage startvm IE11\\ -\\ Win8.1"
 alias pd="perldoc"
 # }}}

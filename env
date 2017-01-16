@@ -1,18 +1,18 @@
-export GPG_TTY=`tty`
+export GPG_TTY=$(tty)
 export MPD_HOST=bishamon
-export MANPAGER="${HOME}/.bin/vimmanpager"
-export PERLDOC_PAGER="${HOME}/.bin/vimmanpager"
+export MANPAGER="$HOME/.bin/vimmanpager"
+export PERLDOC_PAGER="$HOME/.bin/vimmanpager"
 export EDITOR=$(/usr/bin/which vim)
-export SVN_SSH="${HOME}/.bin/ssh"
-export GIT_SSH="${HOME}/.bin/ssh"
-export RSYNC_RSH="${HOME}/.bin/ssh"
-export TEXINPUTS=".:${HOME}/conf/tex:"
+export SVN_SSH="$HOME/.bin/ssh"
+export GIT_SSH="$HOME/.bin/ssh"
+export RSYNC_RSH="$HOME/.bin/ssh"
+export TEXINPUTS=".:$HOME/conf/tex:"
 export LESS='-QR'
 export NOPASTE_SERVICES="ssh"
 export NOPASTE_SSH_SERVER="doy@paste.tozt.net"
 export NOPASTE_SSH_DOCROOT="paste"
 export NOPASTE_SSH_WEBPATH="http://paste.tozt.net"
 export NOPASTE_SSH_MODE=0644
-export PERL_CPANM_OPT="-q --mirror file://${HOME}/perl5/minicpan/ --mirror http://mirrors.kernel.org/cpan/ --mirror http://cpan.metacpan.org/ --prompt"
+export PERL_CPANM_OPT="-q --mirror file://$HOME/perl5/minicpan/ --mirror http://mirrors.kernel.org/cpan/ --mirror http://cpan.metacpan.org/ --prompt"
 
 # vim:ft=sh:
