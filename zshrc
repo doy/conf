@@ -4,6 +4,10 @@
 export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/nethack:${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
 [ -f "$HOME/.env" ] && source $HOME/.env
 # }}}
+# language environments {{{
+test -f $HOME/perl5/perlbrew/etc/bashrc && source $HOME/perl5/perlbrew/etc/bashrc
+type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
+# }}}
 # Change the window title of X terminals {{{
 function term_title_precmd () {
     echo -ne "\033]0;${USER}@${HOST}:${PWD/$HOME/~}\007"

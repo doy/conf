@@ -2,6 +2,10 @@
 export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/nethack:${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
 [ -f "$HOME/.env" ] && source $HOME/.env
 # }}}
+# language environments {{{
+test -f $HOME/perl5/perlbrew/etc/bashrc && source $HOME/perl5/perlbrew/etc/bashrc
+type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
+# }}}
 # Test for an interactive shell. {{{
 # There is no need to set anything past this point for scp and rcp, and it's
 # important to refrain from outputting anything in those cases.
