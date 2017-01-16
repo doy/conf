@@ -91,3 +91,6 @@
 [submodule "vim/bundle/ft-bzl"]
 	path = vim/bundle/ft-bzl
 	url = git@github.com:google/vim-ft-bzl
+[submodule "vim/bundle/fish"]
+	path = vim/bundle/fish
+	url = https://github.com/dag/vim-fish
