@@ -39,6 +39,7 @@ function vim {
 }
 # }}}
 # completion {{{
+fpath=(~/.zsh/zsh-completions/src $fpath)
 source ~/.zshcomplete
 # }}}
 # zsh configuration {{{

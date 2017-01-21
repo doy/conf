@@ -97,3 +97,6 @@
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh/zsh-completions"]
+	path = zsh/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
