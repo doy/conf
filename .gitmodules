@@ -57,7 +57,7 @@
 	url = git://github.com/bling/vim-airline
 [submodule "vim/bundle/neocomplete"]
 	path = vim/bundle/neocomplete
-	url = https://github.com/Shougo/neocomplete.vim
+	url = git://github.com/Shougo/neocomplete.vim
 [submodule "vim/bundle/neosnippet"]
 	path = vim/bundle/neosnippet
 	url = git://github.com/Shougo/neosnippet.vim
@@ -72,10 +72,10 @@
 	url = git://github.com/leafgarland/typescript-vim
 [submodule "vim/bundle/julia"]
 	path = vim/bundle/julia
-	url = https://github.com/JuliaLang/julia-vim
+	url = git://github.com/JuliaLang/julia-vim
 [submodule "vim/bundle/puppet"]
 	path = vim/bundle/puppet
-	url = https://github.com/rodjek/vim-puppet
+	url = git://github.com/rodjek/vim-puppet
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic
@@ -84,25 +84,25 @@
 	url = git://github.com/fatih/vim-go
 [submodule "vim/bundle/rust"]
 	path = vim/bundle/rust
-	url = https://github.com/rust-lang/rust.vim
+	url = git://github.com/rust-lang/rust.vim
 [submodule "vim/bundle/coffee-script"]
 	path = vim/bundle/coffee-script
-	url = https://github.com/kchmck/vim-coffee-script
+	url = git://github.com/kchmck/vim-coffee-script
 [submodule "vim/bundle/ft-bzl"]
 	path = vim/bundle/ft-bzl
-	url = git@github.com:google/vim-ft-bzl
+	url = git://github.com/google/vim-ft-bzl
 [submodule "vim/bundle/fish"]
 	path = vim/bundle/fish
-	url = https://github.com/dag/vim-fish
+	url = git://github.com/dag/vim-fish
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions
+	url = git://github.com/zsh-users/zsh-autosuggestions
 [submodule "zsh/zsh-completions"]
 	path = zsh/zsh-completions
-	url = https://github.com/zsh-users/zsh-completions
+	url = git://github.com/zsh-users/zsh-completions
 [submodule "zsh/k"]
 	path = zsh/k
-	url = https://github.com/supercrabtree/k
+	url = git://github.com/supercrabtree/k
 [submodule "zsh/anyframe"]
 	path = zsh/anyframe
-	url = https://github.com/mollifier/anyframe
+	url = git://github.com/mollifier/anyframe
