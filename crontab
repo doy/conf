@@ -1,1 +1,1 @@
-*/15 * * * * /bin/bash -c 'export PATH=~/.bin:/bin:/usr/bin:/usr/bin/vendor_perl:$PATH && . ~/.env && update-weather'
+*/15 * * * * /bin/bash -c 'export PATH=~/.bin:/bin:/usr/bin:/usr/bin/vendor_perl:$PATH && . ~/perl5/perlbrew/etc/bashrc && update-weather'
