@@ -80,6 +80,10 @@ ZSH_HIGHLIGHT_STYLES[history-expansion]='none'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 # }}}
+# zsh-autosuggestions {{{
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
+# }}}
 # opp {{{
 source ~/.zsh/opp/opp.zsh
 opp_operators+=("e" opp-vi-change)
