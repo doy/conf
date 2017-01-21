@@ -103,3 +103,6 @@
 [submodule "zsh/k"]
 	path = zsh/k
 	url = https://github.com/supercrabtree/k
+[submodule "zsh/anyframe"]
+	path = zsh/anyframe
+	url = https://github.com/mollifier/anyframe
