@@ -11,12 +11,7 @@ mailboxes = `\
     for folder in ~/Maildir/*; do\
         basename=$(basename "$folder");\
         if [ "x${basename:0:4}"  != "xold." \
-          -a "x${basename:0:14}" != "xmailing lists."\
           -a "x$basename"        != "xspam" ]; then\
-            echo -n "\"=$basename\" ";\
-        elif [ "x$basename" == "xmailing lists.crawl"\
-            -o "x$basename" == "xmailing lists.perl conferences"\
-            -o "x$basename" == "xmailing lists.codewar" ]; then\
             echo -n "\"=$basename\" ";\
         fi\
     done`
