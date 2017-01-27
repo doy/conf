@@ -12,6 +12,7 @@ INSTALL   = agignore \
 	    gitignore \
 	    i3status.conf \
 	    inputrc \
+	    less \
 	    logout \
 	    mailcap \
 	    minicpanrc \
@@ -64,7 +65,8 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 BUILD     = bin/nethack/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
 	    vim/bundle/vimproc/autoload/vimproc_linux64.so \
-	    vim/spell/en.utf-8.add.spl
+	    vim/spell/en.utf-8.add.spl \
+	    less
 
 EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
 	    Maildir \
@@ -109,6 +111,9 @@ fortune/%.dat : fortune/%
 
 vim/bundle/vimproc/autoload/vimproc_linux64.so :
 	cd vim/bundle/vimproc && make
+
+less : lesskey
+	lesskey -o less lesskey
 
 $(INTO)/Maildir/.notmuch: notmuch
 	mkdir -p $(INTO)/Maildir

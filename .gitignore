@@ -6,6 +6,7 @@
 !/gnupg/gpg.conf
 /interhack/servers
 /interhack/ttyrec
+/less
 /mutt/aliases
 /mutt/cache
 /mutt/extra
