@@ -152,11 +152,7 @@ vimfx.addKeyOverrides(
     [
         location => location.hostname === 'mail.google.com',
         [
-            '!', '#', '*', '.', ';', '?',
-            'A', 'F', 'I', 'N', 'U', '_',
-            '[', ']', '{', '}',
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'i', 'j', 'k', 'l', 'm',
-            'n', 'p', 'q', 'r', 's', 'u', 'v', 'x', 'y', 'z'
+            'A', 'i', 'c', 'j', 'k', 'm', 'N', 'U', 'x', '?'
         ]
     ]
 )
