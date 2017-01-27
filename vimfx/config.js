@@ -148,6 +148,20 @@ lineEditingBinding({
 });
 vimfx.set('custom.mode.normal.end_of_line', '<force><c-e>');
 
+vimfx.addKeyOverrides(
+    [
+        location => location.hostname === 'mail.google.com',
+        [
+            '!', '#', '*', '.', ';', '?',
+            'A', 'F', 'I', 'N', 'U', '_',
+            '[', ']', '{', '}',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'i', 'j', 'k', 'l', 'm',
+            'n', 'p', 'q', 'r', 's', 'u', 'v', 'x', 'y', 'z'
+        ]
+    ]
+)
+
+
 let {Preferences} = Cu.import('resource://gre/modules/Preferences.jsm', {});
 Preferences.set({
     'accessibility.typeaheadfind.enablesound': false,
