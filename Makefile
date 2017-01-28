@@ -62,7 +62,7 @@ INSTALL   = agignore \
 	    zsh
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
-BUILD     = bin/nethack/timettyrec \
+BUILD     = bin/local/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
 	    vim/bundle/vimproc/autoload/vimproc_linux64.so \
 	    vim/spell/en.utf-8.add.spl \

@@ -1,5 +1,5 @@
 # environment {{{
-export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/nethack:${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
+export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/local:${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
 [ -f "$HOME/.env" ] && source $HOME/.env
 # }}}
 # language environments {{{

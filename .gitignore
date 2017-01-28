@@ -1,5 +1,4 @@
 /abook/addressbook*
-/bin/nethack/timettyrec
 /fortune/*.dat
 /gnupg
 !/gnupg/gpg-agent.conf
