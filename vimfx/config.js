@@ -155,7 +155,7 @@ vimfx.addKeyOverrides(
             'A', 'i', 'c', 'j', 'k', 'm', 'N', 'U', 'x', '?'
         ]
     ]
-)
+);
 
 
 let {Preferences} = Cu.import('resource://gre/modules/Preferences.jsm', {});
