@@ -40,6 +40,7 @@ alias prove="forkprove"
 alias utc="env TZ=UTC date"
 alias windows="VBoxManage startvm IE11\\ -\\ Win8.1"
 alias pd="perldoc"
+alias vcal="vim --cmd 'set fenc=utf-8' -c Calendar"
 # }}}
 
 # vim:ft=sh:

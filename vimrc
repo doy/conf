@@ -361,9 +361,9 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
     endfunction
     function! s:zsh_hist_append ()
         let to_append = expand("%:~:.")
-        " XXX gundo and vimfiler set buftype too late to be caught by this...
+        " XXX these set buftype too late to be caught by this...
         " this is broken, but not sure what a better fix is
-        if &buftype == '' && to_append !~ '^\(__Gundo\|vimfiler:\)'
+        if &buftype == '' && to_append !~ '^\(__Gundo\|vimfiler:\|Startify\|\[calendar\]\)'
             if !has_key(s:initial_files, to_append)
                 if filereadable(g:_zsh_hist_fname)
                     let hist = readfile(g:_zsh_hist_fname)
@@ -867,5 +867,15 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs = 0
 let g:syntastic_perl_checkers = []
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+" }}}
+" calendar {{{
+let g:calendar_date_endian = "big"
+let g:calendar_date_separator = "-"
+let g:calendar_view = "week"
+augroup calendar-mappings
+    autocmd!
+    autocmd FileType calendar nmap <buffer> q :quit<CR>
+    autocmd FileType calendar set background=dark
+augroup END
 " }}}
 " }}}
