@@ -108,4 +108,4 @@
 	url = git://github.com/mollifier/anyframe
 [submodule "vim/bundle/calendar"]
 	path = vim/bundle/calendar
-	url = git@github.com:itchyny/calendar.vim
+	url = git://github.com/itchyny/calendar.vim
