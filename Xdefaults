@@ -12,7 +12,7 @@ URxvt*scrollBar:false
 URxvt*font:7x14
 URxvt*boldFont:7x14
 URxvt*urgentOnBell: true
-URxvt*perl-ext-common:default,matcher,pass<M-p>
+URxvt*perl-ext-common:default,matcher
 URxvt*matcher.button:3
 URxvt*keysym.C-Return: perl:matcher:last
 URxvt*keysym.M-Return: perl:matcher:list
