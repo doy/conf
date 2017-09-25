@@ -130,6 +130,9 @@ let perl_string_as_statement=1
 
 " perl needs lots of syncing...
 let perl_sync_dist=1000
+
+" highlight sub signatures, not just prototypes
+let perl_sub_signatures=1
 " }}}
 " PostScript {{{
 " highlight more things in postscripts files
