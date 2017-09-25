@@ -109,3 +109,6 @@
 [submodule "vim/bundle/calendar"]
 	path = vim/bundle/calendar
 	url = git://github.com/itchyny/calendar.vim
+[submodule "vim/bundle/ledger"]
+	path = vim/bundle/ledger
+	url = git://github.com/ledger/vim-ledger
