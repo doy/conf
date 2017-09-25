@@ -95,7 +95,7 @@ clean :
 	$(RM) $(BUILD) $(INSTALLED)
 
 update :
-	@git submodule foreach 'git checkout master && git pull'
+	@git submodule foreach '(if [ $$name == "vim/bundle/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
 	@$(MAKE)
 
 $(INTO)/.% : %
