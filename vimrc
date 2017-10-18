@@ -397,6 +397,9 @@ autocmd BufReadPost * normal zv
 " disable syntax highlighting for huge files (it's really slow) {{{
 autocmd BufEnter * if line('$') > 20000 | syntax off | endif
 " }}}
+" regularly check for autoread {{{
+autocmd BufEnter,CursorHold,CursorHoldI * silent! checktime
+" }}}
 " Misc {{{
 autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
 " }}}
