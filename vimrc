@@ -115,9 +115,6 @@ let g:load_doxygen_syntax=1
 let g:tex_flavor="latex"
 " }}}
 " Perl {{{
-" highlight advanced perl vars inside strings
-let perl_extended_vars=1
-
 " POD!
 let perl_include_pod=1
 
@@ -242,10 +239,7 @@ set shiftround
 set autoindent
 
 " configure cindent for my coding style
-set cinoptions+=b1,:0,l1,g0,(0,W1
-
-" reindent whenever 'break;' is typed
-set cinkeys+==break;
+set cinoptions+=:0,l1,g0,(0,W1s
 " }}}
 " }}}
 " Colors {{{
@@ -405,7 +399,7 @@ autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
 xnoremap < <gv
 xnoremap > >gv
 " }}}
-" F5 to :make {{{
+" M to :make {{{
 noremap  <silent>M :<C-u>make<CR><CR><C-W>k
 " }}}
 " Painless spell checking (F11) {{{
@@ -593,20 +587,6 @@ nnoremap <silent><Leader>= :call <SID>align_assignments()<CR>
 " fix this to work in visual mode properly
 "xnoremap <silent><Leader>= :call <SID>align_assignments()<CR>
 " }}}
-" ;i/;I/;a/;A/;o/;O for entering insert mode with paste set {{{
-function! s:temporary_paste()
-    setlocal paste
-    augroup temporary_paste
-        autocmd InsertLeave <buffer> setlocal nopaste | autocmd! temporary_paste
-    augroup END
-endfunction
-nnoremap <silent>;i :call <SID>temporary_paste()<CR>i
-nnoremap <silent>;I :call <SID>temporary_paste()<CR>I
-nnoremap <silent>;a :call <SID>temporary_paste()<CR>a
-nnoremap <silent>;A :call <SID>temporary_paste()<CR>A
-nnoremap <silent>;o :call <SID>temporary_paste()<CR>o
-nnoremap <silent>;O :call <SID>temporary_paste()<CR>O
-" }}}
 " editing binary files {{{
 nnoremap <C-B> :%!xxd<CR>
 nnoremap <C-R> :%!xxd -r<CR>
@@ -668,42 +648,22 @@ nmap <silent>g_ g0
 autocmd BufEnter * exe "nnoremap T :e " . expand('%')
 " }}}
 " }}}
-" Plugin settings {{{
-" matchit {{{
-runtime macros/matchit.vim
+" Plugins {{{
+" airline
+" bufferline {{{
+let g:bufferline_echo = 0
+let g:bufferline_rotate = 1
+let g:bufferline_fixed_index = -2
 " }}}
-" tComment {{{
-nmap ;x gcc
-xmap ;x gc
-let g:tcommentBlankLines = 0
-" }}}
-" Rainbow {{{
-let g:rainbow = 1
-let g:rainbow_paren = 1
-let g:rainbow_brace = 1
-" just loading this directly from the plugin directory fails because language
-" syntax files override the highlighting
-" using BufWinEnter because that is run after modelines are run (so it catches
-" modelines which update highlighting)
-autocmd BufWinEnter,FileType * runtime plugin/rainbow_paren.vim
-" }}}
-" SuperTab {{{
-let g:SuperTabMidWordCompletion = 0
-let g:SuperTabDefaultCompletionType = 'context'
-" }}}
-" Textobj {{{
-let g:Textobj_defs = [
-   \['/', 'Textobj_paired', '/'],
-   \['f', 'Textobj_fold'],
-   \[',', 'Textobj_arg'],
-\]
-" }}}
-" Foldtext {{{
+" foldtext {{{
 let g:Foldtext_enable = 1
 let g:Foldtext_tex_enable = 1
 let g:Foldtext_cpp_enable = 1
 let g:Foldtext_perl_enable = 1
 " }}}
+" ft-bzl
+" git
+" go
 " gundo {{{
 if has("python")
     function! s:gundo()
@@ -718,11 +678,41 @@ else
     let g:gundo_disable = 1
 endif
 " }}}
-" signify {{{
-let g:signify_vcs_list = [ 'git', 'svn' ]
-let g:signify_disable_by_default = 1
-nnoremap <silent>dv :SignifyToggle<CR>
+" ledger
+" neosnippet {{{
+let g:neosnippet#snippets_directory = '~/.vim/snippets'
+let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
+imap <expr><Tab>
+            \ neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ pumvisible() ?
+                \ "\<C-n>" :
+            \ <SID>check_back_space() ?
+                \ "\<Tab>" :
+                \ neocomplete#start_manual_complete()
+imap <expr><S-Tab>
+            \ neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ pumvisible() ?
+                \ "\<C-p>" :
+            \ <SID>check_back_space() ?
+                \ "\<Tab>" :
+                \ neocomplete#start_manual_complete()
+smap <expr><Tab>
+            \ neosnippet#expandable_or_jumpable() ?
+                \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ <SID>check_back_space() ?
+                \ "\<Tab>" :
+                \ neocomplete#start_manual_complete()
 " }}}
+" perl
+" puppet
+" rainbow {{{
+let g:rainbow = 1
+let g:rainbow_paren = 1
+let g:rainbow_brace = 1
+" }}}
+" rust
 " startify {{{
 let g:startify_files_number = 4
 let g:startify_change_to_vcs_root = 1
@@ -747,6 +737,26 @@ for file in [ '.gitignore', expand('~/.gitignore') ]
         endfor
     endif
 endfor
+" }}}
+" syntastic {{{
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs = 0
+let g:syntastic_perl_checkers = []
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+" }}}
+" tcomment {{{
+nmap ;x gcc
+xmap ;x gc
+let g:tcommentBlankLines = 0
+" }}}
+" textobj {{{
+let g:Textobj_defs = [
+   \['/', 'Textobj_paired', '/'],
+   \['f', 'Textobj_fold'],
+   \[',', 'Textobj_arg'],
+\]
 " }}}
 " unite {{{
 let g:unite_data_directory = '~/.vim/data/unite'
@@ -786,97 +796,14 @@ endfunction
 nnoremap <silent>t :Unite -silent -profile-name=with_dir buffer file_rec/async<CR>
 nnoremap <silent>& :Unite -silent grep:.<CR>
 " }}}
-" vimfiler {{{
-let g:vimfiler_data_directory = '~/.vim/data/vimfiler'
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_execute_file_list = { "_": "vim" }
-autocmd FileType vimfiler call s:vimfiler_my_settings()
-function! s:vimfiler_my_settings()
-    nmap <silent><buffer> \    <Plug>(vimfiler_exit)
-    nmap <silent><buffer> <CR> <Plug>(vimfiler_edit_file)
-endfunction
-nnoremap <silent>c :VimFilerSimple -quit -explorer<CR>
-" }}}
-" bufferline {{{
-let g:bufferline_echo = 0
-let g:bufferline_rotate = 1
-let g:bufferline_fixed_index = -2
-" }}}
-" neocomplete {{{
-let g:neocomplete#data_directory = '~/.vim/data/neocomplete'
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 4
-let g:neocomplete#max_list = 4
-let g:neocomplete#enable_fuzzy_completion = 0
-let g:neocomplete#disable_auto_complete = 1
-" see neosnippet config for the tab mapping
-function! s:check_back_space()
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1] =~ '\s'
-endfunction
-" }}}
-" neosnippet {{{
-let g:neosnippet#snippets_directory = '~/.vim/snippets'
-let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
-imap <expr><Tab>
-            \ neosnippet#expandable_or_jumpable() ?
-                \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ pumvisible() ?
-                \ "\<C-n>" :
-            \ <SID>check_back_space() ?
-                \ "\<Tab>" :
-                \ neocomplete#start_manual_complete()
-imap <expr><S-Tab>
-            \ neosnippet#expandable_or_jumpable() ?
-                \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ pumvisible() ?
-                \ "\<C-p>" :
-            \ <SID>check_back_space() ?
-                \ "\<Tab>" :
-                \ neocomplete#start_manual_complete()
-smap <expr><Tab>
-            \ neosnippet#expandable_or_jumpable() ?
-                \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ <SID>check_back_space() ?
-                \ "\<Tab>" :
-                \ neocomplete#start_manual_complete()
-" }}}
-" easymotion {{{
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_enter_jump_first = 1
-
-map ff <Plug>(easymotion-fl)
-omap ff <Plug>(easymotion-tl)
-
-map fj <Plug>(easymotion-j)
-map fk <Plug>(easymotion-k)
-map fh <Plug>(easymotion-linebackward)
-map fl <Plug>(easymotion-lineforward)
-
-map f/ <Plug>(easymotion-fn)
-omap f/ <Plug>(easymotion-tn)
-map f? <Plug>(easymotion-Fn)
-omap f? <Plug>(easymotion-Tn)
-map fn <Plug>(easymotion-vim-n)
-map fN <Plug>(easymotion-vim-N)
-" }}}
-" syntastic {{{
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 0
-let g:syntastic_perl_checkers = []
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-" }}}
-" calendar {{{
-let g:calendar_date_endian = "big"
-let g:calendar_date_separator = "-"
-let g:calendar_view = "week"
-augroup calendar-mappings
-    autocmd!
-    autocmd FileType calendar nmap <buffer> q :quit<CR>
-    autocmd FileType calendar set background=dark
-augroup END
+" unite-tag
+" vimproc
+" Load plugins that don't use vim's format {{{
+runtime macros/matchit.vim
+" just loading this directly from the plugin directory fails because language
+" syntax files override the highlighting
+" using BufWinEnter because that is run after modelines are run (so it catches
+" modelines which update highlighting)
+autocmd BufWinEnter,FileType * runtime plugin/rainbow_paren.vim
 " }}}
 " }}}
