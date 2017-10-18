@@ -22,6 +22,7 @@ INSTALL   = agignore \
 	    nethackrc \
 	    notmuch-config \
 	    offlineimaprc \
+	    perlcriticrc \
 	    procmailrc \
 	    proverc \
 	    replyrc \
