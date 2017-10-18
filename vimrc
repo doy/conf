@@ -708,6 +708,7 @@ else
 endif
 " }}}
 " ledger
+" multiple-cursors
 " neosnippet {{{
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }

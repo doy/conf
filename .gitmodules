@@ -94,3 +94,6 @@
 [submodule "vim/pack/local/start/ale"]
 	path = vim/pack/local/start/ale
 	url = git://github.com/w0rp/ale
+[submodule "vim/pack/local/start/multiple-cursors"]
+	path = vim/pack/local/start/multiple-cursors
+	url = git://github.com/terryma/vim-multiple-cursors
