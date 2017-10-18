@@ -1,9 +1,5 @@
 " based on Eidolos's .vimrc, at http://sartak.org/conf/vimrc
 
-" pathogen {{{
-runtime bundle/pathogen/autoload/pathogen.vim
-call pathogen#infect()
-" }}}
 " General options {{{
 " Miscellaneous {{{
 set nocompatible
@@ -778,8 +774,8 @@ let rec_exclude = '\('
 if filereadable("dist.ini")
     let rec_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
 endif
-call unite#custom#source('file_rec/async', 'ignore_pattern', rec_exclude)
-call unite#custom#source('file_rec/async', 'converters', ['converter_relative_word'])
+autocmd VimEnter call unite#custom#source('file_rec/async', 'ignore_pattern', rec_exclude)
+autocmd VimEnter call unite#custom#source('file_rec/async', 'converters', ['converter_relative_word'])
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
     nmap <silent><buffer> \       <Plug>(unite_exit)

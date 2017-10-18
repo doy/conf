@@ -1,23 +1,20 @@
-[submodule "vim/bundle/pathogen"]
-	path = vim/bundle/pathogen
-	url = git://github.com/tpope/vim-pathogen
 [submodule "vim/bundle/foldtext"]
-	path = vim/bundle/foldtext
+	path = vim/pack/local/start/foldtext
 	url = git://github.com/doy/vim-foldtext
 [submodule "vim/bundle/fuzzyfinder"]
 	path = vim/bundle/fuzzyfinder
 	url = git://github.com/vim-scripts/FuzzyFinder
 [submodule "vim/bundle/git"]
-	path = vim/bundle/git
+	path = vim/pack/local/start/git
 	url = git://github.com/tpope/vim-git
 [submodule "vim/bundle/gundo"]
-	path = vim/bundle/gundo
+	path = vim/pack/local/start/gundo
 	url = git://github.com/sjl/gundo.vim
 [submodule "vim/bundle/l9"]
 	path = vim/bundle/l9
 	url = git://github.com/vim-scripts/L9
 [submodule "vim/bundle/perl"]
-	path = vim/bundle/perl
+	path = vim/pack/local/start/perl
 	url = git://github.com/vim-perl/vim-perl
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
@@ -26,10 +23,10 @@
 	path = vim/bundle/supertab
 	url = git://github.com/ervandew/supertab
 [submodule "vim/bundle/tcomment"]
-	path = vim/bundle/tcomment
+	path = vim/pack/local/start/tcomment
 	url = git://github.com/tomtom/tcomment_vim
 [submodule "vim/bundle/textobj"]
-	path = vim/bundle/textobj
+	path = vim/pack/local/start/textobj
 	url = git://github.com/doy/vim-textobj
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
@@ -41,31 +38,31 @@
 	path = vim/bundle/addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils
 [submodule "vim/bundle/startify"]
-	path = vim/bundle/startify
+	path = vim/pack/local/start/startify
 	url = git://github.com/mhinz/vim-startify
 [submodule "vim/bundle/unite"]
-	path = vim/bundle/unite
+	path = vim/pack/local/start/unite
 	url = git://github.com/Shougo/unite.vim
 [submodule "vim/bundle/vimproc"]
-	path = vim/bundle/vimproc
+	path = vim/pack/local/start/vimproc
 	url = git://github.com/Shougo/vimproc.vim
 [submodule "vim/bundle/bufferline"]
-	path = vim/bundle/bufferline
+	path = vim/pack/local/start/bufferline
 	url = git://github.com/bling/vim-bufferline
 [submodule "vim/bundle/airline"]
-	path = vim/bundle/airline
+	path = vim/pack/local/start/airline
 	url = git://github.com/bling/vim-airline
 [submodule "vim/bundle/neocomplete"]
 	path = vim/bundle/neocomplete
 	url = git://github.com/Shougo/neocomplete.vim
 [submodule "vim/bundle/neosnippet"]
-	path = vim/bundle/neosnippet
+	path = vim/pack/local/start/neosnippet
 	url = git://github.com/Shougo/neosnippet.vim
 [submodule "zsh/opp"]
 	path = zsh/opp
 	url = git://github.com/hchbaw/opp.zsh
 [submodule "vim/bundle/unite-tag"]
-	path = vim/bundle/unite-tag
+	path = vim/pack/local/start/unite-tag
 	url = git://github.com/tsukkee/unite-tag
 [submodule "vim/bundle/typescript"]
 	path = vim/bundle/typescript
@@ -74,19 +71,19 @@
 	path = vim/bundle/julia
 	url = git://github.com/JuliaLang/julia-vim
 [submodule "vim/bundle/puppet"]
-	path = vim/bundle/puppet
+	path = vim/pack/local/start/puppet
 	url = git://github.com/rodjek/vim-puppet
 [submodule "vim/bundle/syntastic"]
-	path = vim/bundle/syntastic
+	path = vim/pack/local/start/syntastic
 	url = git://github.com/scrooloose/syntastic
 [submodule "vim/bundle/go"]
-	path = vim/bundle/go
+	path = vim/pack/local/start/go
 	url = git://github.com/fatih/vim-go
 [submodule "vim/bundle/rust"]
-	path = vim/bundle/rust
+	path = vim/pack/local/start/rust
 	url = git://github.com/rust-lang/rust.vim
 [submodule "vim/bundle/ft-bzl"]
-	path = vim/bundle/ft-bzl
+	path = vim/pack/local/start/ft-bzl
 	url = git://github.com/google/vim-ft-bzl
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
@@ -101,5 +98,5 @@
 	path = zsh/anyframe
 	url = git://github.com/mollifier/anyframe
 [submodule "vim/bundle/ledger"]
-	path = vim/bundle/ledger
+	path = vim/pack/local/start/ledger
 	url = git://github.com/ledger/vim-ledger

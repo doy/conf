@@ -64,7 +64,7 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/local/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-	    vim/bundle/vimproc/autoload/vimproc_linux64.so \
+	    vim/pack/local/start/vimproc/autoload/vimproc_linux64.so \
 	    vim/spell/en.utf-8.add.spl \
 	    less
 
@@ -95,7 +95,7 @@ clean :
 	$(RM) $(BUILD) $(INSTALLED)
 
 update :
-	@git submodule foreach '(if [ $$name == "vim/bundle/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
+	@git submodule foreach '(if [ $$name == "vim/pack/local/start/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
 	@$(MAKE)
 
 $(INTO)/.% : %
@@ -109,8 +109,8 @@ fortune/%.dat : fortune/%
 	@echo "Compiling $@"
 	@strfile -s $(basename $@)
 
-vim/bundle/vimproc/autoload/vimproc_linux64.so :
-	cd vim/bundle/vimproc && make
+vim/pack/local/start/vimproc/autoload/vimproc_linux64.so :
+	cd vim/pack/local/start/vimproc && make
 
 less : lesskey
 	lesskey -o less lesskey
