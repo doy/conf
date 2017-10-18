@@ -65,6 +65,7 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/local/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
+	    $(addsuffix tags,$(wildcard vim/pack/local/start/*/doc/)) \
 	    vim/spell/en.utf-8.add.spl \
 	    less
 
@@ -81,7 +82,10 @@ LN        = @ln -sf
 MKDIR     = @mkdir -p
 RM        = @rm -f
 
-build : $(BUILD)
+build : submodules $(BUILD)
+
+submodules :
+	@git submodule update --init --recursive
 
 install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch $(INTO)/.config/fish
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
@@ -125,4 +129,7 @@ $(INTO)/.config/fish: fish
 %.spl : %
 	@vim -u NONE -c':mkspell! $< | :q'
 
-.PHONY: build install clean update
+%/doc/tags: %/doc
+	@vim -u NONE -c':helptags $< | :q'
+
+.PHONY: build submodules install clean update
