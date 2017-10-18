@@ -97,3 +97,6 @@
 [submodule "vim/pack/local/start/multiple-cursors"]
 	path = vim/pack/local/start/multiple-cursors
 	url = git://github.com/terryma/vim-multiple-cursors
+[submodule "vim/pack/local/start/terraform"]
+	path = vim/pack/local/start/terraform
+	url = git://github.com/hashivim/vim-terraform

@@ -773,6 +773,9 @@ nmap ;x gcc
 xmap ;x gc
 let g:tcommentBlankLines = 0
 " }}}
+" terraform {{{
+let g:terraform_fmt_on_save = 1
+" }}}
 " textobj {{{
 let g:Textobj_defs = [
    \['/', 'Textobj_paired', '/'],
