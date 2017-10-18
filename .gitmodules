@@ -85,15 +85,9 @@
 [submodule "vim/bundle/rust"]
 	path = vim/bundle/rust
 	url = git://github.com/rust-lang/rust.vim
-[submodule "vim/bundle/coffee-script"]
-	path = vim/bundle/coffee-script
-	url = git://github.com/kchmck/vim-coffee-script
 [submodule "vim/bundle/ft-bzl"]
 	path = vim/bundle/ft-bzl
 	url = git://github.com/google/vim-ft-bzl
-[submodule "vim/bundle/fish"]
-	path = vim/bundle/fish
-	url = git://github.com/dag/vim-fish
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
 	url = git://github.com/zsh-users/zsh-autosuggestions
@@ -106,9 +100,6 @@
 [submodule "zsh/anyframe"]
 	path = zsh/anyframe
 	url = git://github.com/mollifier/anyframe
-[submodule "vim/bundle/calendar"]
-	path = vim/bundle/calendar
-	url = git://github.com/itchyny/calendar.vim
 [submodule "vim/bundle/ledger"]
 	path = vim/bundle/ledger
 	url = git://github.com/ledger/vim-ledger
