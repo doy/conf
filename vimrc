@@ -356,7 +356,7 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
         let to_append = expand("%:~:.")
         " XXX these set buftype too late to be caught by this...
         " this is broken, but not sure what a better fix is
-        if &buftype == '' && to_append !~ '^\(__Gundo\|vimfiler:\|Startify\|\[calendar\]\)'
+        if &buftype == '' && to_append !~ '^\(__Gundo\|Startify\|\[denite\]\)'
             if !has_key(s:initial_files, to_append)
                 if filereadable(g:_zsh_hist_fname)
                     let hist = readfile(g:_zsh_hist_fname)
