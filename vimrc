@@ -649,6 +649,18 @@ autocmd BufEnter * exe "nnoremap T :e " . expand('%')
 " }}}
 " }}}
 " Plugins {{{
+" ale {{{
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_history_enabled = 0
+let g:ale_history_log_output = 0
+
+let g:ale_linters = {
+\    'perl': ['perlcritic']
+\}
+
+let g:ale_rust_cargo_use_check = 1
+" }}}
 " airline
 " bufferline {{{
 let g:bufferline_echo = 0
@@ -755,14 +767,6 @@ for file in [ '.gitignore', expand('~/.gitignore') ]
     endif
 endfor
 " }}}
-" syntastic {{{
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 0
-let g:syntastic_perl_checkers = []
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-" }}}
 " tcomment {{{
 nmap ;x gcc
 xmap ;x gc
@@ -775,7 +779,6 @@ let g:Textobj_defs = [
    \[',', 'Textobj_arg'],
 \]
 " }}}
-" vimproc
 " Load plugins that don't use vim's format {{{
 runtime macros/matchit.vim
 " just loading this directly from the plugin directory fails because language

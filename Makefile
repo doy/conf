@@ -64,7 +64,6 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/local/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-	    vim/pack/local/start/vimproc/autoload/vimproc_linux64.so \
 	    vim/spell/en.utf-8.add.spl \
 	    less
 
@@ -108,9 +107,6 @@ $(INTO)/.% : %
 fortune/%.dat : fortune/%
 	@echo "Compiling $@"
 	@strfile -s $(basename $@)
-
-vim/pack/local/start/vimproc/autoload/vimproc_linux64.so :
-	cd vim/pack/local/start/vimproc && make
 
 less : lesskey
 	lesskey -o less lesskey

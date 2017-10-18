@@ -40,9 +40,6 @@
 [submodule "vim/bundle/startify"]
 	path = vim/pack/local/start/startify
 	url = git://github.com/mhinz/vim-startify
-[submodule "vim/bundle/vimproc"]
-	path = vim/pack/local/start/vimproc
-	url = git://github.com/Shougo/vimproc.vim
 [submodule "vim/bundle/bufferline"]
 	path = vim/pack/local/start/bufferline
 	url = git://github.com/bling/vim-bufferline
@@ -67,9 +64,6 @@
 [submodule "vim/bundle/puppet"]
 	path = vim/pack/local/start/puppet
 	url = git://github.com/rodjek/vim-puppet
-[submodule "vim/bundle/syntastic"]
-	path = vim/pack/local/start/syntastic
-	url = git://github.com/scrooloose/syntastic
 [submodule "vim/bundle/go"]
 	path = vim/pack/local/start/go
 	url = git://github.com/fatih/vim-go
@@ -97,3 +91,6 @@
 [submodule "vim/pack/local/start/denite"]
 	path = vim/pack/local/start/denite
 	url = git://github.com/Shougo/denite.nvim
+[submodule "vim/pack/local/start/ale"]
+	path = vim/pack/local/start/ale
+	url = git://github.com/w0rp/ale
