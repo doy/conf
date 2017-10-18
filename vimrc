@@ -655,6 +655,23 @@ let g:bufferline_echo = 0
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = -2
 " }}}
+" denite {{{
+autocmd VimEnter * call denite#custom#map('insert', '<Tab>', '<denite:move_to_next_line>')
+autocmd VimEnter * call denite#custom#map('insert', '<S-Tab>', '<denite:move_to_previous_line>')
+if executable('ag')
+    autocmd VimEnter * call denite#custom#var('file_rec', 'command', ['ag', '--hidden', '-g', ''])
+    autocmd VimEnter * call denite#custom#var('grep', 'command', ['ag'])
+    autocmd VimEnter * call denite#custom#var('grep', 'default_opts', ['--hidden'])
+    autocmd VimEnter * call denite#custom#var('grep', 'recursive_opts', [])
+    autocmd VimEnter * call denite#custom#var('grep', 'pattern_opt', [])
+    autocmd VimEnter * call denite#custom#var('grep', 'separator', [])
+endif
+nnoremap <silent>t :Denite -direction=dynamictop buffer file_rec<CR>
+nnoremap <silent>b :Denite -direction=dynamictop buffer<CR>
+nnoremap <silent>ff :Denite -direction=dynamictop grep:.::!<CR>
+nnoremap <silent>fh :Denite -direction=dynamictop help<CR>
+nnoremap <silent>ft :Denite -direction=dynamictop filetype<CR>
+" }}}
 " foldtext {{{
 let g:Foldtext_enable = 1
 let g:Foldtext_tex_enable = 1
@@ -758,45 +775,6 @@ let g:Textobj_defs = [
    \[',', 'Textobj_arg'],
 \]
 " }}}
-" unite {{{
-let g:unite_data_directory = '~/.vim/data/unite'
-let g:unite_source_rec_max_cache_files = 65536
-let g:unite_enable_start_insert = 1
-let g:unite_enable_short_source_names = 1
-let g:unite_source_grep_max_candidates = 200
-if executable('ag')
-    " Use ag in unite grep source.
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts =
-                \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
-                \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-    let g:unite_source_grep_recursive_opt = ''
-endif
-let rec_exclude = '\('
-        \. '\(^\|/\)\.\|'
-        \. '\~$\|'
-        \. '\<\(__pycache__\|node_modules\|blib\|nytprof\|egg-info\)\|'
-        \. '\.\('
-            \. 'o\|exe\|dll\|bak\|orig\|swp\|bs\|pyc\|'
-            \. 'png\|jpg\|gif\|pdf\|doc\|d\|vsprops\|pbxproj\|sln'
-        \. '\)$'
-    \. '\)'
-if filereadable("dist.ini")
-    let rec_exclude .= '\|^' . fnamemodify('.', ':p:h:t') . '-'
-endif
-autocmd VimEnter call unite#custom#source('file_rec/async', 'ignore_pattern', rec_exclude)
-autocmd VimEnter call unite#custom#source('file_rec/async', 'converters', ['converter_relative_word'])
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-    nmap <silent><buffer> \       <Plug>(unite_exit)
-    imap <silent><buffer> <Tab>   <Plug>(unite_select_next_line)
-    imap <silent><buffer> <S-Tab> <Plug>(unite_select_previous_line)
-    autocmd InsertLeave <buffer>  call feedkeys("\<Plug>(unite_exit)")
-endfunction
-nnoremap <silent>t :Unite -silent -profile-name=with_dir buffer file_rec/async<CR>
-nnoremap <silent>& :Unite -silent grep:.<CR>
-" }}}
-" unite-tag
 " vimproc
 " Load plugins that don't use vim's format {{{
 runtime macros/matchit.vim

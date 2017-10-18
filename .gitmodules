@@ -40,9 +40,6 @@
 [submodule "vim/bundle/startify"]
 	path = vim/pack/local/start/startify
 	url = git://github.com/mhinz/vim-startify
-[submodule "vim/bundle/unite"]
-	path = vim/pack/local/start/unite
-	url = git://github.com/Shougo/unite.vim
 [submodule "vim/bundle/vimproc"]
 	path = vim/pack/local/start/vimproc
 	url = git://github.com/Shougo/vimproc.vim
@@ -61,9 +58,6 @@
 [submodule "zsh/opp"]
 	path = zsh/opp
 	url = git://github.com/hchbaw/opp.zsh
-[submodule "vim/bundle/unite-tag"]
-	path = vim/pack/local/start/unite-tag
-	url = git://github.com/tsukkee/unite-tag
 [submodule "vim/bundle/typescript"]
 	path = vim/bundle/typescript
 	url = git://github.com/leafgarland/typescript-vim
@@ -100,3 +94,6 @@
 [submodule "vim/bundle/ledger"]
 	path = vim/pack/local/start/ledger
 	url = git://github.com/ledger/vim-ledger
+[submodule "vim/pack/local/start/denite"]
+	path = vim/pack/local/start/denite
+	url = git://github.com/Shougo/denite.nvim
