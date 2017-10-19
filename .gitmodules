@@ -22,9 +22,6 @@
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = git://github.com/ervandew/supertab
-[submodule "vim/bundle/tcomment"]
-	path = vim/pack/local/start/tcomment
-	url = git://github.com/tomtom/tcomment_vim
 [submodule "vim/bundle/textobj"]
 	path = vim/pack/local/start/textobj
 	url = git://github.com/doy/vim-textobj
@@ -100,3 +97,6 @@
 [submodule "vim/pack/local/start/terraform"]
 	path = vim/pack/local/start/terraform
 	url = git://github.com/hashivim/vim-terraform
+[submodule "vim/pack/local/start/commentary"]
+	path = vim/pack/local/start/commentary
+	url = git://github.com/tpope/vim-commentary

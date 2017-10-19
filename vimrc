@@ -667,6 +667,9 @@ let g:bufferline_echo = 0
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = -2
 " }}}
+" commentary {{{
+map <silent><Leader>x :Commentary<CR>
+" }}}
 " denite {{{
 autocmd VimEnter * call denite#custom#map('insert', '<Tab>', '<denite:move_to_next_line>')
 autocmd VimEnter * call denite#custom#map('insert', '<S-Tab>', '<denite:move_to_previous_line>')
@@ -767,11 +770,6 @@ for file in [ '.gitignore', expand('~/.gitignore') ]
         endfor
     endif
 endfor
-" }}}
-" tcomment {{{
-nmap ;x gcc
-xmap ;x gc
-let g:tcommentBlankLines = 0
 " }}}
 " terraform {{{
 let g:terraform_fmt_on_save = 1
