@@ -13,12 +13,6 @@
 "dmenu_run -fn '7x14'"
   Mod4 + r
 
-"screenshot"
-  Mod4 + s
-
-"screenshot --full"
-  Shift+Mod4 + s
-
 "xscreensaver-command -lock"
   Mod4 + d
 

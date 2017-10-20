@@ -4,7 +4,7 @@ path=/home/doy/Maildir
 [user]
 name=Jesse Luehrs
 primary_email=doy@tozt.net
-other_email=jesse.luehrs@iinteractive.com;doy@cpan.org;
+other_email=doy@stripe.com;jesse.luehrs@iinteractive.com;doy@cpan.org;
 
 [new]
 tags=unread;new;

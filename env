@@ -3,7 +3,6 @@ export MPD_HOST=bishamon
 export MANPAGER="$HOME/.bin/vimmanpager"
 export PERLDOC_PAGER="$HOME/.bin/vimmanpager"
 export EDITOR=$(/usr/bin/which vim)
-export SVN_SSH="$HOME/.bin/ssh"
 export GIT_SSH="$HOME/.bin/ssh"
 export RSYNC_RSH="$HOME/.bin/ssh"
 export TEXINPUTS=".:$HOME/conf/tex:"

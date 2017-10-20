@@ -1,3 +1,0 @@
-#!/bin/sh
-
-find $HOME/Maildir -type d -name new -not -empty | sed "s+^$HOME/Maildir/++" | sed 's+/new$++' | sort

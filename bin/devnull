@@ -1,6 +1,0 @@
-#!/bin/bash
-
-ttrtail doy > /dev/null 2>&1 &
-pid=$!
-ttyrec $(date +%Y-%m-%d-%H%M%S.ttyrec) -e "ssh nethack.kraln.com"
-kill $pid > /dev/null 2>&1

@@ -1,5 +1,3 @@
 #!/bin/bash
 
 sudo -k
-keychain -k mine
-keybase logout

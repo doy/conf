@@ -19,8 +19,6 @@ fortune/*
 - song-of-ice-and-fire and buffy compiled by me
 nethackrc
 - based on https://github.com/TAEB/TAEB/blob/master/lib/TAEB/Config.pm#L192 by sartak
-pentadactyl/plugins/pinboard.js
-- http://code.google.com/p/dactyl/issues/detail?id=631
 procmail/mark_as_read
 - http://www.mhonarc.org/archive/html/procmail/2005-08/msg00176.html
 sh/cdhist.sh
@@ -31,8 +29,6 @@ terminfo/*
 - from the ncurses terminfo database
 tex/jesse_resume.sty
 - based on http://www.courtesan.com/todd/resume.html
-themes/H2O-gtk2-Saphire
-- http://art.gnome.org/themes/gtk2/213 (by Eric R. Reitz)
 vimrc
 - originally based on http://sartak.org/conf/vimrc
 vim/plugin/rainbow_paren.vim
@@ -43,10 +39,6 @@ vim/syntax/levdes.vim
 - Darshan Shaligram
 vim/syntax/nhdes.vim
 - http://bilious.alt.org/~paxed/nethack/nhdes.vim
-vim/syntax/tmux.vim
-- http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/examples/tmux.vim
-urxvt/pass
-- based on https://github.com/jrockway/urxvt-pwsafe/
 weechat/{perl,python}/autoload/*
 - http://www.weechat.org/scripts/source/beep.pl.html/
 - http://www.weechat.org/scripts/source/buffers.pl.html/

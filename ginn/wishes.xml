@@ -24,17 +24,5 @@
         <button>7</button>
       </action>
     </wish>
-    <wish gesture="Drag" fingers="2">
-      <action name="action5" when="update">
-        <trigger prop="delta x" min="120" max="200"/>
-        <key modifier1="Super_R">braceleft</key>
-      </action>
-    </wish>
-    <wish gesture="Drag" fingers="2">
-      <action name="action6" when="update">
-        <trigger prop="delta x" min="-200" max="-120"/>
-        <key modifier1="Super_R">braceright</key>
-      </action>
-    </wish>
   </global>
 </ginn>
