@@ -766,6 +766,7 @@ let g:terraform_fmt_on_save = 1
 " textobj {{{
 let g:Textobj_defs = [
    \['/', 'Textobj_paired', '/'],
+   \['\|', 'Textobj_paired', '\|'],
    \['f', 'Textobj_fold'],
    \[',', 'Textobj_arg'],
 \]
