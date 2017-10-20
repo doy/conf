@@ -1,0 +1,22 @@
+snippet script
+	#!/usr/bin/env ruby
+
+	def main
+		${0}
+	end
+
+	if __FILE__ == \$0
+		main(*ARGV)
+	end
+snippet def
+	def ${1:foo}
+		${0}
+	end
+snippet class
+	class ${1:Foo}
+		${0}
+	end
+snippet module
+	module ${1:Foo}
+		${0}
+	end

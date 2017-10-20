@@ -1,19 +1,16 @@
 snippet main
-        fn main () {
-                ${1}
-        }
-
+	fn main () {
+		${0}
+	}
 snippet pr
-        println!(${1})
-
+        println!(${0});
 snippet struct
-        #[deriving(PartialEq, Eq, Show)]
-        struct ${1} {
-                ${2}
-        }
-
+	#[deriving(PartialEq, Eq, Show)]
+	struct ${1} {
+		${0}
+	}
 snippet test
-        #[test]
-        fn ${1} () {
-                ${2}
-        }
+	#[test]
+	fn ${1} () {
+		${0}
+	}

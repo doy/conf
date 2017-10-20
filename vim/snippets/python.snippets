@@ -1,8 +1,8 @@
 snippet test
-        import unittest
-        
-        ${1}
-        
-        class ${2:`join(map(split(matchstr(expand("%"), '^t\(ests\?\)\?/\zs.*\ze\.py'), '_'), 'toupper(v:val[0]) . v:val[1:]'), '')`}(unittest.TestCase):
-                def test_${3}(self):
-                        ${4}
+	import unittest
+
+	${1}
+
+	class ${2:`join(map(split(matchstr(expand("%"), '^t\(ests\?\)\?/\zs.*\ze\.py'), '_'), 'toupper(v:val[0]) . v:val[1:]'), '')`}(unittest.TestCase):
+		def test_${3}(self):
+	        	${0}
