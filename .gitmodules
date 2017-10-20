@@ -34,9 +34,6 @@
 [submodule "vim/bundle/startify"]
 	path = vim/pack/local/start/startify
 	url = git://github.com/mhinz/vim-startify
-[submodule "vim/bundle/bufferline"]
-	path = vim/pack/local/start/bufferline
-	url = git://github.com/bling/vim-bufferline
 [submodule "vim/bundle/airline"]
 	path = vim/pack/local/start/airline
 	url = git://github.com/bling/vim-airline

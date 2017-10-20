@@ -662,11 +662,6 @@ let g:ale_linters = {
 let g:ale_rust_cargo_use_check = 1
 " }}}
 " airline
-" bufferline {{{
-let g:bufferline_echo = 0
-let g:bufferline_rotate = 1
-let g:bufferline_fixed_index = -2
-" }}}
 " commentary {{{
 map <silent><Leader>x :Commentary<CR>
 " }}}
