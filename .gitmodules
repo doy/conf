@@ -1,6 +1,3 @@
-[submodule "vim/bundle/foldtext"]
-	path = vim/pack/local/start/foldtext
-	url = git://github.com/doy/vim-foldtext
 [submodule "vim/bundle/fuzzyfinder"]
 	path = vim/bundle/fuzzyfinder
 	url = git://github.com/vim-scripts/FuzzyFinder

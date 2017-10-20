@@ -687,12 +687,6 @@ nnoremap <silent>ff :Denite -direction=dynamictop grep:.::!<CR>
 nnoremap <silent>fh :Denite -direction=dynamictop help<CR>
 nnoremap <silent>ft :Denite -direction=dynamictop filetype<CR>
 " }}}
-" foldtext {{{
-let g:Foldtext_enable = 1
-let g:Foldtext_tex_enable = 1
-let g:Foldtext_cpp_enable = 1
-let g:Foldtext_perl_enable = 1
-" }}}
 " ft-bzl
 " git
 " go
