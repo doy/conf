@@ -1,5 +1,5 @@
 if filereadable("Cargo.toml")
-    compiler cargo
+     compiler cargo
     setlocal makeprg=cargo\ build
 else
     setlocal makeprg=rustc\ %
