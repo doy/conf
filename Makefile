@@ -58,7 +58,6 @@ INSTALL   = agignore \
 	    terminfo \
 	    tex \
 	    vim \
-	    vimfx \
 	    weechat \
 	    zsh
 INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
@@ -87,7 +86,7 @@ build : submodules $(BUILD)
 submodules :
 	@git submodule update --init --recursive
 
-install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch $(INTO)/.config/fish
+install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	@chmod 600 msmtprc
 	@chmod 700 gnupg
@@ -118,11 +117,6 @@ less : lesskey
 
 $(INTO)/Maildir/.notmuch: notmuch
 	mkdir -p $(INTO)/Maildir
-	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
-	$(LN) $(PWD)/$< $@
-
-$(INTO)/.config/fish: fish
-	mkdir -p $(INTO)/.config
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
 
