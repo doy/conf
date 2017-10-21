@@ -669,7 +669,7 @@ map <silent><Leader>x :Commentary<CR>
 autocmd VimEnter * call denite#custom#map('insert', '<Tab>', '<denite:move_to_next_line>')
 autocmd VimEnter * call denite#custom#map('insert', '<S-Tab>', '<denite:move_to_previous_line>')
 if executable('ag')
-    autocmd VimEnter * call denite#custom#var('file_rec', 'command', ['ag', '--hidden', '-l', ''])
+    autocmd VimEnter * call denite#custom#var('file_rec', 'command', ['ag', '--hidden', '-l', '.'])
     autocmd VimEnter * call denite#custom#var('grep', 'command', ['ag'])
     autocmd VimEnter * call denite#custom#var('grep', 'default_opts', ['--hidden'])
     autocmd VimEnter * call denite#custom#var('grep', 'recursive_opts', [])
