@@ -639,6 +639,10 @@ inoremap <expr> ]      strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" 
 inoremap <expr> '      strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<Left>" : "\'"
 inoremap <expr> "      strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
 " }}}
+" tab for completion {{{
+inoremap <Tab> <C-n>
+inoremap <S-Tab> <C-p>
+" }}}
 " Miscellaneous {{{
 " have Y behave analogously to D rather than to dd
 nnoremap Y y$
@@ -722,18 +726,23 @@ endif
 " neosnippet {{{
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
+
+let i_tab = maparg("<Tab>", "i")
+let i_stab = maparg("<S-Tab>", "i")
+let s_tab = maparg("<Tab>", "s")
+" XXX *surely* this eval isn't actually necessary
 imap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ "\<C-n>"
+                \ eval('"\' . i_tab . '"')
 imap <expr><S-Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ "\<C-p>"
+                \ eval('"\' . i_stab . '"')
 smap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ "\<Tab>"
+                \ eval('"\' . s_tab . '"')
 " }}}
 " perl
 " puppet
