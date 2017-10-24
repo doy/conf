@@ -194,7 +194,7 @@ let maplocalleader = ';'
 " enable persistent undo
 if has("persistent_undo")
     set undofile
-    set undodir=~/.vim/data/undo
+    set undodir=~/.cache/vim/undo
 endif
 
 " case insensitive searching, unless i type a capital letter

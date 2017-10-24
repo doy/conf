@@ -70,10 +70,11 @@ BUILD     = bin/local/timettyrec \
 
 EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
 	    Maildir \
-	    .vim/data/undo \
 	    .cache/mutt/headers \
 	    .cache/mutt/bodies \
 	    .cache/mpd \
+	    .cache/vim/hist \
+	    .cache/vim/undo \
 	    .config/mpd/playlists
 
 ECHO      = @echo
