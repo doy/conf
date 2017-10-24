@@ -709,14 +709,9 @@ nnoremap <silent>ft :Denite -direction=dynamictop filetype<CR>
 " go
 " gundo {{{
 if has("python")
-    function! s:gundo()
-        GundoToggle
-    endfunction
-    nnoremap <silent>U :silent call <SID>gundo()<CR>
+    nnoremap <silent>U :silent GundoToggle<CR>
     let g:gundo_help = 0
     let g:gundo_preview_bottom = 1
-    let g:gundo_width = 30
-    let g:gundo_auto_preview = 0
 else
     let g:gundo_disable = 1
 endif
