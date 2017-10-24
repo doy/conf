@@ -1,3 +1,5 @@
+let b:ale_linters = { 'perl': ['perlcritic'] }
+
 " :make does a syntax check
 if expand("%:e") == "psgi"
     exe 'setlocal makeprg=plackup\ -Ilib\ -a\ ' . expand("%")

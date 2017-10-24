@@ -4,3 +4,5 @@ if filereadable("Cargo.toml")
 else
     setlocal makeprg=rustc\ %
 endif
+
+let b:ale_rust_cargo_use_check = 1
