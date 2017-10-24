@@ -1,3 +1,5 @@
+let b:tex_flavor="latex"
+
 " :make converts to pdf
 setlocal makeprg=(cd\ /tmp\ &&\ pdflatex\ --halt-on-error\ %:p)
 

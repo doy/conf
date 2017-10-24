@@ -10,3 +10,17 @@ function! s:perldoc(word)
 endfunction
 nnoremap <buffer> <silent>K :call Help(0, [':'], '<SID>perldoc')<CR>
 vnoremap <buffer> <silent>K :call Help(1, [':'], '<SID>perldoc')<CR>
+
+function! s:set_excludes()
+    if filereadable("dist.ini")
+        for line in readfile("dist.ini", '', 10)
+            let name = matchstr(line, '\s*name\s*=\s*\zs.*')
+            if name != ""
+                exe 'set wildignore+=' . name . '-*/*'
+                break
+            endif
+        endfor
+    endif
+endfunction
+autocmd BufReadPost * call <SID>set_excludes()
+call <SID>set_excludes()

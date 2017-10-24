@@ -97,42 +97,6 @@ set showbreak=>
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
-
-" Language specific features {{{
-" Bash {{{
-" I use bash
-let g:is_bash=1
-" }}}
-" C/C++ {{{
-" use c syntax for header files, rather than c++
-let c_syntax_for_h=1
-
-" highlight doxygen
-let g:load_doxygen_syntax=1
-" }}}
-" LaTeX {{{
-" I only use LaTeX
-let g:tex_flavor="latex"
-" }}}
-" Perl {{{
-" POD!
-let perl_include_pod=1
-
-" color quote marks differently from the actual string
-let perl_string_as_statement=1
-
-" perl needs lots of syncing...
-let perl_sync_dist=1000
-
-" highlight sub signatures, not just prototypes
-let perl_sub_signatures=1
-" }}}
-" PostScript {{{
-" highlight more things in postscripts files
-let postscr_fonts=1
-let postscr_encodings=1
-" }}}
-" }}}
 " }}}
 " Improve power of commands {{{
 " backspace over autoindent, end of line (to join lines), and preexisting test
@@ -143,21 +107,6 @@ set wildmenu
 
 " when doing tab completion, ignore files that match any of these
 set wildignore+=*.o,.git/*,.svn/*,blib/*
-" exclusions {{{
-function! s:set_excludes()
-    if filereadable("dist.ini")
-        for line in readfile("dist.ini", '', 10)
-            let name = matchstr(line, '\s*name\s*=\s*\zs.*')
-            if name != ""
-                exe 'set wildignore+=' . name . '-*/*'
-                break
-            endif
-        endfor
-    endif
-endfunction
-autocmd BufReadPost * call <SID>set_excludes()
-call <SID>set_excludes()
-" }}}
 
 " tab completions should ignore case
 if exists("+wildignorecase")
@@ -381,9 +330,6 @@ autocmd BufEnter * if line('$') > 20000 | syntax off | endif
 " }}}
 " regularly check for autoread {{{
 autocmd BufEnter,CursorHold,CursorHoldI * silent! checktime
-" }}}
-" Misc {{{
-autocmd BufWritePost *conkyrc silent exe "!killall -HUP conky"
 " }}}
 " }}}
 " Remappings {{{
