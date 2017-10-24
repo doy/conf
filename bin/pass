@@ -72,8 +72,17 @@ else {
 
 sub clip {
     my ($text) = @_;
-    open my $fh, '|-', 'xclip -loops 1 -quiet 2> /dev/null'
-        or die "couldn't run xclip";
-    $fh->write("$text\n");
-    $fh->close;
+    my @pids;
+    for my $selection (qw(primary clipboard)) {
+        my $pid = fork;
+        if (!$pid) {
+            open my $fh, '|-', "timeout 1m xclip -loops 1 -quiet -selection $selection 2> /dev/null"
+                or die "couldn't run xclip";
+            $fh->write("$text\n");
+            $fh->close;
+            exit;
+        }
+        push @pids, $pid;
+    }
+    waitpid($_, 0) for @pids;
 }
