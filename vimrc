@@ -753,7 +753,13 @@ let g:rainbow_brace = 1
 " }}}
 " rust
 " startify {{{
-let g:startify_files_number = 4
+let g:startify_list_order = ['dir', 'bookmarks', 'commands']
+let g:startify_files_number = 7
+let g:startify_commands = [
+    \ {'t': ['Open file', 'Denite -direction=dynamictop buffer file_rec']},
+    \ {'ff': ['Grep', 'Denite -direction=dynamictop grep:.::!']},
+    \ {'fh': ['Help', 'Denite -direction=dynamictop help']},
+    \ ]
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_indices = [
             \'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
