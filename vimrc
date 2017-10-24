@@ -725,25 +725,15 @@ let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 imap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ pumvisible() ?
-                \ "\<C-n>" :
-            \ <SID>check_back_space() ?
-                \ "\<Tab>" :
-                \ neocomplete#start_manual_complete()
+                \ "\<C-n>"
 imap <expr><S-Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ pumvisible() ?
-                \ "\<C-p>" :
-            \ <SID>check_back_space() ?
-                \ "\<Tab>" :
-                \ neocomplete#start_manual_complete()
+                \ "\<C-p>"
 smap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ <SID>check_back_space() ?
-                \ "\<Tab>" :
-                \ neocomplete#start_manual_complete()
+                \ "\<Tab>"
 " }}}
 " perl
 " puppet
