@@ -179,14 +179,6 @@ set wildmode=longest,list,full
 " always make the help window cover the entire screen
 set helpheight=9999
 
-" fall back to syntax completion when possible
-if has("autocmd") && exists("+omnifunc")
-    autocmd FileType *
-                \   if &omnifunc == "" |
-                \           setlocal omnifunc=syntaxcomplete#Complete |
-                \   endif
-endif
-
 " ; is easier to reach than \
 let mapleader = ';'
 let maplocalleader = ';'
