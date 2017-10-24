@@ -1,1 +1,1 @@
-set cindent
+setlocal cindent

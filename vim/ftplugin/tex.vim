@@ -13,11 +13,13 @@ function! s:xpdf()
     endfor
     call system('xpdf -remote localhost ' . pdf . ' &')
 endfunction
+
 " evince treats opening the same file twice as meaning 'reload'
 function! s:evince()
     let pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
     system('evince ' . pdf . ' &')
 endfunction
+
 " don't load the pdf if the make failed
 function! s:make_errors()
     let qf = getqflist()
@@ -28,6 +30,7 @@ function! s:make_errors()
     endfor
     return 0
 endfunction
+
 let b:automake_enabled = 0
 function! s:automake()
     let old_shellpipe = &shellpipe
@@ -38,18 +41,19 @@ function! s:automake()
         let &shellpipe = old_shellpipe
     endtry
 endfunction
+
 augroup _tex
-autocmd!
-if executable('xpdf') && strlen(expand('$DISPLAY'))
-    autocmd QuickFixCmdPost make if !s:make_errors() | call s:xpdf()   | endif
-elseif executable('evince') && strlen(expand('$DISPLAY'))
-    autocmd QuickFixCmdPost make if !s:make_errors() | call s:evince() | endif
-endif
-autocmd CursorHold,CursorHoldI,InsertLeave <buffer> if b:automake_enabled | call s:automake() | endif
+    autocmd!
+    if executable('xpdf') && strlen(expand('$DISPLAY'))
+        autocmd QuickFixCmdPost make if !s:make_errors() | call s:xpdf()   | endif
+    elseif executable('evince') && strlen(expand('$DISPLAY'))
+        autocmd QuickFixCmdPost make if !s:make_errors() | call s:evince() | endif
+    endif
+    autocmd CursorHold,CursorHoldI,InsertLeave <buffer> if b:automake_enabled | call s:automake() | endif
 augroup END
 
-noremap <silent><F6> :let b:automake_enabled = !b:automake_enabled<CR><F5>
-inoremap <silent><F6> <C-O>:let b:automake_enabled = !b:automake_enabled<CR><C-O><F5>
+noremap <buffer> <silent><F6> :let b:automake_enabled = !b:automake_enabled<CR><F5>
+inoremap <buffer> <silent><F6> <C-O>:let b:automake_enabled = !b:automake_enabled<CR><C-O><F5>
 
 " see :help errorformat-LaTeX
 setlocal errorformat=
