@@ -4,6 +4,9 @@
 "firefox"
   Mod4 + b
 
+"xclip -o | xargs xdg-open"
+  Mod4 + p
+
 "dmenu -fn '7x14' -p 'pass search' < /dev/null | xargs -I{} pass search -c {}"
   Mod4 + i
 
