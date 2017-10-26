@@ -566,16 +566,13 @@ nmap <silent>g) g0
 nmap <Bar> \
 " }}}
 " auto-append closing characters {{{
-inoremap        {      {}<Left>
-inoremap        {<CR>  {<CR>}<Esc>O
-inoremap        {}     {}
-inoremap <expr> }      strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
-inoremap        (      ()<Left>
-inoremap <expr> )      strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-inoremap        [      []<Left>
-inoremap <expr> ]      strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
-inoremap <expr> '      strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<Left>" : "\'"
-inoremap <expr> "      strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
+for pair in [['(', ')'], ['{', '}'], ['[', ']']]
+    exe "inoremap " . pair[0] . " " . pair[0] . pair[1] . "<Left>"
+    exe "inoremap " . pair[0] . "<CR> " . pair[0] . "<CR>" . pair[1] . "<Esc>O"
+    exe "inoremap <expr> " . pair[1] . " strpart(getline('.'), col('.')-1, 1) == '" . pair[1] . "' ? '<Right>' : '" . pair[1] . "'"
+endfor
+inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<Left>" : "\'"
+inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
 " }}}
 " tab for completion {{{
 inoremap <expr> <Tab> strpart(getline('.'), 0, col('.')-1) =~ '^\s*$' ? "\<Tab>" : "\<C-n>"
