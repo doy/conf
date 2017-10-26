@@ -578,7 +578,7 @@ inoremap <expr> '      strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>"
 inoremap <expr> "      strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
 " }}}
 " tab for completion {{{
-inoremap <Tab> <C-n>
+inoremap <expr> <Tab> strpart(getline('.'), 0, col('.')-1) =~ '^\s*$' ? "\<Tab>" : "\<C-n>"
 inoremap <S-Tab> <C-p>
 " }}}
 " Miscellaneous {{{
@@ -637,22 +637,21 @@ endif
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 
-let i_tab = maparg("<Tab>", "i")
-let i_stab = maparg("<S-Tab>", "i")
-let s_tab = maparg("<Tab>", "s")
-" XXX *surely* this eval isn't actually necessary
+let i_tab = maparg("<Tab>", "i", 0, 1)
+let i_stab = maparg("<S-Tab>", "i", 0, 1)
+let s_tab = maparg("<Tab>", "s", 0, 1)
 imap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ eval('"\' . i_tab . '"')
+                \ i_tab["expr"] ? eval(i_tab["rhs"]) : eval("\"\\" . i_tab["rhs"] . "\"")
 imap <expr><S-Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ eval('"\' . i_stab . '"')
+                \ i_stab["expr"] ? eval(i_stab["rhs"]) : eval("\"\\" . i_stab["rhs"] . "\"")
 smap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ eval('"\' . s_tab . '"')
+                \ s_tab["expr"] ? eval(s_tab["rhs"]) : eval("\"\\" . s_tab["rhs"] . "\"")
 " }}}
 " perl
 " puppet
