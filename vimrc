@@ -617,6 +617,7 @@ nnoremap <silent>b :Denite -direction=dynamictop buffer<CR>
 nnoremap <silent>ff :Denite -direction=dynamictop grep:.::!<CR>
 nnoremap <silent>fh :Denite -direction=dynamictop help<CR>
 nnoremap <silent>ft :Denite -direction=dynamictop filetype<CR>
+nnoremap <silent>f/ :Denite -direction=dynamictop line<CR>
 " }}}
 " ft-bzl
 " git
