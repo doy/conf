@@ -6,6 +6,7 @@ export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/local:${HOME}/.bin:/usr/
 # }}}
 # language environments {{{
 test -f $HOME/perl5/perlbrew/etc/bashrc && source $HOME/perl5/perlbrew/etc/bashrc
+test -f $HOME/python/bin/activate && source $HOME/python/bin/activate
 type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
 # }}}
