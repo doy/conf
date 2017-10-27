@@ -90,10 +90,7 @@ augroup vimrc
 augroup END
 " }}}
 " When editing a file, always jump to the last cursor position {{{
-autocmd vimrc BufReadPost *
-\  if &filetype != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-\    exe "normal g`\"" |
-\  endif
+autocmd vimrc BufReadPost * normal! g`"
 " }}}
 " Prompt to create directories if they don't exist {{{
 autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
