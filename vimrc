@@ -443,17 +443,17 @@ function! s:vcs_orig(file)
         throw 'No VCS directory found'
     endif
 endfunction
-nnoremap <silent>ds :call <SID>diffstart('read # <bar> normal ggdd')<CR>
-nnoremap <silent>dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#:.")), "\n", 1)) <bar> normal Gdddd')<CR>
+nnoremap <silent>ds :call <SID>diffstart('read # <bar> normal! ggdd')<CR>
+nnoremap <silent>dc :call <SID>diffstart('call append(0, split(s:vcs_orig(expand("#:.")), "\n", 1)) <bar> normal! Gdddd')<CR>
 nnoremap <silent>de :call <SID>diffstop()<CR>
 " }}}
 " nopaste {{{
 function! s:nopaste(visual)
     if a:visual
-        silent exe "normal gv:!nopaste\<CR>"
+        silent normal! gv:!nopaste<CR>
     else
         let l:pos = getpos('.')
-        silent exe "normal :%!nopaste\<CR>"
+        silent normal! :%!nopaste<CR>
     endif
     silent normal! "+yy
     let @* = @+
