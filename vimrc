@@ -243,15 +243,15 @@ let g:s_tab = maparg("<Tab>", "s", 0, 1)
 imap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ g:i_tab["expr"] ? eval(g:i_tab["rhs"]) : eval("\"\\" . g:i_tab["rhs"] . "\"")
+                \ g:i_tab["expr"] ? eval(g:i_tab["rhs"]) : g:i_tab["rhs"]
 imap <expr><S-Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ g:i_stab["expr"] ? eval(g:i_stab["rhs"]) : eval("\"\\" . g:i_stab["rhs"] . "\"")
+                \ g:i_stab["expr"] ? eval(g:i_stab["rhs"]) : g:i_stab["rhs"]
 smap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ g:s_tab["expr"] ? eval(g:s_tab["rhs"]) : eval("\"\\" . g:s_tab["rhs"] . "\"")
+                \ g:s_tab["expr"] ? eval(g:s_tab["rhs"]) : g:s_tab["rhs"]
 " }}}
 " perl
 " puppet
