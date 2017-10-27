@@ -38,4 +38,4 @@ alias utc="env TZ=UTC date"
 alias pd="perldoc"
 # }}}
 
-# vim:ft=sh:
+# vim:ft=sh:fdm=marker

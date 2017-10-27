@@ -125,3 +125,4 @@ zle -N zle-keymap-select
 # fortune {{{
 fortune -n600 -s ~/.fortune | grep -v -E "^$"
 # }}}
+# vim: fdm=marker

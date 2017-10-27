@@ -9,4 +9,4 @@
 # local {{{
 INCLUDERC=$PMDIR/local.rc
 # }}}
-# vim:ft=procmail:
+# vim:ft=procmail:fdm=marker

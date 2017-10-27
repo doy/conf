@@ -181,3 +181,4 @@ set mail_check=0
 # aliases {{{
 set query_command = "abook --mutt-query '%s'"
 # }}}
+# vim: fdm=marker

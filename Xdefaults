@@ -54,4 +54,4 @@ xterm*bellIsUrgent: true
 *.color15:#ffffff
 ! }}}
 
-! vim:ft=xdefaults:
+! vim:ft=xdefaults:fdm=marker

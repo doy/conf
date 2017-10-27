@@ -56,3 +56,4 @@ export PROMPT_COMMAND="__err=\$?;$PROMPT_COMMAND;PS1=\"\$(fancy-prompt --prompt-
 # fortune {{{
 fortune -n600 -s ~/.fortune | grep -v -E "^$"
 # }}}
+# vim: fdm=marker
