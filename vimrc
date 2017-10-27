@@ -97,17 +97,8 @@ xnoremap > >gv
 noremap  <silent>M :<C-u>make<CR><CR><C-W>k
 " }}}
 " F11 for spell checking {{{
-function! s:spell()
-    if !exists("s:spell_check") || s:spell_check == 0
-        let s:spell_check = 1
-        setlocal spell spelllang=en_us
-    else
-        let s:spell_check = 0
-        setlocal spell spelllang=
-    endif
-endfunction
-noremap  <silent><F11> :<C-u>call <SID>spell()<CR>
-inoremap <silent><F11> <C-o>:call <SID>spell()<CR>
+noremap  <silent><expr><F11> &spell ? ":\<C-u>setlocal nospell\<CR>" : ":\<C-u>setlocal spell\<CR>"
+inoremap <silent><expr><F11> &spell ? "\<C-o>:setlocal nospell\<CR>" : "\<C-o>:setlocal spell\<CR>"
 " }}}
 " arrow keys {{{
 noremap  <up>   gk
