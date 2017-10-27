@@ -299,8 +299,6 @@ let g:terraform_fmt_on_save = 1
 let g:Textobj_defs = [
    \['/', 'Textobj_paired', '/'],
    \['\|', 'Textobj_paired', '\|'],
-   \['f', 'Textobj_fold'],
-   \[',', 'Textobj_arg'],
 \]
 " }}}
 " Load plugins that don't use vim's format {{{
