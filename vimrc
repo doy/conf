@@ -68,13 +68,8 @@ set background=light
 set t_Co=256
 " }}}
 " recolorings {{{
-highlight Pmenu             ctermfg=grey       ctermbg=darkblue  guifg=grey   guibg=darkblue
-highlight PmenuSel          ctermfg=red        ctermbg=darkblue  guifg=red    guibg=darkblue
-highlight PmenuSbar                            ctermbg=cyan                   guibg=cyan
-highlight PmenuThumb        ctermfg=red                          guifg=red    
-highlight WildMenu          ctermfg=grey       ctermbg=darkblue  guifg=grey   guibg=darkblue
-highlight Folded            ctermfg=darkgreen  ctermbg=black     guifg=green  guibg=black 
-highlight Search      NONE  ctermfg=red                          guifg=red
+highlight Folded ctermfg=darkgreen ctermbg=black guifg=green guibg=black
+highlight Search NONE ctermfg=red guifg=red
 " }}}
 " highlight end of line whitespace {{{
 augroup eolws
