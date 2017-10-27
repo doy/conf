@@ -6,6 +6,7 @@ export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/local:${HOME}/.bin:/usr/
 test -f $HOME/perl5/perlbrew/etc/bashrc && source $HOME/perl5/perlbrew/etc/bashrc
 test -f $HOME/python/bin/activate && source $HOME/python/bin/activate
 type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
+test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
 # }}}
 # Test for an interactive shell. {{{
 # There is no need to set anything past this point for scp and rcp, and it's
