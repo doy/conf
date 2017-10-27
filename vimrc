@@ -56,9 +56,10 @@ set ignorecase
 set smartcase
 " }}}
 " terminal stuff {{{
-set vb t_vb=
 set ttimeoutlen=50
 set ttyfast
+set t_vb=
+set visualbell
 " }}}
 " }}}
 " colors {{{
@@ -76,18 +77,54 @@ highlight Folded            ctermfg=darkgreen  ctermbg=black     guifg=green  gu
 highlight Search      NONE  ctermfg=red                          guifg=red
 " }}}
 " highlight end of line whitespace {{{
-autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
-autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+augroup eolws
+    autocmd!
+    autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+    autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+augroup END
 highlight EOLWS ctermbg=red guibg=red
 " }}}
 " highlight diff conflict markers {{{
 match ErrorMsg '^\(<\||\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " }}}
+" hooks {{{
+" general {{{
+augroup vimrc
+    autocmd!
+augroup END
+" }}}
+" When editing a file, always jump to the last cursor position {{{
+autocmd vimrc BufReadPost *
+\  if &filetype != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+\    exe "normal g`\"" |
+\  endif
+" }}}
+" Prompt to create directories if they don't exist {{{
+autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
+function! s:ensure_dir_exists ()
+    let l:required_dir = expand("%:h")
+    if !isdirectory(l:required_dir)
+        call <SID>ask_quit("Directory '" . l:required_dir . "' doesn't exist.", "&Create it?")
+
+        try
+            call mkdir( l:required_dir, 'p' )
+        catch
+            call <SID>ask_quit("Can't create '" . l:required_dir . "'", "&Continue anyway?")
+        endtry
+    endif
+endfunction
+function! s:ask_quit (msg, proposed_action)
+    if confirm(a:msg, "&Quit?\n" . a:proposed_action) == 1
+        exit
+    endif
+endfunction
+" }}}
+" }}}
 " bindings {{{
 " general {{{
-let mapleader = ';'
-let maplocalleader = ';'
+let g:mapleader = ';'
+let g:maplocalleader = ';'
 " }}}
 " keep the current selection when indenting {{{
 xnoremap < <gv
@@ -111,10 +148,10 @@ nnoremap <C-B> :%!xxd<CR>
 nnoremap <C-R> :%!xxd -r<CR>
 " }}}
 " auto-append closing characters {{{
-for pair in [['(', ')'], ['{', '}'], ['[', ']']]
-    exe "inoremap " . pair[0] . " " . pair[0] . pair[1] . "<Left>"
-    exe "inoremap " . pair[0] . "<CR> " . pair[0] . "<CR>" . pair[1] . "<Esc>O"
-    exe "inoremap <expr> " . pair[1] . " strpart(getline('.'), col('.')-1, 1) == '" . pair[1] . "' ? '<Right>' : '" . pair[1] . "'"
+for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
+    exe "inoremap " . s:pair[0] . " " . s:pair[0] . s:pair[1] . "<Left>"
+    exe "inoremap " . s:pair[0] . "<CR> " . s:pair[0] . "<CR>" . s:pair[1] . "<Esc>O"
+    exe "inoremap <expr> " . s:pair[1] . " strpart(getline('.'), col('.')-1, 1) == '" . s:pair[1] . "' ? '<Right>' : '" . s:pair[1] . "'"
 endfor
 inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<Left>" : "\'"
 inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
@@ -146,39 +183,11 @@ nnoremap , :
 xnoremap , :
 nnoremap ! :!
 xnoremap ! :!
-autocmd BufEnter * exe "nnoremap T :e " . expand('%')
+autocmd vimrc BufEnter * exe "nnoremap T :e " . expand('%')
 nnoremap <silent><Leader>/ :nohl<CR>
 nnoremap <silent><Tab>     :w<CR>
 nnoremap <silent>\         :q<CR>
 nnoremap <silent><C-D>     :bd<CR>
-" }}}
-" }}}
-" hooks {{{
-" When editing a file, always jump to the last cursor position {{{
-autocmd BufReadPost *
-\  if &filetype != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-\    exe "normal g`\"" |
-\  endif
-" }}}
-" Prompt to create directories if they don't exist {{{
-autocmd BufNewFile * :call <SID>ensure_dir_exists()
-function! s:ensure_dir_exists ()
-    let required_dir = expand("%:h")
-    if !isdirectory(required_dir)
-        call <SID>ask_quit("Directory '" . required_dir . "' doesn't exist.", "&Create it?")
-
-        try
-            call mkdir( required_dir, 'p' )
-        catch
-            call <SID>ask_quit("Can't create '" . required_dir . "'", "&Continue anyway?")
-        endtry
-    endif
-endfunction
-function! s:ask_quit (msg, proposed_action)
-    if confirm(a:msg, "&Quit?\n" . a:proposed_action) == 1
-        exit
-    endif
-endfunction
 " }}}
 " }}}
 " plugin configuration {{{
@@ -193,15 +202,15 @@ let g:ale_history_log_output = 0
 map <silent><Leader>x :Commentary<CR>
 " }}}
 " denite {{{
-autocmd VimEnter * call denite#custom#map('insert', '<Tab>', '<denite:move_to_next_line>')
-autocmd VimEnter * call denite#custom#map('insert', '<S-Tab>', '<denite:move_to_previous_line>')
+autocmd vimrc VimEnter * call denite#custom#map('insert', '<Tab>', '<denite:move_to_next_line>')
+autocmd vimrc VimEnter * call denite#custom#map('insert', '<S-Tab>', '<denite:move_to_previous_line>')
 if executable('ag')
-    autocmd VimEnter * call denite#custom#var('file_rec', 'command', ['ag', '--hidden', '-l', '.'])
-    autocmd VimEnter * call denite#custom#var('grep', 'command', ['ag'])
-    autocmd VimEnter * call denite#custom#var('grep', 'default_opts', ['--hidden'])
-    autocmd VimEnter * call denite#custom#var('grep', 'recursive_opts', [])
-    autocmd VimEnter * call denite#custom#var('grep', 'pattern_opt', [])
-    autocmd VimEnter * call denite#custom#var('grep', 'separator', [])
+    autocmd vimrc VimEnter * call denite#custom#var('file_rec', 'command', ['ag', '--hidden', '-l', '.'])
+    autocmd vimrc VimEnter * call denite#custom#var('grep', 'command', ['ag'])
+    autocmd vimrc VimEnter * call denite#custom#var('grep', 'default_opts', ['--hidden'])
+    autocmd vimrc VimEnter * call denite#custom#var('grep', 'recursive_opts', [])
+    autocmd vimrc VimEnter * call denite#custom#var('grep', 'pattern_opt', [])
+    autocmd vimrc VimEnter * call denite#custom#var('grep', 'separator', [])
 endif
 nnoremap <silent>t :Denite -direction=dynamictop buffer file_rec<CR>
 nnoremap <silent>b :Denite -direction=dynamictop buffer<CR>
@@ -228,21 +237,21 @@ endif
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 
-let i_tab = maparg("<Tab>", "i", 0, 1)
-let i_stab = maparg("<S-Tab>", "i", 0, 1)
-let s_tab = maparg("<Tab>", "s", 0, 1)
+let g:i_tab = maparg("<Tab>", "i", 0, 1)
+let g:i_stab = maparg("<S-Tab>", "i", 0, 1)
+let g:s_tab = maparg("<Tab>", "s", 0, 1)
 imap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ i_tab["expr"] ? eval(i_tab["rhs"]) : eval("\"\\" . i_tab["rhs"] . "\"")
+                \ g:i_tab["expr"] ? eval(g:i_tab["rhs"]) : eval("\"\\" . g:i_tab["rhs"] . "\"")
 imap <expr><S-Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ i_stab["expr"] ? eval(i_stab["rhs"]) : eval("\"\\" . i_stab["rhs"] . "\"")
+                \ g:i_stab["expr"] ? eval(g:i_stab["rhs"]) : eval("\"\\" . g:i_stab["rhs"] . "\"")
 smap <expr><Tab>
             \ neosnippet#expandable_or_jumpable() ?
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ s_tab["expr"] ? eval(s_tab["rhs"]) : eval("\"\\" . s_tab["rhs"] . "\"")
+                \ g:s_tab["expr"] ? eval(g:s_tab["rhs"]) : eval("\"\\" . g:s_tab["rhs"] . "\"")
 " }}}
 " perl
 " puppet
@@ -265,19 +274,19 @@ let g:startify_custom_indices = [
             \'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
             \]
 let g:startify_custom_header = []
-let fortune = system('fortune -n200 -s ~/.fortune | grep -v -E "^$"')
-let g:startify_custom_footer = [''] + map(split(fortune, '\n'), '"   ".v:val')
+let s:fortune = system('fortune -n200 -s ~/.fortune | grep -v -E "^$"')
+let g:startify_custom_footer = [''] + map(split(s:fortune, '\n'), '"   ".v:val')
 let g:startify_skiplist = ['^/usr/share/vim', '/.git/']
-for file in [ '.gitignore', expand('~/.gitignore') ]
-    if filereadable(file)
-        for line in readfile(file)
-            let line = substitute(line, '#.*', '', '')
-            if line != '' && line[0] != '!'
-                let line = substitute(line, "[~.]", "\\\\&", 'g')
-                let line = substitute(line, "\\*\\*", ".*", 'g')
-                let line = substitute(line, "\\*", "[^/]*", 'g')
-                let line = substitute(line, "?", ".", 'g')
-                call add(g:startify_skiplist, line)
+for s:file in [ '.gitignore', expand('~/.gitignore') ]
+    if filereadable(s:file)
+        for s:line in readfile(s:file)
+            let s:line = substitute(s:line, '#.*', '', '')
+            if s:line != '' && s:line[0] != '!'
+                let s:line = substitute(s:line, "[~.]", "\\\\&", 'g')
+                let s:line = substitute(s:line, "\\*\\*", ".*", 'g')
+                let s:line = substitute(s:line, "\\*", "[^/]*", 'g')
+                let s:line = substitute(s:line, "?", ".", 'g')
+                call add(g:startify_skiplist, s:line)
             endif
         endfor
     endif
@@ -305,13 +314,16 @@ autocmd BufWinEnter,FileType * runtime plugin/rainbow_paren.vim
 " }}}
 " things that should be plugins {{{
 " update zsh history when editing a new file - see 'vim' wrapper in .zshrc {{{
-if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
+if $SHELL =~# 'zsh' && exists('g:_zsh_hist_fname')
     let s:initial_files = {}
 
-    autocmd VimEnter * call <SID>init_zsh_hist()
-    autocmd BufNewFile,BufRead * call <SID>zsh_hist_append()
-    autocmd BufDelete * call <SID>remove_initial_file(expand("<afile>"))
-    autocmd VimLeave * call <SID>reorder_zsh_hist()
+    augroup zshhistory
+        autocmd!
+        autocmd VimEnter * call <SID>init_zsh_hist()
+        autocmd BufNewFile,BufRead * call <SID>zsh_hist_append()
+        autocmd BufDelete * call <SID>remove_initial_file(expand("<afile>"))
+        autocmd VimLeave * call <SID>reorder_zsh_hist()
+    augroup END
 
     function! s:remove_initial_file (file)
         if has_key(s:initial_files, a:file)
@@ -319,54 +331,54 @@ if $SHELL =~ 'zsh' && exists('g:_zsh_hist_fname')
         endif
     endfunction
     function! s:get_buffer_list_text ()
-        redir => output
+        redir => l:output
         ls!
         redir END
-        return output
+        return l:output
     endfunction
     function! s:get_buffer_list ()
-        silent let output = <SID>get_buffer_list_text()
-        let buffer_list = []
-        for buffer_desc in split(output, "\n")
-            let name = bufname(str2nr(buffer_desc))
-            if name != ""
-                call add(buffer_list, name)
+        silent let l:output = <SID>get_buffer_list_text()
+        let l:buffer_list = []
+        for l:buffer_desc in split(l:output, "\n")
+            let l:name = bufname(str2nr(l:buffer_desc))
+            if l:name != ""
+                call add(l:buffer_list, l:name)
             endif
         endfor
-        return buffer_list
+        return l:buffer_list
     endfunction
     function! s:init_zsh_hist ()
-        for fname in <SID>get_buffer_list()
-            let s:initial_files[fname] = 1
-            call histadd(":", "e " . fname)
+        for l:fname in <SID>get_buffer_list()
+            let s:initial_files[l:fname] = 1
+            call histadd(":", "e " . l:fname)
         endfor
         call delete(g:_zsh_hist_fname)
     endfunction
     function! s:zsh_hist_append ()
-        let to_append = expand("%:~:.")
+        let l:to_append = expand("%:~:.")
         " XXX these set buftype too late to be caught by this...
         " this is broken, but not sure what a better fix is
-        if &buftype == '' && to_append !~ '^\(__Gundo\|Startify\|\[denite\]\)'
-            if !has_key(s:initial_files, to_append)
+        if &buftype == '' && l:to_append !~# '^\(__Gundo\|Startify\|\[denite\]\)'
+            if !has_key(s:initial_files, l:to_append)
                 if filereadable(g:_zsh_hist_fname)
-                    let hist = readfile(g:_zsh_hist_fname)
+                    let l:hist = readfile(g:_zsh_hist_fname)
                 else
-                    let hist = []
+                    let l:hist = []
                 endif
-                call add(hist, to_append)
-                call writefile(hist, g:_zsh_hist_fname)
+                call add(l:hist, l:to_append)
+                call writefile(l:hist, g:_zsh_hist_fname)
             endif
         endif
     endfunction
     function! s:reorder_zsh_hist ()
-        let current_file = expand("%:~:.")
+        let l:current_file = expand("%:~:.")
         if filereadable(g:_zsh_hist_fname)
-            let hist = readfile(g:_zsh_hist_fname)
-            if !has_key(s:initial_files, current_file)
-                call filter(hist, 'v:val != current_file')
+            let l:hist = readfile(g:_zsh_hist_fname)
+            if !has_key(s:initial_files, l:current_file)
+                call filter(l:hist, 'v:val != l:current_file')
             endif
-            call add(hist, current_file)
-            call writefile(hist, g:_zsh_hist_fname)
+            call add(l:hist, l:current_file)
+            call writefile(l:hist, g:_zsh_hist_fname)
         endif
     endfunction
 endif
@@ -381,10 +393,10 @@ function! s:diffstart(read_cmd)
     endif
     let s:foldmethod = &foldmethod
     let s:foldenable = &foldenable
-    let filetype = &filetype
+    let l:filetype = &filetype
     vert new
     let s:diffwindow = winnr()
-    set bt=nofile
+    set buftype=nofile
     try
         exe a:read_cmd
     catch /.*/
@@ -394,12 +406,12 @@ function! s:diffstart(read_cmd)
         call s:diffstop()
         return
     endtry
-    let &filetype = filetype
+    let &filetype = l:filetype
     diffthis
     wincmd p
     diffthis
     " why does this not happen automatically?
-    normal zM
+    normal! zM
 endfunction
 function! s:diffstop()
     if s:diffwindow == 0
@@ -411,24 +423,24 @@ function! s:diffstop()
     let &foldmethod = s:foldmethod
     let &foldenable = s:foldenable
     if &foldenable
-        normal zv
+        normal! zv
     endif
     let s:diffwindow = 0
 endfunction
 function! s:vcs_orig(file)
     " XXX: would be nice to use a:file rather than # here...
-    let dir = expand('#:p:h')
-    if filewritable(dir . '/.svn') == 2
+    let l:dir = expand('#:p:h')
+    if filewritable(l:dir . '/.svn') == 2
         return system('svn cat ' . a:file)
-    elseif filewritable(dir . '/CVS') == 2
+    elseif filewritable(l:dir . '/CVS') == 2
         return system("AFILE=" . a:file . "; MODFILE=`tempfile`; DIFF=`tempfile`; cp $AFILE $MODFILE && cvs diff -u $AFILE > $DIFF; patch -R $MODFILE $DIFF 2>&1 > /dev/null && cat $MODFILE; rm $MODFILE $DIFF")
-    elseif finddir('_darcs', dir . ';') =~ '_darcs'
+    elseif finddir('_darcs', l:dir . ';') =~# '_darcs'
         return system('darcs show contents ' . a:file)
-    elseif finddir('.git', dir . ';') =~ '.git'
-        let prefix = system('git rev-parse --show-prefix')
-        let prefix = substitute(prefix, '\n', '', 'g')
-        let cmd = 'git show HEAD:'.prefix.a:file
-        return system(cmd)
+    elseif finddir('.git', l:dir . ';') =~# '.git'
+        let l:prefix = system('git rev-parse --show-prefix')
+        let l:prefix = substitute(l:prefix, '\n', '', 'g')
+        let l:cmd = 'git show HEAD:'.l:prefix.a:file
+        return system(l:cmd)
     else
         throw 'No VCS directory found'
     endif
@@ -442,15 +454,15 @@ function! s:nopaste(visual)
     if a:visual
         silent exe "normal gv:!nopaste\<CR>"
     else
-        let pos = getpos('.')
+        let l:pos = getpos('.')
         silent exe "normal :%!nopaste\<CR>"
     endif
-    silent normal "+yy
+    silent normal! "+yy
     let @* = @+
     silent undo
     " can't restore visual selection because that will overwrite "*
     if !a:visual
-        call setpos('.', pos)
+        call setpos('.', l:pos)
     endif
     echo @+
 endfunction
@@ -459,23 +471,23 @@ xnoremap <silent><Leader>p :<C-U>call <SID>nopaste(1)<CR>
 " }}}
 " better version of keywordprg {{{
 function! Help(visual, iskeyword, command)
-    let iskeyword = &iskeyword
-    for kw in a:iskeyword
-        exe 'set iskeyword+=' . kw
+    let l:iskeyword = &iskeyword
+    for l:kw in a:iskeyword
+        exe 'set iskeyword+=' . l:kw
     endfor
     if a:visual
-        let oldreg = @a
+        let l:oldreg = @a
         " XXX this seems to not include the end of the selection - why?
-        normal `<"ay`>gv
-        let word = @a
-        let @a = oldreg
+        normal! `<"ay`>gv
+        let l:word = @a
+        let @a = l:oldreg
     else
-        let word = expand('<cword>')
+        let l:word = expand('<cword>')
     endif
-    let &iskeyword = iskeyword
+    let &iskeyword = l:iskeyword
     exe &helpheight . 'new'
     set modifiable
-    exe 'call ' . a:command . '("' . word . '")'
+    exe 'call ' . a:command . '("' . l:word . '")'
     try
         silent %s/\%x1b\[\d\+m//g
     catch /.*/
@@ -484,14 +496,14 @@ function! Help(visual, iskeyword, command)
         silent %s/.\%x08//g
     catch /.*/
     endtry
-    normal ggdd
-    set bt=nofile
+    normal! ggdd
+    set buftype=nofile
     set nobuflisted
     set nomodifiable
 endfunction
 function! s:man(word)
     exe 'silent read! man -Pcat ' . a:word
-    set ft=man
+    set filetype=man
 endfunction
 nnoremap <silent>K :call Help(0, [], '<SID>man')<CR>
 xnoremap <silent>K :call Help(1, [], '<SID>man')<CR>
