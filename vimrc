@@ -97,7 +97,9 @@ autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
 function! s:ensure_dir_exists ()
     let l:required_dir = expand("%:h")
     if !isdirectory(l:required_dir)
-        call <SID>ask_quit("Directory '" . l:required_dir . "' doesn't exist.", "&Create it?")
+        if <SID>ask_quit("Directory '" . l:required_dir . "' doesn't exist.", "&Create it?")
+            return
+        endif
 
         try
             call mkdir( l:required_dir, 'p' )
@@ -108,8 +110,14 @@ function! s:ensure_dir_exists ()
 endfunction
 function! s:ask_quit (msg, proposed_action)
     if confirm(a:msg, "&Quit?\n" . a:proposed_action) == 1
-        exit
+        if len(getbufinfo()) > 1
+            silent bd
+            return 1
+        else
+            exit
+        end
     endif
+    return 0
 endfunction
 " }}}
 " }}}
