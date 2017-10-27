@@ -22,7 +22,7 @@ esac # }}}
 # aliases {{{
 [ -f "$HOME/.aliases" ] && source $HOME/.aliases
 [ -f "$HOME/.functions" ] && source $HOME/.functions
-mkdir -p $HOME/.vim/data/hist
+mkdir -p $HOME/.cache/vim/hist
 function vim {
     local zsh_hist_fname
     zsh_hist_fname=$HOME/.cache/vim/hist/$$
