@@ -219,9 +219,6 @@ nnoremap <silent>fh :Denite -direction=dynamictop help<CR>
 nnoremap <silent>ft :Denite -direction=dynamictop filetype<CR>
 nnoremap <silent>f/ :Denite -direction=dynamictop line<CR>
 " }}}
-" ft-bzl
-" git
-" go
 " gundo {{{
 if has("python")
     nnoremap <silent>U :silent GundoToggle<CR>
@@ -231,7 +228,6 @@ else
     let g:gundo_disable = 1
 endif
 " }}}
-" ledger
 " multiple-cursors
 " neosnippet {{{
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
@@ -253,14 +249,11 @@ smap <expr><Tab>
                 \ "\<Plug>(neosnippet_expand_or_jump)" :
                 \ g:s_tab["expr"] ? eval(g:s_tab["rhs"]) : g:s_tab["rhs"]
 " }}}
-" perl
-" puppet
 " rainbow {{{
 let g:rainbow = 1
 let g:rainbow_paren = 1
 let g:rainbow_brace = 1
 " }}}
-" rust
 " startify {{{
 let g:startify_list_order = ['dir', 'bookmarks', 'commands']
 let g:startify_files_number = 7
@@ -291,9 +284,6 @@ for s:file in [ '.gitignore', expand('~/.gitignore') ]
         endfor
     endif
 endfor
-" }}}
-" terraform {{{
-let g:terraform_fmt_on_save = 1
 " }}}
 " textobj {{{
 let g:Textobj_defs = [

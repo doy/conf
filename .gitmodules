@@ -2,16 +2,16 @@
 	path = vim/bundle/fuzzyfinder
 	url = git://github.com/vim-scripts/FuzzyFinder
 [submodule "vim/bundle/git"]
-	path = vim/pack/local/start/git
+	path = vim/pack/filetype/start/git
 	url = git://github.com/tpope/vim-git
 [submodule "vim/bundle/gundo"]
-	path = vim/pack/local/start/gundo
+	path = vim/pack/plugins/start/gundo
 	url = git://github.com/sjl/gundo.vim
 [submodule "vim/bundle/l9"]
 	path = vim/bundle/l9
 	url = git://github.com/vim-scripts/L9
 [submodule "vim/bundle/perl"]
-	path = vim/pack/local/start/perl
+	path = vim/pack/filetype/start/perl
 	url = git://github.com/vim-perl/vim-perl
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
@@ -20,7 +20,7 @@
 	path = vim/bundle/supertab
 	url = git://github.com/ervandew/supertab
 [submodule "vim/bundle/textobj"]
-	path = vim/pack/local/start/textobj
+	path = vim/pack/plugins/start/textobj
 	url = git://github.com/doy/vim-textobj
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
@@ -32,16 +32,16 @@
 	path = vim/bundle/addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils
 [submodule "vim/bundle/startify"]
-	path = vim/pack/local/start/startify
+	path = vim/pack/plugins/start/startify
 	url = git://github.com/mhinz/vim-startify
 [submodule "vim/bundle/airline"]
-	path = vim/pack/local/start/airline
+	path = vim/pack/plugins/start/airline
 	url = git://github.com/bling/vim-airline
 [submodule "vim/bundle/neocomplete"]
 	path = vim/bundle/neocomplete
 	url = git://github.com/Shougo/neocomplete.vim
 [submodule "vim/bundle/neosnippet"]
-	path = vim/pack/local/start/neosnippet
+	path = vim/pack/plugins/start/neosnippet
 	url = git://github.com/Shougo/neosnippet.vim
 [submodule "zsh/opp"]
 	path = zsh/opp
@@ -53,16 +53,16 @@
 	path = vim/bundle/julia
 	url = git://github.com/JuliaLang/julia-vim
 [submodule "vim/bundle/puppet"]
-	path = vim/pack/local/start/puppet
+	path = vim/pack/filetype/start/puppet
 	url = git://github.com/rodjek/vim-puppet
 [submodule "vim/bundle/go"]
-	path = vim/pack/local/start/go
+	path = vim/pack/filetype/start/go
 	url = git://github.com/fatih/vim-go
 [submodule "vim/bundle/rust"]
-	path = vim/pack/local/start/rust
+	path = vim/pack/filetype/start/rust
 	url = git://github.com/rust-lang/rust.vim
 [submodule "vim/bundle/ft-bzl"]
-	path = vim/pack/local/start/ft-bzl
+	path = vim/pack/filetype/start/ft-bzl
 	url = git://github.com/google/vim-ft-bzl
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
@@ -77,20 +77,20 @@
 	path = zsh/anyframe
 	url = git://github.com/mollifier/anyframe
 [submodule "vim/bundle/ledger"]
-	path = vim/pack/local/start/ledger
+	path = vim/pack/filetype/start/ledger
 	url = git://github.com/ledger/vim-ledger
 [submodule "vim/pack/local/start/denite"]
-	path = vim/pack/local/start/denite
+	path = vim/pack/plugins/start/denite
 	url = git://github.com/Shougo/denite.nvim
 [submodule "vim/pack/local/start/ale"]
-	path = vim/pack/local/start/ale
+	path = vim/pack/plugins/start/ale
 	url = git://github.com/w0rp/ale
 [submodule "vim/pack/local/start/multiple-cursors"]
-	path = vim/pack/local/start/multiple-cursors
+	path = vim/pack/plugins/start/multiple-cursors
 	url = git://github.com/terryma/vim-multiple-cursors
 [submodule "vim/pack/local/start/terraform"]
-	path = vim/pack/local/start/terraform
+	path = vim/pack/filetype/start/terraform
 	url = git://github.com/hashivim/vim-terraform
 [submodule "vim/pack/local/start/commentary"]
-	path = vim/pack/local/start/commentary
+	path = vim/pack/plugins/start/commentary
 	url = git://github.com/tpope/vim-commentary
