@@ -90,7 +90,7 @@ augroup vimrc
 augroup END
 " }}}
 " When editing a file, always jump to the last cursor position {{{
-autocmd vimrc BufReadPost * normal! g`"
+autocmd vimrc BufReadPost * if line("'\"") <= line("$") | exe "normal! g`\"" | endif
 " }}}
 " Prompt to create directories if they don't exist {{{
 autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
