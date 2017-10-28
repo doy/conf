@@ -470,6 +470,21 @@ function s:move_cursor_to_pos(lnum, col)
     let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
     call setpos('.', [l:bufnr, a:lnum, a:col, 0, a:col])
 endfunction
+let s:pair_cr_maps = {
+\    '(': "<SID>go_up()",
+\    '[': "<SID>go_up()",
+\    '{': "<SID>go_up()",
+\}
+function s:maybe_reposition_cursor()
+    let l:prevchar = strpart(getline('.'), col('.')-2, 1)
+    if has_key(s:pair_cr_maps, l:prevchar)
+        return eval(s:pair_cr_maps[l:prevchar])
+    endif
+    return "\<CR>"
+endfunction
+function s:go_up()
+    return "\<CR>\<C-O>O"
+endfunction
 let s:pair_bs_maps = {
 \    '"': "<SID>maybe_remove_adjacent_char('\"')",
 \    "'": "<SID>maybe_remove_adjacent_char(\"'\")",
@@ -527,12 +542,12 @@ function s:chars_between(start, end)
 endfunction
 for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
     exe "inoremap <silent> " . s:pair[0] . " " . s:pair[0] . s:pair[1] . "<C-R>=<SID>move_cursor_left()?\"\":\"\"<CR>"
-    exe "inoremap <silent> " . s:pair[0] . "<CR> " . s:pair[0] . "<CR>" . s:pair[1] . "<Esc>O"
     exe "inoremap <silent><expr> " . s:pair[1] . " strpart(getline('.'), col('.')-1, 1) == '" . s:pair[1] . "' ? '<C-R>=<SID>move_cursor_right()?\"\":\"\"<CR>' : '" . s:pair[1] . "'"
 endfor
 inoremap <silent><expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<C-R>=\<SID>move_cursor_left()?'':''\<CR>" : "\'"
 inoremap <silent><expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()?'':''\<CR>"
 inoremap <silent> <BS> <C-R>=<SID>maybe_remove_matching_pair()<CR>
+inoremap <silent> <CR> <C-R>=<SID>maybe_reposition_cursor()<CR>
 " }}}
 " Prompt to create directories if they don't exist {{{
 autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
