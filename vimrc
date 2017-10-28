@@ -1,10 +1,4 @@
 " options {{{
-" general {{{
-set nocompatible
-filetype indent plugin on
-syntax on
-set modeline " some systems disable this by default
-" }}}
 " persistence {{{
 set history=10000
 if has("persistent_undo")
@@ -64,6 +58,7 @@ set visualbell
 " }}}
 " colors {{{
 " general {{{
+syntax on
 set background=light
 set t_Co=256
 " }}}
@@ -154,6 +149,9 @@ nnoremap <silent><C-D>     :bd<CR>
 " }}}
 " }}}
 " plugin configuration {{{
+" general {{{
+filetype indent plugin on
+" }}}
 " ale {{{
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
