@@ -92,34 +92,6 @@ augroup END
 " When editing a file, always jump to the last cursor position {{{
 autocmd vimrc BufReadPost * if line("'\"") <= line("$") | exe "normal! g`\"" | endif
 " }}}
-" Prompt to create directories if they don't exist {{{
-autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
-function! s:ensure_dir_exists ()
-    let l:required_dir = expand("%:h")
-    if !isdirectory(l:required_dir)
-        if <SID>ask_quit("Directory '" . l:required_dir . "' doesn't exist.", "&Create it?")
-            return
-        endif
-
-        try
-            call mkdir( l:required_dir, 'p' )
-        catch
-            call <SID>ask_quit("Can't create '" . l:required_dir . "'", "&Continue anyway?")
-        endtry
-    endif
-endfunction
-function! s:ask_quit (msg, proposed_action)
-    if confirm(a:msg, "&Quit?\n" . a:proposed_action) == 1
-        if len(getbufinfo()) > 1
-            silent bd
-            return 1
-        else
-            exit
-        end
-    endif
-    return 0
-endfunction
-" }}}
 " }}}
 " bindings {{{
 " general {{{
@@ -517,6 +489,34 @@ for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
 endfor
 inoremap <silent><expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<C-R>=\<SID>move_cursor_left()?'':''\<CR>" : "\'"
 inoremap <silent><expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()?'':''\<CR>"
+" }}}
+" Prompt to create directories if they don't exist {{{
+autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
+function! s:ensure_dir_exists ()
+    let l:required_dir = expand("%:h")
+    if !isdirectory(l:required_dir)
+        if <SID>ask_quit("Directory '" . l:required_dir . "' doesn't exist.", "&Create it?")
+            return
+        endif
+
+        try
+            call mkdir( l:required_dir, 'p' )
+        catch
+            call <SID>ask_quit("Can't create '" . l:required_dir . "'", "&Continue anyway?")
+        endtry
+    endif
+endfunction
+function! s:ask_quit (msg, proposed_action)
+    if confirm(a:msg, "&Quit?\n" . a:proposed_action) == 1
+        if len(getbufinfo()) > 1
+            silent bd
+            return 1
+        else
+            exit
+        end
+    endif
+    return 0
+endfunction
 " }}}
 " }}}
 " vim: fdm=marker
