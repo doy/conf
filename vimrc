@@ -459,16 +459,7 @@ xnoremap <silent>K :call Help(1, [], '<SID>man')<CR>
 " }}}
 " auto-append closing characters {{{
 function s:move_cursor_left()
-    let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
-    call setpos('.', [l:bufnr, l:lnum, l:col - 1, 0, l:col - 1])
-endfunction
-function s:move_cursor_right()
-    let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
-    call setpos('.', [l:bufnr, l:lnum, l:col + 1, 0, l:col + 1])
-endfunction
-function s:move_cursor_to_pos(lnum, col)
-    let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
-    call setpos('.', [l:bufnr, a:lnum, a:col, 0, a:col])
+    return "\<Esc>i"
 endfunction
 function s:prevchar()
     return getline('.')[col('.') - 2]
@@ -489,7 +480,7 @@ function s:maybe_reposition_cursor()
     return "\<CR>"
 endfunction
 function s:go_up()
-    return "\<CR>\<C-O>O"
+    return "\<CR>\<Esc>O"
 endfunction
 let s:pair_bs_maps = {
 \    '"': "<SID>maybe_remove_adjacent_char('\"')",
@@ -507,8 +498,7 @@ function s:maybe_remove_matching_pair()
 endfunction
 function s:maybe_remove_adjacent_char(char)
     if s:nextchar() == a:char
-        call s:move_cursor_right()
-        return "\<BS>\<BS>"
+        return "\<BS>\<Del>"
     else
         return "\<BS>"
     endif
@@ -525,41 +515,28 @@ function s:maybe_remove_empty_pair(char)
         return "\<BS>"
     endif
 
-    call s:move_cursor_to_pos(l:end[0], l:end[1] + 1)
-    return repeat("\<BS>", 2 + s:chars_between(l:start, l:end))
-endfunction
-function s:chars_between(start, end)
-    if a:start[0] == a:end[0]
-        return a:end[1] - a:start[1]
+    let l:diff = [l:end[0] - l:start[0], l:end[1] - l:start[1]]
+    if l:diff[0] == 0
+        return "\<BS>" . repeat("\<Del>", l:diff[1] + 1)
+    elseif l:diff[0] == 1
+        return "\<Esc>" . (l:diff[0] + 1) . "Ji" . "\<BS>\<Del>\<Del>"
     else
-        let l:line = getline(a:start[0])
-        let l:after_first = strpart(l:line, a:start[1] - 1)
-
-        let l:line = getline(a:end[0])
-        let l:before_last = strpart(l:line, 0, a:end[1] - 1)
-
-        let l:nchars = len(l:after_first) + len(l:before_last) + 1
-        for l:idx in range(a:start[0] + 1, a:end[0] - 1)
-            let l:nchars = l:nchars + len(getline(l:idx)) + 1
-        endfor
-
-        return l:nchars
+        return "\<Esc>" . (l:diff[0] + 1) . "Ji" . "\<BS>\<BS>\<Del>"
     endif
 endfunction
 function s:skip_closing_char(char)
     if s:nextchar() == a:char
-        call s:move_cursor_right()
-        return ''
+        return "\<Esc>la"
     else
         return a:char
     endif
 endfunction
 for [s:start, s:end] in [['(', ')'], ['{', '}'], ['[', ']']]
-    exe "inoremap <silent> ".s:start." ".s:start.s:end."<C-R>=<SID>move_cursor_left()?'':''<CR>"
+    exe "inoremap <silent> ".s:start." ".s:start.s:end."<C-R>=<SID>move_cursor_left()<CR>"
     exe "inoremap <silent> ".s:end." <C-R>=<SID>skip_closing_char('".s:end."')<CR>"
 endfor
-inoremap <silent><expr> ' <SID>nextchar() == "'" ? "\<C-R>=\<SID>skip_closing_char(\"'\")\<CR>" : col('.') == 1 \|\| match(<SID>prevchar(), '\W') != -1 ? "''\<C-R>=\<SID>move_cursor_left()?'':''\<CR>" : "'"
-inoremap <silent><expr> " <SID>nextchar() == '"' ? "\<C-R>=\<SID>skip_closing_char('\"')\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()?'':''\<CR>"
+inoremap <silent><expr> ' <SID>nextchar() == "'" ? "\<C-R>=\<SID>skip_closing_char(\"'\")\<CR>" : col('.') == 1 \|\| match(<SID>prevchar(), '\W') != -1 ? "''\<C-R>=\<SID>move_cursor_left()\<CR>" : "'"
+inoremap <silent><expr> " <SID>nextchar() == '"' ? "\<C-R>=\<SID>skip_closing_char('\"')\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()\<CR>"
 inoremap <silent> <BS> <C-R>=<SID>maybe_remove_matching_pair()<CR>
 inoremap <silent> <CR> <C-R>=<SID>maybe_reposition_cursor()<CR>
 " }}}
