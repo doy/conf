@@ -480,6 +480,25 @@ function s:move_cursor_right()
     \]
     call setpos('.', l:newpos)
 endfunction
+let s:pair_bs_maps = {
+\    '"': "<SID>maybe_remove_adjacent_char('\"')",
+\    "'": "<SID>maybe_remove_adjacent_char(\"'\")",
+\}
+function s:maybe_remove_matching_pair()
+    let l:prevchar = strpart(getline('.'), col('.')-2, 1)
+    if has_key(s:pair_bs_maps, l:prevchar)
+        return eval(s:pair_bs_maps[l:prevchar])
+    endif
+    return "\<BS>"
+endfunction
+function s:maybe_remove_adjacent_char(char)
+    if strpart(getline('.'), col('.')-1, 1) == a:char
+        call s:move_cursor_right()
+        return "\<BS>\<BS>"
+    else
+        return "\<BS>"
+    endif
+endfunction
 for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
     exe "inoremap <silent> " . s:pair[0] . " " . s:pair[0] . s:pair[1] . "<C-R>=<SID>move_cursor_left()?\"\":\"\"<CR>"
     exe "inoremap <silent> " . s:pair[0] . "<CR> " . s:pair[0] . "<CR>" . s:pair[1] . "<Esc>O"
@@ -487,6 +506,7 @@ for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
 endfor
 inoremap <silent><expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<C-R>=\<SID>move_cursor_left()?'':''\<CR>" : "\'"
 inoremap <silent><expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()?'':''\<CR>"
+inoremap <silent> <BS> <C-R>=<SID>maybe_remove_matching_pair()<CR>
 " }}}
 " Prompt to create directories if they don't exist {{{
 autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
