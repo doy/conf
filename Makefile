@@ -64,7 +64,7 @@ INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
 
 BUILD     = bin/local/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-	    $(addsuffix tags,$(wildcard vim/pack/local/start/*/doc/)) \
+	    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
 	    vim/spell/en.utf-8.add.spl \
 	    less
 
