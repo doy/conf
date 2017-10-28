@@ -459,37 +459,16 @@ xnoremap <silent>K :call Help(1, [], '<SID>man')<CR>
 " }}}
 " auto-append closing characters {{{
 function s:move_cursor_left()
-    let l:pos = getcurpos()
-    let l:newpos = [
-    \    l:pos[0],
-    \    l:pos[1],
-    \    l:pos[2] - 1,
-    \    l:pos[3],
-    \    l:pos[2] - 1,
-    \]
-    call setpos('.', l:newpos)
+    let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
+    call setpos('.', [l:bufnr, l:lnum, l:col - 1, 0, l:col - 1])
 endfunction
 function s:move_cursor_right()
-    let l:pos = getcurpos()
-    let l:newpos = [
-    \    l:pos[0],
-    \    l:pos[1],
-    \    l:pos[2] + 1,
-    \    l:pos[3],
-    \    l:pos[2] + 1,
-    \]
-    call setpos('.', l:newpos)
+    let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
+    call setpos('.', [l:bufnr, l:lnum, l:col + 1, 0, l:col + 1])
 endfunction
 function s:move_cursor_to_pos(lnum, col)
-    let l:pos = getcurpos()
-    let l:newpos = [
-    \    l:pos[0],
-    \    a:lnum,
-    \    a:col,
-    \    0,
-    \    a:col,
-    \]
-    call setpos('.', l:newpos)
+    let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
+    call setpos('.', [l:bufnr, a:lnum, a:col, 0, a:col])
 endfunction
 let s:pair_bs_maps = {
 \    '"': "<SID>maybe_remove_adjacent_char('\"')",
