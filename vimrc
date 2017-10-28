@@ -470,13 +470,19 @@ function s:move_cursor_to_pos(lnum, col)
     let [l:bufnr, l:lnum, l:col, l:off, l:curswant] = getcurpos()
     call setpos('.', [l:bufnr, a:lnum, a:col, 0, a:col])
 endfunction
+function s:prevchar()
+    return getline('.')[col('.') - 2]
+endfunction
+function s:nextchar()
+    return getline('.')[col('.') - 1]
+endfunction
 let s:pair_cr_maps = {
 \    '(': "<SID>go_up()",
 \    '[': "<SID>go_up()",
 \    '{': "<SID>go_up()",
 \}
 function s:maybe_reposition_cursor()
-    let l:prevchar = strpart(getline('.'), col('.')-2, 1)
+    let l:prevchar = s:prevchar()
     if has_key(s:pair_cr_maps, l:prevchar)
         return eval(s:pair_cr_maps[l:prevchar])
     endif
@@ -493,14 +499,14 @@ let s:pair_bs_maps = {
 \    '{': "<SID>maybe_remove_empty_pair('}')",
 \}
 function s:maybe_remove_matching_pair()
-    let l:prevchar = strpart(getline('.'), col('.')-2, 1)
+    let l:prevchar = s:prevchar()
     if has_key(s:pair_bs_maps, l:prevchar)
         return eval(s:pair_bs_maps[l:prevchar])
     endif
     return "\<BS>"
 endfunction
 function s:maybe_remove_adjacent_char(char)
-    if strpart(getline('.'), col('.')-1, 1) == a:char
+    if s:nextchar() == a:char
         call s:move_cursor_right()
         return "\<BS>\<BS>"
     else
@@ -508,19 +514,19 @@ function s:maybe_remove_adjacent_char(char)
     endif
 endfunction
 function s:maybe_remove_empty_pair(char)
-    let l:startpos = [line('.'), col('.')]
-    let l:endpos = searchpos('[^ \t]', 'cnWz')
-    if l:endpos == [0, 0]
+    let l:start = [line('.'), col('.')]
+    let l:end = searchpos('[^ \t]', 'cnWz')
+    if l:end == [0, 0]
         return "\<BS>"
     endif
 
-    let l:next_nonblank = getline(l:endpos[0])[l:endpos[1]-1]
+    let l:next_nonblank = getline(l:end[0])[l:end[1] - 1]
     if l:next_nonblank != a:char
         return "\<BS>"
     endif
 
-    call s:move_cursor_to_pos(l:endpos[0], l:endpos[1] + 1)
-    return repeat("\<BS>", 2 + s:chars_between(l:startpos, l:endpos))
+    call s:move_cursor_to_pos(l:end[0], l:end[1] + 1)
+    return repeat("\<BS>", 2 + s:chars_between(l:start, l:end))
 endfunction
 function s:chars_between(start, end)
     if a:start[0] == a:end[0]
@@ -540,12 +546,20 @@ function s:chars_between(start, end)
         return l:nchars
     endif
 endfunction
-for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
-    exe "inoremap <silent> " . s:pair[0] . " " . s:pair[0] . s:pair[1] . "<C-R>=<SID>move_cursor_left()?\"\":\"\"<CR>"
-    exe "inoremap <silent><expr> " . s:pair[1] . " strpart(getline('.'), col('.')-1, 1) == '" . s:pair[1] . "' ? '<C-R>=<SID>move_cursor_right()?\"\":\"\"<CR>' : '" . s:pair[1] . "'"
+function s:skip_closing_char(char)
+    if s:nextchar() == a:char
+        call s:move_cursor_right()
+        return ''
+    else
+        return a:char
+    endif
+endfunction
+for [s:start, s:end] in [['(', ')'], ['{', '}'], ['[', ']']]
+    exe "inoremap <silent> ".s:start." ".s:start.s:end."<C-R>=<SID>move_cursor_left()?'':''<CR>"
+    exe "inoremap <silent> ".s:end." <C-R>=<SID>skip_closing_char('".s:end."')<CR>"
 endfor
-inoremap <silent><expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<C-R>=\<SID>move_cursor_left()?'':''\<CR>" : "\'"
-inoremap <silent><expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()?'':''\<CR>"
+inoremap <silent><expr> ' <SID>nextchar() == "'" ? "\<C-R>=\<SID>skip_closing_char(\"'\")\<CR>" : col('.') == 1 \|\| match(<SID>prevchar(), '\W') != -1 ? "''\<C-R>=\<SID>move_cursor_left()?'':''\<CR>" : "'"
+inoremap <silent><expr> " <SID>nextchar() == '"' ? "\<C-R>=\<SID>skip_closing_char('\"')\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()?'':''\<CR>"
 inoremap <silent> <BS> <C-R>=<SID>maybe_remove_matching_pair()<CR>
 inoremap <silent> <CR> <C-R>=<SID>maybe_reposition_cursor()<CR>
 " }}}
