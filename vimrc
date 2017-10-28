@@ -480,9 +480,23 @@ function s:move_cursor_right()
     \]
     call setpos('.', l:newpos)
 endfunction
+function s:move_cursor_to_pos(lnum, col)
+    let l:pos = getcurpos()
+    let l:newpos = [
+    \    l:pos[0],
+    \    a:lnum,
+    \    a:col,
+    \    0,
+    \    a:col,
+    \]
+    call setpos('.', l:newpos)
+endfunction
 let s:pair_bs_maps = {
 \    '"': "<SID>maybe_remove_adjacent_char('\"')",
 \    "'": "<SID>maybe_remove_adjacent_char(\"'\")",
+\    '(': "<SID>maybe_remove_empty_pair(')')",
+\    '[': "<SID>maybe_remove_empty_pair(']')",
+\    '{': "<SID>maybe_remove_empty_pair('}')",
 \}
 function s:maybe_remove_matching_pair()
     let l:prevchar = strpart(getline('.'), col('.')-2, 1)
@@ -497,6 +511,39 @@ function s:maybe_remove_adjacent_char(char)
         return "\<BS>\<BS>"
     else
         return "\<BS>"
+    endif
+endfunction
+function s:maybe_remove_empty_pair(char)
+    let l:startpos = [line('.'), col('.')]
+    let l:endpos = searchpos('[^ \t]', 'cnWz')
+    if l:endpos == [0, 0]
+        return "\<BS>"
+    endif
+
+    let l:next_nonblank = getline(l:endpos[0])[l:endpos[1]-1]
+    if l:next_nonblank != a:char
+        return "\<BS>"
+    endif
+
+    call s:move_cursor_to_pos(l:endpos[0], l:endpos[1] + 1)
+    return repeat("\<BS>", 2 + s:chars_between(l:startpos, l:endpos))
+endfunction
+function s:chars_between(start, end)
+    if a:start[0] == a:end[0]
+        return a:end[1] - a:start[1]
+    else
+        let l:line = getline(a:start[0])
+        let l:after_first = strpart(l:line, a:start[1] - 1)
+
+        let l:line = getline(a:end[0])
+        let l:before_last = strpart(l:line, 0, a:end[1] - 1)
+
+        let l:nchars = len(l:after_first) + len(l:before_last) + 1
+        for l:idx in range(a:start[0] + 1, a:end[0] - 1)
+            let l:nchars = l:nchars + len(getline(l:idx)) + 1
+        endfor
+
+        return l:nchars
     endif
 endfunction
 for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
