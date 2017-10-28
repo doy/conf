@@ -147,15 +147,6 @@ inoremap <down> <C-o>gj
 nnoremap <C-B> :%!xxd<CR>
 nnoremap <C-R> :%!xxd -r<CR>
 " }}}
-" auto-append closing characters {{{
-for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
-    exe "inoremap " . s:pair[0] . " " . s:pair[0] . s:pair[1] . "<Left>"
-    exe "inoremap " . s:pair[0] . "<CR> " . s:pair[0] . "<CR>" . s:pair[1] . "<Esc>O"
-    exe "inoremap <expr> " . s:pair[1] . " strpart(getline('.'), col('.')-1, 1) == '" . s:pair[1] . "' ? '<Right>' : '" . s:pair[1] . "'"
-endfor
-inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<Left>" : "\'"
-inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
-" }}}
 " tab for completion {{{
 inoremap <expr> <Tab> strpart(getline('.'), 0, col('.')-1) =~ '^\s*$' ? "\<Tab>" : "\<C-n>"
 inoremap <S-Tab> <C-p>
@@ -495,6 +486,37 @@ function! s:man(word)
 endfunction
 nnoremap <silent>K :call Help(0, [], '<SID>man')<CR>
 xnoremap <silent>K :call Help(1, [], '<SID>man')<CR>
+" }}}
+" auto-append closing characters {{{
+function s:move_cursor_left()
+    let l:pos = getcurpos()
+    let l:newpos = [
+    \    l:pos[0],
+    \    l:pos[1],
+    \    l:pos[2] - 1,
+    \    l:pos[3],
+    \    l:pos[2] - 1,
+    \]
+    call setpos('.', l:newpos)
+endfunction
+function s:move_cursor_right()
+    let l:pos = getcurpos()
+    let l:newpos = [
+    \    l:pos[0],
+    \    l:pos[1],
+    \    l:pos[2] + 1,
+    \    l:pos[3],
+    \    l:pos[2] + 1,
+    \]
+    call setpos('.', l:newpos)
+endfunction
+for s:pair in [['(', ')'], ['{', '}'], ['[', ']']]
+    exe "inoremap <silent> " . s:pair[0] . " " . s:pair[0] . s:pair[1] . "<C-R>=<SID>move_cursor_left()?\"\":\"\"<CR>"
+    exe "inoremap <silent> " . s:pair[0] . "<CR> " . s:pair[0] . "<CR>" . s:pair[1] . "<Esc>O"
+    exe "inoremap <silent><expr> " . s:pair[1] . " strpart(getline('.'), col('.')-1, 1) == '" . s:pair[1] . "' ? '<C-R>=<SID>move_cursor_right()?\"\":\"\"<CR>' : '" . s:pair[1] . "'"
+endfor
+inoremap <silent><expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : col('.') == 1 \|\| match(strpart(getline('.'), col('.')-2, 1), '\W') != -1 ? "\'\'\<C-R>=\<SID>move_cursor_left()?'':''\<CR>" : "\'"
+inoremap <silent><expr> " strpart(getline('.'), col('.')-1, 1) == '"' ? "\<C-R>=\<SID>move_cursor_right()?'':''\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()?'':''\<CR>"
 " }}}
 " }}}
 " vim: fdm=marker
