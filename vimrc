@@ -91,6 +91,9 @@ else
     let g:gundo_disable = 1
 endif
 " }}}
+" matchit {{{
+packadd! matchit
+" }}}
 " multiple-cursors
 " neosnippet {{{
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
@@ -149,7 +152,6 @@ let g:Textobj_defs = [
 \]
 " }}}
 " Load plugins that don't use vim's format {{{
-runtime macros/matchit.vim
 " just loading this directly from the plugin directory fails because language
 " syntax files override the highlighting
 " using BufWinEnter because that is run after modelines are run (so it catches
