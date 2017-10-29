@@ -18,7 +18,7 @@ endif
 
 " look up words in ri rather than man for K
 function! s:ri(word)
-    exe 'silent read! ri --no-pager "' . a:word . '" 2>/dev/null'
+    exe 'silent read! ri -T -f rdoc "' . a:word . '" 2>/dev/null'
 endfunction
-nnoremap <buffer> <silent>K :call Help(0, [':'], '<SID>ri')<CR>
-vnoremap <buffer> <silent>K :call Help(1, [':'], '<SID>ri')<CR>
+nnoremap <buffer> <silent>K :call Help(0, [':', '.'], '<SID>ri')<CR>
+vnoremap <buffer> <silent>K :call Help(1, [':', '.'], '<SID>ri')<CR>

@@ -437,14 +437,6 @@ function! Help(visual, iskeyword, command)
     exe &helpheight . 'new'
     set modifiable
     exe 'call ' . a:command . '("' . l:word . '")'
-    try
-        silent %s/\%x1b\[\d\+m//g
-    catch /.*/
-    endtry
-    try
-        silent %s/.\%x08//g
-    catch /.*/
-    endtry
     normal! ggdd
     set buftype=nofile
     set nobuflisted
