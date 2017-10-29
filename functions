@@ -7,4 +7,14 @@ function perldoc {
     fi
 }
 
+function cdu {
+    local root
+    root="$(git rev-parse --show-superproject-working-tree 2>/dev/null)"
+    if [ -n "$root" ]; then
+        cd "$root"
+    else
+        cd "$(git rev-parse --show-toplevel)"
+    fi
+}
+
 # vim:ft=sh:
