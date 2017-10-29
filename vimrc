@@ -467,22 +467,18 @@ endfunction
 function s:nextchar()
     return getline('.')[col('.') - 1]
 endfunction
-let s:pair_cr_maps = {
+let g:pair_cr_maps = {
 \    '(': "<SID>go_up()",
 \    '[': "<SID>go_up()",
 \    '{': "<SID>go_up()",
 \}
 function s:maybe_reposition_cursor()
-    let l:prevchar = s:prevchar()
-    if has_key(s:pair_cr_maps, l:prevchar)
-        return eval(s:pair_cr_maps[l:prevchar])
-    endif
-    return "\<CR>"
+    return eval(g:pair_cr_maps[s:prevchar()])
 endfunction
 function s:go_up()
     return "\<CR>\<Esc>O"
 endfunction
-let s:pair_bs_maps = {
+let g:pair_bs_maps = {
 \    '"': "<SID>maybe_remove_adjacent_char('\"')",
 \    "'": "<SID>maybe_remove_adjacent_char(\"'\")",
 \    '(': "<SID>maybe_remove_empty_pair(')')",
@@ -490,11 +486,7 @@ let s:pair_bs_maps = {
 \    '{': "<SID>maybe_remove_empty_pair('}')",
 \}
 function s:maybe_remove_matching_pair()
-    let l:prevchar = s:prevchar()
-    if has_key(s:pair_bs_maps, l:prevchar)
-        return eval(s:pair_bs_maps[l:prevchar])
-    endif
-    return "\<BS>"
+    return eval(g:pair_bs_maps[s:prevchar()])
 endfunction
 function s:maybe_remove_adjacent_char(char)
     if s:nextchar() == a:char
@@ -537,8 +529,8 @@ for [s:start, s:end] in [['(', ')'], ['{', '}'], ['[', ']']]
 endfor
 inoremap <silent><expr> ' <SID>nextchar() == "'" ? "\<C-R>=\<SID>skip_closing_char(\"'\")\<CR>" : col('.') == 1 \|\| match(<SID>prevchar(), '\W') != -1 ? "''\<C-R>=\<SID>move_cursor_left()\<CR>" : "'"
 inoremap <silent><expr> " <SID>nextchar() == '"' ? "\<C-R>=\<SID>skip_closing_char('\"')\<CR>" : "\"\"\<C-R>=\<SID>move_cursor_left()\<CR>"
-inoremap <silent> <BS> <C-R>=<SID>maybe_remove_matching_pair()<CR>
-inoremap <silent> <CR> <C-R>=<SID>maybe_reposition_cursor()<CR>
+inoremap <silent><expr> <BS> has_key(g:pair_bs_maps, <SID>prevchar()) ? "\<C-R>=\<SID>maybe_remove_matching_pair()\<CR>" : "\<BS>"
+inoremap <silent><expr> <CR> has_key(g:pair_cr_maps, <SID>prevchar()) ? "\<C-R>=\<SID>maybe_reposition_cursor()\<CR>" : "\<CR>"
 " }}}
 " Prompt to create directories if they don't exist {{{
 autocmd vimrc BufNewFile * :call <SID>ensure_dir_exists()
