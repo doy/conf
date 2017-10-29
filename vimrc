@@ -1,93 +1,16 @@
 " options {{{
-" persistence {{{
-set history=10000
-if has("persistent_undo")
-    set undofile
-    set undodir=~/.cache/vim/undo
-endif
-" }}}
-" buffers {{{
-set autoread
-set autowrite
-set confirm
-set hidden
-set nostartofline
-" }}}
-" display {{{
-set display+=lastline,uhex
-set lazyredraw
-set linebreak
-set report=0
-set scrolloff=3
-set showbreak=>
-set showcmd
-if has('conceal')
-    set conceallevel=2
-endif
-" }}}
-" editing {{{
-set autoindent
-set backspace=indent,eol,start
-set cinoptions+=:0,l1,g0,(0,W1s
-set expandtab
-set formatoptions+=j
-set nojoinspaces
-set shiftround
 set shiftwidth=4
-set softtabstop=-1
-" }}}
-" command mode {{{
-set wildignore+=*.o,.git/*,.svn/*,blib/*
-set wildmenu
-set wildmode=longest,list,full
-if exists("+wildignorecase")
-    set wildignorecase
-endif
-" }}}
-" search {{{
-set hlsearch
-set ignorecase
-set smartcase
-" }}}
-" terminal stuff {{{
-set ttimeoutlen=50
-set ttyfast
-set t_vb=
-set visualbell
-" }}}
-" }}}
-" colors {{{
-" general {{{
-syntax on
-set background=light
-set t_Co=256
-" }}}
-" recolorings {{{
-highlight Folded ctermfg=darkgreen ctermbg=black guifg=green guibg=black
-highlight Search NONE ctermfg=red guifg=red
-" }}}
-" highlight diff conflict markers {{{
-match ErrorMsg '^\(<\||\|=\|>\)\{7\}\([^=].\+\)\?$'
-" }}}
+set expandtab
 " }}}
 " hooks {{{
-" general {{{
 augroup vimrc
     autocmd!
 augroup END
-" }}}
-" When editing a file, always jump to the last cursor position {{{
-autocmd vimrc BufReadPost * if line("'\"") <= line("$") | exe "normal! g`\"" | endif
-" }}}
 " }}}
 " bindings {{{
 " general {{{
 let g:mapleader = ';'
 let g:maplocalleader = ';'
-" }}}
-" keep the current selection when indenting {{{
-xnoremap < <gv
-xnoremap > >gv
 " }}}
 " M to :make {{{
 noremap  <silent>M :<C-u>make<CR><CR><C-W>k
@@ -96,19 +19,9 @@ noremap  <silent>M :<C-u>make<CR><CR><C-W>k
 noremap  <silent><expr><F11> &spell ? ":\<C-u>setlocal nospell\<CR>" : ":\<C-u>setlocal spell\<CR>"
 inoremap <silent><expr><F11> &spell ? "\<C-o>:setlocal nospell\<CR>" : "\<C-o>:setlocal spell\<CR>"
 " }}}
-" arrow keys {{{
-noremap  <up>   gk
-noremap  <down> gj
-inoremap <up>   <C-o>gk
-inoremap <down> <C-o>gj
-" }}}
 " editing binary files {{{
 nnoremap <C-B> :%!xxd<CR>
 nnoremap <C-R> :%!xxd -r<CR>
-" }}}
-" tab for completion {{{
-inoremap <expr> <Tab> strpart(getline('.'), 0, col('.')-1) =~ '^\s*$' ? "\<Tab>" : "\<C-n>"
-inoremap <S-Tab> <C-p>
 " }}}
 " easier tag traversal {{{
 nnoremap <CR> <C-]>
@@ -128,7 +41,6 @@ nmap <Bar> \
 nnoremap e c
 nnoremap E C
 nnoremap r <C-r>
-nnoremap Y y$
 nnoremap , :
 xnoremap , :
 nnoremap ! :!
@@ -141,9 +53,6 @@ nnoremap <silent><C-D>     :bd<CR>
 " }}}
 " }}}
 " plugin configuration {{{
-" general {{{
-filetype indent plugin on
-" }}}
 " ale {{{
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -187,21 +96,30 @@ endif
 let g:neosnippet#snippets_directory = '~/.vim/snippets'
 let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
 
-let g:i_tab = maparg("<Tab>", "i", 0, 1)
-let g:i_stab = maparg("<S-Tab>", "i", 0, 1)
-let g:s_tab = maparg("<Tab>", "s", 0, 1)
-imap <expr><Tab>
-            \ neosnippet#expandable_or_jumpable() ?
-                \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ g:i_tab["expr"] ? eval(g:i_tab["rhs"]) : g:i_tab["rhs"]
-imap <expr><S-Tab>
-            \ neosnippet#expandable_or_jumpable() ?
-                \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ g:i_stab["expr"] ? eval(g:i_stab["rhs"]) : g:i_stab["rhs"]
-smap <expr><Tab>
-            \ neosnippet#expandable_or_jumpable() ?
-                \ "\<Plug>(neosnippet_expand_or_jump)" :
-                \ g:s_tab["expr"] ? eval(g:s_tab["rhs"]) : g:s_tab["rhs"]
+function! s:configure_neosnippet_tab_mappings()
+    let g:neosnippet_tab_override_i_tab = maparg("<Tab>", "i", 0, 1)
+    let g:neosnippet_tab_override_i_stab = maparg("<S-Tab>", "i", 0, 1)
+    let g:neosnippet_tab_override_s_tab = maparg("<Tab>", "s", 0, 1)
+    imap <expr> <Tab>
+        \ neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ g:neosnippet_tab_override_i_tab["expr"]
+                \ ? eval(g:neosnippet_tab_override_i_tab["rhs"])
+                \ : g:neosnippet_tab_override_i_tab["rhs"]
+    imap <expr> <S-Tab>
+        \ neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ g:neosnippet_tab_override_i_stab["expr"]
+                \ ? eval(g:neosnippet_tab_override_i_stab["rhs"])
+                \ : g:neosnippet_tab_override_i_stab["rhs"]
+    smap <expr> <Tab>
+        \ neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" :
+            \ g:neosnippet_tab_override_s_tab["expr"]
+                \ ? eval(g:neosnippet_tab_override_s_tab["rhs"])
+                \ : g:neosnippet_tab_override_s_tab["rhs"]
+endfunction
+autocmd vimrc VimEnter * call <SID>configure_neosnippet_tab_mappings()
 " }}}
 " rainbow {{{
 let g:rainbow = 1
