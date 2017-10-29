@@ -426,8 +426,7 @@ function! Help(visual, iskeyword, command)
     endfor
     if a:visual
         let l:oldreg = @a
-        " XXX this seems to not include the end of the selection - why?
-        normal! `<"ay`>gv
+        normal! gv"aygv
         let l:word = @a
         let @a = l:oldreg
     else
