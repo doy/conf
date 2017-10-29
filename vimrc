@@ -165,6 +165,7 @@ map <silent><Leader>x :Commentary<CR>
 " denite {{{
 autocmd vimrc VimEnter * call denite#custom#map('insert', '<Tab>', '<denite:move_to_next_line>')
 autocmd vimrc VimEnter * call denite#custom#map('insert', '<S-Tab>', '<denite:move_to_previous_line>')
+autocmd vimrc VimEnter * call denite#custom#source('line', 'sorters', [])
 if executable('ag')
     autocmd vimrc VimEnter * call denite#custom#var('file_rec', 'command', ['ag', '--hidden', '-l', '.'])
     autocmd vimrc VimEnter * call denite#custom#var('grep', 'command', ['ag'])
