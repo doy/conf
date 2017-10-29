@@ -479,6 +479,7 @@ let g:pair_bs_maps = {
 \    '(': "<SID>maybe_remove_empty_pair(')')",
 \    '[': "<SID>maybe_remove_empty_pair(']')",
 \    '{': "<SID>maybe_remove_empty_pair('}')",
+\    '': "<SID>maybe_collapse_pair()",
 \}
 function s:maybe_remove_matching_pair()
     return eval(g:pair_bs_maps[s:prevchar()])
@@ -510,6 +511,34 @@ function s:maybe_remove_empty_pair(char)
     else
         return "\<Esc>" . (l:diff[0] + 1) . "Ji" . "\<BS>\<BS>\<Del>"
     endif
+endfunction
+let g:pair_chars = {
+\    '(': ')',
+\    '[': ']',
+\    '{': '}',
+\}
+function s:maybe_collapse_pair()
+    let l:prev_line_idx = line('.') - 1
+    if l:prev_line_idx < 1
+        return "\<BS>"
+    endif
+
+    let l:prev_line_char = getline(l:prev_line_idx)[col([l:prev_line_idx, '$'])-2]
+    if l:prev_line_char !~ '[([{]'
+        return "\<BS>"
+    endif
+
+    let l:end = searchpos('[^ \t]', 'cnWz')
+    if l:end == [0, 0]
+        return "\<BS>"
+    endif
+
+    let l:next_nonblank = getline(l:end[0])[l:end[1] - 1]
+    if l:next_nonblank != g:pair_chars[l:prev_line_char]
+        return "\<BS>"
+    endif
+
+    return "\<BS>\<Del>"
 endfunction
 function s:skip_closing_char(char)
     if s:nextchar() == a:char
