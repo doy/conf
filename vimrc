@@ -136,26 +136,11 @@ let g:startify_commands = [
     \ ]
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_indices = [
-            \'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
-            \]
+    \'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
+\]
 let g:startify_custom_header = []
 let s:fortune = system('fortune -n200 -s ~/.fortune | grep -v -E "^$"')
 let g:startify_custom_footer = [''] + map(split(s:fortune, '\n'), '"   ".v:val')
-let g:startify_skiplist = ['^/usr/share/vim', '/.git/']
-for s:file in [ '.gitignore', expand('~/.gitignore') ]
-    if filereadable(s:file)
-        for s:line in readfile(s:file)
-            let s:line = substitute(s:line, '#.*', '', '')
-            if s:line != '' && s:line[0] != '!'
-                let s:line = substitute(s:line, "[~.]", "\\\\&", 'g')
-                let s:line = substitute(s:line, "\\*\\*", ".*", 'g')
-                let s:line = substitute(s:line, "\\*", "[^/]*", 'g')
-                let s:line = substitute(s:line, "?", ".", 'g')
-                call add(g:startify_skiplist, s:line)
-            endif
-        endfor
-    endif
-endfor
 " }}}
 " textobj {{{
 let g:Textobj_defs = [
