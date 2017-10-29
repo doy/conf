@@ -5,28 +5,28 @@ setlocal makeprg=(cd\ /tmp\ &&\ pdflatex\ --halt-on-error\ %:p)
 
 " xpdf needs to be manually refreshed when the file changes
 function! s:xpdf()
-    let pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
-    let processes = split(system('ps xo args'), '\n')
-    for process in processes
-        if process =~ 'xpdf -remote localhost'
+    let l:pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
+    let l:processes = split(system('ps xo args'), '\n')
+    for l:process in l:processes
+        if l:process =~ 'xpdf -remote localhost'
             call system('xpdf -remote localhost -reload')
             return
         endif
     endfor
-    call system('xpdf -remote localhost ' . pdf . ' &')
+    call system('xpdf -remote localhost ' . l:pdf . ' &')
 endfunction
 
 " evince treats opening the same file twice as meaning 'reload'
 function! s:evince()
-    let pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
-    system('evince ' . pdf . ' &')
+    let l:pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
+    system('evince ' . l:pdf . ' &')
 endfunction
 
 " don't load the pdf if the make failed
 function! s:make_errors()
-    let qf = getqflist()
-    for line in qf
-        if line['type'] == 'E'
+    let l:qf = getqflist()
+    for l:line in l:qf
+        if l:line['type'] == 'E'
             return 1
         endif
     endfor
@@ -35,12 +35,12 @@ endfunction
 
 let b:automake_enabled = 0
 function! s:automake()
-    let old_shellpipe = &shellpipe
+    let l:old_shellpipe = &shellpipe
     let &shellpipe = '>'
     try
         silent make!
     finally
-        let &shellpipe = old_shellpipe
+        let &shellpipe = l:old_shellpipe
     endtry
 endfunction
 

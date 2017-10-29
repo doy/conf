@@ -1,1 +1,1 @@
-set viminfo=
+setlocal viminfo=
