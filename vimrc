@@ -538,7 +538,7 @@ function s:maybe_collapse_pair()
         return "\<BS>"
     endif
 
-    return "\<BS>\<Del>"
+    return "\<Esc>\<BS>JJi\<BS>"
 endfunction
 function s:skip_closing_char(char)
     if s:nextchar() == a:char
