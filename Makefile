@@ -1,12 +1,9 @@
 INTO      = $(HOME)
 INSTALL   = agignore \
-	    aliases \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \
 	    crawlrc \
-	    env \
-	    functions \
 	    gdbinit \
 	    gitconfig \
 	    gitignore \
@@ -14,7 +11,6 @@ INSTALL   = agignore \
 	    inputrc \
 	    ledgerrc \
 	    less \
-	    logout \
 	    mailcap \
 	    minicpanrc \
 	    mpdconf \

@@ -1,6 +1,6 @@
 # environment {{{
 export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/local:${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
-[ -f "$HOME/.env" ] && source $HOME/.env
+[ -f "$HOME/.sh/env" ] && source $HOME/.sh/env
 # }}}
 # language environments {{{
 test -f $HOME/perl5/perlbrew/etc/bashrc && source $HOME/perl5/perlbrew/etc/bashrc
@@ -23,8 +23,8 @@ case ${TERM} in
 		;;
 esac # }}}
 # aliases {{{
-[ -f "$HOME/.aliases" ] && source $HOME/.aliases
-[ -f "$HOME/.functions" ] && source $HOME/.functions
+[ -f "$HOME/.sh/aliases" ] && source $HOME/.sh/aliases
+[ -f "$HOME/.sh/functions" ] && source $HOME/.sh/functions
 # }}}
 # completion {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion

@@ -2,7 +2,7 @@
 # not using .zshenv, because it runs before /etc/profile, and /etc/profile
 # tends to hard-set $PATH and such
 export PATH="/usr/share/git/diff-highlight:${HOME}/.bin/local:${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
-[ -f "$HOME/.env" ] && source $HOME/.env
+[ -f "$HOME/.sh/env" ] && source $HOME/.sh/env
 # }}}
 # language environments {{{
 test -f $HOME/perl5/perlbrew/etc/bashrc && source $HOME/perl5/perlbrew/etc/bashrc
@@ -20,8 +20,8 @@ case ${TERM} in
         ;;
 esac # }}}
 # aliases {{{
-[ -f "$HOME/.aliases" ] && source $HOME/.aliases
-[ -f "$HOME/.functions" ] && source $HOME/.functions
+[ -f "$HOME/.sh/aliases" ] && source $HOME/.sh/aliases
+[ -f "$HOME/.sh/functions" ] && source $HOME/.sh/functions
 mkdir -p $HOME/.cache/vim/hist
 function vim {
     local zsh_hist_fname
