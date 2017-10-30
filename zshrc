@@ -92,6 +92,8 @@ fpath=(~/.zsh/anyframe $fpath)
 autoload -Uz anyframe-init
 anyframe-init
 bindkey '^R' anyframe-widget-put-history
+zstyle ":anyframe:selector:" use fzf
+zstyle ":anyframe:selector:fzf:" command 'fzf --no-sort --exact'
 # }}}
 # }}}
 # prompt {{{
