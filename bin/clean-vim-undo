@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-my $undodir = "$ENV{HOME}/.vim/undo";
+my $undodir = "$ENV{HOME}/.cache/vim/undo";
 opendir my $undo, $undodir
     or die "can't open $undodir: $!";
 
