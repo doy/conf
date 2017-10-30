@@ -1,4 +1,6 @@
 let b:ale_linters = { 'perl': ['perlcritic'] }
+" rainbow parens break syntax-based indent
+autocmd vimrc BufEnter <buffer> let b:indent_use_syntax = 0
 
 " look up words in perldoc rather than man for K
 function! s:perldoc(word)
