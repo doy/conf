@@ -61,9 +61,6 @@
 [submodule "vim/bundle/rust"]
 	path = vim/pack/filetype/start/rust
 	url = git://github.com/rust-lang/rust.vim
-[submodule "vim/bundle/ft-bzl"]
-	path = vim/pack/filetype/start/ft-bzl
-	url = git://github.com/google/vim-ft-bzl
 [submodule "zsh/zsh-autosuggestions"]
 	path = zsh/zsh-autosuggestions
 	url = git://github.com/zsh-users/zsh-autosuggestions
