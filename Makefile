@@ -12,6 +12,7 @@ INSTALL   = agignore \
 	    gitignore \
 	    i3status.conf \
 	    inputrc \
+	    ledgerrc \
 	    less \
 	    logout \
 	    mailcap \
