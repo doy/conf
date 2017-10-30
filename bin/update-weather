@@ -5,5 +5,5 @@ use warnings;
 use Path::Class;
 
 if (my $weather = `weather`) {
-    file("$ENV{HOME}/.weather")->openw->print($weather);
+    file("$ENV{HOME}/.cache/weather")->openw->print($weather);
 }

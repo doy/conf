@@ -119,7 +119,7 @@ sub handle_i3status {
         };
     }
 
-    my $weather_file = "$ENV{HOME}/.weather";
+    my $weather_file = "$ENV{HOME}/.cache/weather";
     if (-r $weather_file && -f $weather_file) {
         my $weather = slurp($weather_file);
         chomp($weather);
