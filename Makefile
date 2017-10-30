@@ -82,12 +82,14 @@ LN        = @ln -sf
 MKDIR     = @mkdir -p
 RM        = @rm -f
 
-build : submodules $(BUILD)
+all : submodules build
 
 submodules :
 	@git submodule update --init --recursive
 
-install : build $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
+build : $(BUILD)
+
+install : all $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
 	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	@chmod 600 msmtprc
 	@chmod 700 gnupg
@@ -99,8 +101,8 @@ clean :
 	$(RM) $(BUILD) $(INSTALLED)
 
 update :
-	@git submodule foreach '(if [ $$name == "vim/pack/local/start/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
-	@$(MAKE)
+	@git submodule foreach '(if [ $$path == "vim/pack/filetype/start/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
+	@$(MAKE) build
 
 $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
