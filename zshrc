@@ -99,10 +99,6 @@ opp_operators+=("e" opp-vi-change)
 bindkey -M vicmd "e" opp
 { bindkey -M afu-vicmd "e" opp } > /dev/null 2>&1
 # }}}
-# k {{{
-source ~/.zsh/k/k.sh
-alias ll="k -h"
-# }}}
 # }}}
 # prompt {{{
 function shell_prompt_precmd () {

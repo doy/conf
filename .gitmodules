@@ -67,9 +67,6 @@
 [submodule "zsh/zsh-completions"]
 	path = zsh/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions
-[submodule "zsh/k"]
-	path = zsh/k
-	url = git://github.com/supercrabtree/k
 [submodule "zsh/anyframe"]
 	path = zsh/anyframe
 	url = git://github.com/mollifier/anyframe
