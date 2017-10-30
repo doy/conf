@@ -27,6 +27,7 @@ INSTALL   = agignore \
 	    procmailrc \
 	    proverc \
 	    replyrc \
+	    runesrc \
 	    screenrc \
 	    signature \
 	    tigrc \
