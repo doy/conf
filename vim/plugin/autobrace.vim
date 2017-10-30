@@ -100,7 +100,7 @@ function! s:maybe_collapse_pair()
         return "\<BS>"
     endif
 
-    return "\<Esc>\<BS>JJi\<BS>"
+    return "\<Esc>\<BS>" . (l:end[0] - l:prev_line_idx + 1) . "Ji\<BS>"
 endfunction
 
 function! s:prevchar()
