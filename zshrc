@@ -93,12 +93,6 @@ autoload -Uz anyframe-init
 anyframe-init
 bindkey '^R' anyframe-widget-put-history
 # }}}
-# opp {{{
-source ~/.zsh/opp/opp.zsh
-opp_operators+=("e" opp-vi-change)
-bindkey -M vicmd "e" opp
-{ bindkey -M afu-vicmd "e" opp } > /dev/null 2>&1
-# }}}
 # }}}
 # prompt {{{
 function shell_prompt_precmd () {

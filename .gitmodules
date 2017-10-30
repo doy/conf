@@ -43,9 +43,6 @@
 [submodule "vim/bundle/neosnippet"]
 	path = vim/pack/plugins/start/neosnippet
 	url = git://github.com/Shougo/neosnippet.vim
-[submodule "zsh/opp"]
-	path = zsh/opp
-	url = git://github.com/hchbaw/opp.zsh
 [submodule "vim/bundle/typescript"]
 	path = vim/bundle/typescript
 	url = git://github.com/leafgarland/typescript-vim
