@@ -1,5 +1,9 @@
 setlocal viminfo=
 augroup local_gitcommit
     autocmd!
-    autocmd BufWinEnter <buffer> exe "normal! ggO" | startinsert
+    autocmd BufWinEnter <buffer>
+        \ if getline(1) == '' |
+            \ exe "normal! ggO" |
+            \ startinsert |
+        \ endif
 augroup END
