@@ -30,7 +30,7 @@ alias docs='tmux a -t docs'
 alias misc='tmux a -t misc'
 # }}}
 # other {{{
-alias pm="find lib -type f | sort"
+alias pm="fd --type f . lib"
 alias bootstrap_cpanm="curl -Ls http://cpanmin.us/ | perl - App::cpanminus"
 alias v="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"t\")'"
 alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"ff\")'"
