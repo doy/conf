@@ -50,7 +50,6 @@ INSTALL   = agignore \
 	    mpdscribble \
 	    ncmpc \
 	    offlineimap \
-	    peco \
 	    procmail \
 	    services \
 	    sh \
