@@ -15,7 +15,7 @@ case $1 in
 esac
 
 INFO=$(pacmd dump | grep analog-stereo)
-VOLUME=$(echo "$INFO" | grep 'set-sink-volume' | cut -d' ' -f 3 | perl -e'print 100*oct(<>)/0x10000')
+VOLUME=$(echo "$INFO" | grep 'set-sink-volume' | cut -d' ' -f 3 | perl -e'my $vol = 100*oct(<>)/0x10000; print $vol > 100 ? 100 : $vol')
 STATE=$(echo "$INFO" | grep 'set-sink-mute' | cut -d' ' -f 3)
 if [[ "x$STATE" == "xyes" ]]; then
     volnoti-show -m
