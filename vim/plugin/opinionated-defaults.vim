@@ -146,9 +146,3 @@ noremap  <up>   gk
 noremap  <down> gj
 inoremap <up>   <C-o>gk
 inoremap <down> <C-o>gj
-" use tab for completion
-inoremap <expr> <Tab>
-    \ strpart(getline('.'), 0, col('.') - 1) =~ '\(^\\|\s\+\)$'
-        \ ? "\<Tab>"
-        \ : "\<C-n>"
-inoremap <S-Tab> <C-p>

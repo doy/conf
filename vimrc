@@ -32,6 +32,13 @@ autocmd vimrc CmdWinEnter * nnoremap <buffer><CR> <CR>
 nnoremap <silent>H :bp<CR>
 nnoremap <silent>L :bn<CR>
 " }}}
+" use tab for completion {{{
+inoremap <expr> <Tab>
+    \ strpart(getline('.'), 0, col('.') - 1) =~ '\(^\\|\s\+\)$'
+        \ ? "\<Tab>"
+        \ : "\<C-n>"
+inoremap <S-Tab> <C-p>
+" }}}
 " fixups for my keyboard remappings {{{
 nmap <silent>) 0
 nmap <silent>g) g0
