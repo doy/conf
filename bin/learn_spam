@@ -15,12 +15,12 @@ fi
 if [[ ! "$1" == "-q" ]]; then
     echo -n "$(date): Learning ham..."
 fi
-nice find $MAILDIR -type f | grep '/\(cur\|new\)/' | grep -v0 '/spam/' | xargs -P2 -0 $SALEARN $OPTS --ham > $OUTFILE
+nice find $MAILDIR -type f | perl -nl0e'chomp; print if m{/(new|cur)/} && !m{/spam/}' | xargs -n1000 -0 $SALEARN $OPTS --ham > $OUTFILE
 
 if [[ ! "$1" == "-q" ]]; then
     echo -n "$(date): Learning spam..."
 fi
-nice find $MAILDIR -type f | grep '/\(cur\|new\)/' | grep -0 '/spam/' | xargs -P2 -0 $SALEARN $OPTS --spam > $OUTFILE
+nice find $MAILDIR -type f | perl -nl0e'chomp; print if m{/(new|cur)/} && m{/spam/}' | xargs -n1000 -0 $SALEARN $OPTS --spam > $OUTFILE
 
 if [[ ! "$1" == "-q" ]]; then
     echo -n "$(date): Syncing..."
