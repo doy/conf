@@ -13,20 +13,24 @@ else
 fi
 
 if [[ ! "$1" == "-q" ]]; then
-    echo -n "$(date): Learning ham..."
+    echo "$(date): Learning ham..."
 fi
-nice find $MAILDIR -type f | perl -nl0e'chomp; print if m{/(new|cur)/} && !m{/spam/}' | xargs -n1000 -0 $SALEARN $OPTS --ham > $OUTFILE
+nice find $MAILDIR -type f | \
+    perl -nl0e'chomp; ($ts) = /(\d{10})/; $now = time; print if m{/(new|cur)/} && !m{/(\.old|\.spam)/} && $ts > $now - 60*60*24*30' | \
+    xargs -n1000 -0 $SALEARN $OPTS --ham > $OUTFILE
 
 if [[ ! "$1" == "-q" ]]; then
-    echo -n "$(date): Learning spam..."
+    echo "$(date): Learning spam..."
 fi
-nice find $MAILDIR -type f | perl -nl0e'chomp; print if m{/(new|cur)/} && m{/spam/}' | xargs -n1000 -0 $SALEARN $OPTS --spam > $OUTFILE
+nice find $MAILDIR -type f | \
+    perl -nl0e'chomp; ($ts) = /(\d{10})/; $now = time; print if m{/(new|cur)/} && m{/\.spam/} && $ts > $now - 60*60*24*30' | \
+    xargs -n1000 -0 $SALEARN $OPTS --spam > $OUTFILE
 
 if [[ ! "$1" == "-q" ]]; then
-    echo -n "$(date): Syncing..."
+    echo "$(date): Syncing..."
 fi
 nice $SALEARN --sync > $OUTFILE
 
 if [[ ! "$1" == "-q" ]]; then
-    echo -n "$(date): Done!"
+    echo "$(date): Done!"
 fi
