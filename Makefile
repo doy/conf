@@ -46,7 +46,7 @@ INSTALL   = agignore \
 	    i3 \
 	    interhack \
 	    mpdscribble \
-	    ncmpc \
+	    ncmpcpp \
 	    offlineimap \
 	    procmail \
 	    services \
