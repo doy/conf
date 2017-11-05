@@ -73,7 +73,7 @@ function! s:maybe_remove_empty_pair(char)
     if l:diff[0] == 0
         return "\<BS>" . repeat("\<Del>", l:diff[1] + 1)
     elseif l:diff[0] == 1
-        return "\<Esc>" . (l:diff[0] + 1) . "Ji" . "\<BS>\<Del>\<Del>"
+        return "\<Esc>" . (l:diff[0] + 1) . "Ji" . "\<BS>\<Del>"
     else
         return "\<Esc>" . (l:diff[0] + 1) . "Ji" . "\<BS>\<BS>\<Del>"
     endif
