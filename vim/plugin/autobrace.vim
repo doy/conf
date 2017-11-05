@@ -4,9 +4,9 @@ let s:pair_chars = {
 \    '{': '}',
 \}
 let s:pair_cr_maps = {
-\    '(': "<SID>go_up()",
-\    '[': "<SID>go_up()",
-\    '{': "<SID>go_up()",
+\    ')': "<SID>go_up()",
+\    ']': "<SID>go_up()",
+\    '}': "<SID>go_up()",
 \}
 let s:pair_bs_maps = {
 \    '"': "<SID>maybe_remove_adjacent_char('\"')",
@@ -136,6 +136,6 @@ inoremap <silent><expr> <BS>
         \ ? "\<C-R>=\<SID>run_bs_mapping(\<SID>prevchar())\<CR>"
         \ : "\<BS>"
 inoremap <silent><expr> <CR>
-    \ <SID>has_cr_mapping(<SID>prevchar())
-        \ ? "\<C-R>=\<SID>run_cr_mapping(\<SID>prevchar())\<CR>"
+    \ <SID>has_cr_mapping(<SID>nextchar())
+        \ ? "\<C-R>=\<SID>run_cr_mapping(\<SID>nextchar())\<CR>"
         \ : "\<CR>"
