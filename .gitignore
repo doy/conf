@@ -15,16 +15,12 @@
 !/notmuch/hooks/post-new
 /offlineimap
 !/offlineimap/pass.py
-/pentadactyl/info
 /procmail/log
 /ssh
 !/ssh/authorized_keys
 !/ssh/cao_key
 !/ssh/config
 supervise/
-/taeb
-!/taeb/config.yml
-/vim/data/
 /vim/.netrwhist
 /vim/spell/*.spl
 /weechat/weechat_fifo_*
