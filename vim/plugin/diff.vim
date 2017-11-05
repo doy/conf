@@ -25,8 +25,6 @@ function! s:diffstart(read_cmd)
     diffthis
     wincmd p
     diffthis
-    " why does this not happen automatically?
-    normal! zM
 endfunction
 
 function! s:diffstop()
@@ -39,7 +37,11 @@ function! s:diffstop()
     let &foldmethod = s:foldmethod
     let &foldenable = s:foldenable
     if &foldenable
-        normal! zv
+        if &foldmethod == 'marker'
+            normal! zv
+        else
+            normal! zE
+        end
     endif
     let s:diffwindow = 0
 endfunction
