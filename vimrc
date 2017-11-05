@@ -132,25 +132,9 @@ endfunction
 autocmd vimrc VimEnter * call <SID>configure_neosnippet_tab_mappings()
 " }}}
 " rainbow {{{
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-\   'ctermfgs': [
-\       'darkred',
-\       'darkmagenta',
-\       'darkblue',
-\       'darkyellow',
-\       'darkgreen',
-\       'darkcyan',
-\   ],
-\   'guitermfgs': [
-\       'red',
-\       'magenta',
-\       'blue',
-\       'yellow',
-\       'green',
-\       'cyan',
-\   ],
-\}
+let g:rainbow = 1
+let g:rainbow_paren = 1
+let g:rainbow_brace = 1
 " }}}
 " startify {{{
 let g:startify_list_order = ['dir', 'bookmarks', 'commands']
@@ -173,6 +157,13 @@ let g:Textobj_defs = [
    \['/', 'Textobj_paired', '/'],
    \['\|', 'Textobj_paired', '\|'],
 \]
+" }}}
+" Load plugins that don't use vim's format {{{
+" just loading this directly from the plugin directory fails because language
+" syntax files override the highlighting
+" using BufWinEnter because that is run after modelines are run (so it catches
+" modelines which update highlighting)
+autocmd vimrc BufWinEnter,FileType * runtime plugin/rainbow_paren.vim
 " }}}
 " }}}
 " vim: fdm=marker

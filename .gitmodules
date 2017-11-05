@@ -85,9 +85,6 @@
 [submodule "vim/pack/local/start/commentary"]
 	path = vim/pack/plugins/start/commentary
 	url = git://github.com/tpope/vim-commentary
-[submodule "vim/pack/plugins/start/rainbow"]
-	path = vim/pack/plugins/start/rainbow
-	url = git://github.com/luochen1990/rainbow
 [submodule "vim/pack/plugins/start/editorconfig"]
 	path = vim/pack/plugins/start/editorconfig
 	url = git://github.com/editorconfig/editorconfig-vim
