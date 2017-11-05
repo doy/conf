@@ -134,6 +134,7 @@ autocmd vimrc VimEnter * call <SID>configure_neosnippet_tab_mappings()
 " rainbow {{{
 let g:rainbow = 1
 let g:rainbow_paren = 1
+let g:rainbow_bracket = 1
 let g:rainbow_brace = 1
 " }}}
 " startify {{{
