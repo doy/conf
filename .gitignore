@@ -9,6 +9,8 @@
 /mutt/aliases
 /mutt/cache
 /mutt/extra
+/ncmpcpp
+!/ncmpcpp/bindings
 /notmuch
 !/notmuch/hooks/post-new
 /offlineimap
