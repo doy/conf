@@ -18,17 +18,8 @@
 " colored the same as the internal parens of (()), then
 "   let g:rainbow_nested = 1
 
-" you probably also want to use something like
-"   autocmd BufWinEnter * runtime plugin/rainbow_parens.vim
-
-if exists("g:rainbow") && g:rainbow != 0
-  if &ft == 'perl'
-    " wow, this is a huge huge hack, but indentation is broken without it
-    " see $VIMRUNTIME/indent/perl.vim:125-162
-    let s:basename = 'perlSubFoldRainbowLevel'
-  else
-    let s:basename = 'level'
-  endif
+function! Rainbow()
+  let s:basename = 'level'
   exe 'hi '.s:basename.'1c ctermfg=darkcyan    guifg=cyan'
   exe 'hi '.s:basename.'2c ctermfg=darkgreen   guifg=green'
   exe 'hi '.s:basename.'3c ctermfg=darkyellow  guifg=yellow'
@@ -96,5 +87,10 @@ if exists("g:rainbow") && g:rainbow != 0
 
   delfun s:DoSyn
   delfun s:DoSyntaxes
-endif
+endfunction
 
+if exists("g:rainbow") && g:rainbow
+  augroup rainbow
+    autocmd BufWinEnter,FileType * call Rainbow()
+  augroup END
+endif

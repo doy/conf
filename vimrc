@@ -158,12 +158,5 @@ let g:Textobj_defs = [
    \['\|', 'Textobj_paired', '\|'],
 \]
 " }}}
-" Load plugins that don't use vim's format {{{
-" just loading this directly from the plugin directory fails because language
-" syntax files override the highlighting
-" using BufWinEnter because that is run after modelines are run (so it catches
-" modelines which update highlighting)
-autocmd vimrc BufWinEnter,FileType * runtime plugin/rainbow_paren.vim
-" }}}
 " }}}
 " vim: fdm=marker
