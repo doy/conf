@@ -14,5 +14,6 @@ export NOPASTE_SSH_WEBPATH="http://paste.tozt.net"
 export NOPASTE_SSH_MODE=0644
 export PERL_CPANM_OPT="-q --mirror file://$HOME/perl5/minicpan/ --mirror http://mirrors.kernel.org/cpan/ --mirror http://cpan.metacpan.org/ --prompt"
 export FZF_DEFAULT_OPTS="--reverse --border --inline-info --bind=tab:down,shift-tab:up,change:top"
+export FZF_DEFAULT_COMMAND="ag --hidden -l ."
 
 # vim:ft=sh:
