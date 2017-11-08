@@ -6,10 +6,11 @@
 	aliases = !git config --get-regexp 'alias.*' | perl -nle'/^alias\\.([^ ]*) (.*)/ && printf \"%-15s = %s\\n\", $1, $2'
 	alias = "!f() { local name=$1; shift; git config --global alias.$name \"$*\"; }; f"
 	amend = !git add -p && git commit --amend
-	bd = "!f() { git show-ref --heads --dereference | awk '{print $2}' | sed 's|refs/heads/||' | fzf --height 5 | xargs git branch -D; }; f"
+	bd = "!f() { git brp | fzf --height 40% --no-sort --tac | xargs git branch -D; }; f"
 	blame-stats = !~/.bin/git/git-blame-stats
 	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:green)(%(committerdate:relative))'
-	c = "!f() { git show-ref --heads --dereference | awk '{print $2}' | sed 's|refs/heads/||' | fzf --height 5 | xargs git co; }; f"
+	brp = for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short)'
+	c = "!f() { git brp | fzf --height 40% --no-sort --tac | xargs git co; }; f"
 	cc = cherry-pick
 	co = checkout
 	diff-branch = "!f() { local branch=${1:-HEAD}; git diff $(git merge-base master $branch) $branch; }; f"
