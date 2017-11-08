@@ -87,13 +87,9 @@ ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
 # }}}
-# anyframe {{{
-fpath=(~/.zsh/anyframe $fpath)
-autoload -Uz anyframe-init
-anyframe-init
-bindkey '^R' anyframe-widget-put-history
-zstyle ":anyframe:selector:" use fzf
-zstyle ":anyframe:selector:fzf:" command 'fzf --no-sort --exact'
+# fzf {{{
+source ~/.sh/fzf/shell/completion.zsh
+source ~/.sh/fzf/shell/key-bindings.zsh
 # }}}
 # }}}
 # prompt {{{

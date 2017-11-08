@@ -64,9 +64,6 @@
 [submodule "zsh/zsh-completions"]
 	path = zsh/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions
-[submodule "zsh/anyframe"]
-	path = zsh/anyframe
-	url = git://github.com/mollifier/anyframe
 [submodule "vim/bundle/ledger"]
 	path = vim/pack/filetype/start/ledger
 	url = git://github.com/ledger/vim-ledger
@@ -91,3 +88,6 @@
 [submodule "vim/pack/plugins/start/vader"]
 	path = vim/pack/plugins/start/vader
 	url = git://github.com/junegunn/vader.vim
+[submodule "zsh/fzf"]
+	path = sh/fzf
+	url = git://github.com/junegunn/fzf
