@@ -87,10 +87,6 @@ ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
 # }}}
-# fzf {{{
-source ~/.sh/fzf/shell/completion.zsh
-source ~/.sh/fzf/shell/key-bindings.zsh
-# }}}
 # }}}
 # prompt {{{
 function shell_prompt_precmd () {

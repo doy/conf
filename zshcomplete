@@ -17,3 +17,5 @@ compinit
 autoload -Uz bashcompinit
 bashcompinit
 # End of lines added by compinstall
+
+source ~/.sh/fzf/shell/completion.zsh
