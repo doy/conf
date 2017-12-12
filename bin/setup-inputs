@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# key bindings
+setxkbmap -option ctrl:nocaps
+setxkbmap -option compose:caps
+xmodmap $HOME/.Xmodmap
+$HOME/.bin/numkeys on
+
+# disable trackpoint
+xinput set-prop "TPPS/2 IBM TrackPoint" "Device Enabled" 0
+
+# tap to click on touchpad
+synclient TapButton1=1
+synclient TapButton2=2
+synclient TapButton3=3
+
+# restart services that depend on keyboard reconfigurations
+if pgrep readproctitle > /dev/null; then
+    svre xcape
+    svre kuake
+    svre xbindkeys
+fi

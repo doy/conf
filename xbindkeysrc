@@ -25,20 +25,29 @@
 "numkeys toggle"
   Shift + Shift_L
 
-"volume up"
-  XF86AudioRaiseVolume
+"volume mute"
+  XF86AudioMute
 
 "volume down"
   XF86AudioLowerVolume
 
-"volume mute"
-  XF86AudioMute
+"volume up"
+  XF86AudioRaiseVolume
 
 "pactl set-source-mute 2 toggle"
   XF86AudioMicMute
 
+"xbacklight -dec 10"
+  XF86MonBrightnessDown
+
+"xbacklight -inc 10"
+  XF86MonBrightnessUp
+
 "xrandr --auto"
   XF86Display
+
+"[ $(rfkill --output type,soft | grep wlan | awk '{print $2}') = 'unblocked' ] && sudo rfkill block wlan || sudo rfkill unblock wlan"
+  XF86WLAN
 
 "xset dpms force off"
   XF86Search
@@ -48,9 +57,3 @@
 
 "kill_focused CONT"
   XF86Explorer
-
-"xbacklight -inc 10"
-  XF86MonBrightnessUp
-
-"xbacklight -dec 10"
-  XF86MonBrightnessDown
