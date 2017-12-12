@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if xmodmap -pk | grep -q '(1).*(exclam).*(1).*(exclam)'; then
+on() {
     xmodmap -e 'keycode 10 = exclam 1'
     xmodmap -e 'keycode 11 = at 2'
     xmodmap -e 'keycode 12 = numbersign 3'
@@ -16,7 +16,9 @@ if xmodmap -pk | grep -q '(1).*(exclam).*(1).*(exclam)'; then
     xmodmap -e 'keycode 35 = braceright bracketright'
     xmodmap -e 'keycode 49 = asciitilde grave'
     xmodmap -e 'keycode 51 = bar backslash'
-else
+}
+
+off() {
     xmodmap -e 'keycode 10 = 1 exclam'
     xmodmap -e 'keycode 11 = 2 at'
     xmodmap -e 'keycode 12 = 3 numbersign'
@@ -32,4 +34,19 @@ else
     xmodmap -e 'keycode 35 = bracketright braceright'
     xmodmap -e 'keycode 49 = grave asciitilde'
     xmodmap -e 'keycode 51 = backslash bar'
-fi
+}
+
+toggle() {
+    if xmodmap -pk | grep -q '(1).*(exclam).*(1).*(exclam)'; then
+        on
+    else
+        off
+    fi
+}
+
+case "$1" in
+    on) on ;;
+    off) off ;;
+    toggle) toggle ;;
+    *) echo invalid 1>&2; exit 1 ;;
+esac

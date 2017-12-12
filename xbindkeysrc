@@ -19,10 +19,10 @@
 "xscreensaver-command -lock"
   Mod4 + d
 
-"toggle_numkeys"
+"numkeys toggle"
   Shift + Shift_R
 
-"toggle_numkeys"
+"numkeys toggle"
   Shift + Shift_L
 
 "volume up"
