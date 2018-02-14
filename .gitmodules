@@ -67,9 +67,6 @@
 [submodule "vim/bundle/ledger"]
 	path = vim/pack/filetype/start/ledger
 	url = git://github.com/ledger/vim-ledger
-[submodule "vim/pack/local/start/denite"]
-	path = vim/pack/plugins/start/denite
-	url = git://github.com/Shougo/denite.nvim
 [submodule "vim/pack/local/start/ale"]
 	path = vim/pack/plugins/start/ale
 	url = git://github.com/w0rp/ale
@@ -90,4 +87,10 @@
 	url = git://github.com/junegunn/vader.vim
 [submodule "zsh/fzf"]
 	path = sh/fzf
+	url = git://github.com/junegunn/fzf
+[submodule "vim/pack/plugins/start/fzf.vim"]
+	path = vim/pack/plugins/start/fzf.vim
+	url = git://github.com/junegunn/fzf.vim
+[submodule "vim/pack/plugins/start/fzf"]
+	path = vim/pack/plugins/start/fzf
 	url = git://github.com/junegunn/fzf

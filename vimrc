@@ -70,24 +70,18 @@ let g:ale_history_log_output = 0
 " commentary {{{
 map <silent><Leader>x :Commentary<CR>
 " }}}
-" denite {{{
-autocmd vimrc VimEnter * call denite#custom#map('insert', '<Tab>', '<denite:move_to_next_line>')
-autocmd vimrc VimEnter * call denite#custom#map('insert', '<S-Tab>', '<denite:move_to_previous_line>')
-autocmd vimrc VimEnter * call denite#custom#source('line', 'sorters', [])
-if executable('ag')
-    autocmd vimrc VimEnter * call denite#custom#var('file_rec', 'command', ['ag', '--hidden', '-l', '.'])
-    autocmd vimrc VimEnter * call denite#custom#var('grep', 'command', ['ag'])
-    autocmd vimrc VimEnter * call denite#custom#var('grep', 'default_opts', ['--hidden'])
-    autocmd vimrc VimEnter * call denite#custom#var('grep', 'recursive_opts', [])
-    autocmd vimrc VimEnter * call denite#custom#var('grep', 'pattern_opt', [])
-    autocmd vimrc VimEnter * call denite#custom#var('grep', 'separator', [])
-endif
-nnoremap <silent>t :Denite -direction=dynamictop buffer file_rec<CR>
-nnoremap <silent>b :Denite -direction=dynamictop buffer<CR>
-nnoremap <silent>ff :Denite -direction=dynamictop grep:.::!<CR>
-nnoremap <silent>fh :Denite -direction=dynamictop help<CR>
-nnoremap <silent>ft :Denite -direction=dynamictop filetype<CR>
-nnoremap <silent>f/ :Denite -direction=dynamictop line<CR>
+" fzf {{{
+let g:fzf_layout = { 'up': '~40%' }
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 "--hidden",
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%', '?'),
+  \                 <bang>0)
+nnoremap <silent> t :Files<CR>
+nnoremap <silent> ff :Ag<CR>
+nnoremap <silent> fh :Helptags<CR>
+nnoremap <silent> ft :Filetypes<CR>
 " }}}
 " gundo {{{
 if has("python")
@@ -141,9 +135,9 @@ let g:rainbow_brace = 1
 let g:startify_list_order = ['dir', 'bookmarks', 'commands']
 let g:startify_files_number = 7
 let g:startify_commands = [
-    \ {'t': ['Open file', 'Denite -direction=dynamictop buffer file_rec']},
-    \ {'ff': ['Grep', 'Denite -direction=dynamictop grep:.::!']},
-    \ {'fh': ['Help', 'Denite -direction=dynamictop help']},
+    \ {'t': ['Open file', 'Files']},
+    \ {'ff': ['Grep', 'Ag']},
+    \ {'fh': ['Help', 'Helptags']},
     \ ]
 let g:startify_change_to_vcs_root = 1
 let g:startify_custom_indices = [
