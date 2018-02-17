@@ -72,11 +72,16 @@ map <silent><Leader>x :Commentary<CR>
 " }}}
 " fzf {{{
 let g:fzf_layout = { 'up': '~40%' }
+if &columns >= 160
+    let s:horiz_preview_layout = 'right:50%'
+else
+    let s:horiz_preview_layout = 'right:50%:hidden'
+endif
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>,
   \                 "--hidden",
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%', '?'),
+  \                         : fzf#vim#with_preview(s:horiz_preview_layout, '?'),
   \                 <bang>0)
 nnoremap <silent> t :Files<CR>
 nnoremap <silent> ff :Ag<CR>
