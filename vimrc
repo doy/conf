@@ -77,11 +77,12 @@ if &columns >= 160
 else
     let s:horiz_preview_layout = 'right:50%:hidden'
 endif
+let s:ag_opts = {"options": ["-d:", "-n4"]}
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>,
   \                 "--hidden",
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview(s:horiz_preview_layout, '?'),
+  \                 <bang>0 ? fzf#vim#with_preview(s:ag_opts, 'up:60%')
+  \                         : fzf#vim#with_preview(s:ag_opts, s:horiz_preview_layout, '?'),
   \                 <bang>0)
 nnoremap <silent> t :Files<CR>
 nnoremap <silent> ff :Ag<CR>
