@@ -57,3 +57,6 @@
 
 "kill_focused CONT"
   XF86Explorer
+
+"xclip -selection CLIPBOARD -o | xargs -0 -n1 xdotool type --clearmodifiers --delay 0"
+  Control + Insert + Release
