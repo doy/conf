@@ -21,6 +21,7 @@ INSTALL   = agignore \
 	    offlineimaprc \
 	    perlcriticrc \
 	    procmailrc \
+	    profile \
 	    proverc \
 	    replyrc \
 	    runesrc \
