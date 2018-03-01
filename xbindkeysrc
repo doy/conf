@@ -34,7 +34,7 @@
 "volume up"
   XF86AudioRaiseVolume
 
-"pactl set-source-mute 2 toggle"
+"pactl set-source-mute 1 toggle"
   XF86AudioMicMute
 
 "xbacklight -dec 10"
