@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec xscreensaver -no-splash 2>&1

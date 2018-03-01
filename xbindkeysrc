@@ -16,7 +16,7 @@
 "dmenu_run -fn '7x14'"
   Mod4 + r
 
-"xscreensaver-command -lock"
+"light-locker-command -l"
   Mod4 + d
 
 "numkeys toggle"
