@@ -32,6 +32,7 @@ INSTALL   = agignore \
 	    xbindkeysrc \
 	    Xdefaults \
 	    xinitrc \
+	    xprofile \
 	    Xmodmap \
 	    zlogout \
 	    zshcomplete \
