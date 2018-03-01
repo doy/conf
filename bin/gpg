@@ -3,5 +3,4 @@
 GPG=/usr/bin/$(basename $0)
 
 keychain -q --timeout 30
-. ~/.keychain/${HOSTNAME}-sh-gpg
 $GPG $*
