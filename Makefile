@@ -3,6 +3,7 @@ INSTALL   = agignore \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \
+	    config/touchegg/touchegg.conf \
 	    crawlrc \
 	    gdbinit \
 	    gitconfig \
@@ -74,7 +75,8 @@ EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
 	    .cache/mpd \
 	    .cache/vim/hist \
 	    .cache/vim/undo \
-	    .config/mpd/playlists
+	    .config/mpd/playlists \
+	    .config/touchegg
 
 ECHO      = @echo
 LN        = @ln -sf
