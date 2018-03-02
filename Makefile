@@ -29,6 +29,7 @@ INSTALL   = agignore \
 	    tigrc \
 	    tmux.conf \
 	    vimrc \
+	    wunderground \
 	    xbindkeysrc \
 	    Xdefaults \
 	    xinitrc \
@@ -78,7 +79,9 @@ BUILD     = $(patsubst services/available/%,services/enabled/%,$(wildcard servic
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
 	    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
 	    vim/spell/en.utf-8.add.spl \
-	    less
+	    less \
+	    wunderground \
+	    mpdscribble/mpdscribble.conf
 
 ECHO      = @echo
 LN        = @ln -sf
@@ -132,6 +135,12 @@ fortune/%.dat : fortune/%
 
 less : lesskey
 	lesskey -o less lesskey
+
+wunderground :
+	pass show websites/wunderground.com/wunderground@tozt.net > $@
+
+mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
+	perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$(pass show websites/last.fm/doyster)" < $< > $@
 
 $(INTO)/Maildir/.notmuch: notmuch
 	mkdir -p $(INTO)/Maildir

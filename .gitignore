@@ -6,6 +6,7 @@
 /interhack/servers
 /interhack/ttyrec
 /less
+/mpdscribble/mpdscribble.conf
 /mutt/aliases
 /mutt/cache
 /mutt/extra
@@ -26,3 +27,4 @@ supervise/
 /vim/spell/*.spl
 /weechat/weechat_fifo_*
 /weechat/weechat.log
+/wunderground
