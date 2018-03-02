@@ -6,13 +6,9 @@ setxkbmap -option compose:caps
 xmodmap $HOME/.Xmodmap
 $HOME/.bin/numkeys on
 
-# disable trackpoint
-xinput set-prop "TPPS/2 IBM TrackPoint" "Device Enabled" 0
-
-# tap to click on touchpad
-synclient TapButton1=1
-synclient TapButton2=2
-synclient TapButton3=3
+# trackpad settings
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 1
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 
 # restart services that depend on keyboard reconfigurations
 if pgrep readproctitle > /dev/null; then
