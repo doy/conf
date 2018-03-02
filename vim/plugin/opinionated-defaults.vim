@@ -20,6 +20,12 @@ if has('persistent_undo')
     exe "set undodir=" . s:undocachedir
     set undofile
 endif
+" use a separate swapfile directory
+let s:swapfiledir = $HOME . '/.cache/vim/swap'
+if !isdirectory(s:swapfiledir)
+    call mkdir(s:swapfiledir, 'p')
+endif
+exe "set directory=" . s:swapfiledir
 
 
 """ BUFFERS """
