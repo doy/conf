@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/bin/mono /opt/duplicati-latest/Duplicati.Server.exe --webservice-port=8200
