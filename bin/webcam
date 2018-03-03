@@ -1,7 +1,2 @@
-#!/bin/bash
-
-local width=$1
-local height=$2
-if [[ -z $width ]];  then width=640;  fi
-if [[ -z $height ]]; then height=480; fi
-mplayer tv:// -tv driver=v4l2:width=${width}:height=${height}:device=/dev/video0 -fps 15 -vf screenshot
+#!/bin/sh
+mpv av://v4l2:/dev/video0
