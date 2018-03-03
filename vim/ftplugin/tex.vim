@@ -19,7 +19,7 @@ endfunction
 " evince treats opening the same file twice as meaning 'reload'
 function! s:evince()
     let l:pdf = '/tmp/' . expand('<afile>:t:r') . '.pdf'
-    system('evince ' . l:pdf . ' &')
+    call system('evince ' . l:pdf . ' &')
 endfunction
 
 " don't load the pdf if the make failed
