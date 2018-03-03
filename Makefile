@@ -60,13 +60,6 @@ INSTALL   = agignore \
 	    vim \
 	    weechat \
 	    zsh
-INSTALLED = $(patsubst %,$(INTO)/.%,$(INSTALL))
-
-BUILD     = bin/local/timettyrec \
-	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-	    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
-	    vim/spell/en.utf-8.add.spl \
-	    less
 
 EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
 	    Maildir \
@@ -77,6 +70,15 @@ EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
 	    .cache/vim/undo \
 	    .config/mpd/playlists \
 	    .config/touchegg
+
+INSTALLED = $(patsubst %,$(INTO)/%/,$(EMPTYDIRS)) \
+	    $(patsubst %,$(INTO)/.%,$(INSTALL))
+
+BUILD     = bin/local/timettyrec \
+	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
+	    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
+	    vim/spell/en.utf-8.add.spl \
+	    less
 
 ECHO      = @echo
 LN        = @ln -sf
@@ -91,7 +93,6 @@ submodules :
 build : $(BUILD)
 
 install : all $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
-	@for dir in $(EMPTYDIRS); do mkdir -p $(INTO)/$$dir; done
 	@chmod 600 msmtprc
 	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
@@ -110,6 +111,9 @@ versions :
 
 updates :
 	@git submodule foreach -q 'if [ $$path == "vim/pack/filetype/start/perl" ]; then if [ $$(git rev-parse dev) != $$sha1 ]; then git lg dev...$$sha1; fi; else if [ $$(git rev-parse master) != $$sha1 ]; then git lg master...$$sha1; fi; fi'
+
+$(INTO)/%/ :
+	@mkdir -p $@
 
 $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
