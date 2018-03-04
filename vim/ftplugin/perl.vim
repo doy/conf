@@ -1,3 +1,4 @@
+let g:perl_fold = 0
 let b:ale_linters = { 'perl': ['perlcritic'] }
 " rainbow parens break syntax-based indent
 autocmd vimrc BufEnter <buffer> let b:indent_use_syntax = 0
