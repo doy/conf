@@ -107,10 +107,6 @@ set include
 set fast_reply
 # use the Reply-To header in preference to the From header
 set reply_to
-# set up work signatures
-send-hook . '\
-    set from=doy@tozt.net ;\
-    unset signature'
 # }}}
 # prompts {{{
 # never automatically move read messages
