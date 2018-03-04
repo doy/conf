@@ -89,11 +89,13 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
 # }}}
 # }}}
 # prompt {{{
-function shell_prompt_precmd () {
-    PROMPT=`fancy-prompt --prompt-escape zsh $?`
-    RPS1=''
-}
-precmd_functions+=(shell_prompt_precmd)
+if type fancy-prompt > /dev/null 2>&1; then
+    function shell_prompt_precmd () {
+        PROMPT=`fancy-prompt --prompt-escape zsh $?`
+        RPS1=''
+    }
+    precmd_functions+=(shell_prompt_precmd)
+fi
 function zle-keymap-select () {
     setopt localoptions no_ksharrays
     { [[ "${@[2]-main}" == opp ]] } && return

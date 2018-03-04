@@ -54,7 +54,9 @@ source ~/.sh/fzf/shell/completion.bash
 source ~/.sh/fzf/shell/key-bindings.bash
 # }}}
 # prompt {{{
-export PROMPT_COMMAND="__err=\$?;$PROMPT_COMMAND;PS1=\"\$(fancy-prompt --prompt-escape bash "\$__err")\""
+if type fancy-prompt > /dev/null 2>&1; then
+    export PROMPT_COMMAND="__err=\$?;$PROMPT_COMMAND;PS1=\"\$(fancy-prompt --prompt-escape bash "\$__err")\""
+fi
 # }}}
 # }}}
 # fortune {{{
