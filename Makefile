@@ -13,7 +13,6 @@ INSTALL   = agignore \
 	    ledgerrc \
 	    less \
 	    mailcap \
-	    minicpanrc \
 	    mpdconf \
 	    msmtprc \
 	    muttrc \
@@ -27,7 +26,6 @@ INSTALL   = agignore \
 	    replyrc \
 	    runesrc \
 	    screenrc \
-	    signature \
 	    tigrc \
 	    tmux.conf \
 	    vimrc \
@@ -44,7 +42,6 @@ INSTALL   = agignore \
 	    bin \
 	    dzil \
 	    fortune \
-	    ginn \
 	    gnupg \
 	    i3 \
 	    interhack \
