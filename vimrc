@@ -78,13 +78,21 @@ else
     let s:horiz_preview_layout = 'right:50%:hidden'
 endif
 let s:ag_opts = {"options": ["-d:", "-n4"]}
+function! s:fzf_files()
+    silent let out = system("git rev-parse --show-toplevel 2>/dev/null")
+    if strlen(out)
+        exe "GFiles -co --exclude-standard"
+    else
+        exe "Files"
+    endif
+endfunction
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>,
   \                 "--hidden",
   \                 <bang>0 ? fzf#vim#with_preview(s:ag_opts, 'up:60%')
   \                         : fzf#vim#with_preview(s:ag_opts, s:horiz_preview_layout, '?'),
   \                 <bang>0)
-nnoremap <silent> t :Files<CR>
+nnoremap <silent> t :call <SID>fzf_files()<CR>
 nnoremap <silent> ff :Ag<CR>
 nnoremap <silent> fh :Helptags<CR>
 nnoremap <silent> ft :Filetypes<CR>
