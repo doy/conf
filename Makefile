@@ -44,7 +44,6 @@ INSTALL   = agignore \
 	    fortune \
 	    gnupg \
 	    i3 \
-	    interhack \
 	    mpdscribble \
 	    ncmpcpp \
 	    offlineimap \
