@@ -77,7 +77,7 @@ if &columns >= 160
 else
     let s:horiz_preview_layout = 'right:50%:hidden'
 endif
-let s:ag_opts = {"options": ["-d:", "-n4"]}
+let s:ag_opts = {"options": ["-d:", "-n4.."]}
 function! s:fzf_files()
     silent let out = system("git rev-parse --show-toplevel 2>/dev/null")
     if strlen(out)
