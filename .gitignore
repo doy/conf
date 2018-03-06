@@ -16,6 +16,7 @@
 /offlineimap
 !/offlineimap/pass.py
 /procmail/log
+/services/enabled
 /ssh
 !/ssh/authorized_keys
 !/ssh/cao_key

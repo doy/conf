@@ -57,7 +57,7 @@ INSTALL   = agignore \
 	    weechat \
 	    zsh
 
-EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
+EMPTYDIRS = $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
 	    Maildir \
 	    .cache/mutt/headers \
 	    .cache/mutt/bodies \
@@ -70,7 +70,8 @@ EMPTYDIRS = $(patsubst services/%,.log/%,$(wildcard services/*)) \
 INSTALLED = $(patsubst %,$(INTO)/%/,$(EMPTYDIRS)) \
 	    $(patsubst %,$(INTO)/.%,$(INSTALL))
 
-BUILD     = bin/local/timettyrec \
+BUILD     = $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
+	    bin/local/timettyrec \
 	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
 	    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
 	    vim/spell/en.utf-8.add.spl \
@@ -114,6 +115,10 @@ $(INTO)/%/ :
 $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
+
+services/enabled/% : services/available/%
+	@mkdir -p services/enabled
+	$(LN) ../available/$(notdir $<) $@
 
 /var/spool/cron/$(USER) : crontab
 	@crontab crontab
