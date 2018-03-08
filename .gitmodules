@@ -97,3 +97,6 @@
 [submodule "vim/pack/plugins/start/history-sync"]
 	path = vim/pack/plugins/start/history-sync
 	url = git://github.com/doy/vim-history-sync
+[submodule "vim/pack/plugins/start/diff-changes"]
+	path = vim/pack/plugins/start/diff-changes
+	url = git://github.com/doy/vim-diff-changes

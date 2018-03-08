@@ -70,6 +70,11 @@ let g:ale_history_log_output = 0
 " commentary {{{
 map <silent><Leader>x :Commentary<CR>
 " }}}
+" diff-changes {{{
+nnoremap <silent>ds :DiffAgainstFilesystem<CR>
+nnoremap <silent>dc :DiffAgainstVCS<CR>
+nnoremap <silent>de :DiffStop<CR>
+" }}}
 " fzf {{{
 let g:fzf_layout = { 'up': '~40%' }
 if &columns >= 160
