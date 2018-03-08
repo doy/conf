@@ -94,3 +94,6 @@
 [submodule "vim/pack/plugins/start/fzf"]
 	path = vim/pack/plugins/start/fzf
 	url = git://github.com/junegunn/fzf
+[submodule "vim/pack/plugins/start/history-sync"]
+	path = vim/pack/plugins/start/history-sync
+	url = git://github.com/doy/vim-history-sync

@@ -22,23 +22,6 @@ esac # }}}
 # aliases {{{
 [ -f "$HOME/.sh/aliases" ] && source $HOME/.sh/aliases
 [ -f "$HOME/.sh/functions" ] && source $HOME/.sh/functions
-mkdir -p $HOME/.cache/vim/hist
-function vim {
-    local zsh_hist_fname
-    zsh_hist_fname=$HOME/.cache/vim/hist/$$
-    command vim --cmd "let g:_zsh_hist_fname = '$zsh_hist_fname'" "$@"
-    if [[ -r $zsh_hist_fname ]]; then
-        while read line; do
-            if echo $line | grep -q "[[:space:]']"; then
-                line=${line/\'/\'\\\\\'\'}
-                line="'$line'"
-            fi
-            print -s "vim $line"
-        done < $zsh_hist_fname
-        fc -AI
-        rm -f $zsh_hist_fname
-    fi
-}
 # }}}
 # completion {{{
 fpath=(~/.zsh/zsh-completions/src $fpath)
@@ -86,6 +69,9 @@ ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 # zsh-autosuggestions {{{
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
+# }}}
+# vim-history-sync {{{
+source ~/.vim/pack/plugins/start/history-sync/sh/history-sync.zsh
 # }}}
 # }}}
 # prompt {{{

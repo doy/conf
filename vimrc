@@ -106,6 +106,7 @@ else
     let g:gundo_disable = 1
 endif
 " }}}
+" history-sync
 " matchit {{{
 packadd! matchit
 " }}}
