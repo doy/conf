@@ -40,8 +40,10 @@ endfunction
 
 function! s:init_zsh_hist ()
     for l:fname in <SID>get_buffer_list()
-        let s:initial_files[l:fname] = 1
-        call histadd(":", "e " . l:fname)
+        if strlen(l:fname) > 0
+            let s:initial_files[l:fname] = 1
+            call histadd(":", "e " . l:fname)
+        endif
     endfor
     call delete(g:_zsh_hist_fname)
 endfunction
