@@ -82,9 +82,6 @@
 [submodule "vim/pack/plugins/start/editorconfig"]
 	path = vim/pack/plugins/start/editorconfig
 	url = git://github.com/editorconfig/editorconfig-vim
-[submodule "vim/pack/plugins/start/vader"]
-	path = vim/pack/plugins/start/vader
-	url = git://github.com/junegunn/vader.vim
 [submodule "zsh/fzf"]
 	path = sh/fzf
 	url = git://github.com/junegunn/fzf
