@@ -169,10 +169,10 @@ let s:fortune = system('fortune -n200 -s ~/.fortune | grep -v -E "^$"')
 let g:startify_custom_footer = [''] + map(split(s:fortune, '\n'), '"   ".v:val')
 " }}}
 " textobj {{{
-let g:Textobj_defs = [
-   \['/', 'Textobj_paired', '/'],
-   \['\|', 'Textobj_paired', '\|'],
-\]
+let g:textobj_defs = {
+\    '/': ['paired'],
+\    '\|': ['paired'],
+\}
 " }}}
 " }}}
 " vim: fdm=marker
