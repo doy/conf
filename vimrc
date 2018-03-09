@@ -67,6 +67,7 @@ let g:ale_history_enabled = 0
 let g:ale_history_log_output = 0
 " }}}
 " airline
+" autobrace
 " commentary {{{
 map <silent><Leader>x :Commentary<CR>
 " }}}

@@ -100,3 +100,6 @@
 [submodule "vim/pack/plugins/start/diff-changes"]
 	path = vim/pack/plugins/start/diff-changes
 	url = git://github.com/doy/vim-diff-changes
+[submodule "vim/pack/plugins/start/autobrace"]
+	path = vim/pack/plugins/start/autobrace
+	url = git://github.com/doy/vim-autobrace
