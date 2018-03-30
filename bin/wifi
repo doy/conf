@@ -1,0 +1,30 @@
+#!/bin/sh
+
+DEV=wlp3s0
+OPEN=open
+
+if [ -z "$1" ]; then
+    if sudo netctl status $OPEN > /dev/null 2>&1; then
+        sudo netctl restart $OPEN
+    else
+        sudo systemctl restart netctl-auto@$DEV
+    fi
+else
+    case $1 in
+        open)
+            if ! sudo netctl status $OPEN > /dev/null 2>&1; then
+                sudo systemctl stop netctl-auto@$DEV
+                sudo netctl start $OPEN
+            fi
+            ;;
+        wpa)
+            if ! sudo systemctl status netctl-auto@$DEV > /dev/null 2>&1; then
+                sudo netctl stop $OPEN
+                sudo systemctl start netctl-auto@$DEV
+            fi
+            ;;
+        scan)
+            sudo iw dev $DEV scan | grep SSID | perl -nle 's/^.*SSID: //; print unless $seen{$_}++'
+            ;;
+    esac
+fi
