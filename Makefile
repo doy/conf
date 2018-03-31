@@ -3,6 +3,7 @@ INSTALL   = agignore \
 	    bash_logout \
 	    bash_profile \
 	    bashrc \
+	    config/alacritty/alacritty.yml \
 	    config/touchegg/touchegg.conf \
 	    crawlrc \
 	    gdbinit \
@@ -24,7 +25,6 @@ INSTALL   = agignore \
 	    profile \
 	    proverc \
 	    replyrc \
-	    runesrc \
 	    screenrc \
 	    tigrc \
 	    tmux.conf \
@@ -65,6 +65,7 @@ EMPTYDIRS = $(patsubst services/available/%,.log/%,$(wildcard services/available
 	    .cache/vim/hist \
 	    .cache/vim/undo \
 	    .config/mpd/playlists \
+	    .config/alacritty \
 	    .config/touchegg
 
 INSTALLED = $(patsubst %,$(INTO)/%/,$(EMPTYDIRS)) \

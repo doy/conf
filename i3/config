@@ -124,8 +124,8 @@ bar {
 exec --no-startup-id "i3-msg 'workspace 6; append_layout .i3/browser-workspace.json'"
 exec --no-startup-id "i3-msg 'workspace 5; append_layout .i3/terminal-workspace.json'"
 
-exec --no-startup-id urxvtc
-exec --no-startup-id urxvtc
-exec --no-startup-id urxvtc
-exec --no-startup-id urxvtc
-exec --no-startup-id urxvtc
+exec --no-startup-id alacritty
+exec --no-startup-id alacritty
+exec --no-startup-id alacritty
+exec --no-startup-id alacritty
+exec --no-startup-id alacritty
