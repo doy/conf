@@ -40,9 +40,11 @@ INSTALL   = agignore \
 	    zshrc \
 	    abook \
 	    bin \
+	    config/karabiner \
 	    dzil \
 	    fortune \
 	    gnupg \
+	    hammerspoon \
 	    i3 \
 	    mpdscribble \
 	    ncmpcpp \
