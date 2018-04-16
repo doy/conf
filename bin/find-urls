@@ -1,8 +1,0 @@
-#!/usr/bin/env perl
-use strict;
-use warnings;
-use 5.014;
-
-use URL::Search 'extract_urls';
-
-say for extract_urls(do { local $/; <> });
