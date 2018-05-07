@@ -85,3 +85,6 @@
 [submodule "vim/pack/filetype/start/polyglot"]
 	path = vim/pack/filetype/start/polyglot
 	url = git://github.com/sheerun/vim-polyglot
+[submodule "vim/pack/filetype/start/terraform"]
+	path = vim/pack/filetype/start/terraform
+	url = git://github.com/hashivim/vim-terraform
