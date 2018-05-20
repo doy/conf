@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.014;
+
+use Config;
+use Path::Class;
+use POSIX qw(mkfifo);
+
+use constant {
+    FIFO_PATH => "$ENV{HOME}/.cache/tmux/clipboard/",
+    COPY_CMD => ($Config{osname} eq 'linux' ? 'xclip -i' : 'pbcopy'),
+    PASTE_CMD => ($Config{osname} eq 'linux' ? 'xclip -o' : 'pbpaste'),
+};
+
+my $fifo_file = file(FIFO_PATH, $$);
+$fifo_file->dir->mkpath;
+$fifo_file->remove;
+END { $fifo_file->remove }
+mkfifo("$fifo_file", 0700);
+
+if ($ARGV[0] eq 'copy') {
+    if (fork) {
+        open my $clipboard, '|-', COPY_CMD
+            or die "can't copy from clipboard using ${\COPY_CMD}: $!";
+        $clipboard->print($fifo_file->slurp);
+        $clipboard->close;
+    }
+    else {
+        exec("tmux save-buffer -a $fifo_file");
+    }
+}
+elsif ($ARGV[0] eq 'paste') {
+    if (fork) {
+        open my $clipboard, '-|', PASTE_CMD
+            or die "can't paste from clipboard using ${\PASTE_CMD}: $!";
+        my $contents = do { local $/; <$clipboard> };
+        $clipboard->close;
+        $fifo_file->spew(iomode => 'a', $contents);
+    }
+    else {
+        system("tmux load-buffer -b tmux-clipboard $fifo_file");
+        exec("tmux paste-buffer -b tmux-clipboard -dp");
+    }
+}
+else {
+    die "usage: $0 [copy|paste]";
+}
+
