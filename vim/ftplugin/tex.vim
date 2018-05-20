@@ -3,23 +3,9 @@ let b:tex_flavor="latex"
 " :make converts to pdf
 setlocal makeprg=(cd\ /tmp\ &&\ pdflatex\ --synctex=1\ --halt-on-error\ %:p)
 
-" xpdf needs to be manually refreshed when the file changes
-function! s:xpdf()
-    if s:is_running('xpdf -remote localhost')
-        call system('xpdf -remote localhost -reload')
-        return
-    endif
-    call system('xpdf -remote localhost ' . s:current_pdf() . ' &')
-endfunction
-
-" evince treats opening the same file twice as meaning 'reload'
-function! s:evince()
-    call system('evince ' . s:current_pdf() . ' &')
-endfunction
-
-" zathura automatically reloads
 function! s:zathura()
     if s:is_running('^zathura')
+        " zathura automatically reloads
         return
     endif
     call remote_startserver("vim-zathura")
@@ -62,32 +48,13 @@ function! s:make_errors()
     return 0
 endfunction
 
-let b:automake_enabled = 0
-function! s:automake()
-    let old_shellpipe = &shellpipe
-    let &shellpipe = '>'
-    try
-        silent make!
-    finally
-        let &shellpipe = old_shellpipe
-    endtry
-endfunction
-
 augroup _tex
     autocmd!
     if executable('zathura') && strlen(expand('$DISPLAY'))
         autocmd QuickFixCmdPost make if !s:make_errors() | call s:zathura() | endif
-    elseif executable('xpdf') && strlen(expand('$DISPLAY'))
-        autocmd QuickFixCmdPost make if !s:make_errors() | call s:xpdf()    | endif
-    elseif executable('evince') && strlen(expand('$DISPLAY'))
-        autocmd QuickFixCmdPost make if !s:make_errors() | call s:evince()  | endif
     endif
-    autocmd CursorHold,CursorHoldI,InsertLeave <buffer> if b:automake_enabled | call s:automake() | endif
     autocmd CursorMoved <buffer> call Synctex()
 augroup END
-
-noremap <buffer> <silent><F6> :let b:automake_enabled = !b:automake_enabled<CR><F5>
-inoremap <buffer> <silent><F6> <C-O>:let b:automake_enabled = !b:automake_enabled<CR><C-O><F5>
 
 " see :help errorformat-LaTeX
 setlocal errorformat=
