@@ -20,13 +20,20 @@ END { $fifo_file->remove }
 mkfifo("$fifo_file", 0700);
 
 if ($ARGV[0] eq 'copy') {
+    my $selection = $ARGV[1] || 'primary';
+
     if (fork) {
         close STDIN;
         close STDOUT;
         close STDERR;
 
-        open my $clipboard, '|-', COPY_CMD
-            or die "can't copy from clipboard using ${\COPY_CMD}: $!";
+        my $copy_cmd = COPY_CMD;
+        if ($Config{osname} eq 'linux') {
+            $copy_cmd .= " -selection $selection";
+        }
+
+        open my $clipboard, '|-', $copy_cmd
+            or die "can't copy from clipboard using $copy_cmd: $!";
         $clipboard->print($fifo_file->slurp);
         $clipboard->close;
     }
@@ -35,13 +42,20 @@ if ($ARGV[0] eq 'copy') {
     }
 }
 elsif ($ARGV[0] eq 'paste') {
+    my $selection = $ARGV[1] || 'primary';
+
     if (fork) {
         close STDIN;
         close STDOUT;
         close STDERR;
 
-        open my $clipboard, '-|', PASTE_CMD
-            or die "can't paste from clipboard using ${\PASTE_CMD}: $!";
+        my $paste_cmd = PASTE_CMD;
+        if ($Config{osname} eq 'linux') {
+            $paste_cmd .= " -selection $selection";
+        }
+
+        open my $clipboard, '-|', $paste_cmd
+            or die "can't paste from clipboard using $paste_cmd: $!";
         my $contents = do { local $/; <$clipboard> };
         $clipboard->close;
         $fifo_file->spew(iomode => 'a', $contents);
