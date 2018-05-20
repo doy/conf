@@ -30,11 +30,20 @@ function! s:is_running(re)
     return 0
 endfunction
 
-function! Synctex()
+function! s:synctex()
     if s:is_running('^zathura')
         exe "silent !zathura --synctex-forward " . line('.') . ":" . col('.') . ":" . expand('%:p') . " " . s:current_pdf()
         redraw
     endif
+endfunction
+
+let g:_tex_last_line_seen = -1
+function! s:cursor_moved()
+    let line = line('.')
+    if line != g:_tex_last_line_seen
+        call s:synctex()
+    endif
+    let g:_tex_last_line_seen = line
 endfunction
 
 " don't load the pdf if the make failed
@@ -53,7 +62,7 @@ augroup _tex
     if executable('zathura') && strlen(expand('$DISPLAY'))
         autocmd QuickFixCmdPost make if !s:make_errors() | call s:zathura() | endif
     endif
-    autocmd CursorMoved <buffer> call Synctex()
+    autocmd CursorMoved <buffer> call s:cursor_moved()
 augroup END
 
 " see :help errorformat-LaTeX
