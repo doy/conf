@@ -1,6 +1,7 @@
 " options {{{
 set shiftwidth=4
 set expandtab
+set background=light
 " }}}
 " hooks {{{
 augroup vimrc
