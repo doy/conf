@@ -5,11 +5,11 @@
        "x": 0,
        "y": 0
     },
-    "name": "Firefox",
+    "name": "Signal",
     "percent": 1,
     "swallows": [
        {
-          "class": "^Firefox$"
+          "class": "^Signal$"
        }
     ],
     "type": "con"
