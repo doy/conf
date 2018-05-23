@@ -21,6 +21,8 @@ client.urgent           #ff0000 #ff0000 #ffffff #ff0000
 floating_minimum_size 1 x 1
 floating_maximum_size -1 x -1
 
+focus_wrapping no
+
 # floats
 for_window [class="Xmessage"]           floating enable
 for_window [class="qemu"]               floating enable

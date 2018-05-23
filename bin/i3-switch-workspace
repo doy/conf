@@ -46,15 +46,9 @@ elsif ($workspace_data->[0]{focused} && $dir eq 'prev') {
     my $tree_data = $json->decode(i3_msg('get_tree'));
     my $workspace_tree = find_workspace($tree_data, $current_workspace);
     if (@{ $workspace_tree->{nodes} } || @{ $workspace_tree->{floating_nodes} }) {
-        if ($prev_workspace < 0) {
-            i3_msg('command', "workspace number $next_workspace");
-        }
-        else {
+        if ($prev_workspace > 0) {
             i3_msg('command', "workspace number $prev_workspace");
         }
-    }
-    else {
-        i3_msg('command', "workspace $dir");
     }
 }
 elsif ($workspace_data->[-1]{focused} && $dir eq 'next') {
@@ -63,9 +57,6 @@ elsif ($workspace_data->[-1]{focused} && $dir eq 'next') {
     my $workspace_tree = find_workspace($tree_data, $current_workspace);
     if (@{ $workspace_tree->{nodes} } || @{ $workspace_tree->{floating_nodes} }) {
         i3_msg('command', "workspace number $next_workspace");
-    }
-    else {
-        i3_msg('command', "workspace $dir");
     }
 }
 else {
