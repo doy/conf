@@ -110,6 +110,11 @@
                                         "lazy": true
                                     }
                                 ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
                                 "type": "basic"
                             },
                             {
@@ -145,9 +150,9 @@
                         ]
                     },
                     {
+                        "description": "Map command to escape",
                         "manipulators": [
                             {
-                                "description": "Map left command to escape",
                                 "from": {
                                     "key_code": "left_command",
                                     "modifiers": {
@@ -159,6 +164,28 @@
                                 "to": [
                                     {
                                         "key_code": "left_command",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
                                         "lazy": true
                                     }
                                 ],
@@ -784,18 +811,64 @@
                         },
                         {
                             "from": {
+                                "key_code": "right_command"
+                            },
+                            "to": {
+                                "key_code": "right_option"
+                            }
+                        },
+                        {
+                            "from": {
                                 "key_code": "right_option"
                             },
                             "to": {
                                 "key_code": "right_command"
                             }
+                        }
+                    ]
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": false,
+                    "fn_function_keys": [],
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": false,
+                        "product_id": 2082,
+                        "vendor_id": 6134
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": false,
+                    "simple_modifications": [
+                        {
+                            "from": {
+                                "key_code": "left_alt"
+                            },
+                            "to": {
+                                "key_code": "left_command"
+                            }
                         },
                         {
                             "from": {
-                                "key_code": "right_command"
+                                "key_code": "left_gui"
+                            },
+                            "to": {
+                                "key_code": "left_option"
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_alt"
                             },
                             "to": {
                                 "key_code": "right_option"
+                            }
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_gui"
+                            },
+                            "to": {
+                                "key_code": "right_command"
                             }
                         }
                     ]
@@ -904,15 +977,7 @@
             "simple_modifications": [
                 {
                     "from": {
-                        "key_code": "caps_lock"
-                    },
-                    "to": {
-                        "key_code": "fn"
-                    }
-                },
-                {
-                    "from": {
-                        "consumer_key_code": "rewind"
+                        "consumer_key_code": "fastforward"
                     },
                     "to": {
                         "key_code": "vk_none"
@@ -928,15 +993,24 @@
                 },
                 {
                     "from": {
-                        "consumer_key_code": "fastforward"
+                        "consumer_key_code": "rewind"
                     },
                     "to": {
                         "key_code": "vk_none"
+                    }
+                },
+                {
+                    "from": {
+                        "key_code": "caps_lock"
+                    },
+                    "to": {
+                        "key_code": "fn"
                     }
                 }
             ],
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
+                "country_code": 0,
                 "keyboard_type": "ansi"
             }
         }

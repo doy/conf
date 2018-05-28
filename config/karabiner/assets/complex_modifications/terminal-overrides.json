@@ -85,6 +85,11 @@
               "lazy": true
             }
           ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
           "conditions": [
             {
               "type": "frontmost_application_if",

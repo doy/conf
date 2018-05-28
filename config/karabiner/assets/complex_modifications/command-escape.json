@@ -2,9 +2,9 @@
   "title": "Map Command to Escape when pressed alone",
   "rules": [
     {
+      "description": "Map command to escape",
       "manipulators": [
         {
-          "description": "Map left command to escape",
           "type": "basic",
           "from": {
             "key_code": "left_command",
@@ -17,6 +17,28 @@
           "to": [
             {
               "key_code": "left_command",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_command",
               "lazy": true
             }
           ],
