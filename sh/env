@@ -15,6 +15,6 @@ export NOPASTE_SSH_MODE=0644
 export PERL_CPANM_OPT="-q --mirror file://$HOME/perl5/minicpan/ --mirror http://mirrors.kernel.org/cpan/ --mirror http://cpan.metacpan.org/ --prompt"
 export FZF_DEFAULT_OPTS="--reverse --inline-info --bind=tab:down,shift-tab:up,change:top"
 export FZF_DEFAULT_COMMAND="ag --hidden -l ."
-export FANCY_PROMPT_COLORS="user_doy=bright_blue,host_lance=red,host_st-doy-1=bright_white,host_bishamon=blue,host_tozt=bright_yellow,host_hush=bright_black"
+export FANCY_PROMPT_COLORS="user_doy=bright_blue,host_lance=red,host_st-doy1=bright_white,host_bishamon=blue,host_tozt=bright_yellow,host_hush=bright_black"
 
 # vim:ft=sh:
