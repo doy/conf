@@ -11,7 +11,7 @@ for attr in 0 1 2 3 4 5 6 7 ; do
         for back in 40 41 42 43 44 45 46 47; do
             printf '\033[%s;%s;%sm %02s;%02s  ' $attr $fore $back $fore $back
         done
-        printf '\n'
+        printf '\033[0m\n'
     done
     printf '\033[0m'
 done
