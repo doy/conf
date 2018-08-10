@@ -24,27 +24,27 @@ custom_cursor_colors: true
 colors:
   primary:
     background: '0x000000'
-    foreground: '0xd3d3d3'
+    foreground: '0xc1c9d2'
   cursor:
     text:       '0x000000'
     cursor:     '0x00ff00'
   normal:
     black:      '0x000000'
-    red:        '0x9f0000'
-    green:      '0x4e9a06'
-    yellow:     '0xc4a000'
-    blue:       '0x3465a4'
-    magenta:    '0x903e9d'
-    cyan:       '0x06989a'
-    white:      '0xcdcdcd'
+    red:        '0xed5f74'
+    green:      '0x1ea672'
+    yellow:     '0xd97917'
+    blue:       '0x688ef1'
+    magenta:    '0xc96ed0'
+    cyan:       '0x3a97d4'
+    white:      '0xe3e8ee'
   bright:
-    black:      '0x666666'
-    red:        '0xef2929'
-    green:      '0x64f434'
-    yellow:     '0xfce94f'
-    blue:       '0x79b8fb'
-    magenta:    '0xda8ed1'
-    cyan:       '0x5ae9e9'
+    black:      '0x697386'
+    red:        '0xfbb5b2'
+    green:      '0x85d996'
+    yellow:     '0xefc078'
+    blue:       '0x9fcdff'
+    magenta:    '0xf0b4e4'
+    cyan:       '0x7fd3ed'
     white:      '0xffffff'
 
 mouse_bindings:

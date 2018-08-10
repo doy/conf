@@ -37,20 +37,20 @@ xterm*bellIsUrgent: true
 ! }}}
 ! colors {{{
 *.color0:#000000
-*.color1:#9f0000
-*.color2:#4e9a06
-*.color3:#c4a000
-*.color4:#3465a4
-*.color5:#903e9d
-*.color6:#06989a
-*.color7:#cdcdcd
-*.color8:#666666
-*.color9:#ef2929
-*.color10:#64f434
-*.color11:#fce94f
-*.color12:#79b8fb
-*.color13:#da8ed1
-*.color14:#5ae9e9
+*.color1:#ed5f74
+*.color2:#1ea672
+*.color3:#d97917
+*.color4:#688ef1
+*.color5:#c96ed0
+*.color6:#3a97d4
+*.color7:#e3e8ee
+*.color8:#697386
+*.color9:#fbb5b2
+*.color10:#85d996
+*.color11:#efc078
+*.color12:#9fcdff
+*.color13:#f0b4e4
+*.color14:#7fd3ed
 *.color15:#ffffff
 ! }}}
 
