@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -d blib ]]; then
-    perl -Mblib -MTest::Pretty "$@"
+    perl -Mblib "$@"
 else
-    perl -Ilib -MTest::Pretty "$@"
+    perl -Ilib "$@"
 fi
