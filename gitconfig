@@ -9,7 +9,7 @@
 	bd = "!f() { git choose-branch | head -n1 | xargs --no-run-if-empty git branch -D; }; f"
 	bda = "!f() { git branch --merged master --format='%(refname:short)' | grep -v '^master$' | xargs -r git branch -d; }; f"
 	blame-stats = !~/.bin/git/git-blame-stats
-	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:green)(%(committerdate:relative))'
+	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:magenta)(%(committerdate:relative))'
 	choose-branch = "!f() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --height 40% --no-sort --preview='git show {} -q --format=medium'; }; f"
 	c = "!f() { git choose-branch | head -n1 | xargs --no-run-if-empty git co; }; f"
 	cc = cherry-pick
@@ -21,7 +21,7 @@
 	gc-aggressive = "!f() { git repack -Abd --window=250 --depth=250 --window-memory=1g && git prune --expire \"1 day ago\" && rm -f .git/gc.log && git gc; }; f"
 	imerge = !~/.bin/git/git-imerge
 	info = remote show -n origin
-	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%aN%Creset %Cgreen(%ar)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
+	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%aN%Creset %C(magenta)(%ar)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
 	m = "!f() { git co master && git pull && EDITOR=true git merge --no-ff \"$@\" && git bda; }; f"
 	prune-all = !git remote | xargs -n 1 git remote prune
 	pushall = "!f() { for repo in origin github; do git push $repo \"$@\"; done; }; f"
