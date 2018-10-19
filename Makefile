@@ -127,14 +127,14 @@ services/enabled/% : services/available/%
 	$(LN) ../available/$(notdir $<) $@
 
 /var/spool/cron/$(USER) : crontab
-	@crontab crontab
+	@crontab $@
 
 fortune/%.dat : fortune/%
 	@echo "Compiling $@"
 	@strfile -s $(basename $@)
 
 less : lesskey
-	lesskey -o less lesskey
+	lesskey -o $< $@
 
 wunderground :
 	pass show websites/wunderground.com/wunderground@tozt.net > $@
