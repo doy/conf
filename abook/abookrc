@@ -29,9 +29,9 @@ set address_style=us
 set sort_field=name
 
 set use_colors=true
-set color_header_bg=blue
+set color_header_bg=default
 set color_header_fg=green
-set color_footer_bg=blue
+set color_footer_bg=default
 set color_footer_fg=green
 set color_list_header_bg=default
 set color_list_highlight_bg=cyan
