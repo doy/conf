@@ -126,7 +126,7 @@ services/enabled/% : services/available/%
 	$(LN) ../available/$(notdir $<) $@
 
 /var/spool/cron/$(USER) : crontab
-	@crontab $@
+	@crontab $<
 
 fortune/%.dat : fortune/%
 	@echo "Compiling $@"
