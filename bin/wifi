@@ -5,16 +5,16 @@ set -o pipefail
 DEV=wlp3s0
 OPEN=open
 
-if [ -z "$1" ]; then
+if [ -z "${1:-}" ]; then
     if sudo netctl status $OPEN > /dev/null 2>&1; then
         sudo netctl restart $OPEN
     else
         sudo systemctl restart netctl-auto@$DEV
     fi
 else
-    case $1 in
+    case "$1" in
         open)
-            if [ -n "$2" ]; then
+            if [ -n "${2:-}" ]; then
                 sudo sed -i "s/^ESSID=.*/ESSID='${2}'/" "/etc/netctl/${OPEN}"
             fi
 
