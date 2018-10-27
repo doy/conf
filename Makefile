@@ -133,7 +133,7 @@ fortune/%.dat : fortune/%
 	@strfile -s $(basename $@)
 
 less : lesskey
-	lesskey -o $< $@
+	lesskey -o $@ $<
 
 wunderground :
 	pass show websites/wunderground.com/wunderground@tozt.net > $@
