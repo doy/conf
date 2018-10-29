@@ -164,4 +164,4 @@ wunderground :
 	[ -e ~/.password-store ] && pass show websites/wunderground.com/wunderground@tozt.net > $@ || touch $@
 
 mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
-	perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$(pass show websites/last.fm/doyster)" < $< > $@
+	[ -e ~/.password-store ] && perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$(pass show websites/last.fm/doyster)" < $< > $@ || touch $@
