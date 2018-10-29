@@ -7,6 +7,7 @@ include Makefile.$(TYPE)
 
 INSTALL := \
     $(INSTALL) \
+    .abook/abookrc \
     .agignore \
     .bash_logout \
     .bash_profile \
@@ -15,6 +16,7 @@ INSTALL := \
     .gdbinit \
     .gitconfig \
     .gitignore \
+    .gnupg/gpg.conf \
     .inputrc \
     .ledgerrc \
     .less \
@@ -22,12 +24,15 @@ INSTALL := \
     .mpdconf \
     .msmtprc \
     .muttrc \
+    .ncmpcpp/bindings \
     .nethackrc \
     .perlcriticrc \
     .profile \
     .proverc \
     .replyrc \
     .screenrc \
+    .ssh/authorized_keys \
+    .ssh/cao_key \
     .tigrc \
     .tmux.conf \
     .vimrc \
@@ -35,14 +40,10 @@ INSTALL := \
     .zshcomplete \
     .zshinput \
     .zshrc \
-    .abook \
     .bin \
     .dzil \
     .fortune \
-    .gnupg \
-    .ncmpcpp \
     .sh \
-    .ssh \
     .terminfo \
     .tex \
     .vim \

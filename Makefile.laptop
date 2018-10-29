@@ -3,6 +3,7 @@ INSTALL := \
     .config/touchegg/touchegg.conf \
     .i3status.conf \
     .notmuch-config \
+    .offlineimap/pass.py \
     .offlineimaprc \
     .wunderground \
     .xbindkeysrc \
@@ -12,8 +13,8 @@ INSTALL := \
     .Xmodmap \
     .i3 \
     .mpdscribble \
-    .offlineimap \
-    .services
+    $(patsubst %,.%,$(wildcard services/available/*/run)) \
+    $(patsubst %,.%,$(wildcard services/available/*/log/run))
 
 EMPTYDIRS := \
     $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
@@ -22,11 +23,11 @@ EMPTYDIRS := \
     .config/mpd/playlists
 
 INSTALLED := \
+    $(patsubst services/available/%,$(INTO)/.services/enabled/%,$(wildcard services/available/*)) \
     /var/spool/cron/$(USER) \
-    $(INTO)/Maildir/.notmuch
+    $(INTO)/Maildir/.notmuch/hooks/post-new
 
 BUILD := \
-    $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
     wunderground \
     mpdscribble/mpdscribble.conf \
     bin/local/timettyrec
@@ -37,13 +38,13 @@ clean ::
 /var/spool/cron/$(USER) : crontab
 	@crontab $<
 
-$(INTO)/Maildir/.notmuch: notmuch
+$(INTO)/Maildir/.notmuch/hooks/post-new: notmuch/hooks/post-new
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
-	$(MKDIR) $(INTO)/Maildir
+	$(MKDIR) $(INTO)/Maildir/.notmuch/hooks
 	$(LN) $(PWD)/$< $@
 
-services/enabled/% : services/available/%
-	$(MKDIR) services/enabled
+$(INTO)/.services/enabled/% : services/available/%
+	$(MKDIR) $(dir $<)
 	$(LN) ../available/$(notdir $<) $@
 
 wunderground :
