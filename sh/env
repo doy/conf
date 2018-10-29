@@ -3,8 +3,11 @@ export MPD_HOST=bishamon
 export MANPAGER="$HOME/.bin/vimmanpager"
 export PERLDOC_PAGER="$HOME/.bin/vimmanpager"
 export EDITOR=$(/usr/bin/which vim)
-[ "$(cat "${HOME}/conf/.conf-type")" = "laptop" ] && export GIT_SSH="$HOME/.bin/laptop/ssh"
-[ "$(cat "${HOME}/conf/.conf-type")" = "laptop" ] && export RSYNC_RSH="$HOME/.bin/laptop/ssh"
+ssh="${HOME}/.bin/$(hostname)/ssh"
+if [ -x "$ssh" ]; then
+    export GIT_SSH="$ssh"
+    export RSYNC_RSH="$ssh"
+fi
 export TEXINPUTS=".:$HOME/conf/tex:"
 export LESS='-QR'
 export NOPASTE_SERVICES="ssh"

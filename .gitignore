@@ -28,4 +28,3 @@ supervise/
 /weechat/weechat_fifo_*
 /weechat/weechat.log
 /wunderground
-/.conf-type

@@ -1,9 +1,8 @@
 INTO := $(HOME)
-TYPE := $(file <.conf-type)
 
 all : build
 
-include Makefile.$(TYPE)
+include Makefile.$(shell hostname)
 
 INSTALL := \
     $(INSTALL) \

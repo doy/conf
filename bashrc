@@ -5,7 +5,7 @@ type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
 # }}}
 # environment {{{
-export PATH="${HOME}/.bin/local:${HOME}/.bin/$(cat "${HOME}/conf/.conf-type"):${HOME}/.bin:/usr/lib/ccache/bin:/usr/share/git/diff-highlight:$PATH"
+export PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:/usr/lib/ccache/bin:/usr/share/git/diff-highlight:$PATH"
 [ -f "$HOME/.sh/env" ] && source $HOME/.sh/env
 # }}}
 # Test for an interactive shell. {{{

@@ -39,8 +39,8 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space       focus mode_toggle
 
-bindsym $mod+bracketleft  exec ~/.bin/laptop/i3-switch-workspace prev
-bindsym $mod+bracketright exec ~/.bin/laptop/i3-switch-workspace next
+bindsym $mod+bracketleft  exec i3-switch-workspace prev
+bindsym $mod+bracketright exec i3-switch-workspace next
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -68,7 +68,7 @@ bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 bar {
     tray_output primary
-    status_command ~/.bin/laptop/status
+    status_command status
     font xft:DejaVuSansMono 10
 }
 
