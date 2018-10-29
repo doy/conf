@@ -1,87 +1,94 @@
-INTO      = $(HOME)
-INSTALL   = agignore \
-	    bash_logout \
-	    bash_profile \
-	    bashrc \
-	    config/alacritty/alacritty.yml \
-	    config/touchegg/touchegg.conf \
-	    crawlrc \
-	    gdbinit \
-	    gitconfig \
-	    gitignore \
-	    i3status.conf \
-	    inputrc \
-	    ledgerrc \
-	    less \
-	    mailcap \
-	    mpdconf \
-	    msmtprc \
-	    muttrc \
-	    nethackrc \
-	    notmuch-config \
-	    offlineimaprc \
-	    perlcriticrc \
-	    procmailrc \
-	    profile \
-	    proverc \
-	    replyrc \
-	    screenrc \
-	    tigrc \
-	    tmux.conf \
-	    vimrc \
-	    wunderground \
-	    xbindkeysrc \
-	    Xdefaults \
-	    xinitrc \
-	    xprofile \
-	    Xmodmap \
-	    zlogout \
-	    zshcomplete \
-	    zshinput \
-	    zshrc \
-	    abook \
-	    bin \
-	    config/karabiner \
-	    dzil \
-	    fortune \
-	    gnupg \
-	    hammerspoon \
-	    i3 \
-	    mpdscribble \
-	    ncmpcpp \
-	    offlineimap \
-	    procmail \
-	    services \
-	    sh \
-	    ssh \
-	    terminfo \
-	    tex \
-	    vim \
-	    weechat \
-	    zsh
+INTO := $(HOME)
 
-EMPTYDIRS = $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
-	    Maildir \
-	    .cache/mutt/headers \
-	    .cache/mutt/bodies \
-	    .cache/mpd \
-	    .cache/vim/hist \
-	    .cache/vim/undo \
-	    .config/mpd/playlists \
-	    .config/alacritty \
-	    .config/touchegg
+INSTALL := \
+    agignore \
+    bash_logout \
+    bash_profile \
+    bashrc \
+    config/alacritty/alacritty.yml \
+    config/touchegg/touchegg.conf \
+    crawlrc \
+    gdbinit \
+    gitconfig \
+    gitignore \
+    i3status.conf \
+    inputrc \
+    ledgerrc \
+    less \
+    mailcap \
+    mpdconf \
+    msmtprc \
+    muttrc \
+    nethackrc \
+    notmuch-config \
+    offlineimaprc \
+    perlcriticrc \
+    procmailrc \
+    profile \
+    proverc \
+    replyrc \
+    screenrc \
+    tigrc \
+    tmux.conf \
+    vimrc \
+    wunderground \
+    xbindkeysrc \
+    Xdefaults \
+    xinitrc \
+    xprofile \
+    Xmodmap \
+    zlogout \
+    zshcomplete \
+    zshinput \
+    zshrc \
+    abook \
+    bin \
+    config/karabiner \
+    dzil \
+    fortune \
+    gnupg \
+    hammerspoon \
+    i3 \
+    mpdscribble \
+    ncmpcpp \
+    offlineimap \
+    procmail \
+    services \
+    sh \
+    ssh \
+    terminfo \
+    tex \
+    vim \
+    weechat \
+    zsh
 
-INSTALLED = $(patsubst %,$(INTO)/%/,$(EMPTYDIRS)) \
-	    $(patsubst %,$(INTO)/.%,$(INSTALL))
+EMPTYDIRS := \
+    $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
+    Maildir \
+    .cache/mutt/headers \
+    .cache/mutt/bodies \
+    .cache/mpd \
+    .cache/vim/hist \
+    .cache/vim/undo \
+    .config/mpd/playlists \
+    .config/alacritty \
+    .config/touchegg
 
-BUILD     = $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
-	    bin/local/timettyrec \
-	    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-	    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
-	    vim/spell/en.utf-8.add.spl \
-	    less \
-	    wunderground \
-	    mpdscribble/mpdscribble.conf
+BUILD := \
+    $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
+    bin/local/timettyrec \
+    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
+    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
+    vim/spell/en.utf-8.add.spl \
+    less \
+    wunderground \
+    mpdscribble/mpdscribble.conf
+
+INSTALLED := \
+    $(patsubst %,$(INTO)/%/,$(EMPTYDIRS)) \
+    $(patsubst %,$(INTO)/.%,$(INSTALL)) \
+    /var/spool/cron/$(USER) \
+    $(INTO)/Maildir/.notmuch
 
 ECHO      = @echo
 LN        = @ln -sf
@@ -95,7 +102,7 @@ submodules :
 
 build : $(BUILD)
 
-install : all $(INSTALLED) /var/spool/cron/$(USER) $(INTO)/Maildir/.notmuch
+install : all $(INSTALLED)
 	@chmod 600 msmtprc
 	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
