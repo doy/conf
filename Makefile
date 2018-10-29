@@ -70,9 +70,7 @@ EMPTYDIRS := \
     .cache/mpd \
     .cache/vim/hist \
     .cache/vim/undo \
-    .config/mpd/playlists \
-    .config/alacritty \
-    .config/touchegg
+    .config/mpd/playlists
 
 INSTALLED := \
     $(patsubst %,$(INTO)/%,$(EMPTYDIRS) $(INSTALL)) \
@@ -131,14 +129,15 @@ $(patsubst %,$(INTO)/%,$(EMPTYDIRS)) :
 
 $(patsubst %,$(INTO)/%,$(INSTALL)) : $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(MKDIR) $(notdir $@)
 	$(LN) $(PWD)/$< $@
 
 /var/spool/cron/$(USER) : crontab
 	@crontab $<
 
 $(INTO)/Maildir/.notmuch: notmuch
-	$(MKDIR) $(INTO)/Maildir
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(MKDIR) $(INTO)/Maildir
 	$(LN) $(PWD)/$< $@
 
 # build targets
