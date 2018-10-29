@@ -4,6 +4,6 @@ INSTALL := \
 
 EMPTYDIRS := \
 
-INSTALLED := \
+INSTALL_CUSTOM := \
 
 BUILD := \

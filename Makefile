@@ -57,9 +57,8 @@ EMPTYDIRS := \
     .cache/vim/hist \
     .cache/vim/undo \
 
-INSTALLED := \
-    $(INSTALLED) \
-    $(patsubst %,$(INTO)/%,$(EMPTYDIRS) $(INSTALL))
+INSTALL_CUSTOM := \
+    $(INSTALL_CUSTOM)
 
 BUILD := \
     $(BUILD) \
@@ -68,10 +67,22 @@ BUILD := \
     vim/spell/en.utf-8.add.spl \
     less
 
+INSTALLED_SYMLINKS := \
+    $(patsubst %,$(INTO)/%,$(INSTALL)) \
+    $(INSTALL_CUSTOM)
+
+INSTALLED_DIRS := \
+    $(patsubst %,$(INTO)/%,$(EMPTYDIRS))
+
+INSTALLED := \
+    $(INSTALLED_SYMLINKS) \
+    $(INSTALLED_DIRS)
+
 ECHO      = @echo
 LN        = @ln -sf
 MKDIR     = @mkdir -p
 RM        = @rm -f
+RMDIR     = @rmdir -p
 
 # named targets
 
@@ -87,7 +98,9 @@ install :: all $(INSTALLED)
 
 clean ::
 	$(ECHO) Cleaning from $(INTO)
-	$(RM) $(BUILD) $(INSTALLED)
+	$(RM) $(BUILD)
+	$(RM) $(INSTALLED_SYMLINKS)
+	$(RMDIR) $(INSTALLED_DIRS)
 
 update :
 	@git submodule foreach '(if [ $$path == "vim/pack/filetype/start/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'

@@ -22,7 +22,7 @@ EMPTYDIRS := \
     .cache/mpd \
     .config/mpd/playlists
 
-INSTALLED := \
+INSTALL_CUSTOM := \
     $(patsubst services/available/%,$(INTO)/.services/enabled/%,$(wildcard services/available/*)) \
     /var/spool/cron/$(USER) \
     $(INTO)/Maildir/.notmuch/hooks/post-new
