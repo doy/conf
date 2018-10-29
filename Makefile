@@ -1,66 +1,66 @@
 INTO := $(HOME)
 
 INSTALL := \
-    agignore \
-    bash_logout \
-    bash_profile \
-    bashrc \
-    config/alacritty/alacritty.yml \
-    config/touchegg/touchegg.conf \
-    crawlrc \
-    gdbinit \
-    gitconfig \
-    gitignore \
-    i3status.conf \
-    inputrc \
-    ledgerrc \
-    less \
-    mailcap \
-    mpdconf \
-    msmtprc \
-    muttrc \
-    nethackrc \
-    notmuch-config \
-    offlineimaprc \
-    perlcriticrc \
-    procmailrc \
-    profile \
-    proverc \
-    replyrc \
-    screenrc \
-    tigrc \
-    tmux.conf \
-    vimrc \
-    wunderground \
-    xbindkeysrc \
-    Xdefaults \
-    xinitrc \
-    xprofile \
-    Xmodmap \
-    zlogout \
-    zshcomplete \
-    zshinput \
-    zshrc \
-    abook \
-    bin \
-    config/karabiner \
-    dzil \
-    fortune \
-    gnupg \
-    hammerspoon \
-    i3 \
-    mpdscribble \
-    ncmpcpp \
-    offlineimap \
-    procmail \
-    services \
-    sh \
-    ssh \
-    terminfo \
-    tex \
-    vim \
-    weechat \
-    zsh
+    .agignore \
+    .bash_logout \
+    .bash_profile \
+    .bashrc \
+    .config/alacritty/alacritty.yml \
+    .config/touchegg/touchegg.conf \
+    .crawlrc \
+    .gdbinit \
+    .gitconfig \
+    .gitignore \
+    .i3status.conf \
+    .inputrc \
+    .ledgerrc \
+    .less \
+    .mailcap \
+    .mpdconf \
+    .msmtprc \
+    .muttrc \
+    .nethackrc \
+    .notmuch-config \
+    .offlineimaprc \
+    .perlcriticrc \
+    .procmailrc \
+    .profile \
+    .proverc \
+    .replyrc \
+    .screenrc \
+    .tigrc \
+    .tmux.conf \
+    .vimrc \
+    .wunderground \
+    .xbindkeysrc \
+    .Xdefaults \
+    .xinitrc \
+    .xprofile \
+    .Xmodmap \
+    .zlogout \
+    .zshcomplete \
+    .zshinput \
+    .zshrc \
+    .abook \
+    .bin \
+    .config/karabiner \
+    .dzil \
+    .fortune \
+    .gnupg \
+    .hammerspoon \
+    .i3 \
+    .mpdscribble \
+    .ncmpcpp \
+    .offlineimap \
+    .procmail \
+    .services \
+    .sh \
+    .ssh \
+    .terminfo \
+    .tex \
+    .vim \
+    .weechat \
+    .zsh
 
 EMPTYDIRS := \
     $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
@@ -85,8 +85,7 @@ BUILD := \
     mpdscribble/mpdscribble.conf
 
 INSTALLED := \
-    $(patsubst %,$(INTO)/%/,$(EMPTYDIRS)) \
-    $(patsubst %,$(INTO)/.%,$(INSTALL)) \
+    $(patsubst %,$(INTO)/%,$(EMPTYDIRS) $(INSTALL)) \
     /var/spool/cron/$(USER) \
     $(INTO)/Maildir/.notmuch
 
@@ -121,10 +120,10 @@ versions :
 updates :
 	@git submodule foreach -q 'if [ $$path == "vim/pack/filetype/start/perl" ]; then if [ $$(git rev-parse dev) != $$sha1 ]; then git lg dev...$$sha1; fi; else if [ $$(git rev-parse master) != $$sha1 ]; then git lg master...$$sha1; fi; fi'
 
-$(INTO)/%/ :
+$(patsubst %,$(INTO)/%,$(EMPTYDIRS)) :
 	@mkdir -p $@
 
-$(INTO)/.% : %
+$(patsubst %,$(INTO)/%,$(INSTALL)) : $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
 
