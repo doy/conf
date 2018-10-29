@@ -1,0 +1,9 @@
+INSTALL := \
+    .procmailrc \
+    .procmail
+
+EMPTYDIRS := \
+
+INSTALLED := \
+
+BUILD := \

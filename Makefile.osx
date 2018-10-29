@@ -1,0 +1,10 @@
+INSTALL := \
+    .config/alacritty/alacritty.yml
+    .config/karabiner \
+    .hammerspoon
+
+EMPTYDIRS := \
+
+INSTALLED := \
+
+BUILD := \

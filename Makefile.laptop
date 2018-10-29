@@ -1,0 +1,53 @@
+INSTALL := \
+    .config/alacritty/alacritty.yml \
+    .config/touchegg/touchegg.conf \
+    .i3status.conf \
+    .notmuch-config \
+    .offlineimaprc \
+    .wunderground \
+    .xbindkeysrc \
+    .Xdefaults \
+    .xinitrc \
+    .xprofile \
+    .Xmodmap \
+    .i3 \
+    .mpdscribble \
+    .offlineimap \
+    .services
+
+EMPTYDIRS := \
+    $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
+    Maildir \
+    .cache/mpd \
+    .config/mpd/playlists
+
+INSTALLED := \
+    /var/spool/cron/$(USER) \
+    $(INTO)/Maildir/.notmuch
+
+BUILD := \
+    $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
+    wunderground \
+    mpdscribble/mpdscribble.conf \
+    bin/local/timettyrec
+
+clean ::
+	@crontab -r
+
+/var/spool/cron/$(USER) : crontab
+	@crontab $<
+
+$(INTO)/Maildir/.notmuch: notmuch
+	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(MKDIR) $(INTO)/Maildir
+	$(LN) $(PWD)/$< $@
+
+services/enabled/% : services/available/%
+	$(MKDIR) services/enabled
+	$(LN) ../available/$(notdir $<) $@
+
+wunderground :
+	pass show websites/wunderground.com/wunderground@tozt.net > $@
+
+mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
+	perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$(pass show websites/last.fm/doyster)" < $< > $@

@@ -1,17 +1,20 @@
 INTO := $(HOME)
+TYPE := $(file <.conf-type)
+
+all : build
+
+include Makefile.$(TYPE)
 
 INSTALL := \
+    $(INSTALL) \
     .agignore \
     .bash_logout \
     .bash_profile \
     .bashrc \
-    .config/alacritty/alacritty.yml \
-    .config/touchegg/touchegg.conf \
     .crawlrc \
     .gdbinit \
     .gitconfig \
     .gitignore \
-    .i3status.conf \
     .inputrc \
     .ledgerrc \
     .less \
@@ -20,10 +23,7 @@ INSTALL := \
     .msmtprc \
     .muttrc \
     .nethackrc \
-    .notmuch-config \
-    .offlineimaprc \
     .perlcriticrc \
-    .procmailrc \
     .profile \
     .proverc \
     .replyrc \
@@ -31,29 +31,16 @@ INSTALL := \
     .tigrc \
     .tmux.conf \
     .vimrc \
-    .wunderground \
-    .xbindkeysrc \
-    .Xdefaults \
-    .xinitrc \
-    .xprofile \
-    .Xmodmap \
     .zlogout \
     .zshcomplete \
     .zshinput \
     .zshrc \
     .abook \
     .bin \
-    .config/karabiner \
     .dzil \
     .fortune \
     .gnupg \
-    .hammerspoon \
-    .i3 \
-    .mpdscribble \
     .ncmpcpp \
-    .offlineimap \
-    .procmail \
-    .services \
     .sh \
     .ssh \
     .terminfo \
@@ -63,29 +50,22 @@ INSTALL := \
     .zsh
 
 EMPTYDIRS := \
-    $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
-    Maildir \
+    $(EMPTYDIRS) \
     .cache/mutt/headers \
     .cache/mutt/bodies \
-    .cache/mpd \
     .cache/vim/hist \
     .cache/vim/undo \
-    .config/mpd/playlists
 
 INSTALLED := \
-    $(patsubst %,$(INTO)/%,$(EMPTYDIRS) $(INSTALL)) \
-    /var/spool/cron/$(USER) \
-    $(INTO)/Maildir/.notmuch
+    $(INSTALLED) \
+    $(patsubst %,$(INTO)/%,$(EMPTYDIRS) $(INSTALL))
 
 BUILD := \
-    $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
+    $(BUILD) \
     $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
     $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
     vim/spell/en.utf-8.add.spl \
-    less \
-    wunderground \
-    mpdscribble/mpdscribble.conf \
-    bin/local/timettyrec
+    less
 
 ECHO      = @echo
 LN        = @ln -sf
@@ -94,21 +74,18 @@ RM        = @rm -f
 
 # named targets
 
-all : submodules build
+build : submodules $(BUILD)
 
 submodules :
 	@git submodule update --init --recursive
 
-build : $(BUILD)
-
-install : all $(INSTALLED)
+install :: all $(INSTALLED)
 	@chmod 600 msmtprc
 	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
 
-clean :
+clean ::
 	$(ECHO) Cleaning from $(INTO)
-	@crontab -r
 	$(RM) $(BUILD) $(INSTALLED)
 
 update :
@@ -120,7 +97,7 @@ versions :
 updates :
 	@git submodule foreach -q 'if [ $$path == "vim/pack/filetype/start/perl" ]; then if [ $$(git rev-parse dev) != $$sha1 ]; then git lg dev...$$sha1; fi; else if [ $$(git rev-parse master) != $$sha1 ]; then git lg master...$$sha1; fi; fi'
 
-.PHONY: all submodules build install clean update versions updates
+.PHONY: submodules build install clean update versions updates
 
 # installation targets
 
@@ -129,22 +106,10 @@ $(patsubst %,$(INTO)/%,$(EMPTYDIRS)) :
 
 $(patsubst %,$(INTO)/%,$(INSTALL)) : $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
-	$(MKDIR) $(notdir $@)
-	$(LN) $(PWD)/$< $@
-
-/var/spool/cron/$(USER) : crontab
-	@crontab $<
-
-$(INTO)/Maildir/.notmuch: notmuch
-	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
-	$(MKDIR) $(INTO)/Maildir
+	$(MKDIR) $(dir $@)
 	$(LN) $(PWD)/$< $@
 
 # build targets
-
-services/enabled/% : services/available/%
-	$(MKDIR) services/enabled
-	$(LN) ../available/$(notdir $<) $@
 
 fortune/%.dat : fortune/%
 	$(ECHO) "Compiling $@"
@@ -158,9 +123,3 @@ fortune/%.dat : fortune/%
 
 less : lesskey
 	lesskey -o $@ $<
-
-wunderground :
-	[ -e ~/.password-store ] && pass show websites/wunderground.com/wunderground@tozt.net > $@ || touch $@
-
-mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
-	[ -e ~/.password-store ] && perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$(pass show websites/last.fm/doyster)" < $< > $@ || touch $@
