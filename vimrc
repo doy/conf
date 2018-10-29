@@ -147,6 +147,12 @@ function! s:configure_neosnippet_tab_mappings()
 endfunction
 autocmd vimrc VimEnter * call <SID>configure_neosnippet_tab_mappings()
 " }}}
+" netrw {{{
+let g:netrw_home = $HOME . '/.cache/vim/netrw'
+if !isdirectory(g:netrw_home)
+    call mkdir(g:netrw_home, 'p')
+endif
+" }}}
 " rainbow {{{
 let g:rainbow = 1
 let g:rainbow_paren = 1
