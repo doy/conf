@@ -74,25 +74,27 @@ EMPTYDIRS := \
     .config/alacritty \
     .config/touchegg
 
-BUILD := \
-    $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
-    bin/local/timettyrec \
-    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
-    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
-    vim/spell/en.utf-8.add.spl \
-    less \
-    wunderground \
-    mpdscribble/mpdscribble.conf
-
 INSTALLED := \
     $(patsubst %,$(INTO)/%,$(EMPTYDIRS) $(INSTALL)) \
     /var/spool/cron/$(USER) \
     $(INTO)/Maildir/.notmuch
 
+BUILD := \
+    $(patsubst services/available/%,services/enabled/%,$(wildcard services/available/*)) \
+    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
+    $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
+    vim/spell/en.utf-8.add.spl \
+    less \
+    wunderground \
+    mpdscribble/mpdscribble.conf \
+    bin/local/timettyrec
+
 ECHO      = @echo
 LN        = @ln -sf
 MKDIR     = @mkdir -p
 RM        = @rm -f
+
+# named targets
 
 all : submodules build
 
@@ -120,23 +122,40 @@ versions :
 updates :
 	@git submodule foreach -q 'if [ $$path == "vim/pack/filetype/start/perl" ]; then if [ $$(git rev-parse dev) != $$sha1 ]; then git lg dev...$$sha1; fi; else if [ $$(git rev-parse master) != $$sha1 ]; then git lg master...$$sha1; fi; fi'
 
+.PHONY: all submodules build install clean update versions updates
+
+# installation targets
+
 $(patsubst %,$(INTO)/%,$(EMPTYDIRS)) :
-	@mkdir -p $@
+	$(MKDIR) $@
 
 $(patsubst %,$(INTO)/%,$(INSTALL)) : $(INTO)/.% : %
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
 	$(LN) $(PWD)/$< $@
 
-services/enabled/% : services/available/%
-	@mkdir -p services/enabled
-	$(LN) ../available/$(notdir $<) $@
-
 /var/spool/cron/$(USER) : crontab
 	@crontab $<
 
+$(INTO)/Maildir/.notmuch: notmuch
+	$(MKDIR) $(INTO)/Maildir
+	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(LN) $(PWD)/$< $@
+
+# build targets
+
+services/enabled/% : services/available/%
+	$(MKDIR) services/enabled
+	$(LN) ../available/$(notdir $<) $@
+
 fortune/%.dat : fortune/%
-	@echo "Compiling $@"
+	$(ECHO) "Compiling $@"
 	@strfile -s $(basename $@)
+
+%/doc/tags: %/doc
+	@vim -u NONE -c':helptags $< | :q'
+
+%.spl : %
+	@vim -u NONE -c':mkspell! $< | :q'
 
 less : lesskey
 	lesskey -o $@ $<
@@ -146,16 +165,3 @@ wunderground :
 
 mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
 	perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$(pass show websites/last.fm/doyster)" < $< > $@
-
-$(INTO)/Maildir/.notmuch: notmuch
-	mkdir -p $(INTO)/Maildir
-	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
-	$(LN) $(PWD)/$< $@
-
-%.spl : %
-	@vim -u NONE -c':mkspell! $< | :q'
-
-%/doc/tags: %/doc
-	@vim -u NONE -c':helptags $< | :q'
-
-.PHONY: build submodules install clean update
