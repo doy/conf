@@ -6,11 +6,11 @@ application/x-tar; /bin/tar tvf -; print=/bin/tar tvf - | print text/plain:-; co
 application/x-gtar; /bin/tar tvzf -; print=/bin/tar tvzf - | print text/plain:-; copiousoutput
 application/zip; unzip -l '%s'; nametemplate=%s.zip; copiousoutput
 text/*; less '%s'; needsterminal
-image/png; firefox '%s' && sleep 1
-image/jpeg; firefox '%s' && sleep 1
-image/gif; firefox '%s' && sleep 1
-image/bmp; firefox '%s' && sleep 1
-application/pdf; firefox '%s' && sleep 1
+image/png; sxiv '%s'
+image/jpeg; sxiv '%s'
+image/gif; sxiv '%s'
+image/bmp; sxiv '%s'
+application/pdf; zathura '%s'
 application/msword; libreoffice '%s'
 application/vnd.ms-excel; libreoffice '%s'
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice '%s'
