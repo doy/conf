@@ -8,7 +8,6 @@ INSTALL := \
     $(INSTALL) \
     .abook/abookrc \
     .agignore \
-    .bash_logout \
     .bash_profile \
     .bashrc \
     .crawlrc \
@@ -35,7 +34,6 @@ INSTALL := \
     .tigrc \
     .tmux.conf \
     .vimrc \
-    .zlogout \
     .zshcomplete \
     .zshinput \
     .zshrc \
