@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sudo -K
+ssh-add -D
+echo RELOADAGENT | gpg-connect-agent
