@@ -2,7 +2,7 @@ INTO := $(HOME)
 
 all : build
 
-include Makefile.$(shell hostname)
+include Makefile.$(shell hostname | cut -d. -f1)
 
 INSTALL := \
     $(INSTALL) \
