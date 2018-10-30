@@ -30,7 +30,6 @@ INSTALL := \
     .proverc \
     .replyrc \
     .screenrc \
-    .ssh/authorized_keys \
     .ssh/cao_key \
     .tigrc \
     .tmux.conf \

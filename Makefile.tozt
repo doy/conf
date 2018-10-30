@@ -1,6 +1,7 @@
 INSTALL := \
     .procmailrc \
-    .procmail
+    .procmail \
+    .ssh/authorized_keys
 
 EMPTYDIRS := \
 
