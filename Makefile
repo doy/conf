@@ -31,6 +31,7 @@ INSTALL := \
     .replyrc \
     .screenrc \
     .ssh/cao_key \
+    .ssh/config \
     .tigrc \
     .tmux.conf \
     .vimrc \

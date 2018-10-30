@@ -1,6 +1,0 @@
-#!/bin/bash
-
-GPG=/usr/bin/$(basename $0)
-
-keychain -q --timeout 30
-$GPG $*

@@ -1,8 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+set -o pipefail
 
-SSH=/usr/bin/$(basename $0)
-
-if [[ $1 != '-V' ]]; then
-    . ssh-key-unlock
-fi
-exec $SSH $*
+ssh-add -l | grep -q "${HOME}/.ssh/id_rsa" || env SSH_ASKPASS="ssh-askpass" ssh-add < /dev/null
+exec /usr/bin/"$(basename "$0")" "$@"
