@@ -1,5 +1,5 @@
 INSTALL := \
-    .config/alacritty/alacritty.yml
+    .config/alacritty/alacritty.yml \
     .config/karabiner \
     .hammerspoon
 
