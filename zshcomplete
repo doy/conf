@@ -10,7 +10,7 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' 'l:|=* r:|=*'
 zstyle ':completion:*' original false
 zstyle ':completion:*:processes-names' command 'ps axho command'
 zstyle ':completion:*:*:kill:*:processes' command 'ps --forest -A -o pid,user,cmd'
-zstyle :compinstall filename '/home/doy/.zshcomplete'
+zstyle :compinstall filename "${HOME}/.zshcomplete"
 
 autoload -Uz compinit
 compinit

@@ -40,7 +40,7 @@
 [color]
 	ui = auto
 [core]
-	excludesfile = /home/doy/.gitignore
+	excludesfile = ~/.gitignore
 [push]
 	default = current
 [branch]
