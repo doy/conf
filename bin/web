@@ -1,3 +1,11 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+set -o pipefail
 
-exec python -m http.server ${1:-8000}
+version="$(python -c "import sys; print(sys.version_info[0])")"
+if [ "$version" = "2" ]; then
+    server=SimpleHTTPServer
+else
+    server=http.server
+fi
+exec python -m "$server" "${1:-8000}"
