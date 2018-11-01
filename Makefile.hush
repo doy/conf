@@ -31,8 +31,7 @@ INSTALL_CUSTOM := \
 
 BUILD := \
     wunderground \
-    mpdscribble/mpdscribble.conf \
-    bin/local/timettyrec
+    mpdscribble/mpdscribble.conf
 
 clean ::
 	@crontab -r
