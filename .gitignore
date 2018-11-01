@@ -1,6 +1,6 @@
+/config/darksky/api
 /fortune/*.dat
 /less
 /mpdscribble/mpdscribble.conf
 /vim/spell/*.spl
 /weechat/weechat.log
-/wunderground

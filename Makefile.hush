@@ -1,5 +1,7 @@
 INSTALL := \
     .config/alacritty/alacritty.yml \
+    .config/darksky/api \
+    .config/darksky/location \
     .config/touchegg/touchegg.conf \
     .i3status.conf \
     .notmuch-config \
@@ -47,8 +49,8 @@ $(INTO)/.services/enabled/% : services/available/%
 	$(MKDIR) $(dir $<)
 	$(LN) ../available/$(notdir $<) $@
 
-wunderground :
-	pass show websites/wunderground.com/wunderground@tozt.net > $@
+config/darksky/api :
+	pass show websites/darksky.net/api > $@
 
 mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
 	pass="$$(pass show websites/last.fm/doyster)" &&\
