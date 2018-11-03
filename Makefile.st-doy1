@@ -8,3 +8,7 @@ EMPTYDIRS := \
 INSTALL_CUSTOM := \
 
 BUILD := \
+    config/alacritty/alacritty.yml
+
+config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.st-doy1
+	$(LN) $(notdir $<) $@

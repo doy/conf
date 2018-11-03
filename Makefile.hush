@@ -29,6 +29,7 @@ INSTALL_CUSTOM := \
     $(INTO)/Maildir/.notmuch/hooks/post-new
 
 BUILD := \
+    config/alacritty/alacritty.yml \
     mpdscribble/mpdscribble.conf
 
 clean ::
@@ -45,6 +46,9 @@ $(INTO)/Maildir/.notmuch/hooks/post-new: notmuch/hooks/post-new
 $(INTO)/.services/enabled/% : services/available/%
 	$(MKDIR) $(dir $<)
 	$(LN) ../available/$(notdir $<) $@
+
+config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.hush
+	$(LN) $(notdir $<) $@
 
 config/darksky/api :
 	pass show websites/darksky.net/api > $@
