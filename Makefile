@@ -80,7 +80,7 @@ ECHO      = @echo
 LN        = @ln -sf
 MKDIR     = @mkdir -p
 RM        = @rm -f
-RMDIR     = @rmdir -p
+RMDIR     = @rmdir -p --ignore-fail-on-non-empty
 
 # named targets
 
