@@ -7,7 +7,6 @@ INSTALL := \
     .notmuch-config \
     .offlineimap/pass.py \
     .offlineimaprc \
-    .wunderground \
     .xbindkeysrc \
     .Xdefaults \
     .xinitrc \
@@ -30,7 +29,6 @@ INSTALL_CUSTOM := \
     $(INTO)/Maildir/.notmuch/hooks/post-new
 
 BUILD := \
-    wunderground \
     mpdscribble/mpdscribble.conf
 
 clean ::
