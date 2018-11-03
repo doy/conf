@@ -1,20 +1,9 @@
 # folders {{{
-set mbox_type=Maildir
-set folder="~/Maildir"
-set spoolfile="~/Maildir/INBOX"
 set record="=Sent"
 set postponed="=Drafts"
 set header_cache="~/.cache/mutt/headers"
 set message_cachedir="~/.cache/mutt/bodies"
 set mailcap_path="~/.mailcap"
-mailboxes = `\
-    for folder in ~/Maildir/*; do\
-        basename=$(basename "$folder");\
-        if [ "x${basename:0:4}"  != "xold." \
-          -a "x$basename"        != "xspam" ]; then\
-            echo -n "\"=$basename\" ";\
-        fi\
-    done`
 # }}}
 # identity {{{
 # i am "Jesse Luehrs <doy@tozt.net>"
@@ -146,7 +135,6 @@ bind index p search-opposite
 bind index A group-reply
 bind index g first-entry
 bind index G last-entry
-macro index R "<enter-command>unset wait_key<enter><shell-escape>update_mail<enter><enter-command>set wait_key<enter>" "fetch mail with offlineimap"
 macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
 macro index \Cn "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
@@ -169,12 +157,9 @@ macro index,pager U "<enter-command> set my_pdsave=\$pipe_decode<enter>\
 set imap_passive=no
 # populate the mailboxes list from the imap subscription list
 set imap_check_subscribed
-# check mail frequently
-# NOTE: change this with an account hook if a non-local account is added
-set timeout=3
-set mail_check=0
 # }}}
 # aliases {{{
 set query_command = "abook --mutt-query '%s'"
 # }}}
+source '~/.mutt/choose-muttrc-type|'
 # vim: fdm=marker

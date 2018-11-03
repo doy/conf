@@ -23,7 +23,10 @@ INSTALL := \
     .mailcap \
     .mpdconf \
     .msmtprc \
-    .muttrc \
+    .mutt/choose-muttrc-type \
+    .mutt/imap \
+    .mutt/muttrc \
+    .mutt/offlineimap \
     .ncmpcpp/bindings \
     .nethackrc \
     .perlcriticrc \

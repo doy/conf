@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+case "$(hostname)" in
+hush)
+    echo 'source ~/.mutt/offlineimap'
+    ;;
+*)
+    echo 'source ~/.mutt/imap'
+    ;;
+esac

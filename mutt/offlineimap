@@ -1,0 +1,16 @@
+set mbox_type=Maildir
+set folder="~/Maildir"
+set spoolfile="~/Maildir/INBOX"
+mailboxes = `\
+    for folder in ~/Maildir/*; do\
+        basename=$(basename "$folder");\
+        if [ "x${basename:0:4}"  != "xold." \
+          -a "x$basename"        != "xspam" ]; then\
+            echo -n "\"=$basename\" ";\
+        fi\
+    done`
+macro index R "<enter-command>unset wait_key<enter><shell-escape>update_mail<enter><enter-command>set wait_key<enter>" "fetch mail with offlineimap"
+set timeout=3
+set mail_check=0
+
+# vim: ft=muttrc
