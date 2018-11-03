@@ -1,0 +1,37 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.020;
+
+use Carp;
+use File::Spec;
+use File::Temp;
+use POSIX 'strftime';
+
+if (@ARGV > 1) {
+    croak "can only nopaste one file at a time";
+}
+
+my $date = strftime("%Y-%m-%d", localtime);
+my $template = "${date}-XXXXXXXX";
+my $suffix = @ARGV
+    ? "-${\(File::Spec->splitdir($ARGV[0]))[-1]}"
+    : undef;
+
+my $contents = do { local $/; <> };
+
+my $tmpfile = File::Temp->new(
+    TEMPLATE => $template,
+    SUFFIX => $suffix,
+    UNLINK => 1,
+    TMPDIR => 1,
+);
+my $tmpfilename = $tmpfile->filename;
+
+print $tmpfile $contents or croak "Can't write to $tmpfilename: $!";
+close $tmpfile or croak "Can't write to $tmpfilename: $!";
+chmod 0644 => $tmpfilename;
+
+system('scp', '-pq', $tmpfilename, "tozt.net:paste");
+
+say "https://paste.tozt.net/${\(File::Spec->splitdir($tmpfilename))[-1]}";
