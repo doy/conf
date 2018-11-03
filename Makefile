@@ -10,6 +10,8 @@ INSTALL := \
     .agignore \
     .bash_profile \
     .bashrc \
+    .config/weechat/saved \
+    .config/weechat/extra \
     .crawlrc \
     .gdbinit \
     .gitconfig \
@@ -43,7 +45,7 @@ INSTALL := \
     .terminfo \
     .tex \
     .vim \
-    .weechat \
+    .weechat/perl \
     .zsh
 
 EMPTYDIRS := \

@@ -1,0 +1,29 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+weechat_fifo="${HOME}/.weechat/weechat_fifo"
+weechat_saved_config="${HOME}/.config/weechat/saved"
+weechat_extra_config="${HOME}/.config/weechat/extra"
+
+die() {
+    echo "$@" >&2
+    exit 1
+}
+
+weechat() {
+    [ -p "$weechat_fifo" ] || die "$weechat_fifo is not a fifo"
+    echo "*${1}" >> "$weechat_fifo"
+}
+
+case "$1" in
+save)
+    # shellcheck disable=SC2016
+    weechat '/fset c:${value_changed} && "${file}.${section}" != "irc.server"'
+    weechat "/eval /fset -export ${weechat_saved_config}"
+    weechat '/buffer close fset'
+    ;;
+restore)
+    weechat "/exec -oc grep -h '^/' ${weechat_saved_config} ${weechat_extra_config}"
+    ;;
+esac
