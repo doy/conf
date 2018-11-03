@@ -9,7 +9,7 @@ use open ':encoding(UTF-8)', ':std';
 
 use HTTP::Tiny;
 use JSON::PP;
-use List::Util 'min';
+use List::Util qw(min max);
 
 my %weather_pics = (
     'clear-day' => "\x{2600}",
