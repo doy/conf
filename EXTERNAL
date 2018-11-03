@@ -2,8 +2,6 @@ bin/git/git-blame-stats
 - from perigrin at some point, but all relevant links are now dead
 bin/git/git-imerge
 - https://github.com/mhagger/git-imerge
-bin/{htmlwish,nhgrep,timettyrec.c,timettyrecs,ttyslice,ttywish}
-- various #nethack people (jilles, paxed, Sartak, etc?)
 bin/ringtone
 - http://uselessdiaries.blogspot.com/2008/04/converting-audio-files-to-mp3-using.html
 bin/show_colors
@@ -33,9 +31,8 @@ vim/syntax/levdes.vim
 - Darshan Shaligram
 vim/syntax/nhdes.vim
 - http://bilious.alt.org/~paxed/nethack/nhdes.vim
-weechat/{perl,python}/autoload/*
+weechat/perl/autoload/*
 - http://www.weechat.org/scripts/source/beep.pl.html/
 - http://www.weechat.org/scripts/source/buffers.pl.html/
 - http://www.weechat.org/scripts/source/chanmon.pl.html/
 - http://www.weechat.org/scripts/source/chatters.pl.html/
-- http://www.weechat.org/scripts/source/bitlbee_typing_notice.py.html/
