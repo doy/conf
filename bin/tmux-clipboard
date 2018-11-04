@@ -23,7 +23,9 @@ if ($ARGV[0] eq 'copy') {
     my $selection = $ARGV[1] || 'primary';
 
     if (fork) {
-        close STDIN;
+        exec("tmux save-buffer -a $fifo_file");
+    }
+    else {
         close STDOUT;
         close STDERR;
 
@@ -37,15 +39,15 @@ if ($ARGV[0] eq 'copy') {
         $clipboard->print($fifo_file->slurp);
         $clipboard->close;
     }
-    else {
-        exec("tmux save-buffer -a $fifo_file");
-    }
 }
 elsif ($ARGV[0] eq 'paste') {
     my $selection = $ARGV[1] || 'primary';
 
     if (fork) {
-        close STDIN;
+        system("tmux load-buffer -b tmux-clipboard $fifo_file");
+        exec("tmux paste-buffer -b tmux-clipboard -dp");
+    }
+    else {
         close STDOUT;
         close STDERR;
 
@@ -59,10 +61,6 @@ elsif ($ARGV[0] eq 'paste') {
         my $contents = do { local $/; <$clipboard> };
         $clipboard->close;
         $fifo_file->spew(iomode => 'a', $contents);
-    }
-    else {
-        system("tmux load-buffer -b tmux-clipboard $fifo_file");
-        exec("tmux paste-buffer -b tmux-clipboard -dp");
     }
 }
 else {
