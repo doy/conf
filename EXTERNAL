@@ -21,8 +21,6 @@ sh/cdhist.sh
 - git://github.com/kana/config.git
 ssh/cao_key
 - http://crawl.akrasiac.org/cao_key
-terminfo/*
-- from the ncurses terminfo database
 tex/jesse_resume.sty
 - based on http://www.courtesan.com/todd/resume.html
 vimrc

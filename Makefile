@@ -45,7 +45,6 @@ INSTALL := \
     .dzil \
     .fortune \
     .sh \
-    .terminfo \
     .tex \
     .vim \
     .weechat/perl \
