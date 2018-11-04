@@ -2,6 +2,7 @@ INSTALL := \
     .config/alacritty/alacritty.yml \
     .config/darksky/api \
     .config/darksky/location \
+    .config/perspektiv/config.toml \
     .config/touchegg/touchegg.conf \
     .i3status.conf \
     .notmuch-config \
