@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use 5.014;
 
 use IO::Socket::UNIX;
-use JSON;
+use JSON::PP;
 
-my $json = JSON->new;
+my $json = JSON::PP->new;
 
 my %message_types = (
     command        => 0,

@@ -1,8 +1,9 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use 5.014;
 
-use JSON;
+use JSON::PP;
 
 my ($sig) = @ARGV;
 my $pid = get_pid();

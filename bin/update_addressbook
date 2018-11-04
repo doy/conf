@@ -4,7 +4,6 @@ use warnings;
 use 5.014;
 
 use Email::Address;
-use List::MoreUtils 'any';
 use Path::Class;
 use Text::CSV;
 
@@ -56,7 +55,7 @@ sub maildir_senders {
 
     return grep {
         my $address = $_->format;
-        !any { $address =~ $_ } @exclude_patterns
+        !grep { $address =~ $_ } @exclude_patterns
     } values %senders;
 }
 

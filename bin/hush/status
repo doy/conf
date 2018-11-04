@@ -5,7 +5,7 @@ use 5.010;
 
 use IO::Select;
 use IO::Socket::UNIX;
-use JSON;
+use JSON::PP;
 
 my $i3status = get_i3status_handle();
 my $ipc = get_ipc_handle();
