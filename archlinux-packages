@@ -111,6 +111,7 @@ tmux
 touchegg
 tpacpi-bat
 ttf-dejavu
+ttf-font-awesome
 unclutter-xfixes-git
 unzip
 upower
@@ -133,6 +134,7 @@ xorg-xinput
 xorg-xmodmap
 xorg-xprop
 xorg-xset
+xorg-xwininfo
 xterm
 xzoom
 yaourt
