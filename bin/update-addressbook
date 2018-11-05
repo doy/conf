@@ -1,0 +1,276 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.020;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
+use Config::INI::Reader;
+use Config::INI::Writer;
+use Email::Address;
+use File::Find;
+
+my @exclude_patterns = (
+    # quoted-printable (needs special handling, punting for now)
+    sub($address) { $address->format =~ /^=\?/ },
+    # automated emails
+    sub($address) { $address->address =~ /(mailer-daemon|noreply)/i },
+);
+
+# abook uses # for comments instead of ;
+package Abook::Reader {
+    use base 'Config::INI::Reader';
+
+    sub preprocess_line($self, $line) {
+        ${$line} =~ s/\s+#.*$//g;
+    }
+
+    sub can_ignore($self, $line, $) {
+        return $line =~ /\A\s*(?:#|$)/ ? 1 : 0;
+    }
+}
+
+# abook is super finicky about its input format
+package Abook::Writer {
+    use base 'Config::INI::Writer';
+
+    sub write_handle($self, $input, $handle) {
+        print $handle "# abook addressbook file\n\n";
+        $self->SUPER::write_handle($input, $handle);
+    }
+
+    sub preprocess_input($self, $data) {
+        my $ini_data = [
+            format => {
+                program => 'abook',
+                version => '0.6.1',
+            },
+        ];
+        my $i = 0;
+        for my $name (sort { fc($a) cmp fc($b) } keys %$data) {
+            my $person_data = $data->{$name}->as_hashref;
+            delete $person_data->{name};
+            push @$ini_data, (
+                $i++ => [
+                    name => $name,
+                    %$person_data,
+                ],
+            );
+        }
+
+        $self->SUPER::preprocess_input($ini_data);
+    }
+
+    sub stringify_value_assignment($self, $name, $value) {
+        return '' unless defined $value;
+        return $name . '=' . $self->stringify_value($value) . "\n";
+    }
+}
+
+package Person {
+    sub from_hashref($class, $data) {
+        return bless $data, $class;
+    }
+
+    sub from_email($class, $name, $addresses) {
+        return $class->from_hashref({
+            name => $name,
+            email => join(',', map { $_->address } @$addresses),
+        });
+    }
+
+    sub addresses($self) {
+        return split(',', $self->{email} // '');
+    }
+
+    sub as_hashref($self) {
+        return { %$self };
+    }
+}
+
+sub existing_people($addressbook) {
+    my $data = Abook::Reader->read_file($addressbook);
+    delete $data->{format};
+
+    my %people;
+    for my $id (keys %$data) {
+        my $person = $data->{$id};
+        $people{$person->{name}} = Person->from_hashref($person);
+    }
+
+    return %people;
+}
+
+sub maildir_addresses($maildir) {
+    my %addresses;
+
+    find(sub() {
+        open my $fh, '<', $_ or die "couldn't open $_: $!";
+        while (<$fh>) {
+            last if /^$/;
+            next unless /^(?:From|Sender): /;
+            for my $address (Email::Address->parse($_)) {
+                $address = Email::Address->new(
+                    $address->name,
+                    $address->address,
+                );
+
+                my $name = $address->name;
+                my $format = $address->format;
+
+                next if $addresses{$name} &&
+                    grep { $format eq $_ } @{ $addresses{$name} };
+                next if grep { $_->($address) } @exclude_patterns;
+
+                push @{ $addresses{$name} ||= [] }, $address;
+            }
+        }
+        close $fh;
+    }, $maildir);
+
+    return %addresses;
+}
+
+sub merge_addresses($old, $new) {
+    my %reverse_old = map {
+        map { $_->address => $_->name } @$_
+    } values %$old;
+    my @new_addresses = map {
+        map { $_->address } @$_
+    } values %$new;
+
+    my %seen_address;
+    my %reverse_ret;
+    for my $new_address (@new_addresses) {
+        next if $seen_address{$new_address}++;
+
+        my @related_addresses = ($new_address);
+        my @related_names;
+        while (1) {
+            my @new_related_names = map {
+                my $cur_address = $_;
+                (
+                    (grep {
+                        grep {
+                            fc($_->address) eq fc($cur_address)
+                        } @{ $new->{$_} }
+                    } keys %$new),
+                    (grep {
+                        grep {
+                            fc($_->address) eq fc($cur_address)
+                        } @{ $old->{$_} }
+                    } keys %$old),
+                )
+            } @related_addresses;
+            @new_related_names = keys(
+                %{ { map { $_ => 1 } @new_related_names } }
+            );
+
+            my @new_related_addresses = map {
+                $_->address
+            } map {
+                (
+                    (exists $new->{$_}
+                        ? (@{ $new->{$_} })
+                        : ()),
+                    (exists $old->{$_}
+                        ? (@{ $old->{$_} })
+                        : ()),
+                )
+            } @new_related_names;
+            @new_related_addresses = keys(
+                %{ { map { $_ => 1 } @new_related_addresses } }
+            );
+
+            last if @related_names == @new_related_names
+                && @related_addresses == @new_related_addresses;
+
+            @related_addresses = @new_related_addresses;
+            @related_names = @new_related_names;
+        }
+
+        my ($name) = grep { exists $old->{$_} } @related_names;
+        $name = (sort @related_names)[0] unless defined $name;
+
+        for my $related_address (@related_addresses) {
+            $seen_address{$related_address}++;
+            $reverse_ret{$related_address} = $name;
+        }
+    }
+
+    %reverse_ret = (%reverse_old, %reverse_ret);
+
+    my %ret;
+    for my $address (keys %reverse_ret) {
+        my $name = $reverse_ret{$address};
+        push @{ $ret{$name} ||= [] }, Email::Address->new($name, $address);
+    }
+
+    for my $name (keys %ret) {
+        my %seen_name;
+        for my $address (@{ $ret{$name} }) {
+            if (defined $seen_name{lc($address->address)}) {
+                if (defined $reverse_old{$address->address}) {
+                    $seen_name{lc($address->address)} = $address;
+                }
+            }
+            else {
+                $seen_name{lc($address->address)} = $address;
+            }
+        }
+        $ret{$name} = [ values %seen_name ];
+    }
+
+    return %ret;
+}
+
+sub merge_people($old, $new) {
+    for my $name (keys %$new) {
+        if (exists $old->{$name}) {
+            my $old_person = $old->{$name};
+            my @addresses = $old_person->addresses;
+            for my $address ($new->{$name}->addresses) {
+                push @addresses, $address
+                    unless grep { $_ eq $address } @addresses;
+            }
+
+            $old_person->{email} = join(',', @addresses);
+        }
+        else {
+            $old->{$name} = $new->{$name};
+        }
+    }
+
+    return %$old;
+}
+
+sub main($addressbook, $maildir) {
+    die "usage: $0 ADDRESSBOOK MAILDIR" unless @_ == 2;
+
+    my %existing_people = existing_people($addressbook);
+    my %existing_addresses = map {
+        my $name = $_;
+        $name => [
+            map {
+                Email::Address->new($name, $_)
+            } $existing_people{$name}->addresses
+        ]
+    } keys %existing_people;
+
+    my %maildir = maildir_addresses($maildir);
+
+    my %new_addresses = merge_addresses(\%existing_addresses, \%maildir);
+    my %new_people = map {
+        $_ => Person->from_email($_, $new_addresses{$_})
+    } keys %new_addresses;
+
+    my %new_abook = merge_people(\%existing_people, \%new_people);
+
+    rename $addressbook => "$addressbook.bak"
+        or die "couldn't rename $addressbook: $!";
+
+    my $writer = Abook::Writer->new;
+    $writer->write_file(\%new_abook, $addressbook);
+}
+
+exit(main(@ARGV));
