@@ -89,6 +89,7 @@ perl-path-class
 perl-rename
 powertop
 pulseaudio
+python2-virtualenv
 python-pycryptodome
 redshift
 rsync
