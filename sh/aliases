@@ -23,11 +23,11 @@ alias bishamon='ssh doy@bishamon'
 alias tozt="ssh doy@tozt.net"
 # }}}
 # tmux sessions {{{
-alias main='tmux a -t main'
-alias chat='tmux a -t chat'
-alias work='tmux a -t work'
-alias docs='tmux a -t docs'
-alias misc='tmux a -t misc'
+alias main='tmux new -As main'
+alias chat='tmux new -As chat'
+alias work='tmux new -As work'
+alias docs='tmux new -As docs'
+alias misc='tmux new -As misc'
 # }}}
 # other {{{
 alias pm="find lib -type f"
