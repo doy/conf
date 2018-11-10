@@ -3,11 +3,11 @@ use strict;
 use warnings;
 
 use Getopt::Long;
-use Path::Class;
 
 my $history_file = $ENV{SHELL} =~ m{/zsh} ? '.zsh_history' : '.bash_history';
 
-my $fh = dir($ENV{HOME})->file($history_file)->openr;
+open my $fh, '<', "$ENV{HOME}/$history_file"
+    or die "couldn't open $ENV{HOME}/$history_file: $!";
 my $n = 10;
 my $subcommand;
 GetOptions(
