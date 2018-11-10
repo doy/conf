@@ -7,12 +7,6 @@
 "xclip -o | xargs xdg-open"
   Mod4 + p
 
-"dmenu -fn 'Misc Fixed:pixelsize=14' -p 'pass search' < /dev/null | xargs -I{} pass search -c {}"
-  Mod4 + i
-
-"dmenu -fn 'Misc Fixed:pixelsize=14' -p 'pass search -u' < /dev/null | xargs -I{} pass search -u -c {}"
-  Shift+Mod4 + i
-
 "dmenu_run -fn 'Misc Fixed:pixelsize=14'"
   Mod4 + r
 
