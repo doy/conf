@@ -26,7 +26,7 @@ esac # }}}
 [ -f "$HOME/.sh/functions" ] && source $HOME/.sh/functions
 # }}}
 # completion {{{
-fpath=(~/.zsh/zsh-completions/src $fpath)
+fpath=(~/.zsh/local-completions/$(hostname) ~/.zsh/local-completions ~/.zsh/zsh-completions/src $fpath)
 source ~/.zshcomplete
 # }}}
 # zsh configuration {{{
