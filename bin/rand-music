@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 set -eu
 set -o pipefail
 
-if [[ "${1:-}" == '--old' ]]; then
+if [ "${1:-}" = '--old' ]; then
     extra_args="--exclude yearly --include all"
     shift
 else

@@ -52,10 +52,10 @@
 "xset dpms force off"
   XF86Search
 
-"kill_focused STOP"
+"kill-focused STOP"
   XF86LaunchA
 
-"kill_focused CONT"
+"kill-focused CONT"
   XF86Explorer
 
 "xclip -selection CLIPBOARD -o | xargs -0 -n1 xdotool type --clearmodifiers --delay 0"

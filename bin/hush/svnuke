@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+set -o pipefail
 
 svdn "$1"
 svdn "$1/log"

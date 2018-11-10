@@ -1,3 +1,5 @@
 #!/bin/sh
+set -eu
+set -o pipefail
 
 git ls-files -z | xargs -0 du -b | sum

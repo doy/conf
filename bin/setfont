@@ -1,3 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+set -o pipefail
 
 printf '\e]710;%s\007\e]711;%s\007' "$1" "$1"

@@ -1,4 +1,6 @@
 #!/bin/sh
+set -eu
+set -o pipefail
 
 on() {
     xmodmap -e 'keycode 10 = exclam 1'

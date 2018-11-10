@@ -1,4 +1,8 @@
 #!/usr/bin/env perl
-use 5.010;
+use strict;
+use warnings;
+use 5.014;
+
 use List::Util 'sum';
-say sum map { s/^((?:\d|[-+\.])+).*/$1/; $_ } <>;
+
+say sum map { s/^([-+\.\d]+).*/$1/r } <>;

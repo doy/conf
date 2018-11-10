@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+set -o pipefail
 
-if [[ -d blib ]]; then
+if [ -d blib ]; then
     prove -Mlib::require::all=blib/lib,blib/arch -b "$@" t
 else
     prove -Mlib::require::all=lib -l "$@" t

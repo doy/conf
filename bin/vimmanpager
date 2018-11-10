@@ -1,4 +1,7 @@
 #!/bin/sh
+set -eu
+set -o pipefail
+
 sed -e 's/\x1B\[[[:digit:]]\+m//g' | col -b | \
                 vim \
                         -c 'let no_plugin_maps = 1' \

@@ -1,6 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+set -o pipefail
 
-if [[ -d blib ]]; then
+if [ -d blib ]; then
     perl -Mblib "$@"
 else
     perl -Ilib "$@"

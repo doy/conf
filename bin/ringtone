@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+set -o pipefail
 
 if [ $# -lt 3 ]; then
     echo "usage: ringtone <input> <output> <fake_video_file>"
@@ -7,11 +9,12 @@ if [ $# -lt 3 ]; then
     exit 1
 fi
 
-mencoder -ovc frameno \
-         -oac mp3lame \
-         -lameopts cbr:br=64 \
-         -of rawaudio \
-         -o $2 \
-         -audiofile $1 \
-         -endpos 256kb \
-         $3
+mencoder \
+    -ovc frameno \
+    -oac mp3lame \
+    -lameopts cbr:br=64 \
+    -of rawaudio \
+    -o "$2" \
+    -audiofile "$1" \
+    -endpos 256kb \
+    "$3"

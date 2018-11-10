@@ -1,7 +1,0 @@
-#!/usr/bin/perl
-
-my $save = '';
-while (<>) {
-    $save = $_ if !int rand $.;
-}
-print $save;
