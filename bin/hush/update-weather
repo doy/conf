@@ -1,19 +1,6 @@
-#!/usr/bin/env perl
-use strict;
-use warnings;
-use 5.020;
-use feature 'signatures';
-no warnings 'experimental::signatures';
+#!/bin/sh
+set -eu
+set -o pipefail
 
-use open ':encoding(UTF-8)', ':std';
-
-if (my $weather = `weather`) {
-    spew("$ENV{HOME}/.cache/weather", $weather);
-}
-
-sub spew($filename, $contents) {
-    open my $fh, '>', $filename
-        or die "couldn't open $filename: $!";
-    print $fh $contents;
-    close $fh;
-}
+weather > ~/.cache/weather.new
+mv ~/.cache/weather.new ~/.cache/weather
