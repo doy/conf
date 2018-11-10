@@ -1,68 +1,74 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
-use 5.014;
+use 5.020;
+use feature 'signatures';
+no warnings 'experimental::signatures';
 
 use Config;
-use Path::Class;
-use POSIX qw(mkfifo);
 
 use constant {
-    FIFO_PATH => "$ENV{HOME}/.cache/tmux/clipboard/",
     COPY_CMD => ($Config{osname} eq 'linux' ? 'xclip -i' : 'pbcopy'),
     PASTE_CMD => ($Config{osname} eq 'linux' ? 'xclip -o' : 'pbpaste'),
 };
 
-my $fifo_file = file(FIFO_PATH, $$);
-$fifo_file->dir->mkpath;
-$fifo_file->remove;
-END { $fifo_file->remove }
-mkfifo("$fifo_file", 0700);
-
-if ($ARGV[0] eq 'copy') {
-    my $selection = $ARGV[1] || 'primary';
-
-    if (fork) {
-        exec("tmux save-buffer -a $fifo_file");
+sub main($cmd, $selection) {
+    if ($cmd eq 'copy') {
+        tmux_copy($selection);
+    }
+    elsif ($cmd eq 'paste') {
+        tmux_paste($selection);
     }
     else {
-        close STDOUT;
-        close STDERR;
-
-        my $copy_cmd = COPY_CMD;
-        if ($Config{osname} eq 'linux') {
-            $copy_cmd .= " -selection $selection";
-        }
-
-        open my $clipboard, '|-', $copy_cmd
-            or die "can't copy from clipboard using $copy_cmd: $!";
-        $clipboard->print($fifo_file->slurp);
-        $clipboard->close;
+        die "usage: $0 [copy|paste]";
     }
 }
-elsif ($ARGV[0] eq 'paste') {
-    my $selection = $ARGV[1] || 'primary';
 
-    if (fork) {
-        system("tmux load-buffer -b tmux-clipboard $fifo_file");
-        exec("tmux paste-buffer -b tmux-clipboard -dp");
-    }
-    else {
-        close STDOUT;
-        close STDERR;
-
-        my $paste_cmd = PASTE_CMD;
-        if ($Config{osname} eq 'linux') {
-            $paste_cmd .= " -selection $selection";
-        }
-
-        open my $clipboard, '-|', $paste_cmd
-            or die "can't paste from clipboard using $paste_cmd: $!";
-        my $contents = do { local $/; <$clipboard> };
-        $clipboard->close;
-        $fifo_file->spew(iomode => 'a', $contents);
-    }
+sub tmux_copy($selection='primary') {
+    set_clipboard_contents(get_tmux_buffer(), $selection);
 }
-else {
-    die "usage: $0 [copy|paste]";
+
+sub tmux_paste($selection='primary') {
+    write_to_tmux(get_clipboard_contents($selection));
 }
+
+sub set_clipboard_contents($contents, $selection) {
+    my $copy_cmd = COPY_CMD;
+    if ($Config{osname} eq 'linux') {
+        $copy_cmd .= " -selection $selection";
+    }
+
+    open my $clipboard, '|-', $copy_cmd
+        or die "can't set clipboard contents using `$copy_cmd`: $!";
+    print $clipboard $contents;
+    close $clipboard;
+}
+
+sub get_clipboard_contents($selection) {
+    my $paste_cmd = PASTE_CMD;
+    if ($Config{osname} eq 'linux') {
+        $paste_cmd .= " -selection $selection";
+    }
+
+    open my $clipboard, '-|', $paste_cmd
+        or die "can't get clipboard contents using `$paste_cmd`: $!";
+    my $contents = do { local $/; <$clipboard> };
+    close $clipboard;
+    $contents
+}
+
+sub get_tmux_buffer {
+    `tmux show-buffer`
+}
+
+sub write_to_tmux($contents) {
+    my $tmux_cmd = "tmux load-buffer -b tmux-clipboard -";
+    open my $tmux, '|-', $tmux_cmd
+        or die "can't set tmux buffer contents using `$tmux_cmd`: $!";
+    print $tmux $contents;
+    close $tmux;
+
+    system("tmux paste-buffer -b tmux-clipboard -dp");
+}
+
+main(@ARGV)
