@@ -273,4 +273,4 @@ sub main($addressbook, $maildir) {
     $writer->write_file(\%new_abook, $addressbook);
 }
 
-exit(main(@ARGV));
+main(@ARGV);
