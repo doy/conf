@@ -11,10 +11,3 @@ xmodmap "$HOME"/.Xmodmap
 # trackpad settings
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 0.4
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
-
-# restart services that depend on keyboard reconfigurations
-if pgrep readproctitle > /dev/null; then
-    svre xcape
-    svre kuake
-    svre xbindkeys
-fi
