@@ -58,7 +58,7 @@ sub get_clipboard_contents($selection) {
 }
 
 sub get_tmux_buffer {
-    `tmux show-buffer`
+    scalar `tmux show-buffer`
 }
 
 sub write_to_tmux($contents) {
