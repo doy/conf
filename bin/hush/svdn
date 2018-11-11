@@ -2,14 +2,28 @@
 set -eu
 set -o pipefail
 
-svst "$1" && svstop "$1"
-svst "$1" && sleep 1
-svst "$1" && svstop "$1"
+svst "$1" || exit 0
+
+svstop "$1"
+svst "$1" || exit 0
+
+sleep 1
+
+svstop "$1"
 for _ in $(seq 1 5); do
-    svst "$1" && sleep 1
+    svst "$1" || exit 0
+    sleep 1
 done
-svst "$1" && svstop "$1"
+svst "$1" || exit 0
+
+svstop "$1"
 for _ in $(seq 1 10); do
-    svst "$1" && sleep 1
+    svst "$1" || exit 0
+    sleep 1
 done
-svst "$1" && svkill "$1"
+svst "$1" || exit 0
+
+svkill "$1"
+svst "$1" || exit 0
+
+exit 1
