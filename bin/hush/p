@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+pass git ls-files | grep '\.gpg$' | sed 's/\.gpg$//' | fzf | xargs pass "$@"
