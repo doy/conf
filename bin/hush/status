@@ -123,16 +123,16 @@ sub handle_i3status {
     if (-r $weather_file && -f $weather_file) {
         my $weather = slurp($weather_file);
         chomp($weather);
-        my ($temp) = $weather =~ /\d+%.*?(-?\d+)F.*?-?\d+F/;
+        my ($temp) = $weather =~ /\d+%.*?(-?\d+)C.*?-?\d+C/;
         unshift @$line, {
             name      => 'weather',
             full_text => $weather,
             color     => (
-                $temp >= 90 ? '#FF0000'
-              : $temp >= 78 ? '#FFFF00'
-              : $temp >= 73 ? '#00FF00'
-              : $temp >= 55 ? '#FFFFFF'
-              : $temp >= 32 ? '#CDCDFF'
+                $temp >= 30 ? '#FF0000'
+              : $temp >= 25 ? '#FFFF00'
+              : $temp >= 20 ? '#00FF00'
+              : $temp >= 10 ? '#FFFFFF'
+              : $temp >=  0 ? '#CDCDFF'
               :               '#0000FF'
             ),
         };

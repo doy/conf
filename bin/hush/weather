@@ -35,7 +35,7 @@ if (length($location) == 5) {
     $location = zip_location($location);
 }
 
-my $data = slurp_http("https://api.darksky.net/forecast/$api_key/$location");
+my $data = slurp_http("https://api.darksky.net/forecast/$api_key/$location?units=si");
 my $hour = (localtime(int($data->{currently}{time})))[2];
 
 my $temp = int($data->{currently}{temperature});
