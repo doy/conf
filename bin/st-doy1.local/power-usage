@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.010;
+
+my $power_data = `system_profiler SPPowerDataType`;
+my ($volts) = $power_data =~ /Voltage.*: (.*)/;
+my ($amps) = $power_data =~ /Amperage.*: (.*)/;
+
+printf "%0.2f\n", $volts * $amps / 1000000;

@@ -134,12 +134,18 @@ end)
 enter_bindings(hs.application.frontmostApplication():name())
 current_application_watcher:start()
 
-menubar = hs.menubar.new()
+cpu_usage_bar = hs.menubar.new()
 timer = hs.timer.doEvery(1, function()
     hs.host.cpuUsage(function(cpu)
         local cpuUsage = cpu["overall"]["active"]
-        menubar:setTitle(math.floor(cpuUsage + 0.5) .. "%")
+        cpu_usage_bar:setTitle(math.floor(cpuUsage + 0.5) .. "%")
     end)
+end)
+
+power_usage_bar = hs.menubar.new()
+timer = hs.timer.doEvery(5, function()
+    local watts = hs.execute("/Users/doy/.bin/st-doy1.local/power-usage")
+    power_usage_bar:setTitle(string.gsub(watts, "\n", "") .. "W")
 end)
 
 hs.caffeinate.set("systemIdle", true, true)
