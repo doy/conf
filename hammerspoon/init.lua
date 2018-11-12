@@ -25,7 +25,7 @@ hs.hotkey.bind({"alt"}, "d", function()
 end)
 
 hs.hotkey.bind({"alt"}, "f", function()
-    hs.window.focusedWindow():setFullScreen(true)
+    hs.window.focusedWindow():toggleFullScreen()
 end)
 
 hs.hotkey.bind({"alt"}, "i", function()
