@@ -10,24 +10,41 @@ INSTALL := \
     .agignore \
     .bash_profile \
     .bashrc \
+    .config/git/config \
+    .config/git/ignore \
+    .config/mpd/mpd.conf \
+    .config/msmtp/config \
+    .config/ncmpcpp/bindings \
+    .config/sh/aliases \
+    .config/sh/cdhist.sh \
+    .config/sh/env \
+    .config/sh/functions \
+    .config/sh/fzf \
+    .config/tex/jesse_essay.sty \
+    .config/tex/jesse_letter.sty \
+    .config/tex/jesse_macros.sty \
+    .config/tex/jesse_resume.sty \
+    .config/tex/jesse.sty \
+    .config/tex/sarah_resume.sty \
+    .config/tig/config \
     .config/weechat/saved \
     .config/weechat/extra \
+    .config/zsh/local-completions \
+    .config/zsh/zsh-autosuggestions \
+    .config/zsh/zsh-completions \
+    .config/zsh/zsh-syntax-highlighting \
     .crawlrc \
     .gdbinit \
-    .gitconfig \
-    .gitignore \
     .gnupg/gpg.conf \
     .inputrc \
     .ledgerrc \
     .less \
-    .mailcap \
-    .mpdconf \
-    .msmtprc \
+    .local/share/fortune \
     .mutt/choose-muttrc-type \
     .mutt/imap \
+    .mutt/mailcap \
     .mutt/muttrc \
     .mutt/offlineimap \
-    .ncmpcpp/bindings \
     .nethackrc \
     .perlcriticrc \
     .profile \
@@ -35,7 +52,6 @@ INSTALL := \
     .replyrc \
     .screenrc \
     .ssh/cao_key \
-    .tigrc \
     .tmux.conf \
     .vimrc \
     .zshcomplete \
@@ -43,12 +59,8 @@ INSTALL := \
     .zshrc \
     .bin \
     .dzil \
-    .fortune \
-    .sh \
-    .tex \
     .vim \
     .weechat/perl \
-    .zsh
 
 EMPTYDIRS := \
     $(EMPTYDIRS) \
@@ -62,7 +74,7 @@ INSTALL_CUSTOM := \
 
 BUILD := \
     $(BUILD) \
-    $(addsuffix .dat,$(filter-out %.dat,$(wildcard fortune/*))) \
+    $(addsuffix .dat,$(filter-out %.dat,$(wildcard local/share/fortune/*))) \
     $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
     vim/spell/en.utf-8.add.spl \
     less
@@ -92,7 +104,7 @@ submodules :
 	@git submodule update --init --recursive
 
 install :: all $(INSTALLED)
-	@chmod 600 msmtprc
+	@chmod 600 config/msmtp/config
 	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
 
@@ -125,7 +137,7 @@ $(patsubst %,$(INTO)/%,$(INSTALL)) : $(INTO)/.% : %
 
 # build targets
 
-fortune/%.dat : fortune/%
+local/share/fortune/%.dat : local/share/fortune/%
 	$(ECHO) "Compiling $@"
 	@strfile -s $(basename $@)
 

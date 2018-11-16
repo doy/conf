@@ -1,6 +1,6 @@
 bindkey -v
 
-source ~/.sh/fzf/shell/key-bindings.zsh
+source ~/.config/sh/fzf/shell/key-bindings.zsh
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end

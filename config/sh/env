@@ -11,7 +11,7 @@ if type sudo-askpass > /dev/null 2>&1; then
     SUDO_ASKPASS=$(command -v sudo-askpass)
     export SUDO_ASKPASS
 fi
-export TEXINPUTS=".:$HOME/conf/tex:"
+export TEXINPUTS=".:$HOME/.config/tex:"
 export LESS='-QR'
 export PERL_CPANM_OPT="-q --mirror http://mirrors.kernel.org/cpan/ --mirror http://cpan.metacpan.org/ --prompt"
 export FZF_DEFAULT_OPTS="--reverse --inline-info --bind=tab:down,shift-tab:up,change:top"
@@ -20,5 +20,6 @@ export FANCY_PROMPT_COLORS="user_doy=bright_blue,host_st-doy1=bright_white,host_
 export PASSWORD_STORE_X_SELECTION=primary
 type brew > /dev/null 2>&1 && export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/sbin:$PATH"
 type brew > /dev/null 2>&1 && export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
+export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}/notmuch/config"
 
 # vim:ft=sh:

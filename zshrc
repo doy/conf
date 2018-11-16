@@ -10,7 +10,7 @@ test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
 [ -d /usr/share/git/diff-highlight ] && export PATH="/usr/share/git/diff-highlight:${PATH}"
 [ -d /usr/local/share/git-core/contrib/diff-highlight ] && export PATH="/usr/local/share/git-core/contrib/diff-highlight:${PATH}"
 export PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
-[ -f "$HOME/.sh/env" ] && source $HOME/.sh/env
+[ -f "$HOME/.config/sh/env" ] && source $HOME/.config/sh/env
 # }}}
 # Change the window title of X terminals {{{
 function term_title_precmd () {
@@ -22,11 +22,11 @@ case ${TERM} in
         ;;
 esac # }}}
 # aliases {{{
-[ -f "$HOME/.sh/aliases" ] && source $HOME/.sh/aliases
-[ -f "$HOME/.sh/functions" ] && source $HOME/.sh/functions
+[ -f "$HOME/.config/sh/aliases" ] && source $HOME/.config/sh/aliases
+[ -f "$HOME/.config/sh/functions" ] && source $HOME/.config/sh/functions
 # }}}
 # completion {{{
-fpath=(~/.zsh/local-completions/$(hostname) ~/.zsh/local-completions ~/.zsh/zsh-completions/src $fpath)
+fpath=(~/.config/zsh/local-completions/$(hostname) ~/.config/zsh/local-completions ~/.config/zsh/zsh-completions/src $fpath)
 source ~/.zshcomplete
 # }}}
 # zsh configuration {{{
@@ -48,11 +48,11 @@ export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [yna
 export KEYTIMEOUT=5
 # plugins {{{
 # cdhist {{{
-source ~/.sh/cdhist.sh
+source ~/.config/sh/cdhist.sh
 # }}}
 # zsh-syntax-highlighting {{{
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=green'
 ZSH_HIGHLIGHT_STYLES[alias]='fg=green'
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=green'
@@ -69,7 +69,7 @@ ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=green'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 # }}}
 # zsh-autosuggestions {{{
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
 # }}}
 # vim-history-sync {{{
@@ -98,6 +98,6 @@ zle -N zle-keymap-select
 # }}}
 # }}}
 # fortune {{{
-fortune -n600 -s ~/.fortune | grep -v -E "^$"
+fortune -n600 -s ~/.local/share/fortune | grep -v -E "^$"
 # }}}
 # vim: fdm=marker

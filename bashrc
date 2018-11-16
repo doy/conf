@@ -8,7 +8,7 @@ test -d $HOME/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
 [ -d /usr/share/git/diff-highlight ] && export PATH="/usr/share/git/diff-highlight:${PATH}"
 [ -d /usr/local/share/git-core/contrib/diff-highlight ] && export PATH="/usr/local/share/git-core/contrib/diff-highlight:${PATH}"
 export PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
-[ -f "$HOME/.sh/env" ] && source $HOME/.sh/env
+[ -f "$HOME/.config/sh/env" ] && source $HOME/.config/sh/env
 # }}}
 # Test for an interactive shell. {{{
 # There is no need to set anything past this point for scp and rcp, and it's
@@ -25,8 +25,8 @@ case ${TERM} in
 		;;
 esac # }}}
 # aliases {{{
-[ -f "$HOME/.sh/aliases" ] && source $HOME/.sh/aliases
-[ -f "$HOME/.sh/functions" ] && source $HOME/.sh/functions
+[ -f "$HOME/.config/sh/aliases" ] && source $HOME/.config/sh/aliases
+[ -f "$HOME/.config/sh/functions" ] && source $HOME/.config/sh/functions
 # }}}
 # completion {{{
 [ -f /etc/bash_completion ] && source /etc/bash_completion
@@ -51,9 +51,9 @@ else
     export PROMPT_COMMAND="${PROMPT_COMMAND};history -a"
 fi
 # plugins {{{
-source ~/.sh/cdhist.sh
-source ~/.sh/fzf/shell/completion.bash
-source ~/.sh/fzf/shell/key-bindings.bash
+source ~/.config/sh/cdhist.sh
+source ~/.config/sh/fzf/shell/completion.bash
+source ~/.config/sh/fzf/shell/key-bindings.bash
 # }}}
 # prompt {{{
 if type fancy-prompt > /dev/null 2>&1; then
@@ -62,6 +62,6 @@ fi
 # }}}
 # }}}
 # fortune {{{
-fortune -n600 -s ~/.fortune | grep -v -E "^$"
+fortune -n600 -s ~/.local/share/fortune | grep -v -E "^$"
 # }}}
 # vim: fdm=marker

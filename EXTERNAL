@@ -8,7 +8,7 @@ bin/show_colors
 - http://www.linuxfocus.org/English/May2004/article335.shtml
 bin/vimmanpager
 - gentoo vim ebuild, somewhere in the middle
-fortune/*
+local/share/fortune/*
 - ideas, and yasd-fortune compiled by sartak
 - perl from the base fortune-mod distribution
 - calvin, kernelcookies, firefly, hitchhiker, and various dune quotes from the corresponding gentoo packages
@@ -17,11 +17,11 @@ nethackrc
 - based on https://github.com/TAEB/TAEB/blob/master/lib/TAEB/Config.pm#L192 by sartak
 procmail/mark_as_read
 - http://www.mhonarc.org/archive/html/procmail/2005-08/msg00176.html
-sh/cdhist.sh
+config/sh/cdhist.sh
 - git://github.com/kana/config.git
 ssh/cao_key
 - http://crawl.akrasiac.org/cao_key
-tex/jesse_resume.sty
+config/tex/jesse_resume.sty
 - based on http://www.courtesan.com/todd/resume.html
 vimrc
 - originally based on http://sartak.org/conf/vimrc

@@ -17,7 +17,7 @@
 	path = vim/pack/plugins/start/textobj
 	url = git://github.com/doy/vim-textobj
 [submodule "zsh/zsh-syntax-highlighting"]
-	path = zsh/zsh-syntax-highlighting
+	path = config/zsh/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "vim/bundle/tlib"]
 	path = vim/bundle/tlib
@@ -44,10 +44,10 @@
 	path = vim/bundle/julia
 	url = git://github.com/JuliaLang/julia-vim
 [submodule "zsh/zsh-autosuggestions"]
-	path = zsh/zsh-autosuggestions
+	path = config/zsh/zsh-autosuggestions
 	url = git://github.com/zsh-users/zsh-autosuggestions
 [submodule "zsh/zsh-completions"]
-	path = zsh/zsh-completions
+	path = config/zsh/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions
 [submodule "vim/bundle/ledger"]
 	path = vim/pack/filetype/start/ledger
@@ -62,7 +62,7 @@
 	path = vim/pack/plugins/start/editorconfig
 	url = git://github.com/editorconfig/editorconfig-vim
 [submodule "zsh/fzf"]
-	path = sh/fzf
+	path = config/sh/fzf
 	url = git://github.com/junegunn/fzf
 [submodule "vim/pack/plugins/start/fzf.vim"]
 	path = vim/pack/plugins/start/fzf.vim

@@ -39,7 +39,7 @@
 [color]
 	ui = auto
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.config/git/ignore
 [push]
 	default = current
 [branch]
@@ -68,6 +68,6 @@
 [fetch]
 	prune = true
 [include]
-	path = .gitconfig.private
+	path = config.private
 
 ; vim:ft=gitconfig:

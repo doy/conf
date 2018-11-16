@@ -3,7 +3,7 @@ set record="=Sent"
 set postponed="=Drafts"
 set header_cache="~/.cache/mutt/headers"
 set message_cachedir="~/.cache/mutt/bodies"
-set mailcap_path="~/.mailcap"
+set mailcap_path="~/.mutt/mailcap"
 # }}}
 # identity {{{
 # i am "Jesse Luehrs <doy@tozt.net>"

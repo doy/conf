@@ -1,6 +1,6 @@
 /config/alacritty/alacritty.yml
 /config/darksky/api
-/fortune/*.dat
+/local/share/fortune/*.dat
 /less
 /mpdscribble/mpdscribble.conf
 /vim/spell/*.spl

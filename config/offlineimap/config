@@ -2,7 +2,7 @@
 accounts = main
 maxsyncaccounts = 3
 status_backend = sqlite
-pythonfile = ~/.offlineimap/pass.py
+pythonfile = ~/.config/offlineimap/pass.py
 ui = basic
 socktimeout = 120
 
