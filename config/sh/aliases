@@ -13,8 +13,8 @@ type sudo-askpass > /dev/null 2>&1 && alias sudo="sudo -A"
 # }}}
 # games {{{
 alias nao="env TERM=rxvt telnet nethack.alt.org"
-alias cao="env TERM=rxvt /usr/bin/ssh -C -i $HOME/.ssh/cao_key joshua@crawl.akrasiac.org"
-alias cdo="ssh -C -i $HOME/.ssh/cao_key crawl@crawl.develz.org"
+alias cao="env TERM=rxvt /usr/bin/ssh -C -i \$HOME/.ssh/cao_key joshua@crawl.akrasiac.org"
+alias cdo="ssh -C -i \$HOME/.ssh/cao_key crawl@crawl.develz.org"
 # }}}
 # termcast {{{
 alias tc="telnet termcast.org"

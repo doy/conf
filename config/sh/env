@@ -1,7 +1,9 @@
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
 export MANPAGER="$HOME/.bin/vimmanpager"
 export PERLDOC_PAGER="$HOME/.bin/vimmanpager"
-export EDITOR=$(/usr/bin/which vim)
+EDITOR=$(command -v vim)
+export EDITOR
 ssh="${HOME}/.bin/$(hostname)/ssh"
 if [ -x "$ssh" ]; then
     export GIT_SSH="$ssh"
