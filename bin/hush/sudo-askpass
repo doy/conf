@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+exec pass "system/$(hostname)/doy"
