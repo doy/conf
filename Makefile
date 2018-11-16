@@ -104,7 +104,7 @@ submodules :
 	@git submodule update --init --recursive
 
 install :: all $(INSTALLED)
-	@chmod 600 config/msmtp/config
+	@chmod 600 config/msmtp/config ssh/cao_key
 	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
 
