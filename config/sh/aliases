@@ -9,7 +9,6 @@ alias bc="bc -lq"
 alias ag="ag --pager=less --smart-case"
 type forkprove > /dev/null 2>&1 && alias prove="forkprove"
 type tput > /dev/null 2>&1 && alias reset="tput reset"
-type sudo-askpass > /dev/null 2>&1 && alias sudo="sudo -A"
 # }}}
 # games {{{
 alias nao="env TERM=rxvt telnet nethack.alt.org"
