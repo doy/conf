@@ -1,3 +1,4 @@
+source '~/.mutt/choose-muttrc-type|'
 # folders {{{
 set record="=Sent"
 set postponed="=Drafts"
@@ -161,5 +162,4 @@ set imap_check_subscribed
 # aliases {{{
 set query_command = "abook --mutt-query '%s'"
 # }}}
-source '~/.mutt/choose-muttrc-type|'
 # vim: fdm=marker
