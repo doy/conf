@@ -35,6 +35,7 @@ INSTALL := \
     .crawlrc \
     .gdbinit \
     .gnupg/gpg.conf \
+    .gnupg/gpg-agent.conf \
     .inputrc \
     .ledgerrc \
     .less \
