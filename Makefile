@@ -13,7 +13,6 @@ INSTALL := \
     .config/git/config \
     .config/git/ignore \
     .config/mpd/mpd.conf \
-    .config/msmtp/config \
     .config/ncmpcpp/bindings \
     .config/sh/aliases \
     .config/sh/cdhist.sh \
@@ -104,7 +103,7 @@ submodules :
 	@git submodule update --init --recursive
 
 install :: all $(INSTALLED)
-	@chmod 600 config/msmtp/config ssh/cao_key
+	@chmod 600 ssh/cao_key
 	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
 
