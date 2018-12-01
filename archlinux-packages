@@ -88,6 +88,8 @@ perl-io-socket-ssl
 perl-rename
 powertop
 pulseaudio
+puppet
+puppet-lint
 python2-virtualenv
 python-pycryptodome
 redshift
