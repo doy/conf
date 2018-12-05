@@ -28,10 +28,6 @@ hs.hotkey.bind({"alt"}, "f", function()
     hs.window.focusedWindow():toggleFullScreen()
 end)
 
-hs.hotkey.bind({"alt"}, "i", function()
-    hs.application.launchOrFocus("1Password 6")
-end)
-
 hs.hotkey.bind({"alt"}, "o", function()
     hs.execute("open -n /Applications/Alacritty.app/")
 end)
