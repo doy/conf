@@ -108,7 +108,6 @@ end)
 --     hs.eventtap.keyStroke({"cmd", "option"}, "i")
 -- end)
 
-possibly_active_apps = {}
 current_app_name = nil
 
 function enter_bindings(name)
@@ -126,23 +125,15 @@ function exit_bindings(name)
 end
 
 -- the application watcher receives notifications about new apps being
--- activated before the old apps are deactivated, so we have to hack around
--- that a bit
+-- activated before the old apps are deactivated, so we can't rely on
+-- deactivated events. this should be fine because there should always be an
+-- active app (at the very least, Finder)
 current_application_watcher = hs.application.watcher.new(function(name, event_type, app)
     if event_type == hs.application.watcher.activated then
-        possibly_active_apps[app:pid()] = app
-    elseif event_type == hs.application.watcher.deactivated then
-        possibly_active_apps[app:pid()] = nil
-    end
-
-    apps = {}
-    for _, v in pairs(possibly_active_apps) do
-        table.insert(apps, v)
-    end
-
-    if #apps == 1 and apps[1]:name() ~= current_app_name then
-        exit_bindings(current_app_name)
-        enter_bindings(apps[1]:name())
+        if current_app_name ~= app:name() then
+            exit_bindings(current_app_name)
+            enter_bindings(app:name())
+        end
     end
 end)
 enter_bindings(hs.application.frontmostApplication():name())
