@@ -12,6 +12,8 @@ INSTALL := \
     .config/offlineimap/pass.py \
     .config/perspektiv/config.toml \
     .config/touchegg/touchegg.conf \
+    .gnupg/gpg.conf \
+    .gnupg/gpg-agent.conf \
     .notmuch-config \
     .xbindkeysrc \
     .Xdefaults \
