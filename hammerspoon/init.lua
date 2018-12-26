@@ -149,7 +149,7 @@ end)
 
 power_usage_bar = hs.menubar.new()
 timer = hs.timer.doEvery(5, function()
-    local watts = hs.execute("/Users/doy/.bin/st-doy1.local/power-usage")
+    local watts = hs.execute("/Users/doy/.bin/st-doy2/power-usage")
     power_usage_bar:setTitle(string.gsub(watts, "\n", "") .. "W")
 end)
 
