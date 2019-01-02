@@ -37,6 +37,7 @@ foomatic-db-ppds
 fortune-mod
 fzf
 gdb
+ghostscript
 gimp
 git
 go
@@ -63,7 +64,6 @@ libva-utils
 lightdm
 lightdm-gtk-greeter
 light-locker
-linux-headers
 lsof
 mesa-demos
 mpd
@@ -92,6 +92,7 @@ puppet
 puppet-lint
 python2-virtualenv
 python-pycryptodome
+python-virtualenv
 redshift
 rsync
 rtorrent
@@ -121,6 +122,7 @@ upower
 valgrind
 weechat
 whois
+wireguard-arch
 wireguard-tools
 wpa_actiond
 xbindkeys
