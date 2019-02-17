@@ -112,47 +112,37 @@ unset confirmappend
 set quit
 # }}}
 # bindings {{{
-bind generic i exit
-bind generic p search-opposite
-bind generic ? search-reverse
-bind generic B help
 bind generic , enter-command
+bind generic,pager,index B help
 
-bind pager j next-line
-bind pager k previous-line
-bind pager J half-down
-bind pager K half-up
-bind pager p search-opposite
-bind pager ? search-reverse
-bind pager N next-undeleted
-bind pager P previous-undeleted
-bind pager g top
-bind pager G bottom
-bind pager A group-reply
-
+bind generic,compose i exit
 bind index i noop
+
+bind generic,pager,index ? search-reverse
+bind generic,pager,index p search-opposite
+
+bind index,pager J half-down
+bind index,pager K half-up
 bind index <Down> next-entry
 bind index <Up> previous-entry
-bind index J half-down
-bind index K half-up
-bind index p search-opposite
-bind index A group-reply
+bind pager j next-line
+bind pager k previous-line
+
+bind pager g top
+bind pager G bottom
 bind index g first-entry
 bind index G last-entry
-bind index C vfolder-from-query
-bind index E entire-thread
-macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
-macro index \Cn "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
-bind compose i exit
-bind compose S ispell
+bind index,pager E entire-thread
+bind index,pager C vfolder-from-query
+macro index,pager I "c=INBOX<enter>"
+
+bind index,pager M compose-to-sender
+bind index,pager A group-reply
+
+macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
 
 bind editor <tab> complete-query
-
-macro index,pager U "<enter-command> set my_pdsave=\$pipe_decode<enter>\
-    <enter-command> unset pipe_decode<enter>\
-    <pipe-message>extract_url<enter>\
-    <enter-command> set pipe_decode=\$my_pdsave<enter>" "get URLs"
 # }}}
 # }}}
 # checking mail {{{
