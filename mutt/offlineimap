@@ -13,4 +13,4 @@ macro index R "<enter-command>unset wait_key<enter><shell-escape>update-mail<ent
 set timeout=3
 set mail_check=0
 
-# vim: ft=muttrc
+# vim: ft=neomuttrc

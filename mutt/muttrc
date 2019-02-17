@@ -98,6 +98,9 @@ set fast_reply
 # use the Reply-To header in preference to the From header
 set reply_to
 # }}}
+# search {{{
+set nm_exclude_tags=spam
+# }}}
 # prompts {{{
 # never automatically move read messages
 unset move
@@ -136,6 +139,8 @@ bind index p search-opposite
 bind index A group-reply
 bind index g first-entry
 bind index G last-entry
+bind index C vfolder-from-query
+bind index E entire-thread
 macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
 macro index \Cn "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
@@ -143,9 +148,6 @@ bind compose i exit
 bind compose S ispell
 
 bind editor <tab> complete-query
-
-macro index <F8> "<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt -r --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" "notmuch: search mail"
-macro index <F9> "<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt -r thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" "notmuch: reconstruct thread"
 
 macro index,pager U "<enter-command> set my_pdsave=\$pipe_decode<enter>\
     <enter-command> unset pipe_decode<enter>\
@@ -162,4 +164,4 @@ set imap_check_subscribed
 # aliases {{{
 set query_command = "abook --mutt-query '%s'"
 # }}}
-# vim: fdm=marker
+# vim: fdm=marker ft=neomuttrc

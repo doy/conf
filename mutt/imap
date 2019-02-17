@@ -4,4 +4,4 @@ bind index R imap-fetch-mail
 set timeout=60
 set mail_check=60
 
-# vim: ft=muttrc
+# vim: ft=neomuttrc
