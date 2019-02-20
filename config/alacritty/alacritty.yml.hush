@@ -52,6 +52,8 @@ mouse_bindings:
 mouse:
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
+  url:
+    launcher: None
 
 selection:
   semantic_escape_chars: " "
