@@ -11,3 +11,6 @@ xmodmap "$HOME"/.Xmodmap
 # trackpad settings
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 0.4
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+
+# needs to happen after xmodmap stuff
+svre xcape
