@@ -28,7 +28,6 @@ maxconnections = 5
 keepalive = 60
 holdconnectionopen = yes
 idlefolders = ['INBOX']
-folderfilter = lambda foldername: foldername not in ['notmuch'] and not re.search('^old(\.|$)', foldername)
 subscribedonly = no
 
 # vim:ft=dosini:
