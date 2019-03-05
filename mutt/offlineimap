@@ -1,7 +1,7 @@
 set mbox_type=Maildir
 set folder="~/Maildir"
 set spoolfile="~/Maildir/INBOX"
-mailboxes = `\
+mailboxes `\
     for folder in ~/Maildir/*; do\
         basename=$(basename "$folder");\
         if [ "x${basename:0:4}"  != "xold." \
