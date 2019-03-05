@@ -4,8 +4,9 @@ set spoolfile="~/Maildir/INBOX"
 mailboxes `\
     for folder in ~/Maildir/*; do\
         basename=$(basename "$folder");\
-        if [ "x${basename:0:4}"  != "xold." \
-          -a "x$basename"        != "xspam" ]; then\
+        if [ "x${basename:0:4}"  != "xold."\
+          -a "x$basename"        != "xspam"\
+          -a "x$basename"        != "xnotmuch" ]; then\
             echo -n "\"=$basename\" ";\
         fi\
     done`
