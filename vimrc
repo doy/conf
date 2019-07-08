@@ -178,9 +178,6 @@ let g:startify_custom_header = []
 let s:fortune = system('fortune -n200 -s ~/.local/share/fortune | grep -v -E "^$"')
 let g:startify_custom_footer = [''] + map(split(s:fortune, '\n'), '"   ".v:val')
 " }}}
-" terraform {{{
-let g:terraform_fmt_on_save = 1
-" }}}
 " textobj {{{
 let g:textobj_defs = {
 \    '/': ['paired'],
