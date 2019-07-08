@@ -1,4 +1,7 @@
 ---
+env:
+  TERM: alacritty-direct
+
 window:
   dimensions:
     columns: 80
