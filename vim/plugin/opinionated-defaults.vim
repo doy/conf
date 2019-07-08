@@ -141,9 +141,6 @@ set t_vb=
 set t_Co=256
 " globally highlight diff conflict markers
 match ErrorMsg '^\(<\||\|=\|>\)\{7\}\([^=].\+\)\?$'
-" override some obnoxious default color choices
-highlight Folded NONE ctermfg=darkgreen guifg=green
-highlight Search NONE ctermfg=red guifg=red
 
 
 """ MAPPINGS """

@@ -20,13 +20,13 @@
 
 function! Rainbow()
   let s:basename = 'level'
-  exe 'hi '.s:basename.'1c ctermfg=darkcyan    guifg=cyan'
-  exe 'hi '.s:basename.'2c ctermfg=darkgreen   guifg=green'
-  exe 'hi '.s:basename.'3c ctermfg=darkyellow  guifg=yellow'
-  exe 'hi '.s:basename.'4c ctermfg=darkblue    guifg=blue'
-  exe 'hi '.s:basename.'5c ctermfg=darkmagenta guifg=magenta'
+  exe 'hi '.s:basename.'1c ctermfg=6 guifg=#1673b0'
+  exe 'hi '.s:basename.'2c ctermfg=2 guifg=#008551'
+  exe 'hi '.s:basename.'3c ctermfg=3 guifg=#b25200'
+  exe 'hi '.s:basename.'4c ctermfg=4 guifg=#4369cc'
+  exe 'hi '.s:basename.'5c ctermfg=5 guifg=#a045a7'
   " this color is never nested, it only appears on the outermost layer
-  exe 'hi '.s:basename.'6c ctermfg=darkred     guifg=red'
+  exe 'hi '.s:basename.'6c ctermfg=1 guifg=#c7394e'
 
   " helper function
   func s:DoSyn(cur, top, left, right, uniq)
