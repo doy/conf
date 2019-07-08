@@ -3,6 +3,25 @@ spoon.ReloadConfiguration:start()
 
 hs.loadSpoon("SpeedMenu")
 
+-- apparently hs.eventtap.keyStroke doesn't always work, this is more reliable
+-- https://github.com/Hammerspoon/hammerspoon/issues/1984#issuecomment-455317739
+doKeyStroke = function(modifiers, character)
+    if type(modifiers) == 'table' then
+        local event = hs.eventtap.event
+
+        for _, modifier in pairs(modifiers) do
+            event.newKeyEvent(modifier, true):post()
+        end
+
+        event.newKeyEvent(character, true):post()
+        event.newKeyEvent(character, false):post()
+
+        for i = #modifiers, 1, -1 do
+            event.newKeyEvent(modifiers[i], false):post()
+        end
+    end
+end
+
 hs.hotkey.bind({"alt"}, "h", function()
     hs.window.focusedWindow():focusWindowWest(nil, false, true)
 end)
@@ -37,36 +56,32 @@ hs.hotkey.bind({"alt"}, "q", function()
 end)
 
 hs.hotkey.bind({"alt"}, "r", function()
-    hs.eventtap.keyStroke({"cmd"}, "space")
+    doKeyStroke({"cmd"}, "space")
 end)
 
 hs.hotkey.bind({"alt"}, "[", function()
-    hs.eventtap.keyStroke({"ctrl"}, "left")
+    doKeyStroke({"ctrl"}, "left")
 end)
 
 hs.hotkey.bind({"alt"}, "]", function()
-    hs.eventtap.keyStroke({"ctrl"}, "right")
-end)
-
-hs.hotkey.bind({"cmd"}, "h", function()
-    -- nothing
+    doKeyStroke({"ctrl"}, "right")
 end)
 
 hs.hotkey.bind({"cmd"}, "u", function()
-    hs.eventtap.keyStroke({"cmd"}, "delete")
+    doKeyStroke({"cmd"}, "delete")
 end)
 
 hs.hotkey.bind({"cmd"}, "a", function()
-    hs.eventtap.keyStroke({"cmd"}, "left")
+    doKeyStroke({"cmd"}, "left")
 end)
 
 hs.hotkey.bind({"cmd"}, "e", function()
-    hs.eventtap.keyStroke({"cmd"}, "right")
+    doKeyStroke({"cmd"}, "right")
 end)
 
 for i = 1, 6 do
     hs.hotkey.bind({"alt"}, tostring(i), function()
-        hs.eventtap.keyStroke({"ctrl"}, tostring(i))
+        doKeyStroke({"ctrl"}, tostring(i))
     end)
 end
 
@@ -84,7 +99,7 @@ extra_bindings["Alacritty"]:bind({"ctrl"}, "k", function()
         if event_type == hs.application.watcher.activated then
             if app:name() == "Slack" then
                 hs.timer.doAfter(0.001, function()
-                    hs.eventtap.keyStroke({"cmd"}, "k")
+                    doKeyStroke({"cmd"}, "k")
                 end)
                 slack_cmd_k_watcher:stop()
                 slack_cmd_k_watcher = nil
@@ -96,16 +111,16 @@ extra_bindings["Alacritty"]:bind({"ctrl"}, "k", function()
 end)
 
 extra_bindings["Google Chrome"]:bind({"cmd"}, "h", function()
-    hs.eventtap.keyStroke({"cmd"}, "left")
+    doKeyStroke({"cmd"}, "left")
 end)
 
 extra_bindings["Google Chrome"]:bind({"cmd"}, "l", function()
-    hs.eventtap.keyStroke({"cmd"}, "right")
+    doKeyStroke({"cmd"}, "right")
 end)
 
 -- doesn't seem to work?
 -- extra_bindings["Google Chrome"]:bind({"cmd", "shift"}, "i", function()
---     hs.eventtap.keyStroke({"cmd", "option"}, "i")
+--     doKeyStroke({"cmd", "option"}, "i")
 -- end)
 
 current_app_name = nil
