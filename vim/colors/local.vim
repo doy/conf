@@ -28,7 +28,7 @@ let s:g = {
     \"darkmagenta":   "#602864",
     \"darkcyan":      "#144c71",
     \"darkwhite":     "#3e4043",
-    \"darkerblue":    "#000034",
+    \"darkerwhite":   "#090e14",
 \}
 
 let s:c = {
@@ -115,7 +115,7 @@ call <sid>hi("DiffText", "", s:g["darkmagenta"])
 call <sid>hi("Folded", "brightgreen", s:g["darkgreen"])
 call <sid>hi("MatchParen", "brightcyan", s:g["darkcyan"])
 call <sid>hi("MoreMsg", "green", s:g["darkgreen"])
-call <sid>hi("NonText", "brightblue", s:g["darkerblue"])
+call <sid>hi("NonText", "brightblue", s:g["darkerwhite"])
 call <sid>hi("Search", "", s:g["darkmagenta"])
 call <sid>hi("SpellBad", "", s:g["darkred"])
 call <sid>hi("SpellCap", "", s:g["darkblue"])
