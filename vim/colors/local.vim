@@ -96,6 +96,8 @@ call <sid>hi("Title", "magenta", "")
 call <sid>hi("Todo", "black", "brightyellow")
 call <sid>hi("Type", "green", "")
 
+autocmd FileType go call <sid>hi("goBuiltins", "yellow", "")
+autocmd FileType go call <sid>hi("goFunctionCall", "brightcyan", "")
 autocmd FileType markdown call <sid>hi("mkdListItem", "yellow", "")
 autocmd FileType perl call <sid>hi("Identifier", "brightcyan", "")
 autocmd FileType puppet call <sid>hi("puppetStringDelimiter", "red", "")

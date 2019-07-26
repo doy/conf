@@ -156,6 +156,12 @@ if !isdirectory(g:netrw_home)
     call mkdir(g:netrw_home, 'p')
 endif
 " }}}
+" polyglot {{{
+" this is for things that can't be set in ftplugin files for whatever reason
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+" }}}
 " rainbow {{{
 let g:rainbow = 1
 let g:rainbow_paren = 1
