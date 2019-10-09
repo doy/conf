@@ -10,7 +10,7 @@
 "dmenu_run -fn 'Misc Fixed:pixelsize=14'"
   Mod4 + r
 
-"light-locker-command -l"
+"xset s activate"
   Mod4 + d
 
 "numkeys toggle"

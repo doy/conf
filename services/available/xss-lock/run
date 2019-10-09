@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec xss-lock -n /usr/lib/xsecurelock/dimmer -l -- sh -c 'on-lock; env XSECURELOCK_BLANK_TIMEOUT=1 XSECURELOCK_SHOW_DATETIME=1 xsecurelock'
