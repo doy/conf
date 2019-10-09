@@ -46,7 +46,7 @@ my $precip = int($data->{hourly}{data}[0]{precipProbability} * 100);
 
 say join(' ',
     "$precip%",
-    $weather_pics{$data->{minutely}{icon}} // "?",
+    $weather_pics{$data->{minutely}{icon} // $data->{hourly}{data}[0]{icon}} // "?",
     "${temp}${temp_unit}",
     (($feelslike_temp != $temp)
         ? ("(\x{2245}${feelslike_temp}${temp_unit})")
