@@ -1,7 +1,6 @@
 INSTALL := \
     .config/alacritty/alacritty.yml \
     .config/darksky/api \
-    .config/darksky/location \
     .config/i3/browser-workspace.json \
     .config/i3/config \
     .config/i3/signal-workspace.json \
