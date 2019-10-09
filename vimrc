@@ -96,14 +96,14 @@ function! s:fzf_files()
         exe "Files"
     endif
 endfunction
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 "--hidden",
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case --no-ignore-messages '.shellescape(<q-args>),
+  \                 1,
   \                 <bang>0 ? fzf#vim#with_preview(s:ag_opts, 'up:60%')
   \                         : fzf#vim#with_preview(s:ag_opts, s:horiz_preview_layout, '?'),
   \                 <bang>0)
 nnoremap <silent> t :call <SID>fzf_files()<CR>
-nnoremap <silent> ff :Ag<CR>
+nnoremap <silent> ff :Rg<CR>
 nnoremap <silent> fh :Helptags<CR>
 nnoremap <silent> ft :Filetypes<CR>
 " }}}
@@ -174,7 +174,7 @@ let g:startify_list_order = ['dir', 'bookmarks', 'commands']
 let g:startify_files_number = 7
 let g:startify_commands = [
     \ {'t': ['Open file', 'Files']},
-    \ {'ff': ['Grep', 'Ag']},
+    \ {'ff': ['Grep', 'Rg']},
     \ {'fh': ['Help', 'Helptags']},
     \ ]
 let g:startify_change_to_vcs_root = 1
