@@ -12,6 +12,5 @@ mailboxes `\
     done`
 macro index R "<enter-command>unset wait_key<enter><shell-escape>update-mail<enter><enter-command>set wait_key<enter>" "fetch mail with offlineimap"
 set timeout=3
-set mail_check=0
 
 # vim: ft=neomuttrc
