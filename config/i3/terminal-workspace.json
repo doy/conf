@@ -2,7 +2,7 @@
     "border": "pixel",
     "floating": "auto_off",
     "layout": "splitv",
-    "percent": 0.3,
+    "percent": 0.2979,
     "type": "con",
     "nodes": [
         {
@@ -66,7 +66,7 @@
     "border": "pixel",
     "floating": "auto_off",
     "layout": "splitv",
-    "percent": 0.7,
+    "percent": 0.7021,
     "type": "con",
     "nodes": [
         {
