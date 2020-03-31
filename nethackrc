@@ -14,15 +14,20 @@ OPTIONS=!news
 OPTIONS=!legacy
 OPTIONS=suppress_alert:3.4.3
 OPTIONS=hilite_pet
+OPTIONS=hilite_pile
+OPTIONS=hitpointbar
+OPTIONS=lit_corridor
+OPTIONS=msg_window:full
+OPTIONS=pile_limit:0
 
 # functionality
 OPTIONS=autopickup
 OPTIONS=pickup_types:$"?!=/
 OPTIONS=pickup_burden:unburdened
-OPTIONS=!prayconfirm
+OPTIONS=paranoid_confirmation:none
 OPTIONS=pettype:none
 OPTIONS=!cmdassist
-OPTIONS=disclose:yi +avgc
+OPTIONS=disclose:yi +avgco
 OPTIONS=!number_pad
 
 # miscellaneous
@@ -57,3 +62,115 @@ SYMBOLS=S_lava:~
 #  closed doors => ]  now + is spellbook
 #  grave => \         now gray | and - are walls, (grey -- thrones)
 #  water => ~         it looks cool (blue -- long worm tail)
+
+OPTIONS=statushilites:1
+OPTIONS=hilite_status:carrying-capacity/burdened/yellow
+OPTIONS=hilite_status:carrying-capacity/stressed/red
+OPTIONS=hilite_status:carrying-capacity/strained/orange
+OPTIONS=hilite_status:carrying-capacity/overtaxed/orange
+OPTIONS=hilite_status:carrying-capacity/overloaded/orange
+OPTIONS=hilite_status:hitpoints/<100%/green
+OPTIONS=hilite_status:hitpoints/<50%/yellow
+OPTIONS=hilite_status:hitpoints/<33%/red
+OPTIONS=hilite_status:hitpoints/<25%/orange
+OPTIONS=hilite_status:hitpoints/<15%/black
+OPTIONS=hilite_status:hitpoints/100%/normal
+OPTIONS=hilite_status:hitpoints/<5/black
+OPTIONS=hilite_status:power/<100%/lightcyan
+OPTIONS=hilite_status:power/<50%/lightmagenta
+OPTIONS=hilite_status:power/<33%/magenta
+OPTIONS=hilite_status:power/100%/normal
+OPTIONS=hilite_status:hunger/satiated/green
+OPTIONS=hilite_status:hunger/hungry/yellow
+OPTIONS=hilite_status:hunger/weak/red
+OPTIONS=hilite_status:hunger/fainting/orange
+OPTIONS=hilite_status:hunger/fainted/orange
+OPTIONS=hilite_status:hunger/starved/orange
+OPTIONS=hilite_status:condition/major_troubles/orange
+OPTIONS=hilite_status:condition/minor_troubles/yellow
+OPTIONS=hilite_status:condition/movement/blue
+
+OPTIONS=menucolors
+
+# ascension kit
+MENUCOLOR=" bag .* holding"=magenta
+MENUCOLOR=" luck(stone)?($| )"=magenta
+MENUCOLOR=" wand .* wish(ing)?($| )"=magenta
+MENUCOLOR=" magic marker"=magenta
+MENUCOLOR=" magic lamp|lamp .* magic"=magenta
+MENUCOLOR=" unicorn horn[^[]*$"=magenta
+MENUCOLOR=" ring .* conflict"=magenta
+MENUCOLOR=" ring .* free action($| )"=magenta
+MENUCOLOR=" ring .* tele(port)? control($| )"=magenta
+MENUCOLOR=" ring .* lev(itation)?($| )"=magenta
+MENUCOLOR=" scrolls? .* charging($| )"=magenta
+MENUCOLOR=" amulet .* life saving($| )"=magenta
+MENUCOLOR=" amulet .* ref(lection)?($| )"=magenta
+MENUCOLOR=" c(o|hi)ckatrice (corpse|egg)"=magenta
+MENUCOLOR=" stethoscope"=magenta
+MENUCOLOR=" key($| )"=magenta
+
+# items that need to be fixed
+MENUCOLOR=" cursed.* bag .* holding"=red
+MENUCOLOR=" cursed.* luck(stone)?($| )"=red
+MENUCOLOR=" cursed.* unicorn horn"=red
+MENUCOLOR=" cursed.* (Bell of Opening|silver bell|Candelabrum of Invocation|candelabrum|Book of the Dead|papyrus spellbook)"=red
+MENUCOLOR=" load(stone)?($| )"=red
+
+# magic items
+MENUCOLOR="piece of cloth|opera cloak|ornamental cope|tattered cape"=blue
+MENUCOLOR="plumed helmet|etched helmet|crested helmet|visored helmet"=blue
+MENUCOLOR="(old|padded|riding|fencing) gloves"=blue
+MENUCOLOR="(mud|buckled|riding|snow|hiking|combat|jungle) boots"=blue
+
+# items to keep out of bags of holding
+MENUCOLOR=" bag .* tricks"=red&bold
+MENUCOLOR=" wand .*[^!]canc"=red&bold
+MENUCOLOR=" wand .* vanish"=red&bold
+
+# spell failure
+MENUCOLOR=" 0% "=white
+MENUCOLOR=" [1-9]% "=cyan
+MENUCOLOR=" [12][0-9]% "=cyan
+MENUCOLOR=" [3-6][0-9]% "=yellow
+MENUCOLOR=" 7[0-5]% "=yellow
+MENUCOLOR=" 7[6-9]% "=orange
+MENUCOLOR=" 8[0-9]% "=orange
+MENUCOLOR=" 9[0-9]% "=red
+MENUCOLOR=" 100% "=red
+MENUCOLOR="[a-zA-Z ]+ [0-9]\*   [a-z]+ +[0-9]+%"=magenta
+
+# fix mistakenly highlighted menu items
+MENUCOLOR=" is empty. Do what?"=no color
+MENUCOLOR="Put something into .*"=no color
+MENUCOLOR="Take something out of .*"=no color
+MENUCOLOR="unicorn horn.*(Unskilled|Basic|Skilled|Expert)"=no color
+MENUCOLOR="Info on what a given key does."=no color
+MENUCOLOR="Full list of keyboard commands."=no color
+MENUCOLOR="altkeyhandler"=no color
+MENUCOLOR="fruit.*\["=no color
+
+# emergencies
+MSGTYPE=stop "The (couatl.*eel|kraken) swings itself around you!"
+MSGTYPE=stop "The python grabs you!"
+MSGTYPE=stop "You don't feel very well"
+MSGTYPE=stop "You are turning a little green"
+MSGTYPE=stop "Your limbs are getting oozy"
+MSGTYPE=stop "Your skin begins to peel away"
+MSGTYPE=stop "You are turning into a green slime"
+MSGTYPE=stop "You are slowing down"
+MSGTYPE=stop "Your limbs are stiffening"
+MSGTYPE=stop "It constricts your throat!"
+MSGTYPE=stop "You find it hard to breathe"
+MSGTYPE=stop "You're gasping for air"
+MSGTYPE=stop "Your blood is having trouble reaching your brain"
+MSGTYPE=stop "You can no longer breathe"
+MSGTYPE=stop "You're turning blue"
+MSGTYPE=stop "Your consciousness is fading"
+MSGTYPE=stop "You feel deathly sick"
+MSGTYPE=stop "You feel much worse"
+MSGTYPE=stop "You feel even worse"
+
+# vibrating square
+MSGTYPE=stop "You feel a strange vibration beneath "
+MSGTYPE=stop "You feel a strange vibration under your "
