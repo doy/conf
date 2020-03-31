@@ -98,8 +98,10 @@ RMDIR     = @rmdir -p --ignore-fail-on-non-empty
 
 build : submodules $(BUILD)
 
+# force shell instead of exec to work around
+# https://savannah.gnu.org/bugs/?57962 since i have ~/.bin/git as a directory
 submodules :
-	@git submodule update --init --recursive
+	@:; git submodule update --init --recursive
 
 install :: all $(INSTALLED)
 	@chmod 600 ssh/cao_key
