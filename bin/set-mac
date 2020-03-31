@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+link() {
+    sudo ip link set dev wlp3s0 "$@"
+}
+
+link down
+link address "$1"
+link up
