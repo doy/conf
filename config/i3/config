@@ -74,4 +74,4 @@ bar {
 
 exec --no-startup-id "i3-msg 'workspace 6; append_layout .config/i3/browser-workspace.json; exec firefox'"
 exec --no-startup-id "i3-msg 'workspace 7; append_layout .config/i3/signal-workspace.json; exec signal-desktop'"
-exec --no-startup-id "i3-msg 'workspace 5; append_layout .config/i3/terminal-workspace.json; exec alacritty; exec alacritty; exec alacritty; exec alacritty; exec alacritty'"
+exec --no-startup-id "i3-msg 'workspace 5; append_layout .config/i3/terminal-workspace.json; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty'"

@@ -21,7 +21,7 @@ font:
     style: Regular
   italic:
     family: Misc Fixed
-  size: 6.0
+  size: 10.5
 
 colors:
   primary:
