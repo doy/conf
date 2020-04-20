@@ -7,5 +7,5 @@ account default
 host mail.tozt.net
 from doy@tozt.net
 user doy@tozt.net
-passwordeval pass "websites/mail.tozt.net/doy@tozt.net"
+passwordeval rbw get mail.tozt.net doy@tozt.net
 tls_trust_file /etc/ssl/certs/ca-certificates.crt

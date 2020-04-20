@@ -60,8 +60,8 @@ config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.hush
 	$(LN) $(notdir $<) $@
 
 config/darksky/api :
-	pass show websites/darksky.net/api > $@
+	rbw get darksky.net api > $@
 
 mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
-	pass="$$(pass show websites/last.fm/doyster)" &&\
+	pass="$$(rbw get last.fm doyster)" &&\
 	perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$pass" < $< > $@

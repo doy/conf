@@ -2,4 +2,4 @@
 set -eu
 set -o pipefail
 
-pass git ls-files | grep '\.gpg$' | sed 's/\.gpg$//' | fzf | xargs pass "$@"
+rbw ls --fields name,user | perl -pale'$_ .= "\t$F[0]/$F[1]"' | fzf --with-nth=3 | perl -pale's/\t[^\t]*$//' | xargs rbw get

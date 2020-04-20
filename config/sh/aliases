@@ -35,7 +35,7 @@ alias v="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"
 alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"ff\")'"
 alias utc="env TZ=UTC date"
 alias pd="perldoc"
-alias pc="p -c"
+alias pc="p | xclip -l 1"
 # }}}
 
 # vim:ft=sh:fdm=marker
