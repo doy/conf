@@ -13,6 +13,7 @@ type tput > /dev/null 2>&1 && alias reset="tput reset"
 alias nao="ssh nethack@alt.org"
 alias cao="env TERM=rxvt /usr/bin/ssh -C -i \$HOME/.ssh/cao_key joshua@crawl.akrasiac.org"
 alias cdo="ssh -C -i \$HOME/.ssh/cao_key crawl@crawl.develz.org"
+alias hearthstone="wine ~/.wine/drive_c/Program\ Files\ \(x86\)/Hearthstone/Hearthstone.exe"
 # }}}
 # termcast {{{
 alias tc="telnet termcast.org"
