@@ -2,4 +2,4 @@
 set -eu
 set -o pipefail
 
-exec rbw get ssh hush
+exec rbw get hush ssh
