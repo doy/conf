@@ -94,14 +94,16 @@ MKDIR     = @mkdir -p
 RM        = @rm -f
 RMDIR     = @rmdir -p --ignore-fail-on-non-empty
 
+# force shell instead of exec to work around
+# https://savannah.gnu.org/bugs/?57962 since i have ~/.bin/git as a directory
+GIT       = @:; git
+
 # named targets
 
 build : submodules $(BUILD)
 
-# force shell instead of exec to work around
-# https://savannah.gnu.org/bugs/?57962 since i have ~/.bin/git as a directory
 submodules :
-	@:; git submodule update --init --recursive
+	$(GIT) submodule update --init --recursive
 
 install :: all $(INSTALLED)
 	@chmod 600 ssh/cao_key
@@ -115,13 +117,13 @@ clean ::
 	$(RMDIR) $(INSTALLED_DIRS)
 
 update :
-	@git submodule foreach '(if [ $$path == "vim/pack/filetype/start/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
+	$(GIT) submodule foreach '(if [ $$path == "vim/pack/filetype/start/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
 
 versions :
-	@git submodule foreach -q 'printf "%-53s" " $$path" && GIT_PAGER=cat git show -s --format=format:%cI%n $$sha1'
+	$(GIT) submodule foreach -q 'printf "%-53s" " $$path" && GIT_PAGER=cat git show -s --format=format:%cI%n $$sha1'
 
 updates :
-	@git submodule foreach -q 'if [ $$path == "vim/pack/filetype/start/perl" ]; then if [ $$(git rev-parse dev) != $$sha1 ]; then git lg dev...$$sha1; fi; else if [ $$(git rev-parse master) != $$sha1 ]; then git lg master...$$sha1; fi; fi'
+	$(GIT) submodule foreach -q 'if [ $$path == "vim/pack/filetype/start/perl" ]; then if [ $$(git rev-parse dev) != $$sha1 ]; then git lg dev...$$sha1; fi; else if [ $$(git rev-parse master) != $$sha1 ]; then git lg master...$$sha1; fi; fi'
 
 .PHONY: submodules build install clean update versions updates
 
