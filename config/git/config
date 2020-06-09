@@ -33,6 +33,7 @@
 	rv = checkout -p
 	stashed = stash list --pretty=format:'%<(10)%gd: %Cred%h%Creset %Cgreen(%ar)%Creset%n  %s'
 	st = status -sb
+	start = "!f() { git commit --allow-empty -m 'initial commit' && git add . && git commit -m 'project skeleton'; }; f"
 	track = "!f() { local name=$(git name-rev --name-only @); git branch --set-upstream-to=origin/$name $name; }; f"
 [github]
 	user = doy
