@@ -1,0 +1,22 @@
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
+
+cmd + alt - h : yabai -m window --warp west
+cmd + alt - j : yabai -m window --warp south
+cmd + alt - k : yabai -m window --warp north
+cmd + alt - l : yabai -m window --warp east
+
+cmd + alt - a : yabai -m space --balance
+cmd + alt - s : yabai -m window --toggle split
+
+alt - space : yabai -m window --toggle float
+
+alt - b : open /Applications/Google\ Chrome.app --new --args --new-window about:home
+alt - o : open -n /Applications/Alacritty.app/

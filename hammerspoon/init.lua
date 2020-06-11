@@ -22,33 +22,12 @@ doKeyStroke = function(modifiers, character)
     end
 end
 
-hs.hotkey.bind({"alt"}, "h", function()
-    hs.window.focusedWindow():focusWindowWest(nil, false, true)
-end)
-hs.hotkey.bind({"alt"}, "j", function()
-    hs.window.focusedWindow():focusWindowSouth(nil, false, true)
-end)
-hs.hotkey.bind({"alt"}, "k", function()
-    hs.window.focusedWindow():focusWindowNorth(nil, false, true)
-end)
-hs.hotkey.bind({"alt"}, "l", function()
-    hs.window.focusedWindow():focusWindowEast(nil, false, true)
-end)
-
-hs.hotkey.bind({"alt"}, "b", function()
-    hs.execute("open /Applications/Google\\ Chrome.app --new --args --new-window about:home")
-end)
-
 hs.hotkey.bind({"alt"}, "d", function()
     hs.caffeinate.lockScreen()
 end)
 
 hs.hotkey.bind({"alt"}, "f", function()
     hs.window.focusedWindow():toggleFullScreen()
-end)
-
-hs.hotkey.bind({"alt"}, "o", function()
-    hs.execute("open -n /Applications/Alacritty.app/")
 end)
 
 hs.hotkey.bind({"alt"}, "q", function()

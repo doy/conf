@@ -1,7 +1,9 @@
 INSTALL := \
     .config/alacritty/alacritty.yml \
     .config/karabiner \
-    .hammerspoon
+    .hammerspoon \
+    .skhdrc \
+    .yabairc
 
 EMPTYDIRS := \
 
