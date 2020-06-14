@@ -68,6 +68,8 @@
 	diff = diff-highlight | less
 [fetch]
 	prune = true
+[pull]
+	rebase = true
 [include]
 	path = config.private
 
