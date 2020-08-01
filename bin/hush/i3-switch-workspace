@@ -8,6 +8,8 @@ use JSON::PP;
 
 my $json = JSON::PP->new;
 
+my $virtual_workspace = 'virtual';
+
 my %message_types = (
     command        => 0,
     get_workspaces => 1,
@@ -32,11 +34,17 @@ my $tree_data = $json->decode(i3_msg('get_tree'));
 my $first = 99999;
 my $last = -99999;
 my $cur;
+my $cur_name;
+my $virtual_output;
 
 for my $i (0..$#$workspace_data) {
     my $num = $workspace_data->[$i]{num};
     if ($workspace_data->[$i]{focused}) {
         $cur = $num;
+        $cur_name = $workspace_data->[$i]{name};
+        if ($cur_name eq $virtual_workspace) {
+            $virtual_output = $workspace_data->[$i]{output};
+        }
     }
 
     my $workspace_tree = find_workspace($tree_data, $num);
@@ -48,23 +56,32 @@ for my $i (0..$#$workspace_data) {
     $last = $num if $num > $last;
 }
 
-my $to;
 if ($dir eq 'prev') {
     if ($cur >= $first) {
-        $to = $cur - 1;
+        i3_msg('command', "workspace ${\($cur - 1)}");
     }
 }
 elsif ($dir eq 'next') {
     if ($cur <= $last) {
-        $to = $cur + 1;
+        i3_msg('command', "workspace ${\($cur + 1)}");
+    }
+}
+elsif ($dir eq $virtual_workspace) {
+    if (!defined $virtual_output || $virtual_output eq 'VIRTUAL1') {
+        i3_msg(
+            'command',
+            "workspace $virtual_workspace; move workspace to output eDP1",
+        );
+    }
+    else {
+        i3_msg(
+            'command',
+            "workspace $virtual_workspace; move workspace to output VIRTUAL1",
+        );
     }
 }
 else {
     die "unknown subcommand $dir";
-}
-
-if (defined $to) {
-    i3_msg('command', "workspace $to");
 }
 
 sub find_workspace {
