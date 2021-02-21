@@ -5,6 +5,8 @@ let b:ale_fixers = { 'rust': ['rustfmt'] }
 let b:ale_fix_on_save = 1
 let b:ale_rust_rustfmt_options = "--edition 2018"
 
+map <buffer> <CR> :ALEGoToDefinition<CR>
+
 if filereadable("Cargo.toml")
     compiler cargo
     setlocal makeprg=cargo\ build
