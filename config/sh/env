@@ -18,7 +18,7 @@ export LESS='-QR'
 export PERL_CPANM_OPT="-q --mirror http://mirrors.kernel.org/cpan/ --mirror http://cpan.metacpan.org/ --prompt"
 export FZF_DEFAULT_OPTS="--reverse --inline-info --bind=tab:down,shift-tab:up,change:top"
 export FZF_DEFAULT_COMMAND="ag --hidden -l ."
-export FANCY_PROMPT_COLORS="user_doy=bright_blue,host_st-doy2=bright_white,host_tozt=bright_yellow,host_hush=bright_black,host_partofme=magenta,host_mail=green"
+export FANCY_PROMPT_COLORS="user_doy=bright_blue,host_st-doy2=bright_white,host_tozt=bright_yellow,host_hush=bright_black,host_partofme=magenta,host_mail=green,host_hornet=red"
 export PASSWORD_STORE_X_SELECTION=primary
 type brew > /dev/null 2>&1 && export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/sbin:$PATH"
 type brew > /dev/null 2>&1 && export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:/usr/local/opt/findutils/libexec/gnuman:$MANPATH"

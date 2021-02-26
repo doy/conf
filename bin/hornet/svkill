@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+svc -k "$HOME/.services/enabled/$1"
+svget "$1"

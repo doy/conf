@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.014;
+
+use JSON::PP;
+
+my ($sig) = @ARGV;
+my $pid = get_pid();
+my $pgrp = get_pgrp($pid);
+kill $sig, -$pgrp;
+
+sub get_pid {
+    my $window_id = get_window_id();
+    die "couldn't find window" unless defined $window_id;
+    my $prop = `xprop -id $window_id _NET_WM_PID`;
+    die "couldn't get pid from focused window"
+        if $prop =~ /not found/;
+    chomp($prop);
+    $prop =~ s/^_NET_WM_PID\(CARDINAL\) = //;
+    return $prop;
+}
+
+sub get_pgrp {
+    my ($pid) = @_;
+    open my $stat_fh, '<', "/proc/$pid/stat"
+        or die "couldn't open /proc/$pid/stat";
+    my $stat = do { local $/; <$stat_fh> };
+    my @f = ($stat =~ /\([^)]*\)|[^ ]+/g);
+    return $f[4];
+}
+
+sub get_window_id {
+    return find(decode_json(`i3-msg -t get_tree`))->{window};
+}
+
+sub find {
+    my ($t) = @_;
+    if ($t->{focused}) {
+        return $t;
+    }
+
+    for my $subtree (@{ $t->{nodes} }, @{ $t->{floating_nodes} }) {
+        my $found = find($subtree);
+        return $found if $found;
+    }
+
+    return;
+}

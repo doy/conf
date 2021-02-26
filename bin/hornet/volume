@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+case $1 in
+    up)
+        pactl set-sink-mute 3 0
+        pactl set-sink-volume 3 +5%
+        ;;
+    down)
+        pactl set-sink-mute 3 0
+        pactl set-sink-volume 3 -5%
+        ;;
+    mute)
+        pactl set-sink-mute 3 toggle
+        ;;
+esac

@@ -4,10 +4,8 @@ general {
 }
 
 order += "cpu_usage"
-order += "wireless wlp3s0"
-order += "ethernet enp0s25"
+order += "wireless wlp0s20f3"
 order += "battery 0"
-order += "battery 1"
 order += "time"
 order += "load"
 
@@ -15,22 +13,12 @@ cpu_usage {
     format = "CPU: %usage"
 }
 
-wireless wlp3s0 {
-    format_up = "wlp3s0: (%essid: %quality)"
-    format_down = "wlp3s0"
-}
-
-ethernet enp0s25 {
-    format_up = "enp0s25: (%speed)"
-    format_down = "enp0s25"
+wireless wlp0s20f3 {
+    format_up = "wlp0s20f3: (%essid: %quality)"
+    format_down = "wlp0s20f3"
 }
 
 battery 0 {
-    last_full_capacity = true
-    format = "%status %percentage (%remaining %consumption)"
-}
-
-battery 1 {
     last_full_capacity = true
     format = "%status %percentage (%remaining %consumption)"
 }

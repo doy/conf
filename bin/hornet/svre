@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+svdn "$1"
+svup "$1"

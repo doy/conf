@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+stat=$(svstat "$HOME/.services/enabled/offlineimap")
+if echo "$stat" | grep -q "offlineimap: down"; then
+    echo "no offlineimap process running" >&2
+    exit 1
+fi
+pid=$(echo "$stat" | sed 's/.*offlineimap: up (pid \([[:digit:]]\+\)).*/\1/')
+kill -USR1 "$pid"

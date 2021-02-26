@@ -1,0 +1,74 @@
+INSTALL := \
+    .config/alacritty/alacritty.yml \
+    .config/darksky/api \
+    .config/i3/browser-workspace.json \
+    .config/i3/config \
+    .config/i3/signal-workspace.json \
+    .config/i3/terminal-workspace.json \
+    .config/i3status/config \
+    .config/msmtp/config \
+    .config/offlineimap/config \
+    .config/offlineimap/pass.py \
+    .config/perspektiv/config.toml \
+    .config/touchegg/touchegg.conf \
+    .gnupg/gpg.conf \
+    .gnupg/gpg-agent.conf \
+    .mpdscribble \
+    .notmuch-config \
+    .ssh/authorized_keys \
+    .xbindkeysrc \
+    .Xdefaults \
+    .xinitrc \
+    .xprofile \
+    .Xmodmap \
+    $(patsubst %,.%,$(wildcard services/available/*/run)) \
+    $(patsubst %,.%,$(wildcard services/available/*/log/run))
+
+EMPTYDIRS := \
+    $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
+    Maildir \
+    .cache/mpd \
+    .config/mpd/playlists
+
+INSTALL_CUSTOM := \
+    $(patsubst services/available/%,$(INTO)/.services/enabled/%,$(wildcard services/available/*)) \
+    /var/spool/cron/$(USER) \
+    $(INTO)/Maildir/.notmuch/hooks/post-new
+
+BUILD := \
+    config/alacritty/alacritty.yml \
+    mpdscribble/mpdscribble.conf
+
+install ::
+	@chmod 600 config/msmtp/config
+
+clean ::
+	@crontab -r
+
+/var/spool/cron/$(USER) : crontab
+	@crontab $<
+
+$(INTO)/Maildir/.notmuch/hooks/post-new: notmuch/hooks/post-new
+	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
+	$(MKDIR) $(INTO)/Maildir/.notmuch/hooks
+	$(LN) $(PWD)/$< $@
+
+$(INTO)/.services/enabled :
+	$(MKDIR) $@
+
+$(INTO)/.services/enabled/% : services/available/% $(INTO)/.services/enabled
+	$(MKDIR) $(dir $<)
+	$(LN) ../available/$(notdir $<) $@
+
+config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.hornet
+	$(LN) $(notdir $<) $@
+
+config/darksky :
+	$(MKDIR) $@
+
+config/darksky/api : config/darksky
+	rbw get darksky.net api > $@
+
+mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
+	pass="$$(rbw get last.fm doyster)" &&\
+	perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$pass" < $< > $@

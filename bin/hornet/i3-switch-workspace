@@ -1,0 +1,137 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.014;
+
+use IO::Socket::UNIX;
+use JSON::PP;
+
+my $json = JSON::PP->new;
+
+my $virtual_workspace = 'virtual';
+
+my %message_types = (
+    command        => 0,
+    get_workspaces => 1,
+    subscribe      => 2,
+    get_outputs    => 3,
+    get_tree       => 4,
+    get_marks      => 5,
+    get_bar_config => 6,
+    get_version    => 7,
+);
+
+my %message_codes = (reverse %message_types);
+
+my $dir = $ARGV[0];
+
+chomp(my $path = qx(i3 --get-socketpath));
+my $sock = IO::Socket::UNIX->new(Peer => $path);
+
+my $workspace_data = $json->decode(i3_msg('get_workspaces'));
+my $tree_data = $json->decode(i3_msg('get_tree'));
+
+my $first = 99999;
+my $last = -99999;
+my $cur;
+my $cur_name;
+my $virtual_output;
+
+for my $i (0..$#$workspace_data) {
+    my $num = $workspace_data->[$i]{num};
+    if ($workspace_data->[$i]{focused}) {
+        $cur = $num;
+        $cur_name = $workspace_data->[$i]{name};
+        if ($cur_name eq $virtual_workspace) {
+            $virtual_output = $workspace_data->[$i]{output};
+        }
+    }
+
+    my $workspace_tree = find_workspace($tree_data, $num);
+    next unless
+        @{ $workspace_tree->{nodes} } ||
+        @{ $workspace_tree->{floating_nodes} };
+
+    $first = $num if $num < $first;
+    $last = $num if $num > $last;
+}
+
+if ($dir eq 'prev') {
+    if ($cur >= $first) {
+        i3_msg('command', "workspace ${\($cur - 1)}");
+    }
+}
+elsif ($dir eq 'next') {
+    if ($cur <= $last) {
+        i3_msg('command', "workspace ${\($cur + 1)}");
+    }
+}
+elsif ($dir eq $virtual_workspace) {
+    if (!defined $virtual_output || $virtual_output eq 'VIRTUAL1') {
+        i3_msg(
+            'command',
+            "workspace $virtual_workspace; move workspace to output eDP1",
+        );
+    }
+    else {
+        i3_msg(
+            'command',
+            "workspace $virtual_workspace; move workspace to output VIRTUAL1",
+        );
+    }
+}
+else {
+    die "unknown subcommand $dir";
+}
+
+sub find_workspace {
+    my ($tree, $num) = @_;
+    if (exists $tree->{num} && $tree->{num} == $num) {
+        return $tree;
+    }
+    for my $node (@{ $tree->{nodes} }) {
+        my $found = find_workspace($node, $num);
+        return $found if $found;
+    }
+    return;
+}
+
+sub build_i3_msg {
+    my ($type, $payload) = @_;
+
+    $payload = ''
+        unless $type eq 'command' || $type eq 'subscribe';
+
+    utf8::encode($payload);
+
+    return 'i3-ipc'
+         . pack('LL', length($payload), $message_types{$type})
+         . $payload;
+}
+
+sub get_i3_msg {
+    my $bytes = $sock->read(my $header, 14);
+    die "invalid read" if $bytes != 14;
+    die "invalid format: $header" if substr($header, 0, 6) ne 'i3-ipc';
+    my ($length, $type) = unpack('LL', substr($header, 6, 8));
+
+    if ($length) {
+        my $bytes = $sock->read(my $payload, $length);
+        die "invalid read" if $bytes != $length;
+        utf8::decode($payload);
+        return ($message_codes{$type}, $payload);
+    }
+    else {
+        return ($message_codes{$type});
+    }
+}
+
+sub i3_msg {
+    my ($type, $payload) = @_;
+    my $msg = build_i3_msg($type, $payload);
+    $sock->write($msg);
+    my ($got_type, $got_payload) = get_i3_msg();
+    die "got $got_type message, expected $type message"
+        unless $type eq $got_type;
+    return $got_payload;
+}
