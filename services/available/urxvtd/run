@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec urxvtd 2>&1

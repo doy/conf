@@ -43,6 +43,9 @@
 "[ $(rfkill --output type,soft | grep wlan | awk '{print $2}') = 'unblocked' ] && sudo rfkill block wlan || sudo rfkill unblock wlan"
   XF86WLAN
 
+"env WINIT_X11_SCALE_FACTOR=1 tdrop -w 724 -h 436 alacritty --class Alacritty-tdrop -e tmux"
+  XF86Tools
+
 "xset dpms force off"
   XF86Search
 

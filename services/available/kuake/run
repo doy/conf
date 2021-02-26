@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cd || exit 1
-exec urxvt -pe "kuake<XF86Tools>" -g 80x24 -name urxvt-kuake -e tmux new -As kuake
