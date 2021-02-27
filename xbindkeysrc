@@ -37,7 +37,7 @@
 "xbacklight -inc 10"
   XF86MonBrightnessUp
 
-"xrandr --auto"
+"tv"
   XF86Display
 
 "[ $(rfkill --output type,soft | grep wlan | awk '{print $2}') = 'unblocked' ] && sudo rfkill block wlan || sudo rfkill unblock wlan"
