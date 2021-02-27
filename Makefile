@@ -26,8 +26,6 @@ INSTALL := \
     .config/tex/jesse.sty \
     .config/tex/sarah_resume.sty \
     .config/tig/config \
-    .config/weechat/saved \
-    .config/weechat/extra \
     .config/zsh/local-completions \
     .config/zsh/zsh-autosuggestions \
     .config/zsh/zsh-completions \
@@ -58,7 +56,6 @@ INSTALL := \
     .bin \
     .dzil \
     .vim \
-    .weechat/perl \
 
 EMPTYDIRS := \
     $(EMPTYDIRS) \
