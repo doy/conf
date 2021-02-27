@@ -41,10 +41,7 @@ INSTALL := \
     .mutt/muttrc \
     .mutt/offlineimap \
     .nethackrc \
-    .perlcriticrc \
     .profile \
-    .proverc \
-    .replyrc \
     .screenrc \
     .ssh/cao_key \
     .tmux.conf \
@@ -53,7 +50,6 @@ INSTALL := \
     .zshinput \
     .zshrc \
     .bin \
-    .dzil \
     .vim \
 
 EMPTYDIRS := \
