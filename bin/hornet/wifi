@@ -2,7 +2,7 @@
 set -eu
 set -o pipefail
 
-DEV=wlp3s0
+DEV=wlp0s20f3
 OPEN=open
 
 if [ -z "${1:-}" ]; then
