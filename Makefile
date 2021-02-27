@@ -33,7 +33,6 @@ INSTALL := \
     .crawlrc \
     .gdbinit \
     .inputrc \
-    .ledgerrc \
     .less \
     .local/share/fortune \
     .mutt/choose-muttrc-type \
@@ -104,7 +103,6 @@ submodules :
 
 install :: all $(INSTALLED)
 	@chmod 600 ssh/cao_key
-	@chmod 700 gnupg
 	$(ECHO) Installed into $(INTO)
 
 clean ::
