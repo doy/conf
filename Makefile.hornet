@@ -10,7 +10,6 @@ INSTALL := \
     .config/offlineimap/config \
     .config/offlineimap/pass.py \
     .config/perspektiv/config.toml \
-    .config/touchegg/touchegg.conf \
     .mpdscribble \
     .notmuch-config \
     .ssh/authorized_keys \
