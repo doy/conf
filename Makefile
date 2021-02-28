@@ -2,7 +2,9 @@ INTO := $(HOME)
 
 all : build
 
+ifneq ($(USER), 'root')
 include Makefile.$(shell hostname | cut -d. -f1)
+endif
 
 INSTALL := \
     $(INSTALL) \
