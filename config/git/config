@@ -23,6 +23,7 @@
 	info = remote show -n origin
 	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%aN%Creset %C(magenta)(%ar)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
 	m = "!f() { git co master && git pull && EDITOR=true git merge --no-ff \"$@\" && git bda; }; f"
+	pr = !~/.bin/git/git-pr
 	prune-all = !git remote | xargs -n 1 git remote prune
 	pushall = "!f() { for repo in origin github; do git push $repo \"$@\"; done; }; f"
 	record = !git add -p && git commit --verbose

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pr_num="$1"
+upstream="${2-origin}"
+git fetch "$upstream" "pull/${pr_num}/head:pull-${pr_num}"
