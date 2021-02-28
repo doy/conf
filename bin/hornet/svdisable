@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+svc="$1"
+
+svdn "$svc"
+svdn "${svc}/log"
+svc -x ~/.services/enabled/"$svc"/log
+svc -x ~/.services/enabled/"$svc"
+rm -f ~/.services/enabled/"$svc"
