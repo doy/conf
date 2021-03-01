@@ -1,5 +1,0 @@
-#!/bin/sh
-set -eu
-set -o pipefail
-
-exec rbw get hush ssh

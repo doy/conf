@@ -1,5 +1,0 @@
-#!/bin/sh
-set -eu
-set -o pipefail
-
-svget "$1" | grep -q ": up ("

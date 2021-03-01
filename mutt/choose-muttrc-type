@@ -3,7 +3,7 @@ set -eu
 set -o pipefail
 
 case "$(hostname)" in
-hush|hornet)
+hornet)
     echo 'source ~/.mutt/offlineimap'
     ;;
 *)

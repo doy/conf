@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ -z "${1}" ]; then
-    ssh partofme killall vlc
-    echo '*/buffer close twitch.#' > ~/.weechat/weechat_fifo
-else
-    ssh partofme sh -c "'nohup twitch ${1} > /dev/null 2>&1 &'"
-    echo "irc.server.twitch */join #${1}" > ~/.weechat/weechat_fifo
-fi
