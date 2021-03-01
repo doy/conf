@@ -25,7 +25,7 @@ let s:swapfiledir = $HOME . '/.cache/vim/swap'
 if !isdirectory(s:swapfiledir)
     call mkdir(s:swapfiledir, 'p')
 endif
-exe "set directory=" . s:swapfiledir
+exe "set directory=" . s:swapfiledir . "//"
 " use a separate view directory
 let s:viewdir = $HOME . '/.cache/vim/view'
 if !isdirectory(s:viewdir)
