@@ -1,0 +1,42 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.014;
+
+my $inc;
+if ($ARGV[0] eq 'inc') {
+    $inc = 1;
+}
+elsif ($ARGV[0] eq 'dec') {
+    $inc = -1;
+}
+else {
+    die "unknown arg '$ARGV[0]'";
+}
+
+my @levels = (
+    1,
+    2,
+    4,
+    8,
+    16,
+    31,
+    63,
+    125,
+    250,
+    500,
+    1000,
+);
+chomp(my $current = `xbacklight -getf`);
+$current = int($current * 10);
+my $idx;
+for my $i (0..$#levels) {
+    my $level = $levels[$i];
+    $idx = $i;
+    last if $level >= $current;
+}
+my $new_idx = $idx + $inc;
+if ($new_idx >= 0 && $new_idx <= $#levels) {
+    my $new_level = $levels[$new_idx] * 0.1;
+    system("xbacklight -set $new_level");
+}

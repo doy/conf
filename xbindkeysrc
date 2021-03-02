@@ -31,10 +31,10 @@
 "pactl set-source-mute 5 toggle"
   XF86AudioMicMute
 
-"xbacklight -dec 10"
+"backlight dec"
   XF86MonBrightnessDown
 
-"xbacklight -inc 10"
+"backlight inc"
   XF86MonBrightnessUp
 
 "tv"
