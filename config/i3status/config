@@ -4,7 +4,7 @@ general {
 }
 
 order += "cpu_usage"
-order += "wireless wlp0s20f3"
+order += "wireless wlan0"
 order += "battery 0"
 order += "time"
 order += "load"
@@ -13,9 +13,9 @@ cpu_usage {
     format = "CPU: %usage"
 }
 
-wireless wlp0s20f3 {
-    format_up = "wlp0s20f3: (%essid: %quality)"
-    format_down = "wlp0s20f3"
+wireless wlan0 {
+    format_up = "wlan0: (%essid: %quality)"
+    format_down = "wlan0"
 }
 
 battery 0 {

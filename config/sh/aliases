@@ -37,6 +37,7 @@ alias utc="env TZ=UTC date"
 alias pd="perldoc"
 alias pc="p | xclip -l 1"
 alias svim="vim -i NONE -u NONE -U NONE --noplugin --cmd 'set noswapfile' --cmd 'set nobackup' --cmd 'set nomodeline' --cmd 'set noexrc'"
+alias wifi="sudo systemctl restart iwd"
 # }}}
 
 # vim:ft=sh:fdm=marker
