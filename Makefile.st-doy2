@@ -10,7 +10,11 @@ EMPTYDIRS := \
 INSTALL_CUSTOM := \
 
 BUILD := \
-    config/alacritty/alacritty.yml
+    config/alacritty/alacritty.yml \
+    hammerspoon/hs/_asm/undocumented/spaces/internal.so
 
 config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.st-doy2
 	$(LN) $(notdir $<) $@
+
+hammerspoon/hs/_asm/undocumented/spaces/internal.so :
+	cd hammerspoon/src/spaces && PREFIX=$(HOME)/conf/hammerspoon make install

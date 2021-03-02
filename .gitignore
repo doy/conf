@@ -1,5 +1,6 @@
 /config/alacritty/alacritty.yml
 /config/darksky/api
+/hammerspoon/hs
 /local/share/fortune/*.dat
 /less
 /mpdscribble/mpdscribble.conf

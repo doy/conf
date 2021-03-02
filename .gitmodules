@@ -82,3 +82,6 @@
 [submodule "vim/pack/filetype/start/terraform"]
 	path = vim/pack/filetype/start/terraform
 	url = git://github.com/hashivim/vim-terraform
+[submodule "hammerspoon/src/spaces"]
+	path = hammerspoon/src/spaces
+	url = git://github.com/asmagill/hs._asm.undocumented.spaces

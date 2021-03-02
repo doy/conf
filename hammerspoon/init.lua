@@ -3,6 +3,8 @@ spoon.ReloadConfiguration:start()
 
 hs.loadSpoon("SpeedMenu")
 
+spaces = require("hs._asm.undocumented.spaces")
+
 -- apparently hs.eventtap.keyStroke doesn't always work, this is more reliable
 -- https://github.com/Hammerspoon/hammerspoon/issues/1984#issuecomment-455317739
 doKeyStroke = function(modifiers, character)
@@ -60,12 +62,14 @@ end)
 
 for i = 1, 6 do
     hs.hotkey.bind({"alt"}, tostring(i), function()
-        doKeyStroke({"ctrl"}, tostring(i))
+        id = spaces.layout()[spaces.mainScreenUUID()][i]
+        spaces.changeToSpace(id)
+    end)
+    hs.hotkey.bind({"alt", "shift"}, tostring(i), function()
+        id = spaces.layout()[spaces.mainScreenUUID()][i]
+        hs.window.focusedWindow():spacesMoveTo(id)
     end)
 end
-
--- bindings for window movement are handled by amethyst, since hammerspoon
--- doesn't support that well
 
 extra_bindings = {
     ["Alacritty"] = hs.hotkey.modal.new(),
