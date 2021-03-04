@@ -139,6 +139,7 @@ sub handle_i3status {
     }
 
     chomp(my $brightness = `backlight get`);
+    $brightness = sprintf("%3d", $brightness);
     splice @$line, -1, 0, {
         name => 'brightness',
         full_text => "\N{WHITE SUN WITH RAYS} $brightness%",
@@ -154,6 +155,7 @@ sub handle_i3status {
         };
     }
     else {
+        $volume = sprintf("%3d", $volume);
         splice @$line, -1, 0, {
             name => 'volume',
             full_text => "\N{SPEAKER WITH THREE SOUND WAVES} $volume%",
