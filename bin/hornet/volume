@@ -1,17 +1,52 @@
-#!/bin/sh
-set -eu
-set -o pipefail
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.014;
 
-case $1 in
-    up)
-        pactl set-sink-mute 3 0
-        pactl set-sink-volume 3 +5%
-        ;;
-    down)
-        pactl set-sink-mute 3 0
-        pactl set-sink-volume 3 -5%
-        ;;
-    mute)
-        pactl set-sink-mute 3 toggle
-        ;;
-esac
+chomp(my $sink=`pacmd stat | grep 'Default sink name' | sed 's/^Default sink name: //'`);
+
+sub get {
+    my $volume;
+
+    for (split "\n", `pacmd list-sinks`) {
+        chomp;
+        next unless /name: <\Q$sink\E>/../^$/;
+        if (/^\s+volume: .* ([0-9]+)% /) {
+            if (!defined($volume)) {
+                $volume = $1;
+            }
+        }
+        elsif (/^\s+muted: yes/) {
+            $volume = 'mute';
+            last;
+        }
+    }
+
+    $volume
+}
+
+if ($ARGV[0] eq 'get') {
+    say get;
+}
+elsif ($ARGV[0] eq 'up') {
+    my $get = get;
+    system("pactl set-sink-mute $sink 0");
+    if ($get eq 'mute') {
+        exit;
+    }
+    elsif ($get <= 95) {
+        system("pactl set-sink-volume $sink +5%");
+    }
+    elsif ($get < 100) {
+        system("pactl set-sink-volume $sink 100%");
+    }
+}
+elsif ($ARGV[0] eq 'down') {
+    system("pactl set-sink-volume $sink -5%");
+}
+elsif ($ARGV[0] eq 'mute') {
+    system("pactl set-sink-mute $sink toggle")
+}
+else {
+    die "unknown command '$ARGV[0]'";
+}
