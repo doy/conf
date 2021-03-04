@@ -138,6 +138,29 @@ sub handle_i3status {
         };
     }
 
+    chomp(my $brightness = `backlight get`);
+    splice @$line, -1, 0, {
+        name => 'brightness',
+        full_text => "\N{WHITE SUN WITH RAYS} $brightness%",
+        color => '#FFFFFF'
+    };
+
+    chomp(my $volume = `volume get`);
+    if ($volume eq 'mute') {
+        splice @$line, -1, 0, {
+            name => 'volume',
+            full_text => "\N{SPEAKER}",
+            color => '#FFFFFF'
+        };
+    }
+    else {
+        splice @$line, -1, 0, {
+            name => 'volume',
+            full_text => "\N{SPEAKER WITH THREE SOUND WAVES} $volume%",
+            color => '#FFFFFF'
+        };
+    }
+
     $current_data = $line;
 
     show_status();

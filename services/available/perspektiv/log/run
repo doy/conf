@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec multilog t s16777215 $HOME/.log/perspektiv
