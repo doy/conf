@@ -34,15 +34,15 @@ elsif ($ARGV[0] eq 'up') {
     if ($get eq 'mute') {
         exit;
     }
-    elsif ($get <= 95) {
-        system("pactl set-sink-volume $sink +5%");
+    elsif ($get <= 90) {
+        system("pactl set-sink-volume $sink +10%");
     }
     elsif ($get < 100) {
         system("pactl set-sink-volume $sink 100%");
     }
 }
 elsif ($ARGV[0] eq 'down') {
-    system("pactl set-sink-volume $sink -5%");
+    system("pactl set-sink-volume $sink -10%");
 }
 elsif ($ARGV[0] eq 'mute') {
     system("pactl set-sink-mute $sink toggle")
