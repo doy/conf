@@ -19,7 +19,7 @@
 "numkeys toggle"
   Shift + Shift_L
 
-"volume mute"
+"volume mute && pkill -USR1 i3status"
   XF86AudioMute
 
 "volume down && pkill -USR1 i3status"
