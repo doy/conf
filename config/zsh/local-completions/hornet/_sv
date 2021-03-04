@@ -1,4 +1,4 @@
-#compdef svdn svget svkill svlog svnuke svre svst svstop svup
+#compdef svdn svget svkill svlog svdisable svre svst svstop svup
 
 local -a service_list
 local services=$(ls ~/.services/enabled/)
