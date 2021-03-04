@@ -150,7 +150,7 @@ sub handle_i3status {
     if ($volume eq 'mute') {
         splice @$line, -1, 0, {
             name => 'volume',
-            full_text => "\N{SPEAKER}",
+            full_text => "\N{SPEAKER}     ",
             color => '#FFFFFF'
         };
     }
