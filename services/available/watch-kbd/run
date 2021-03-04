@@ -1,5 +1,3 @@
 #!/bin/sh
-set -eu
-set -o pipefail
 
-exec watch-kbd
+exec watch-kbd 2>&1
