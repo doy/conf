@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
 set -o pipefail
+
+trap 'kill $(jobs -p)' EXIT
 
 inotifywait -mq -e create -e delete --exclude '.*tmp.*' /dev/input/by-id/ | \
     while read -r event; do
@@ -8,4 +10,5 @@ inotifywait -mq -e create -e delete --exclude '.*tmp.*' /dev/input/by-id/ | \
         if echo "$event" | grep -q USB_Keyboard; then
             setup-inputs
         fi
-    done
+    done &
+wait
