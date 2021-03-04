@@ -22,19 +22,19 @@
 "volume mute"
   XF86AudioMute
 
-"volume down"
+"volume down && pkill -USR1 i3status"
   XF86AudioLowerVolume
 
-"volume up"
+"volume up && pkill -USR1 i3status"
   XF86AudioRaiseVolume
 
 "pactl set-source-mute 5 toggle"
   XF86AudioMicMute
 
-"backlight dec"
+"backlight dec && pkill -USR1 i3status"
   XF86MonBrightnessDown
 
-"backlight inc"
+"backlight inc && pkill -USR1 i3status"
   XF86MonBrightnessUp
 
 "tv"
