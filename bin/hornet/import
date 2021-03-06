@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if svst unclutter; then
+    svdn unclutter > /dev/null
+    trap "svup unclutter > /dev/null" EXIT
+fi
+/usr/bin/import "$@"
