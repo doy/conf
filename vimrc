@@ -121,7 +121,7 @@ endif
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
-let g:polyglot_disabled = ['csv', 'sensible']
+let g:polyglot_disabled = ['csv', 'sensible', 'autoindent']
 " }}}
 " rainbow {{{
 let g:rainbow = 1
