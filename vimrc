@@ -64,12 +64,7 @@ nnoremap <silent><C-D>     :bd<CR>
 " }}}
 " }}}
 " plugin configuration {{{
-" ale {{{
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_history_enabled = 0
-let g:ale_history_log_output = 0
-" }}}
+" ale
 " airline
 " autobrace
 " commentary {{{
