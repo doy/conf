@@ -14,3 +14,4 @@ xinput set-prop "ELAN0670:00 04F3:3150 Touchpad" "libinput Tapping Enabled" 1
 
 # needs to happen after xmodmap stuff
 svre xcape
+svre xbindkeys
