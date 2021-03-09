@@ -115,35 +115,6 @@ endif
 " matchit {{{
 packadd! matchit
 " }}}
-" neosnippet {{{
-let g:neosnippet#snippets_directory = '~/.vim/snippets'
-let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
-
-function! s:configure_neosnippet_tab_mappings()
-    let g:neosnippet_tab_override_i_tab = maparg("<Tab>", "i", 0, 1)
-    let g:neosnippet_tab_override_i_stab = maparg("<S-Tab>", "i", 0, 1)
-    let g:neosnippet_tab_override_s_tab = maparg("<Tab>", "s", 0, 1)
-    imap <expr> <Tab>
-        \ neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ g:neosnippet_tab_override_i_tab["expr"]
-                \ ? eval(g:neosnippet_tab_override_i_tab["rhs"])
-                \ : g:neosnippet_tab_override_i_tab["rhs"]
-    imap <expr> <S-Tab>
-        \ neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ g:neosnippet_tab_override_i_stab["expr"]
-                \ ? eval(g:neosnippet_tab_override_i_stab["rhs"])
-                \ : g:neosnippet_tab_override_i_stab["rhs"]
-    smap <expr> <Tab>
-        \ neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" :
-            \ g:neosnippet_tab_override_s_tab["expr"]
-                \ ? eval(g:neosnippet_tab_override_s_tab["rhs"])
-                \ : g:neosnippet_tab_override_s_tab["rhs"]
-endfunction
-autocmd vimrc VimEnter * call <SID>configure_neosnippet_tab_mappings()
-" }}}
 " netrw {{{
 let g:netrw_home = $HOME . '/.cache/vim/netrw'
 if !isdirectory(g:netrw_home)

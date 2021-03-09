@@ -34,9 +34,6 @@
 [submodule "vim/bundle/neocomplete"]
 	path = vim/bundle/neocomplete
 	url = git://github.com/Shougo/neocomplete.vim
-[submodule "vim/bundle/neosnippet"]
-	path = vim/pack/plugins/start/neosnippet
-	url = git://github.com/Shougo/neosnippet.vim
 [submodule "vim/bundle/typescript"]
 	path = vim/bundle/typescript
 	url = git://github.com/leafgarland/typescript-vim
