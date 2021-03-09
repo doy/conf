@@ -22,10 +22,6 @@ noremap  <silent>M :<C-u>make<CR><CR><C-W>k
 " S for spell checking {{{
 noremap  <silent><expr>S &spell ? ":\<C-u>setlocal nospell\<CR>" : ":\<C-u>setlocal spell\<CR>"
 " }}}
-" editing binary files {{{
-nnoremap <C-B> :%!xxd<CR>
-nnoremap <C-R> :%!xxd -r<CR>
-" }}}
 " easier tag traversal {{{
 nnoremap <CR> <C-]>
 nnoremap <BS> <C-T>
