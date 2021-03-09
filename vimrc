@@ -19,9 +19,8 @@ let g:maplocalleader = ';'
 " M to :make {{{
 noremap  <silent>M :<C-u>make<CR><CR><C-W>k
 " }}}
-" F11 for spell checking {{{
-noremap  <silent><expr><F11> &spell ? ":\<C-u>setlocal nospell\<CR>" : ":\<C-u>setlocal spell\<CR>"
-inoremap <silent><expr><F11> &spell ? "\<C-o>:setlocal nospell\<CR>" : "\<C-o>:setlocal spell\<CR>"
+" S for spell checking {{{
+noremap  <silent><expr>S &spell ? ":\<C-u>setlocal nospell\<CR>" : ":\<C-u>setlocal spell\<CR>"
 " }}}
 " editing binary files {{{
 nnoremap <C-B> :%!xxd<CR>
