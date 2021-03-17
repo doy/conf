@@ -1,7 +1,10 @@
 #!/bin/sh
 
-if svst unclutter; then
-    svdn unclutter > /dev/null
-    trap "svup unclutter > /dev/null" EXIT
-fi
+for service in unclutter compton; do
+    if svst $service; then
+        svdn $service >/dev/null
+        # shellcheck disable=SC2064
+        trap "svup $service > /dev/null" EXIT
+    fi
+done
 /usr/bin/import "$@"
