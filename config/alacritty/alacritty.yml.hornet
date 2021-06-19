@@ -21,7 +21,7 @@ font:
     style: Regular
   italic:
     family: DejaVuSansMono
-  size: 11.5
+  size: 11
 
 colors:
   primary:
@@ -55,8 +55,6 @@ mouse_bindings:
 mouse:
   double_click: { threshold: 300 }
   triple_click: { threshold: 300 }
-  url:
-    launcher: None
 
 selection:
   semantic_escape_chars: " "
