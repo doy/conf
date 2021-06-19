@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+podman images | grep -q localhost/smt || podman build -t smt -f ~/conf/docker/smt
+podman run --rm smt smt "$@"
