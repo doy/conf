@@ -1,4 +1,0 @@
-FROM docker.io/debian:stable
-
-RUN apt-get update && apt-get install -y cpanminus make
-RUN cpanm Games::SMTNocturne::Demons

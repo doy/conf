@@ -1,5 +1,9 @@
 #!/bin/sh
 set -eu
 
-podman images | grep -q localhost/smt || podman build -t smt -f ~/conf/docker/smt
+podman images | grep -q localhost/smt || cat <<EOF | podman build -t smt -f -
+FROM docker.io/debian:stable
+RUN apt-get update && apt-get install -y cpanminus make
+RUN cpanm Games::SMTNocturne::Demons
+EOF
 podman run --rm smt smt "$@"
