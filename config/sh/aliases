@@ -40,6 +40,7 @@ alias svim="vim -i NONE -u NONE -U NONE --noplugin --cmd 'set noswapfile' --cmd 
 alias wifi="sudo systemctl restart iwd"
 alias debian="podman run --rm -itv "${HOME}:${HOME}" docker.io/debian:stable bash"
 alias ubuntu="podman run --rm -itv "${HOME}:${HOME}" docker.io/ubuntu:latest bash"
+alias alpine="podman run --rm -itv "${HOME}:${HOME}" docker.io/alpine:latest sh"
 # }}}
 
 # vim:ft=sh:fdm=marker

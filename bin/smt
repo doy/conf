@@ -2,8 +2,8 @@
 set -eu
 
 podman images | grep -q localhost/smt || cat <<EOF | podman build -t smt -f -
-FROM docker.io/debian:stable-slim
-RUN apt-get update && apt-get install -y cpanminus make
-RUN cpanm Games::SMTNocturne::Demons
+FROM docker.io/alpine:latest
+RUN apk add perl make
+RUN env PERL_MM_USE_DEFAULT=1 perl -MCPAN -e'install Games::SMTNocturne::Demons'
 EOF
 podman run --rm smt smt "$@"
