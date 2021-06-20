@@ -44,6 +44,7 @@ INSTALL := \
     .mutt/offlineimap \
     .nethackrc \
     .profile \
+    .replyrc \
     .screenrc \
     .ssh/cao_key \
     .tmux.conf \

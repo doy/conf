@@ -4,6 +4,6 @@ set -eu
 podman images | grep -q localhost/reply || cat <<EOF | podman build -t reply -f -
 FROM docker.io/debian:stable-slim
 RUN apt-get update && apt-get install -y cpanminus make gcc
-RUN cpanm Reply
+RUN cpanm Reply B::Keywords Data::Dump Carp::Always
 EOF
-podman run --rm -it reply reply "$@"
+podman run --rm -itv /home/doy/.replyrc:/root/.replyrc reply reply "$@"
