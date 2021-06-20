@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+podman images | grep -q localhost/reply || cat <<EOF | podman build -t reply -f -
+FROM docker.io/debian:stable-slim
+RUN apt-get update && apt-get install -y cpanminus make gcc
+RUN cpanm Reply
+EOF
+podman run --rm -it reply reply "$@"
