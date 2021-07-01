@@ -71,6 +71,8 @@ ZSH_HIGHLIGHT_STYLES[assign]='fg=cyan'
 # zsh-autosuggestions {{{
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
+# see https://github.com/zsh-users/zsh-autosuggestions/issues/619
+unset ZSH_AUTOSUGGEST_USE_ASYNC
 # }}}
 # vim-history-sync {{{
 source ~/.vim/pack/plugins/start/history-sync/sh/history-sync.zsh
