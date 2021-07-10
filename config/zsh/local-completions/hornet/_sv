@@ -2,8 +2,7 @@
 
 local -a service_list
 local services=$(ls ~/.services/enabled/)
-service_list=(${(s:
-:)services})
+service_list=(${(f)services})
 
 _describe 'commands' service_list
 
