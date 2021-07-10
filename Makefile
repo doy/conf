@@ -119,7 +119,10 @@ versions :
 updates :
 	$(GIT) submodule foreach -q 'if [ $$path == "vim/pack/filetype/start/perl" ]; then if [ $$(git rev-parse dev) != $$sha1 ]; then git lg dev...$$sha1; fi; else if [ $$(git rev-parse master) != $$sha1 ]; then git lg master...$$sha1; fi; fi'
 
-.PHONY: submodules build install clean update versions updates
+shfmt :
+	rg --files-without-match shfmt:skip $$(rg --files-with-matches '[#]!.*sh\b|[v]im:.*ft=.*sh\b') | grep -v "$$(echo $$(git submodule foreach -q 'echo $$sm_path') | sed 's/ /\\|/g')" | xargs shfmt -w -i 4
+
+.PHONY: submodules build install clean update versions updates shfmt
 
 # installation targets
 
