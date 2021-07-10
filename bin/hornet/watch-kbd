@@ -4,7 +4,7 @@ set -o pipefail
 
 trap 'kill $(jobs -p)' EXIT
 
-inotifywait -mq -e create -e delete --exclude '.*tmp.*' /dev/input/by-id/ | \
+inotifywait -mq -e create -e delete --exclude '.*tmp.*' /dev/input/by-id/ |
     while read -r event; do
         echo "$event"
         if echo "$event" | grep -q USB_Keyboard; then

@@ -2,5 +2,5 @@
 set -eu
 set -o pipefail
 
-ssh-add -l | grep -q "${HOME}/.ssh/id_rsa" || env SSH_ASKPASS="ssh-askpass" ssh-add < /dev/null
+ssh-add -l | grep -q "${HOME}/.ssh/id_rsa" || env SSH_ASKPASS="ssh-askpass" ssh-add </dev/null
 exec /usr/bin/"$(basename "$0")" "$@"

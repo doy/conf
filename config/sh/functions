@@ -1,6 +1,6 @@
 function perldoc {
     # XXX bash specific
-    if type cpandoc > /dev/null 2>&1; then
+    if type cpandoc >/dev/null 2>&1; then
         cpandoc "$@"
     else
         command perldoc "$@"

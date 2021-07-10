@@ -47,8 +47,11 @@ toggle() {
 }
 
 case "$1" in
-    on) on ;;
-    off) off ;;
-    toggle) toggle ;;
-    *) echo invalid 1>&2; exit 1 ;;
+on) on ;;
+off) off ;;
+toggle) toggle ;;
+*)
+    echo invalid 1>&2
+    exit 1
+    ;;
 esac

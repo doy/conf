@@ -2,14 +2,14 @@
 set -eu
 set -o pipefail
 
-sed -e 's/\x1B\[[[:digit:]]\+m//g' | col -b | \
-                vim \
-                        -c 'let no_plugin_maps = 1' \
-                        -c 'let g:rainbow_active = 0' \
-                        -c 'let g:airline#extensions#whitespace#checks = []' \
-                        -c "if exists('\$MAN_PN') | file \$MAN_PN | endif" \
-                        -c 'setlocal nolist nomod noswf ft=man' \
-                        -c 'runtime! macros/less.vim' \
-                        -c 'set ma' \
-                        -c 'setlocal noma' \
-                        -
+sed -e 's/\x1B\[[[:digit:]]\+m//g' | col -b |
+    vim \
+        -c 'let no_plugin_maps = 1' \
+        -c 'let g:rainbow_active = 0' \
+        -c 'let g:airline#extensions#whitespace#checks = []' \
+        -c "if exists('\$MAN_PN') | file \$MAN_PN | endif" \
+        -c 'setlocal nolist nomod noswf ft=man' \
+        -c 'runtime! macros/less.vim' \
+        -c 'set ma' \
+        -c 'setlocal noma' \
+        -

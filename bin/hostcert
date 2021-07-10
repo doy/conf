@@ -5,4 +5,4 @@ set -o pipefail
 host="$1"
 port="${2:-443}"
 
-openssl s_client -connect "$host:$port" < /dev/null 2>/dev/null | perl -nle 'print if /BEGIN CERTIFICATE/../END CERTIFICATE/' | openssl x509 -text | perl -nle 'print unless /BEGIN CERTIFICATE/../END CERTIFICATE/'
+openssl s_client -connect "$host:$port" </dev/null 2>/dev/null | perl -nle 'print if /BEGIN CERTIFICATE/../END CERTIFICATE/' | openssl x509 -text | perl -nle 'print unless /BEGIN CERTIFICATE/../END CERTIFICATE/'

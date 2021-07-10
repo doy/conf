@@ -2,5 +2,5 @@
 set -eu
 set -o pipefail
 
-weather > ~/.cache/weather.new
+weather >~/.cache/weather.new
 mv ~/.cache/weather.new ~/.cache/weather

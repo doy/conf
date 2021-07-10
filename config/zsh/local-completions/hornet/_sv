@@ -6,4 +6,5 @@ service_list=(${(f)services})
 
 _describe 'commands' service_list
 
+# shfmt:skip (shfmt doesn't recognize zsh array expansion)
 # vim:ft=zsh

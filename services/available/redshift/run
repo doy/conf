@@ -1,4 +1,4 @@
 #!/bin/sh
 set -eu
 
-exec redshift -l "$(sed 's/,/:/' < ~/.config/darksky/location)" 2>&1
+exec redshift -l "$(sed 's/,/:/' <~/.config/darksky/location)" 2>&1

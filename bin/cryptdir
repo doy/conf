@@ -19,7 +19,7 @@ cryptfile=$(mktemp)
 cryptdir=$(mktemp -d)
 pass=$(dd if=/dev/urandom bs=1 count=80 | base64)
 
-cleanup () {
+cleanup() {
     set +e
     cd
     sudo umount "$cryptdir"
