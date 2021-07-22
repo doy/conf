@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use 5.014;
+
+use File::Basename;
+
+my $first = $ARGV[0];
+my $second = $ARGV[1];
+
+my $dirname = dirname($first);
+die unless $dirname eq dirname($second);
+
+say for grep { /^\Q$first\E$/../^\Q$second\E$/ } sort <$dirname/*>;
