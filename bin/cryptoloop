@@ -1,0 +1,30 @@
+#!/bin/sh
+set -eu
+
+command="$1"
+name="$2"
+file="${HOME}/crypt/${name}.luks"
+dev="/dev/mapper/$name"
+
+case "$command" in
+create)
+    size=$3
+    count=${4:-1}
+    dd if=/dev/urandom of="$file" bs="$size" count="$count" iflag=fullblock
+    sudo cryptsetup luksFormat "$file"
+    sudo cryptsetup open "$file" "$name"
+    sudo mkfs.ext4 "$dev"
+    sudo mount "$dev" /mnt
+    sudo chown "$USER" /mnt
+    sudo umount /mnt
+    sudo cryptsetup close "$name"
+    ;;
+open)
+    sudo cryptsetup open "$file" "$name"
+    sudo mount "$dev" /mnt
+    ;;
+close)
+    sudo umount /mnt
+    sudo cryptsetup close "$name"
+    ;;
+esac
