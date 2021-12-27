@@ -62,7 +62,9 @@ augroup _tex
     if executable('zathura') && strlen(expand('$DISPLAY'))
         autocmd QuickFixCmdPost make if !s:make_errors() | call s:zathura() | endif
     endif
-    autocmd CursorMoved <buffer> call s:cursor_moved()
+    " currently this is not usable until
+    " https://git.pwmt.org/pwmt/zathura/-/issues/157 is fixed
+    " autocmd CursorMoved <buffer> call s:cursor_moved()
 augroup END
 
 " see :help errorformat-LaTeX
