@@ -1,8 +1,15 @@
 #!/bin/sh
 
-xrandr --auto
-if xrandr -q | grep -q "DP-3 connected"; then
+if xrandr -q | grep -q "DP-3 connected ("; then
+    xrandr --auto
     xrandr --output DP-3 --right-of eDP-1 --mode 1920x1080
-elif xrandr -q | grep -q "DP-4 connected"; then
+elif xrandr -q | grep -q "DP-4 connected ("; then
+    xrandr --auto
     xrandr --output DP-4 --right-of eDP-1 --mode 1920x1080
+elif xrandr -q | grep -q "DP-3 connected"; then
+    xrandr --auto
+    xrandr --output DP-4 --off
+elif xrandr -q | grep -q "DP-4 connected"; then
+    xrandr --auto
+    xrandr --output DP-4 --off
 fi
