@@ -9,7 +9,6 @@ endif
 INSTALL := \
     $(INSTALL) \
     .abook/abookrc \
-    .agignore \
     .bash_profile \
     .bashrc \
     .config/git/config \

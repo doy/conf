@@ -10,7 +10,6 @@ INSTALL := \
     .config/perspektiv/config.toml \
     .mbsyncrc \
     .mbsyncloop \
-    .mpdscribble \
     .notmuch-config \
     .ssh/authorized_keys \
     .xbindkeysrc \
@@ -35,7 +34,6 @@ INSTALL_CUSTOM := \
 
 BUILD := \
     config/alacritty/alacritty.yml \
-    mpdscribble/mpdscribble.conf \
     mbsyncloop
 
 install ::
@@ -70,7 +68,3 @@ config/darksky/api : config/darksky
 
 mbsyncloop: mbsyncrc
 	@sed 's/^PassCmd.*/PassCmd "head -n1 \/run\/user\/1000\/mbsyncloop"/' mbsyncrc > mbsyncloop
-
-mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
-	pass="$$(rbw get last.fm doyster)" &&\
-	perl -E'while (<STDIN>) { if (/^password =/) { say "password = $$ARGV[0]" } else { print } }' "$$pass" < $< > $@
