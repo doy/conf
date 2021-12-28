@@ -39,6 +39,6 @@ while (1) {
     $last = $now;
 
     system("mbsync -c ~/.mbsyncloop $channel") and last;
-    system("notmuch new") and last;
+    system("notmuch new | grep -v '^No new mail\.\$'");
     sleep 60 - (time - $now);
 }
