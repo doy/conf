@@ -4,7 +4,7 @@ set -o pipefail
 
 case "$(hostname)" in
 hornet)
-    echo 'source ~/.mutt/offlineimap'
+    echo 'source ~/.mutt/local'
     ;;
 *)
     echo 'source ~/.mutt/imap'

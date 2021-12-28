@@ -7,9 +7,9 @@ INSTALL := \
     .config/i3/terminal-workspace.json \
     .config/i3status/config \
     .config/msmtp/config \
-    .config/offlineimap/config \
-    .config/offlineimap/pass.py \
     .config/perspektiv/config.toml \
+    .mbsyncrc \
+    .mbsyncloop \
     .mpdscribble \
     .notmuch-config \
     .ssh/authorized_keys \
@@ -25,6 +25,7 @@ EMPTYDIRS := \
     $(patsubst services/available/%,.log/%,$(wildcard services/available/*)) \
     Maildir \
     .cache/mpd \
+    .cache/notmuch \
     .config/mpd/playlists
 
 INSTALL_CUSTOM := \
@@ -34,7 +35,8 @@ INSTALL_CUSTOM := \
 
 BUILD := \
     config/alacritty/alacritty.yml \
-    mpdscribble/mpdscribble.conf
+    mpdscribble/mpdscribble.conf \
+    mbsyncloop
 
 install ::
 	@chmod 600 config/msmtp/config
@@ -65,6 +67,9 @@ config/darksky :
 
 config/darksky/api : config/darksky
 	rbw get darksky.net api > $@
+
+mbsyncloop: mbsyncrc
+	@sed 's/^PassCmd.*/PassCmd "head -n1 \/run\/user\/1000\/mbsyncloop"/' mbsyncrc > mbsyncloop
 
 mpdscribble/mpdscribble.conf : mpdscribble/mpdscribble.conf.tmpl
 	pass="$$(rbw get last.fm doyster)" &&\

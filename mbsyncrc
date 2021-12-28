@@ -1,0 +1,27 @@
+Expunge None
+Create Both
+
+MaildirStore local
+Path ~/Maildir/
+Inbox ~/Maildir/INBOX
+Trash Trash
+Flatten .
+
+IMAPStore mail
+Host mail.tozt.net
+User doy@tozt.net
+PassCmd "rbw get mail.tozt.net doy@tozt.net"
+SSLType IMAPS
+SSLVersions TLSv1.2 TLSv1.3
+
+Channel all
+Far :mail:
+Near :local:
+Sync PullNew Push
+Patterns * !.notmuch
+
+Channel priority
+Far :mail:
+Near :local:
+Sync PullNew Push
+Patterns INBOX personal

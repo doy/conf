@@ -3,5 +3,6 @@
 /hammerspoon/hs
 /local/share/fortune/*.dat
 /less
+/mbsyncloop
 /mpdscribble/mpdscribble.conf
 /vim/spell/*.spl

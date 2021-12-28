@@ -1,0 +1,42 @@
+#!/usr/bin/env perl
+use 5.016;
+use strict;
+use warnings;
+
+use POSIX 'mkfifo';
+
+my ($pw_pipe, $pid);
+
+sub cleanup {
+    unlink($pw_pipe) if $pw_pipe;
+    kill KILL => $pid if $pid;
+}
+
+$SIG{INT} = $SIG{TERM} = sub { cleanup; exit };
+END { cleanup }
+
+$pw_pipe = "/run/user/$>/mbsyncloop";
+mkfifo($pw_pipe, 0700) or die "couldn't create $pw_pipe";
+
+my $pw = `rbw get mail.tozt.net doy\@tozt.net`;
+
+$pid = fork;
+die unless defined $pid;
+if (!$pid) {
+    $SIG{PIPE} = sub {};
+    while (1) {
+        open my $fh, '>', $pw_pipe or die "couldn't open $pw_pipe";
+        $fh->print("$pw\n");
+        close $fh;
+    }
+    exit;
+}
+
+my $i = 0;
+while (1) {
+    my $channel = $i % 15 ? "priority" : "all";
+    system("mbsync -c ~/.mbsyncloop $channel") and last;
+    system("notmuch new") and last;
+    sleep 60;
+    $i++;
+}

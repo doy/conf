@@ -1,5 +1,6 @@
 [database]
-path=/home/doy/Maildir
+path=/home/doy/.cache/notmuch
+mail_root=/home/doy/Maildir
 
 [user]
 name=Jesse Luehrs

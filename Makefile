@@ -41,7 +41,7 @@ INSTALL := \
     .mutt/imap \
     .mutt/mailcap \
     .mutt/muttrc \
-    .mutt/offlineimap \
+    .mutt/local \
     .nethackrc \
     .profile \
     .replyrc \
