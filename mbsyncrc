@@ -17,11 +17,11 @@ SSLVersions TLSv1.2 TLSv1.3
 Channel all
 Far :mail:
 Near :local:
-Sync PullNew Push
+Sync Pull Push
 Patterns * !.notmuch
 
 Channel priority
 Far :mail:
 Near :local:
-Sync PullNew Push
+Sync Pull Push
 Patterns INBOX personal
