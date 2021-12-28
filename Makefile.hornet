@@ -31,7 +31,7 @@ EMPTYDIRS := \
 INSTALL_CUSTOM := \
     $(patsubst services/available/%,$(INTO)/.services/enabled/%,$(wildcard services/available/*)) \
     /var/spool/cron/$(USER) \
-    $(INTO)/Maildir/.notmuch/hooks/post-new
+    $(INTO)/.cache/notmuch/hooks/post-new
 
 BUILD := \
     config/alacritty/alacritty.yml \
@@ -47,9 +47,9 @@ clean ::
 /var/spool/cron/$(USER) : crontab
 	@crontab $<
 
-$(INTO)/Maildir/.notmuch/hooks/post-new: notmuch/hooks/post-new
+$(INTO)/.cache/notmuch/hooks/post-new: notmuch/hooks/post-new
 	@[ ! -e $@ ] || [ -h $@ ] || mv -f $@ $@.bak
-	$(MKDIR) $(INTO)/Maildir/.notmuch/hooks
+	$(MKDIR) $(INTO)/.cache/notmuch/hooks
 	$(LN) $(PWD)/$< $@
 
 $(INTO)/.services/enabled :
