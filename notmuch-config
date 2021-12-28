@@ -8,7 +8,7 @@ primary_email=doy@tozt.net
 other_email=doy@stripe.com;jesse.luehrs@iinteractive.com;doy@cpan.org;
 
 [new]
-ignore=spam
+ignore=spam;.uidvalidity;
 
 [maildir]
 synchronize_flags=true
