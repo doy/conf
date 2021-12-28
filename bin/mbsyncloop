@@ -32,11 +32,13 @@ if (!$pid) {
     exit;
 }
 
-my $i = 0;
+my $last = 0;
 while (1) {
-    my $channel = $i % 15 ? "priority" : "all";
+    my $now = time;
+    my $channel = ($now - $last) > 15 * 60 ? "all" : "priority";
+    $last = $now;
+
     system("mbsync -c ~/.mbsyncloop $channel") and last;
     system("notmuch new") and last;
-    sleep 60;
-    $i++;
+    sleep 60 - (time - $now);
 }
