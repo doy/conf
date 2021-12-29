@@ -38,14 +38,16 @@ while (1) {
 
     my $channel;
     if ($now - $last_all > 15 * 60) {
-        $last_all = $now;
         $channel = "all";
     }
     else {
         $channel = "priority";
     }
 
-    system("mbsync -c ~/.mbsyncloop $channel") and last;
+    my $status = system("mbsync -c ~/.mbsyncloop $channel");
+    if ($status == 0 && $channel eq "all") {
+        $last_all = $now;
+    }
     system("notmuch new | grep -v '^No new mail\.\$'");
     sleep 60 - (time - $now);
 }
