@@ -32,22 +32,46 @@ if (!$pid) {
     exit;
 }
 
+open my $goimapnotify, '-|', "sh", "-c", "goimapnotify --conf ~/.config/imapnotify/tozt.conf 2>&1" or die;
+
 my $last_all = 0;
 while (1) {
     my $now = time;
-
-    my $channel;
-    if ($now - $last_all > 15 * 60) {
-        $channel = "all";
-    }
-    else {
-        $channel = "priority";
-    }
-
-    my $status = system("mbsync -c ~/.mbsyncloop $channel");
-    if ($status == 0 && $channel eq "all") {
+    if (($now - $last_all) >= 14 * 60) {
+        sync("all");
         $last_all = $now;
     }
-    system("notmuch new | grep -v '^No new mail\.\$'");
-    sleep 60 - (time - $now);
+    if (idle(15 * 60 - (time - $now))) {
+        sync("priority");
+    }
+}
+
+sub sync {
+    my ($channel) = @_;
+    warn "syncing $channel";
+    while (1) {
+        my $status = system("mbsync -c ~/.mbsyncloop $channel");
+        if (!$status) {
+            system("notmuch new | grep -v '^No new mail\.\$'");
+            last;
+        }
+        sleep 5;
+    }
+    warn "done syncing $channel";
+}
+
+sub idle {
+    my ($max_delay) = @_;
+    my $rin = '';
+    vec($rin, fileno($goimapnotify), 1) = 1;
+    my $ready = select(my $rout = $rin, undef, undef, $max_delay);
+    if ($ready) {
+        while (1) {
+            my $ready = select(my $rout = $rin, undef, undef, 0.01);
+            last unless $ready;
+            sysread $goimapnotify, my $data, 4096;
+        }
+        return 1;
+    }
+    return 0;
 }
