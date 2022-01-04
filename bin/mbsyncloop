@@ -48,7 +48,6 @@ while (1) {
 
 sub sync {
     my ($channel) = @_;
-    warn "syncing $channel";
     while (1) {
         my $status = system("mbsync -c ~/.mbsyncloop $channel");
         if (!$status) {
@@ -57,7 +56,6 @@ sub sync {
         }
         sleep 5;
     }
-    warn "done syncing $channel";
 }
 
 sub idle {
