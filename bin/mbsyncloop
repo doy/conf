@@ -32,13 +32,12 @@ mkfifo($pw_pipe, 0700) or die "couldn't create $pw_pipe: $!";
 $pid = fork;
 die "fork failed: $!" unless defined $pid;
 if (!$pid) {
-    $SIG{PIPE} = sub {};
+    $SIG{PIPE} = 'IGNORE';
     while (1) {
         open my $fh, '>', $pw_pipe or die "couldn't open $pw_pipe";
         $fh->print("$pw\n");
         close $fh;
     }
-    exit;
 }
 
 my $last_all = 0;
