@@ -5,6 +5,13 @@ use warnings;
 
 use POSIX 'mkfifo';
 
+my $pw = `rbw get mail.tozt.net doy\@tozt.net`;
+if ($?) {
+    die "failed to fetch password: command returned $?";
+}
+
+open my $goimapnotify, '-|', "sh", "-c", "while true; do goimapnotify --conf ~/.config/imapnotify/tozt.conf 2>&1; done" or die "couldn't run goimapnotify: $!";
+
 my ($pw_pipe, $pid);
 
 sub cleanup {
@@ -16,12 +23,10 @@ $SIG{INT} = $SIG{TERM} = sub { cleanup; exit };
 END { cleanup }
 
 $pw_pipe = "/run/user/$>/mbsyncloop";
-mkfifo($pw_pipe, 0700) or die "couldn't create $pw_pipe";
-
-my $pw = `rbw get mail.tozt.net doy\@tozt.net`;
+mkfifo($pw_pipe, 0700) or die "couldn't create $pw_pipe: $!";
 
 $pid = fork;
-die unless defined $pid;
+die "fork failed: $!" unless defined $pid;
 if (!$pid) {
     $SIG{PIPE} = sub {};
     while (1) {
@@ -31,8 +36,6 @@ if (!$pid) {
     }
     exit;
 }
-
-open my $goimapnotify, '-|', "sh", "-c", "goimapnotify --conf ~/.config/imapnotify/tozt.conf 2>&1" or die;
 
 my $last_all = 0;
 while (1) {
@@ -63,9 +66,11 @@ sub idle {
     my $rin = '';
     vec($rin, fileno($goimapnotify), 1) = 1;
     my $ready = select(my $rout = $rin, undef, undef, $max_delay);
+    die "failed to read goimapnotify output: $!" if $ready == -1;
     if ($ready) {
         while (1) {
             my $ready = select(my $rout = $rin, undef, undef, 0.01);
+            die "failed to read goimapnotify output: $!" if $ready == -1;
             last unless $ready;
             sysread $goimapnotify, my $data, 4096;
         }
