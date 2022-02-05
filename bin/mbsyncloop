@@ -5,12 +5,16 @@ use warnings;
 
 use POSIX 'mkfifo';
 
-my $pw = `rbw get mail.tozt.net doy\@tozt.net`;
+my $password_command = "rbw get mail.tozt.net doy\@tozt.net";
+my $mbsync_config = "~/.mbsyncloop";
+my $goimapnotify_config = "~/.config/imapnotify/tozt.conf";
+
+my $pw = `$password_command`;
 if ($?) {
     die "failed to fetch password: command returned $?";
 }
 
-open my $goimapnotify, '-|', "sh", "-c", "while true; do goimapnotify --conf ~/.config/imapnotify/tozt.conf 2>&1; done" or die "couldn't run goimapnotify: $!";
+open my $goimapnotify, '-|', "sh", "-c", "while true; do goimapnotify --conf '$goimapnotify_config' 2>&1; done" or die "couldn't run goimapnotify: $!";
 
 my ($pw_pipe, $pid);
 
@@ -52,7 +56,7 @@ while (1) {
 sub sync {
     my ($channel) = @_;
     while (1) {
-        my $status = system("mbsync -c ~/.mbsyncloop $channel");
+        my $status = system("mbsync -c '$mbsync_config' $channel");
         if (!$status) {
             system("notmuch new | grep -v '^No new mail\.\$'");
             last;
