@@ -3,6 +3,7 @@ use 5.016;
 use strict;
 use warnings;
 
+use File::Spec;
 use POSIX 'mkfifo';
 
 my $password_command = "rbw get mail.tozt.net doy\@tozt.net";
@@ -26,8 +27,7 @@ sub cleanup {
 $SIG{INT} = $SIG{TERM} = sub { cleanup; exit };
 END { cleanup }
 
-$pw_pipe = "/run/user/$>/mbsyncloop";
-mkfifo($pw_pipe, 0700) or die "couldn't create $pw_pipe: $!";
+$pw_pipe = make_pw_pipe();
 
 $pid = fork;
 die "fork failed: $!" unless defined $pid;
@@ -80,4 +80,15 @@ sub idle {
         return 1;
     }
     return 0;
+}
+
+sub make_pw_pipe {
+    my $dir = "/run/user/$>";
+    if (!-d $dir) {
+        $dir = File::Spec->tmpdir();
+    }
+    my $file = File::Spec->catfile($dir, "mbsyncloop-$$");
+    unlink($file);
+    mkfifo($file, 0700) or die "couldn't create $file: $!";
+    $file
 }
