@@ -87,7 +87,7 @@ sub make_pw_pipe {
     if (!-d $dir) {
         $dir = File::Spec->tmpdir();
     }
-    my $file = File::Spec->catfile($dir, "mbsyncloop-$$");
+    my $file = File::Spec->catfile($dir, "mbsyncloop");
     unlink($file);
     mkfifo($file, 0700) or die "couldn't create $file: $!";
     $file
