@@ -7,8 +7,8 @@ use File::Spec;
 use POSIX 'mkfifo';
 
 my $password_command = "rbw get mail.tozt.net doy\@tozt.net";
-my $mbsync_config = "~/.mbsyncloop";
-my $goimapnotify_config = "~/.config/imapnotify/tozt.conf";
+my $mbsync_config = "$ENV{HOME}/.mbsyncloop";
+my $goimapnotify_config = "$ENV{HOME}/.config/imapnotify/tozt.conf";
 
 my $pw = `$password_command`;
 if ($?) {
