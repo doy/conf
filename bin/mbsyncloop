@@ -10,33 +10,48 @@ my $password_command = "rbw get mail.tozt.net doy\@tozt.net";
 my $mbsync_config = "$ENV{HOME}/.mbsyncloop";
 my $goimapnotify_config = "$ENV{HOME}/.config/imapnotify/tozt.conf";
 
-my $pw = `$password_command`;
-if ($?) {
-    die "failed to fetch password: command returned $?";
-}
-
-open my $goimapnotify, '-|', "sh", "-c", "while true; do goimapnotify --conf '$goimapnotify_config' 2>&1; done" or die "couldn't run goimapnotify: $!";
-
-my ($pw_pipe, $pid);
+my ($pw_pipe, $pw_pid, $goimapnotify_pid);
 
 sub cleanup {
     unlink($pw_pipe) if $pw_pipe;
-    kill KILL => $pid if $pid;
+    kill KILL => -$pw_pid if $pw_pid;
+    kill KILL => -$goimapnotify_pid if $goimapnotify_pid;
 }
 
 $SIG{INT} = $SIG{TERM} = sub { cleanup; exit };
 END { cleanup }
 
-$pw_pipe = make_pw_pipe();
+my $pw = `$password_command`;
+if ($?) {
+    die "failed to fetch password: command returned $?";
+}
 
-$pid = fork;
-die "fork failed: $!" unless defined $pid;
-if (!$pid) {
-    $SIG{PIPE} = 'IGNORE';
+pipe(my $goimapnotify_r, my $goimapnotify_w) or die "failed to create unnamed pipe: $!";
+$goimapnotify_pid = fork;
+die "fork failed: $!" unless defined $goimapnotify_pid;
+if (!$goimapnotify_pid) {
+    setpgrp(0, 0);
+    close $goimapnotify_r;
     while (1) {
-        open my $fh, '>', $pw_pipe or die "couldn't open $pw_pipe";
+        open my $fh, '-|', 'goimapnotify', '--conf', $goimapnotify_config or die "couldn't run goimapnotify: $!";
+        while (<$fh>) {
+            $goimapnotify_w->print("N\n");
+            $goimapnotify_w->flush;
+        }
+    }
+}
+close $goimapnotify_w;
+
+$pw_pipe = make_pw_pipe();
+$pw_pid = fork;
+die "fork failed: $!" unless defined $pw_pid;
+if (!$pw_pid) {
+    $SIG{PIPE} = 'IGNORE';
+    setpgrp(0, 0);
+    open my $fh, '>', $pw_pipe or die "couldn't open $pw_pipe";
+    while (1) {
         $fh->print("$pw\n");
-        close $fh;
+        $fh->flush;
     }
 }
 
@@ -67,7 +82,7 @@ sub sync {
 sub idle {
     my ($max_delay) = @_;
     my $rin = '';
-    vec($rin, fileno($goimapnotify), 1) = 1;
+    vec($rin, fileno($goimapnotify_r), 1) = 1;
     my $ready = select(my $rout = $rin, undef, undef, $max_delay);
     die "failed to read goimapnotify output: $!" if $ready == -1;
     if ($ready) {
@@ -75,7 +90,7 @@ sub idle {
             my $ready = select(my $rout = $rin, undef, undef, 0.01);
             die "failed to read goimapnotify output: $!" if $ready == -1;
             last unless $ready;
-            sysread $goimapnotify, my $data, 4096;
+            sysread $goimapnotify_r, my $data, 4096;
         }
         return 1;
     }
