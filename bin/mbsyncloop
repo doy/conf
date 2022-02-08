@@ -48,10 +48,10 @@ die "fork failed: $!" unless defined $pw_pid;
 if (!$pw_pid) {
     $SIG{PIPE} = 'IGNORE';
     setpgrp(0, 0);
-    open my $fh, '>', $pw_pipe or die "couldn't open $pw_pipe";
     while (1) {
+        open my $fh, '>', $pw_pipe or die "couldn't open $pw_pipe";
         $fh->print("$pw\n");
-        $fh->flush;
+        close $fh;
     }
 }
 
