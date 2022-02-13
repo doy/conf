@@ -56,6 +56,7 @@ if (!$pw_pid) {
 }
 
 my $last_all = 0;
+$SIG{HUP} = sub { $last_all = 0 };
 while (1) {
     my $now = time;
     if (($now - $last_all) >= 14 * 60) {
@@ -84,10 +85,12 @@ sub idle {
     my $rin = '';
     vec($rin, fileno($goimapnotify_r), 1) = 1;
     my $ready = select(my $rout = $rin, undef, undef, $max_delay);
+    return 0 if $ready == -1 && $! == POSIX::EINTR;
     die "failed to read goimapnotify output: $!" if $ready == -1;
     if ($ready) {
         while (1) {
             my $ready = select(my $rout = $rin, undef, undef, 0.01);
+            return 0 if $ready == -1 && $! == POSIX::EINTR;
             die "failed to read goimapnotify output: $!" if $ready == -1;
             last unless $ready;
             sysread $goimapnotify_r, my $data, 4096;

@@ -10,7 +10,7 @@ mailboxes `\
             echo -n "\"=$basename\" ";\
         fi\
     done`
-macro index R "<enter-command>unset wait_key<enter><shell-escape>mbsync all && notmuch new<enter><enter-command>set wait_key<enter>" "fetch mail with mbsync"
+macro index R "<enter-command>unset wait_key<enter><shell-escape>svc -h ~/.services/enabled/mbsyncloop<enter><enter-command>set wait_key<enter>" "fetch mail with mbsync"
 set timeout=3
 
 # vim: ft=neomuttrc
