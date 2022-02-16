@@ -1,0 +1,4 @@
+{
+    "box_patterns": ["^(?!old\\.)"],
+    "on_new_mail": "notmuch new | grep -v '^No new mail\\.$'"
+}
