@@ -18,10 +18,4 @@ Channel all
 Far :mail:
 Near :local:
 Sync Pull Push
-Patterns * !.notmuch
-
-Channel priority
-Far :mail:
-Near :local:
-Sync Pull Push
-Patterns INBOX personal
+Patterns *

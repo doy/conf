@@ -4,74 +4,194 @@ use strict;
 use warnings;
 
 use File::Spec;
+use JSON::PP;
 use POSIX 'mkfifo';
 
-my $password_command = "rbw get mail.tozt.net doy\@tozt.net";
-my $mbsync_config = "$ENV{HOME}/.mbsyncloop";
-my $goimapnotify_config = "$ENV{HOME}/.config/imapnotify/tozt.conf";
+my $RUN_DIR = get_run_dir();
+my ($PW_PIPE, $PW_PID, $GOIMAPNOTIFY_PID);
 
-my ($pw_pipe, $pw_pid, $goimapnotify_pid);
+$SIG{INT} = $SIG{TERM} = sub { cleanup(); exit };
+END { cleanup() }
 
-sub cleanup {
-    unlink($pw_pipe) if $pw_pipe;
-    kill KILL => -$pw_pid if $pw_pid;
-    kill KILL => -$goimapnotify_pid if $goimapnotify_pid;
+my $mbsync_config_file = "$ENV{HOME}/.mbsyncrc";
+my $goimapnotify_config_file = "$ENV{HOME}/.config/imapnotify/tozt.conf";
+
+main($mbsync_config_file, $goimapnotify_config_file);
+
+sub main {
+    my ($mbsync_config_file, $goimapnotify_config_file) = @_;
+
+    my $mbsync_config = slurp($mbsync_config_file);
+    my $goimapnotify_config = slurp($goimapnotify_config_file);
+    my $goimapnotify_config_data = JSON::PP::decode_json($goimapnotify_config);
+
+    $PW_PIPE = make_pw_pipe();
+    spawn_pw_proc($goimapnotify_config_data->{passwordCmd});
+
+    my $generated_goimapnotify_config_file = write_goimapnotify_config($goimapnotify_config_data);
+    my $goimapnotify_r = spawn_goimapnotify_proc($generated_goimapnotify_config_file);
+
+    my $generated_mbsync_config_file = write_mbsync_config($mbsync_config, $goimapnotify_config_data->{boxes});
+
+    loop($generated_mbsync_config_file, $goimapnotify_r);
 }
 
-$SIG{INT} = $SIG{TERM} = sub { cleanup; exit };
-END { cleanup }
-
-my $pw = `$password_command`;
-if ($?) {
-    die "failed to fetch password: command returned $?";
+sub slurp {
+    my ($file) = @_;
+    local $/;
+    open my $fh, '<', $file or die "couldn't open $file: $!";
+    <$fh>
 }
 
-pipe(my $goimapnotify_r, my $goimapnotify_w) or die "failed to create unnamed pipe: $!";
-$goimapnotify_pid = fork;
-die "fork failed: $!" unless defined $goimapnotify_pid;
-if (!$goimapnotify_pid) {
-    setpgrp(0, 0);
-    close $goimapnotify_r;
-    while (1) {
-        open my $fh, '-|', 'goimapnotify', '--conf', $goimapnotify_config or die "couldn't run goimapnotify: $!";
-        while (<$fh>) {
-            $goimapnotify_w->print("N\n");
-            $goimapnotify_w->flush;
+sub make_pw_pipe {
+    my $file = File::Spec->catfile($RUN_DIR, "mbsyncloop");
+    unlink($file);
+    mkfifo($file, 0700) or die "couldn't create $file: $!";
+    $file
+}
+
+sub spawn_pw_proc {
+    my ($password_command) = @_;
+
+    my $pw = fetch_password($password_command);
+
+    $PW_PID = fork;
+    die "fork failed: $!" unless defined $PW_PID;
+    if (!$PW_PID) {
+        $SIG{PIPE} = 'IGNORE';
+        setpgrp(0, 0);
+        while (1) {
+            open my $fh, '>', $PW_PIPE or die "couldn't open $PW_PIPE";
+            $fh->print("$pw\n");
+            close $fh;
         }
     }
 }
-close $goimapnotify_w;
 
-$pw_pipe = make_pw_pipe();
-$pw_pid = fork;
-die "fork failed: $!" unless defined $pw_pid;
-if (!$pw_pid) {
-    $SIG{PIPE} = 'IGNORE';
-    setpgrp(0, 0);
-    while (1) {
-        open my $fh, '>', $pw_pipe or die "couldn't open $pw_pipe";
-        $fh->print("$pw\n");
-        close $fh;
-    }
+sub fetch_password {
+    my ($password_command) = @_;
+    my $pw = `$password_command`;
+    die "failed to fetch password: command returned $?" if $?;
+    $pw
 }
 
-my $last_all = 0;
-$SIG{HUP} = sub { $last_all = 0 };
-while (1) {
-    my $now = time;
-    if (($now - $last_all) >= 14 * 60) {
-        sync("all");
-        $last_all = $now;
+sub read_mailboxes {
+    my ($config) = @_;
+    open my $fh, '-|', 'goimapnotify', '--conf', $config, '--list'
+        or die "couldn't run goimapnotify: $!";
+    <$fh>;
+    map { chomp; s/^[^ ]* //r } <$fh>
+}
+
+sub write_goimapnotify_config {
+    my ($goimapnotify_config_data) = @_;
+
+    $goimapnotify_config_data->{passwordCmd} = "head -n1 '$PW_PIPE'";
+    $goimapnotify_config_data->{onNewMail} = "echo new";
+
+    if (!$goimapnotify_config_data->{boxes}) {
+        my @mailboxes = read_mailboxes($goimapnotify_config_file); 
+        if ($goimapnotify_config_data->{boxPatterns}) {
+            @mailboxes = grep {
+                my $mailbox = $_;
+                grep {
+                    $mailbox =~ /$_/
+                } @{ $goimapnotify_config_data->{boxPatterns} }
+            } @mailboxes
+        }
+        $goimapnotify_config_data->{boxes} = \@mailboxes;
     }
-    if (idle(15 * 60 - (time - $now))) {
-        sync("priority");
+
+    my $filename = File::Spec->catfile($RUN_DIR, "goimapnotify.conf");
+    unlink($filename);
+    open my $fh, '>', $filename
+        or die "couldn't open $filename for writing: $!";
+    $fh->print(JSON::PP::encode_json($goimapnotify_config_data));
+    $fh->close;
+
+    $filename
+}
+
+sub write_mbsync_config {
+    my ($mbsync_config, $mailboxes) = @_;
+
+    $mbsync_config =~ s/^PassCmd .*$/PassCmd "head -n1 '$PW_PIPE'"/m;
+    my ($far) = $mbsync_config =~ /^IMAPStore (.*)$/m;
+    my ($near) = $mbsync_config =~ /^MaildirStore (.*)$/m;
+
+    my $patterns = join "\n", map { "Pattern $_" } @$mailboxes;
+    my $mbsync_channels = <<EOF;
+Channel mbsyncloop_priority
+Far :$far:
+Near :$near:
+Sync Pull Push
+$patterns
+
+Channel mbsyncloop_all
+Far :$far:
+Near :$near:
+Sync Pull Push
+Patterns *
+EOF
+
+    my $filename = File::Spec->catfile($RUN_DIR, "mbsyncrc");
+    unlink($filename);
+    open my $fh, '>', $filename
+        or die "couldn't open $filename for writing: $!";
+    $fh->print($mbsync_config);
+    $fh->print("\n");
+    $fh->print($mbsync_channels);
+    $fh->close;
+
+    $filename
+}
+
+sub spawn_goimapnotify_proc {
+    my ($config) = @_;
+
+    pipe(my $goimapnotify_r, my $goimapnotify_w)
+        or die "failed to create unnamed pipe: $!";
+
+    $GOIMAPNOTIFY_PID = fork;
+    die "fork failed: $!" unless defined $GOIMAPNOTIFY_PID;
+    if (!$GOIMAPNOTIFY_PID) {
+        setpgrp(0, 0);
+        close $goimapnotify_r;
+        while (1) {
+            open my $fh, '-|', 'goimapnotify', '--conf', $config
+                or die "couldn't run goimapnotify: $!";
+            while (<$fh>) {
+                $goimapnotify_w->print("N\n");
+                $goimapnotify_w->flush;
+            }
+        }
+    }
+    close $goimapnotify_w;
+
+    $goimapnotify_r
+}
+
+sub loop {
+    my ($mbsync_config, $goimapnotify_r) = @_;
+
+    my $last_all = 0;
+    $SIG{HUP} = sub { $last_all = 0 };
+    while (1) {
+        my $now = time;
+        if (($now - $last_all) >= 14 * 60) {
+            sync($mbsync_config, "mbsyncloop_all");
+            $last_all = $now;
+        }
+        if (idle($goimapnotify_r, 15 * 60 - (time - $now))) {
+            sync($mbsync_config, "mbsyncloop_priority");
+        }
     }
 }
 
 sub sync {
-    my ($channel) = @_;
+    my ($config, $channel) = @_;
     while (1) {
-        my $status = system("mbsync -c '$mbsync_config' $channel");
+        my $status = system("mbsync -c '$config' $channel");
         if (!$status) {
             system("notmuch new | grep -v '^No new mail\.\$'");
             last;
@@ -81,7 +201,7 @@ sub sync {
 }
 
 sub idle {
-    my ($max_delay) = @_;
+    my ($goimapnotify_r, $max_delay) = @_;
     my $rin = '';
     vec($rin, fileno($goimapnotify_r), 1) = 1;
     my $ready = select(my $rout = $rin, undef, undef, $max_delay);
@@ -100,13 +220,16 @@ sub idle {
     return 0;
 }
 
-sub make_pw_pipe {
+sub get_run_dir {
     my $dir = "/run/user/$>";
     if (!-d $dir) {
         $dir = File::Spec->tmpdir();
     }
-    my $file = File::Spec->catfile($dir, "mbsyncloop");
-    unlink($file);
-    mkfifo($file, 0700) or die "couldn't create $file: $!";
-    $file
+    $dir
+}
+
+sub cleanup {
+    unlink($PW_PIPE) if $PW_PIPE;
+    kill KILL => -$PW_PID if $PW_PID;
+    kill KILL => -$GOIMAPNOTIFY_PID if $GOIMAPNOTIFY_PID;
 }
