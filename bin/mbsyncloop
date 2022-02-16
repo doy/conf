@@ -58,9 +58,9 @@ sub main {
     );
 
     loop(
+        $config_data,
         $generated_mbsync_config_file,
         $goimapnotify_r,
-        $config_data->{on_new_mail},
     );
 }
 
@@ -224,18 +224,27 @@ EOF
 }
 
 sub loop {
-    my ($mbsync_config, $goimapnotify_r, $on_new_mail) = @_;
+    my ($config_data, $mbsync_config, $goimapnotify_r) = @_;
 
+    my $poll_interval = $config_data->{poll_interval} // 15 * 60;
     my $last_all = 0;
     $SIG{HUP} = sub { $last_all = 0 };
     while (1) {
         my $now = time;
-        if (($now - $last_all) >= 14 * 60) {
-            sync($mbsync_config, "mbsyncloop_all", $on_new_mail);
+        if (($now - $last_all) >= $poll_interval) {
+            sync(
+                $mbsync_config,
+                "mbsyncloop_all",
+                $config_data->{on_new_mail},
+            );
             $last_all = $now;
         }
-        if (idle($goimapnotify_r, 15 * 60 - (time - $now))) {
-            sync($mbsync_config, "mbsyncloop_priority", $on_new_mail);
+        if (idle($goimapnotify_r, $poll_interval)) {
+            sync(
+                $mbsync_config,
+                "mbsyncloop_priority",
+                $config_data->{on_new_mail},
+            );
         }
     }
 }
