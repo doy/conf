@@ -82,6 +82,3 @@
 [submodule "hammerspoon/src/spaces"]
 	path = hammerspoon/src/spaces
 	url = git://github.com/asmagill/hs._asm.undocumented.spaces
-[submodule "vim/pack/plugins/start/vimwiki"]
-	path = vim/pack/plugins/start/vimwiki
-	url = git://github.com/vimwiki/vimwiki
