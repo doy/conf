@@ -142,8 +142,7 @@ let g:startify_custom_indices = [
     \'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
 \]
 let g:startify_custom_header = []
-let s:fortune = system('fortune -n200 -s ~/.local/share/fortune | grep -v -E "^\$"')
-let g:startify_custom_footer = [''] + map(split(s:fortune, '\n'), '"   ".v:val')
+let g:startify_custom_footer = '[""] + map(split(system("fortune -n200 -s ~/.local/share/fortune | grep -v -E \"^\$\""), "\n"), "\"   \".v:val")'
 " }}}
 " textobj {{{
 let g:textobj_defs = {
