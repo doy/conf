@@ -42,6 +42,7 @@
 	ui = auto
 [core]
 	excludesfile = ~/.config/git/ignore
+	pager = delta
 [push]
 	default = current
 [branch]
@@ -55,6 +56,7 @@
 	autocorrect = 5
 [diff]
 	mnemonicprefix = true
+	colorMoved = default
 [advice]
 	pushUpdateRejected = false
 	statusHints = false
@@ -63,15 +65,15 @@
 	detachedHead = false
 [rerere]
 	enabled = true
-[pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
 [fetch]
 	prune = true
 [pull]
 	rebase = true
 [include]
 	path = config.private
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
 
 ; vim:ft=gitconfig:
