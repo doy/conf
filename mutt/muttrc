@@ -116,8 +116,8 @@ set quit
 bind generic , enter-command
 bind generic,pager,index B help
 
-bind generic,compose i exit
-bind index i noop
+bind pager,compose,attach i exit
+bind generic,index i noop
 
 bind generic,pager,index ? search-reverse
 bind generic,pager,index p search-opposite
