@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+
+scanimage --format=png --device=pixma --resolution=150 | convert - scan.pdf
