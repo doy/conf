@@ -47,6 +47,14 @@
 % <<< \resitem
 \newcommand{\resitem}[1]{\item {\small #1}}
 % >>>
+% <<< \resdesc
+\newcommand{\resdesc}[1]{
+    \begin{minipage}
+        {\textwidth-0.5in}
+        \vspace{4pt}{\small #1}
+    \end{minipage}
+}
+% >>>
 % <<< \resheading
 \newcommand{\resheading}[1]{
     {\large \colorbox{mygrey}{
@@ -62,6 +70,19 @@
     \begin{tabular*}{\textwidth-0.5in}{l@{\extracolsep{\fill}}r}
         \textbf{#1} & #2 \\
         \textit{#3} & \textit{#4} \\
+    \end{tabular*}
+    \\
+    \vspace{-0.8pt}
+}
+% >>>
+% \ressubsubheading <<<
+\newcommand{\ressubsubheading}[3]{
+    \begin{tabular*}{\textwidth-0.8in}{l@{\extracolsep{\fill}}r}
+        \textbf{#2} &
+    \begin{tabular*}{\textwidth-4in}{l@{\extracolsep{\fill}}r}
+        & #1 \\
+        & \textit{#3} \\
+    \end{tabular*}
     \end{tabular*}
     \\
     \vspace{-0.8pt}
