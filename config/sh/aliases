@@ -42,7 +42,6 @@ alias debian="podman run --rm -itv "${HOME}:${HOME}" docker.io/debian:stable bas
 alias ubuntu="podman run --rm -itv "${HOME}:${HOME}" docker.io/ubuntu:latest bash"
 alias alpine="podman run --rm -itv "${HOME}:${HOME}" docker.io/alpine:latest sh"
 alias arch="podman run --rm -itv "${HOME}:${HOME}" docker.io/archlinux:latest sh"
-alias w="vim ~/vimwiki/index.wiki"
 # }}}
 
 # vim:ft=sh:fdm=marker
