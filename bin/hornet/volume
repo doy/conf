@@ -3,26 +3,10 @@ use strict;
 use warnings;
 use 5.014;
 
-chomp(my $sink=`pacmd stat | grep 'Default sink name' | sed 's/^Default sink name: //'`);
+chomp(my $sink=`pactl get-default-sink`);
 
 sub get {
-    my $volume;
-
-    for (split "\n", `pacmd list-sinks`) {
-        chomp;
-        next unless /name: <\Q$sink\E>/../^$/;
-        if (/^\s+volume: .* ([0-9]+)% /) {
-            if (!defined($volume)) {
-                $volume = $1;
-            }
-        }
-        elsif (/^\s+muted: yes/) {
-            $volume = 'mute';
-            last;
-        }
-    }
-
-    $volume
+    (`pactl get-sink-volume $sink` =~ /(\d+)%/)[0]
 }
 
 if ($ARGV[0] eq 'get') {
