@@ -8,7 +8,6 @@ INSTALL := \
     .config/i3status/config \
     .config/mbsyncloop/config.json \
     .config/msmtp/config \
-    .config/perspektiv/config.toml \
     .mbsyncrc \
     .notmuch-config \
     .ssh/authorized_keys \
