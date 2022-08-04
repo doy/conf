@@ -9,8 +9,9 @@ xmodmap "$HOME"/.Xmodmap
 "$(dirname "$0")"/numkeys on
 
 # trackpad settings
-xinput set-prop "ELAN0670:00 04F3:3150 Touchpad" "libinput Accel Speed" 0.4
-xinput set-prop "ELAN0670:00 04F3:3150 Touchpad" "libinput Tapping Enabled" 1
+touchpad="$(xinput list --name-only | grep Touchpad)"
+xinput set-prop "$touchpad" "libinput Accel Speed" 0.4
+xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
 
 # needs to happen after xmodmap stuff
 svre xcape
