@@ -1,0 +1,36 @@
+SKIP_SERVICES := \
+    mbsyncloop \
+    mpd
+
+INSTALL := \
+    .config/alacritty/alacritty.yml \
+    .config/i3/browser-workspace.json \
+    .config/i3/config \
+    .config/i3/terminal-workspace.json \
+    .config/i3status/config \
+    .xbindkeysrc \
+    .Xdefaults \
+    .xinitrc \
+    .xprofile \
+    .Xmodmap \
+    $(patsubst %,.%,$(wildcard services/available/*/run)) \
+    $(patsubst %,.%,$(wildcard services/available/*/log/run))
+
+EMPTYDIRS := \
+    $(patsubst services/available/%,.log/%,$(filter-out $(patsubst %,\%/%,$(SKIP_SERVICES)),$(wildcard services/available/*)))
+
+INSTALL_CUSTOM := \
+    $(patsubst services/available/%,$(INTO)/.services/enabled/%,$(filter-out $(patsubst %,\%/%,$(SKIP_SERVICES)),$(wildcard services/available/*)))
+
+BUILD := \
+    config/alacritty/alacritty.yml
+
+$(INTO)/.services/enabled :
+	$(MKDIR) $@
+
+$(INTO)/.services/enabled/% : services/available/% $(INTO)/.services/enabled
+	$(MKDIR) $(dir $<)
+	$(LN) ../available/$(notdir $<) $@
+
+config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.ma-doy1
+	$(LN) $(notdir $<) $@
