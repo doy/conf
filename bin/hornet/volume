@@ -6,7 +6,12 @@ use 5.014;
 chomp(my $sink=`pactl get-default-sink`);
 
 sub get {
-    (`pactl get-sink-volume $sink` =~ /(\d+)%/)[0]
+    if (`pactl get-sink-mute $sink` =~ /Mute: yes/) {
+        'mute'
+    }
+    else {
+        (`pactl get-sink-volume $sink` =~ /(\d+)%/)[0]
+    }
 }
 
 if ($ARGV[0] eq 'get') {
@@ -26,6 +31,10 @@ elsif ($ARGV[0] eq 'up') {
     }
 }
 elsif ($ARGV[0] eq 'down') {
+    my $get = get;
+    if ($get eq 'mute') {
+        exit;
+    }
     system("pactl set-sink-volume $sink -10%");
 }
 elsif ($ARGV[0] eq 'mute') {
