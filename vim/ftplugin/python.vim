@@ -11,3 +11,5 @@ function! s:pydoc(word)
 endfunction
 nnoremap <buffer> <silent>K :call Help(0, ['.'], '<SID>pydoc')<CR>
 vnoremap <buffer> <silent>K :call Help(1, ['.'], '<SID>pydoc')<CR>
+
+let b:ale_python_pylint_options = '--disable=missing-module-docstring,missing-function-docstring,too-many-locals,too-many-branches'
