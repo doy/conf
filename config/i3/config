@@ -19,6 +19,8 @@ for_window [instance="Alacritty-tdrop"] sticky enable
 for_window [class="Steam"] floating enable
 for_window [class="ArenaTracker"] floating enable
 
+for_window [title="zoom"] floating enable
+
 bindsym $mod+q kill
 
 bindsym $mod+h focus left
