@@ -3,7 +3,6 @@ INSTALL := \
     .config/darksky/api \
     .config/i3/browser-workspace.json \
     .config/i3/config \
-    .config/i3/signal-workspace.json \
     .config/i3/terminal-workspace.json \
     .config/i3status/config \
     .config/mbsyncloop/config.json \
