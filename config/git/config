@@ -7,14 +7,15 @@
 	alias = "!f() { local name=$1; shift; git config --global alias.$name \"$*\"; }; f"
 	amend = !git add -p && git commit --amend
 	bd = "!f() { git choose-branch | head -n1 | xargs --no-run-if-empty git branch -D; }; f"
-	bda = "!f() { git branch --merged master --format='%(refname:short)' | grep -v '^master$' | xargs -r git branch -d; }; f"
+	bda = "!f() { git branch --merged $(git default-branch) --format='%(refname:short)' | grep -v \"^$(git default-branch)$\" | xargs -r git branch -d; }; f"
 	blame-stats = !~/.bin/git/git-blame-stats
 	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:magenta)(%(committerdate:relative))'
 	choose-branch = "!f() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --height 40% --no-sort --preview='git show {} -q --format=medium'; }; f"
 	c = "!f() { git choose-branch | head -n1 | xargs --no-run-if-empty git co; }; f"
 	cc = cherry-pick
 	co = checkout
-	diff-branch = "!f() { local branch=${1:-HEAD}; git diff $(git merge-base master $branch) $branch; }; f"
+	default-branch = !~/.bin/git/git-default-branch
+	diff-branch = "!f() { local branch=${1:-HEAD}; git diff $(git merge-base $(git default-branch) $branch) $branch; }; f"
 	ff = merge --ff-only
 	file-size = !~/.bin/git/git-file-size
 	fixup = "!f() { git record --fixup \"$@\"; }; f"
@@ -22,7 +23,7 @@
 	imerge = !~/.bin/git/git-imerge
 	info = remote show -n origin
 	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%aN%Creset %C(magenta)(%ar)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
-	m = "!f() { git co master && git pull && EDITOR=true git merge --no-ff \"$@\" && git bda; }; f"
+	m = "!f() { git co $(git default-branch) && git pull && EDITOR=true git merge --no-ff \"$@\" && git bda; }; f"
 	pr = !~/.bin/git/git-pr
 	prune-all = !git remote | xargs -n 1 git remote prune
 	pushall = "!f() { for repo in origin github; do git push $repo \"$@\"; done; }; f"
