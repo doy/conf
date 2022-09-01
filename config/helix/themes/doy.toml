@@ -1,0 +1,58 @@
+"ui.background" = { bg = "black" }
+"ui.cursor" = { fg = "green", modifiers = ["reversed"] }
+"ui.cursor.insert" = { fg = "white", modifiers = ["reversed"] }
+"ui.cursor.match" = { modifiers = ["underlined"] }
+"ui.cursor.primary" = { fg = "light-green", modifiers = ["reversed"] }
+"ui.cursor.select" = { fg = "green", modifiers = ["reversed"] }
+"ui.menu" = { fg = "white", bg = "#202020" }
+"ui.menu.selected" = { fg = "yellow", bg = "#202020" }
+"ui.popup" = { fg = "light-black" }
+"ui.selection" = { bg = "#3e4043" }
+"ui.statusline" = { fg = "light-green", bg = "#202020" }
+"ui.text" = { fg = "white" }
+"ui.text.focus" = { fg = "yellow" }
+"special" = { fg = "cyan" }
+
+"diagnostic.error" = { bg = "#330000" }
+"diagnostic.warning" = { bg = "#333300" }
+"diagnostic.hint" = { bg = "#003333" }
+"diagnostic.info" = { bg = "#330033" }
+"warning" = "yellow"
+"error" = "red"
+"info" = "white"
+"hint" = "cyan"
+
+"type" = "green"
+"constructor" = "light-cyan"
+"constant" = "red"
+"constant.character.escape" = "magenta"
+"string" = "red"
+"comment" = "light-black"
+"comment.documentation" = "magenta"
+"label" = "green"
+"keyword" = "yellow"
+"keyword.directive" = "magenta"
+"function" = "light-cyan"
+"function.macro" = "magenta"
+
+"diff.plus" = "green"
+"diff.minus" = "red"
+"diff.delta" = "yellow"
+
+[palette]
+black = "#000000"
+red = "#ed5f74"
+green = "#1ea672"
+yellow = "#d97917"
+blue = "#688ef1"
+magenta = "#c96ed0"
+cyan = "#3a97d4"
+white = "#e3e8ee"
+light-black = "#697386"
+light-red = "#fbb5b2"
+light-green = "#85d996"
+light-yellow = "#efc078"
+light-blue = "#9fcdff"
+light-magenta = "#f0b4e4"
+light-cyan = "#7fd3ed"
+light-white = "#ffffff"
