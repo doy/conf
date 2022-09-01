@@ -12,4 +12,8 @@ endfunction
 nnoremap <buffer> <silent>K :call Help(0, ['.'], '<SID>pydoc')<CR>
 vnoremap <buffer> <silent>K :call Help(1, ['.'], '<SID>pydoc')<CR>
 
-let b:ale_python_pylint_options = '--disable=missing-module-docstring,missing-function-docstring,too-many-locals,too-many-branches'
+map <buffer> <CR> :ALEGoToDefinition<CR>
+
+let b:ale_fixers = { 'python': ['black', 'isort'] }
+let b:ale_fix_on_save = 1
+let b_ale_python_flake8_options = '--max-line-length 1000'
