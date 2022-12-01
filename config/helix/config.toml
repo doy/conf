@@ -3,6 +3,7 @@ theme = "doy"
 [editor]
 gutters = ["diagnostics"]
 auto-info = false
+color-modes = true
 
 [keys.normal]
 tab = ":w"
@@ -15,7 +16,6 @@ tab = ":w"
 "$" = "goto_line_end"
 ")" = "goto_line_start"
 "_" = "goto_first_nonwhitespace"
-"G" = "goto_last_line"
 
 "ret" = "goto_definition"
 "backspace" = "jump_backward"
@@ -38,6 +38,9 @@ tab = ":w"
 "|" = "shell_pipe"
 "!" = "shell_insert_output"
 "$" = "shell_keep_pipe"
+
+[keys.normal.g]
+"G" = "goto_last_line"
 
 [keys.select]
 "$" = "goto_line_end"

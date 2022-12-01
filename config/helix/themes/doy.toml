@@ -4,12 +4,16 @@
 "ui.cursor.match" = { modifiers = ["underlined"] }
 "ui.cursor.primary" = { fg = "light-green", modifiers = ["reversed"] }
 "ui.cursor.select" = { fg = "green", modifiers = ["reversed"] }
-"ui.menu" = { fg = "white", bg = "#202020" }
-"ui.menu.selected" = { fg = "yellow", bg = "#202020" }
-"ui.popup" = { fg = "light-black" }
-"ui.selection" = { bg = "#3e4043" }
-"ui.statusline" = { fg = "light-green", bg = "#202020" }
+"ui.menu" = { fg = "white", bg = "dark-black" }
+"ui.menu.selected" = { fg = "yellow" }
+"ui.popup" = { bg = "dark-black" }
+"ui.selection" = { bg = "dark-white" }
+"ui.statusline" = { fg = "light-green", bg = "dark-magenta" }
+"ui.statusline.normal" = { fg = "black", bg = "light-yellow" }
+"ui.statusline.insert" = { fg = "black", bg = "light-cyan" }
+"ui.statusline.select" = { fg = "black", bg = "yellow" }
 "ui.text" = { fg = "white" }
+"ui.text.info" = { fg = "white", bg = "red" }
 "ui.text.focus" = { fg = "yellow" }
 "special" = { fg = "cyan" }
 
@@ -17,10 +21,10 @@
 "diagnostic.warning" = { bg = "#333300" }
 "diagnostic.hint" = { bg = "#003333" }
 "diagnostic.info" = { bg = "#330033" }
-"warning" = "yellow"
-"error" = "red"
-"info" = "white"
-"hint" = "cyan"
+"warning" = { fg = "yellow", bg = "dark-yellow" }
+"error" = { fg = "red", bg = "dark-red" }
+"info" = { fg = "white", bg = "dark-white" }
+"hint" = { fg = "cyan", bg = "dark-cyan" }
 
 "type" = "green"
 "constructor" = "light-cyan"
@@ -56,3 +60,11 @@ light-blue = "#9fcdff"
 light-magenta = "#f0b4e4"
 light-cyan = "#7fd3ed"
 light-white = "#ffffff"
+dark-black = "#273141"
+dark-red = "#541e20"
+dark-green = "#003c04"
+dark-yellow = "#482900"
+dark-blue = "#00355c"
+dark-magenta = "#4e1d47"
+dark-cyan = "#00394f"
+dark-white = "#303030"

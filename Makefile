@@ -14,6 +14,7 @@ INSTALL := \
     .config/git/config \
     .config/git/ignore \
 	.config/helix/config.toml \
+	.config/helix/languages.toml \
 	.config/helix/themes/doy.toml \
     .config/mpd/mpd.conf \
     .config/ncmpcpp/bindings \
