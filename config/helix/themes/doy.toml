@@ -1,21 +1,19 @@
 "ui.background" = { bg = "black" }
 "ui.cursor" = { fg = "green", modifiers = ["reversed"] }
-"ui.cursor.insert" = { fg = "white", modifiers = ["reversed"] }
 "ui.cursor.match" = { fg = "light-cyan", bg = "dark-cyan" }
 "ui.cursor.primary" = { fg = "light-green", modifiers = ["reversed"] }
-"ui.cursor.select" = { fg = "green", modifiers = ["reversed"] }
-"ui.menu" = { fg = "white", bg = "dark-black" }
+"ui.menu" = { bg = "dark-white" }
 "ui.menu.selected" = { fg = "yellow" }
-"ui.popup" = { bg = "dark-black" }
+"ui.popup" = { bg = "dark-white" }
 "ui.selection" = { bg = "dark-white" }
-"ui.statusline" = { fg = "light-green", bg = "dark-magenta" }
+"ui.statusline" = { fg = "light-magenta", bg = "dark-magenta" }
 "ui.statusline.normal" = { fg = "black", bg = "light-yellow" }
 "ui.statusline.insert" = { fg = "black", bg = "light-cyan" }
 "ui.statusline.select" = { fg = "black", bg = "yellow" }
-"ui.text" = { fg = "white" }
-"ui.text.info" = { fg = "white", bg = "dark-black" }
+"ui.text" = { fg = "default" }
+"ui.text.info" = { bg = "dark-white" }
 "ui.text.focus" = { fg = "yellow" }
-"special" = { fg = "cyan" }
+"ui.window" = { bg = "dark-white" }
 
 "diagnostic.error" = { bg = "dark-red" }
 "diagnostic.warning" = { bg = "dark-yellow" }
@@ -23,7 +21,7 @@
 "diagnostic.info" = { bg = "dark-white" }
 "warning" = { fg = "yellow", bg = "dark-yellow" }
 "error" = { fg = "red", bg = "dark-red" }
-"info" = { fg = "white", bg = "dark-white" }
+"info" = { fg = "default", bg = "dark-white" }
 "hint" = { fg = "cyan", bg = "dark-cyan" }
 
 "type" = "green"
@@ -38,6 +36,7 @@
 "keyword.directive" = "magenta"
 "function" = "light-cyan"
 "function.macro" = "magenta"
+"special" = "cyan"
 
 "diff.plus" = "green"
 "diff.minus" = "red"
@@ -60,11 +59,12 @@ light-blue = "#9fcdff"
 light-magenta = "#f0b4e4"
 light-cyan = "#7fd3ed"
 light-white = "#ffffff"
-dark-black = "#273141"
-dark-red = "#541e20"
-dark-green = "#003c04"
-dark-yellow = "#482900"
-dark-blue = "#00355c"
-dark-magenta = "#4e1d47"
-dark-cyan = "#00394f"
-dark-white = "#303030"
+dark-black = "#000000"
+dark-red = "#742833"
+dark-green = "#00643c"
+dark-yellow = "#6e3500"
+dark-blue = "#2c4074"
+dark-magenta = "#602864"
+dark-cyan = "#144c71"
+dark-white = "#3e4043"
+default = "#c1c9d2"
