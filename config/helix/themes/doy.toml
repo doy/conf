@@ -1,7 +1,7 @@
 "ui.background" = { bg = "black" }
 "ui.cursor" = { fg = "green", modifiers = ["reversed"] }
 "ui.cursor.insert" = { fg = "white", modifiers = ["reversed"] }
-"ui.cursor.match" = { modifiers = ["underlined"] }
+"ui.cursor.match" = { fg = "light-cyan", bg = "dark-cyan" }
 "ui.cursor.primary" = { fg = "light-green", modifiers = ["reversed"] }
 "ui.cursor.select" = { fg = "green", modifiers = ["reversed"] }
 "ui.menu" = { fg = "white", bg = "dark-black" }
@@ -13,14 +13,14 @@
 "ui.statusline.insert" = { fg = "black", bg = "light-cyan" }
 "ui.statusline.select" = { fg = "black", bg = "yellow" }
 "ui.text" = { fg = "white" }
-"ui.text.info" = { fg = "white", bg = "red" }
+"ui.text.info" = { fg = "white", bg = "dark-black" }
 "ui.text.focus" = { fg = "yellow" }
 "special" = { fg = "cyan" }
 
-"diagnostic.error" = { bg = "#330000" }
-"diagnostic.warning" = { bg = "#333300" }
-"diagnostic.hint" = { bg = "#003333" }
-"diagnostic.info" = { bg = "#330033" }
+"diagnostic.error" = { bg = "dark-red" }
+"diagnostic.warning" = { bg = "dark-yellow" }
+"diagnostic.hint" = { bg = "dark-cyan" }
+"diagnostic.info" = { bg = "dark-white" }
 "warning" = { fg = "yellow", bg = "dark-yellow" }
 "error" = { fg = "red", bg = "dark-red" }
 "info" = { fg = "white", bg = "dark-white" }

@@ -36,23 +36,17 @@ tab = ":w"
 "l" = "select_next_sibling"
 
 "|" = "shell_pipe"
-"!" = "shell_insert_output"
 "$" = "shell_keep_pipe"
-
-[keys.normal.g]
-"G" = "goto_last_line"
 
 [keys.select]
 "$" = "goto_line_end"
 ")" = "goto_line_start"
 "_" = "goto_first_nonwhitespace"
-"G" = "goto_last_line"
 
 [keys.select.";"]
 "x" = "toggle_comments"
 
 "|" = "shell_pipe"
-"!" = "shell_insert_output"
 "$" = "shell_keep_pipe"
 
 [keys.select."g"]
