@@ -16,4 +16,4 @@ map <buffer> <CR> :ALEGoToDefinition<CR>
 
 let b:ale_fixers = { 'python': ['black', 'isort'] }
 let b:ale_fix_on_save = 1
-let b:ale_python_flake8_options = '--max-line-length 1000'
+let b:ale_python_flake8_options = '--max-line-length 1000 --ignore=E203,W503 --extend-select=W504'
