@@ -32,5 +32,5 @@ $(INTO)/.services/enabled/% : services/available/% $(INTO)/.services/enabled
 	$(MKDIR) $(dir $<)
 	$(LN) ../available/$(notdir $<) $@
 
-config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.ma-doy1
+config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.mz-doy1
 	$(LN) $(notdir $<) $@
