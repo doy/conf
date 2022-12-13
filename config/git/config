@@ -57,7 +57,6 @@
 	autocorrect = 5
 [diff]
 	mnemonicprefix = true
-	colorMoved = default
 [advice]
 	pushUpdateRejected = false
 	statusHints = false
