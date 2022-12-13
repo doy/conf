@@ -9,45 +9,11 @@ color-modes = true
 tab = ":w"
 "|" = ":q"
 
-"H" = "goto_previous_buffer"
-"L" = "goto_next_buffer"
 "C-d" = ":buffer-close"
-
-"$" = "goto_line_end"
-")" = "goto_line_start"
-"_" = "goto_first_nonwhitespace"
 
 "ret" = "goto_definition"
 "backspace" = "jump_backward"
 
-"D" = "kill_to_line_end"
-"Y" = ["select_mode", "goto_line_end", "yank", "normal_mode", "flip_selections", "collapse_selection"]
-
-"esc" = "collapse_selection"
-
-"C-c" = ":config-reload"
-
-[keys.normal.";"]
-"x" = "toggle_comments"
-
-"h" = "select_prev_sibling"
-"j" = "shrink_selection"
-"k" = "expand_selection"
-"l" = "select_next_sibling"
-
-"|" = "shell_pipe"
-"$" = "shell_keep_pipe"
-
-[keys.select]
-"$" = "goto_line_end"
-")" = "goto_line_start"
-"_" = "goto_first_nonwhitespace"
-
-[keys.select.";"]
-"x" = "toggle_comments"
-
-"|" = "shell_pipe"
-"$" = "shell_keep_pipe"
-
-[keys.select."g"]
-"q" = ":reflow"
+[keys.normal.g]
+j = "goto_last_line"
+k = "goto_file_start"
