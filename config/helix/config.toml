@@ -1,7 +1,7 @@
 theme = "doy"
 
 [editor]
-gutters = ["diagnostics"]
+gutters = ["diagnostics", "diff"]
 auto-info = false
 color-modes = true
 
