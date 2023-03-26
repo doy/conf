@@ -1,6 +1,6 @@
 [[language]]
 name = "rust"
-config = { checkOnSave = { command = "clippy" } }
+config = { checkOnSave = { command = "clippy" }, cargo = { allFeatures = true }, diagnostics = { disabled = ["inactive-code"] } }
 
 [[language]]
 name = "python"
