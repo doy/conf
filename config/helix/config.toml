@@ -4,6 +4,7 @@ theme = "doy"
 gutters = ["diagnostics", "diff"]
 auto-info = false
 color-modes = true
+true-color = true
 
 [keys.normal]
 tab = ":w"
