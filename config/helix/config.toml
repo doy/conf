@@ -8,6 +8,7 @@ color-modes = true
 [keys.normal]
 tab = ":w"
 "|" = ":q"
+"\\" = "shell_pipe"
 
 "C-d" = ":buffer-close"
 
