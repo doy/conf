@@ -82,3 +82,6 @@
 [submodule "hammerspoon/src/spaces"]
 	path = hammerspoon/src/spaces
 	url = https://github.com/asmagill/hs._asm.undocumented.spaces
+[submodule "config/sh/skim"]
+	path = config/sh/skim
+	url = https://github.com/lotabout/skim

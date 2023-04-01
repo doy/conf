@@ -10,7 +10,7 @@
 	bda = "!f() { git branch --merged $(git default-branch) --format='%(refname:short)' | grep -v \"^$(git default-branch)$\" | xargs -r git branch -d; }; f"
 	blame-stats = !~/.bin/git/git-blame-stats
 	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:magenta)(%(committerdate:relative))'
-	choose-branch = "!f() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --height 40% --no-sort --preview='git show {} -q --format=medium'; }; f"
+	choose-branch = "!f() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | sk --height 40% --no-sort --preview='git show {} -q --format=medium'; }; f"
 	c = "!f() { git choose-branch | head -n1 | xargs --no-run-if-empty git co; }; f"
 	cc = cherry-pick
 	co = checkout
