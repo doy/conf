@@ -57,6 +57,7 @@
 	autocorrect = 5
 [diff]
 	mnemonicprefix = true
+	external = difft
 [advice]
 	pushUpdateRejected = false
 	statusHints = false
