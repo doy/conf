@@ -1,7 +1,6 @@
 bindkey -v
 
-#source ~/.config/sh/fzf/shell/key-bindings.zsh
-source ~/.config/sh/skim/shell/key-bindings.zsh
+source ~/.config/sh/fzf/shell/key-bindings.zsh
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -11,10 +10,8 @@ bindkey "^[[B" history-beginning-search-forward-end
 bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
 
-#bindkey -M viins '^R' fzf-history-widget
-#bindkey -M vicmd '^R' fzf-history-widget
-bindkey -M viins '^R' skim-history-widget
-bindkey -M vicmd '^R' skim-history-widget
+bindkey -M viins '^R' fzf-history-widget
+bindkey -M vicmd '^R' fzf-history-widget
 bindkey -M vicmd '/' history-incremental-search-backward
 bindkey -M vicmd '?' history-incremental-search-forward
 bindkey -rM viins '^[/'

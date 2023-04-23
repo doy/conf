@@ -33,7 +33,7 @@ alias misc='tmux new -As misc'
 alias vim=helix
 alias pm="find lib -type f"
 # alias v="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"t\")'"
-alias v='helix "$(git ls-files | sk)"'
+alias v='helix "$(git ls-files | fzf)"'
 # alias g="vim --cmd 'let g:startify_disable_at_vimenter = 1' -c 'call feedkeys(\"ff\")'"
 alias utc="env TZ=UTC date"
 alias pd="perldoc"
