@@ -141,7 +141,7 @@ macro index,pager I "c=INBOX<enter>"
 bind index,pager M compose-to-sender
 bind index,pager A group-reply
 
-macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=spam<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
+macro index S "<enter-command>set resolve=no<enter><clear-flag>N<save-message>=Junk<enter><enter-command>set resolve=yes<enter>" "mark message as spam"
 
 bind editor <tab> complete-query
 # }}}
