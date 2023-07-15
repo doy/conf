@@ -2,7 +2,8 @@
 use 5.014;
 use warnings;
 
-my $char = $ARGV[0] eq 'root' ? '#' : '$';
+my $char = $ARGV[0] eq 'root' ? '#' : '\\\\$';
+my $user = $ARGV[0] eq 'root' ? 'bright-red' : 'bright-blue';
 my $host = {
   'mz-doy1' => 'bright-white',
   'tozt' => 'bright-yellow',
@@ -13,6 +14,7 @@ my $host = {
 
 while (<DATA>) {
   s/\@\@CHAR\@\@/$char/;
+  s/\@\@USER\@\@/$user/;
   s/\@\@HOST\@\@/$host/;
   print;
 }
@@ -20,7 +22,7 @@ while (<DATA>) {
 __DATA__
 format = """
  [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $aws)( $kubernetes)( $pulumi) $fill ($cmd_duration )($battery )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
-$status [\\@@CHAR@@](user) 
+$status [@@CHAR@@](user) 
 """
 right_format = '$character'
 add_newline = false
@@ -132,5 +134,5 @@ vimcmd_symbol = '[\[NOR\]](bright-yellow)'
 [palettes.local]
 bg = 'bright-black'
 git = 'green'
-user = 'bright-blue'
+user = '@@USER@@'
 host = '@@HOST@@'
