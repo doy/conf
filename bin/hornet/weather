@@ -11,45 +11,43 @@ use HTTP::Tiny;
 use JSON::PP;
 use List::Util qw(min max);
 
-my %weather_pics = (
-    'clear-day' => "\x{2600}",
-    'clear-night' => "\x{2600}",
-    'rain' => "\x{2614}",
-    'snow' => "\x{2744}",
-    'sleet' => "\x{2614}",
-    'wind' => "\x{224B}",
-    'fog' => "\x{2592}",
-    'cloudy' => "\x{2601}",
-    'partly-cloudy-day' => "\x{2601}",
-    'partly-cloudy-night' => "\x{2601}",
-);
-
-my $config_dir = "$ENV{HOME}/.config/darksky";
-
-my $api_key_filename = "$config_dir/api";
-chomp(my $api_key = slurp($api_key_filename));
+my $config_dir = "$ENV{HOME}/.config/weather";
 
 my $location_filename = "$config_dir/location";
 chomp(my $location = slurp($location_filename));
 if (length($location) == 5) {
     $location = zip_location($location);
 }
+(my $lat, my $lon) = split ',', $location;
 
-my $data = slurp_http("https://api.darksky.net/forecast/$api_key/$location?units=si");
-my $hour = (localtime(int($data->{currently}{time})))[2];
+my $data = slurp_http("https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$lon&current_weather=true&hourly=temperature_2m,apparent_temperature,precipitation_probability");
+my $time = $data->{current_weather}{time};
+my $hourly = $data->{hourly};
+my @forecast;
+for my $i (0..$#{$hourly->{time}}) {
+    next if $hourly->{time}[$i] lt $time;
+    push @forecast, {
+        temp => $hourly->{temperature_2m}[$i],
+        feels_like => $hourly->{apparent_temperature}[$i],
+        precip_probability => $hourly->{precipitation_probability}[$i],
+    };
+    last if @forecast >= 12;
+}
 
-my $temp = int($data->{currently}{temperature});
-my $temp_unit = $data->{flags}{units} eq 'us' ? 'F' : 'C';
-my ($temp_limit, $temp_direction) = temp_limit($data->{hourly}{data}, $hour);
-my $feelslike_temp = int($data->{currently}{apparentTemperature});
-my $precip = int($data->{hourly}{data}[0]{precipProbability} * 100);
+my ($hour) = $time =~ /^....-..-..T(..):..$/;
+my $temp = round($data->{current_weather}{temperature});
+my $temp_unit = $data->{hourly_units}{temperature_2m};
+$temp_unit =~ s/\N{DEGREE SIGN}//;
+my ($temp_limit, $temp_direction) = temp_limit(\@forecast, $hour);
+my $feelslike_temp = round($forecast[0]{feels_like});
+my $precip = $forecast[0]{precip_probability};
 
 say join(' ',
     "$precip%",
-    $weather_pics{$data->{minutely}{icon} // $data->{hourly}{data}[0]{icon}} // "?",
+    weather_pic($data->{current_weather}{weathercode}, $data->{current_weather}{is_day}),
     "${temp}${temp_unit}",
     (($feelslike_temp != $temp)
-        ? ("(\x{2245}${feelslike_temp}${temp_unit})")
+        ? ("(\N{APPROXIMATELY EQUAL TO}${feelslike_temp}${temp_unit})")
         : ()),
     "${temp_direction}${temp_limit}${temp_unit}",
 );
@@ -81,14 +79,80 @@ sub zip_location($zip) {
     die "couldn't find zip $zip";
 }
 
-sub temp_limit($hourly, $hour) {
-    my @temps = map { int($_->{temperature}) } @$hourly[0..12];
+sub temp_limit($forecast, $hour) {
+    my @temps = map { $_->{temp} } @$forecast;
     if ($hour < 4 || $hour >= 16) {
-        return (min(@temps), "\x{2193}");
+        return (round(min(@temps)), "\N{DOWNWARDS ARROW}");
     }
     else {
-        return (max(@temps), "\x{2191}");
+        return (round(max(@temps)), "\N{UPWARDS ARROW}");
     }
+}
+
+sub weather_pic($code, $is_day) {
+    # Clear sky
+    if ($code == 0) {
+        if ($is_day) {
+            "\N{BLACK SUN WITH RAYS}"
+        } else {
+            "\N{LAST QUARTER MOON}"
+        }
+    }
+    # Mainly clear, partly cloudy, and overcast
+    elsif ($code == 1 || $code == 2 || $code == 3) {
+        "\N{CLOUD}"
+    }
+    # Fog and depositing rime fog
+    elsif ($code == 45 || $code == 48) {
+        "\N{MEDIUM SHADE}"
+    }
+    # Drizzle: Light, moderate, and dense intensity
+    elsif ($code == 51 || $code == 53 || $code == 55) {
+        "\N{UMBRELLA WITH RAIN DROPS}"
+    }
+    # Freezing Drizzle: Light and dense intensity
+    elsif ($code == 56 || $code == 57) {
+        "\N{UMBRELLA WITH RAIN DROPS}"
+    }
+    # Rain: Slight, moderate and heavy intensity
+    elsif ($code == 61 || $code == 63 || $code == 65) {
+        "\N{UMBRELLA WITH RAIN DROPS}"
+    }
+    # Freezing Rain: Light and heavy intensity
+    elsif ($code == 66 || $code == 67) {
+        "\N{UMBRELLA WITH RAIN DROPS}"
+    }
+    # Snow fall: Slight, moderate, and heavy intensity
+    elsif ($code == 71 || $code == 73 || $code == 75) {
+        "\N{SNOWFLAKE}"
+    }
+    # Snow grains
+    elsif ($code == 77) {
+        "\N{SNOWFLAKE}"
+    }
+    # Rain showers: Slight, moderate, and violent
+    elsif ($code == 80 || $code == 81 || $code == 82) {
+        "\N{UMBRELLA WITH RAIN DROPS}"
+    }
+    # Snow showers slight and heavy
+    elsif ($code == 85 || $code == 86) {
+        "\N{SNOWFLAKE}"
+    }
+    # Thunderstorm: Slight or moderate
+    elsif ($code == 95) {
+        "\N{UMBRELLA WITH RAIN DROPS}"
+    }
+    # Thunderstorm with slight and heavy hail
+    elsif ($code == 96 || $code == 99) {
+        "\N{UMBRELLA WITH RAIN DROPS}"
+    }
+    else {
+        '?'
+    }
+}
+
+sub round($x) {
+    int($x + 0.5)
 }
 
 __DATA__

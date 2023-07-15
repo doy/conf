@@ -1,6 +1,5 @@
 INSTALL := \
     .config/alacritty/alacritty.yml \
-    .config/darksky/api \
     .config/i3/browser-workspace.json \
     .config/i3/config \
     .config/i3/terminal-workspace.json \
@@ -57,8 +56,5 @@ $(INTO)/.services/enabled/% : services/available/% $(INTO)/.services/enabled
 config/alacritty/alacritty.yml : config/alacritty/alacritty.yml.hornet
 	$(LN) $(notdir $<) $@
 
-config/darksky :
+config/weather :
 	$(MKDIR) $@
-
-config/darksky/api : config/darksky
-	rbw get darksky.net api > $@
