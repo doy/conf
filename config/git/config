@@ -44,6 +44,7 @@
 [core]
 	excludesfile = ~/.config/git/ignore
 	pager = delta
+	untrackedCache = true
 [push]
 	default = current
 [branch]
