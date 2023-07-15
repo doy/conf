@@ -1,4 +1,5 @@
 /config/alacritty/alacritty.yml
+/config/starship.toml
 /config/darksky/api
 /hammerspoon/hs
 /local/share/fortune/*.dat

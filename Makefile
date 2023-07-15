@@ -73,7 +73,8 @@ BUILD := \
     $(addsuffix .dat,$(filter-out %.dat,$(wildcard local/share/fortune/*))) \
     $(addsuffix tags,$(wildcard vim/pack/*/start/*/doc/)) \
     vim/spell/en.utf-8.add.spl \
-    less
+    less \
+	config/starship.toml
 
 INSTALLED_SYMLINKS := \
     $(patsubst %,$(INTO)/%,$(INSTALL)) \
@@ -150,4 +151,7 @@ local/share/fortune/%.dat : local/share/fortune/%
 	@vim -u NONE -c':mkspell! $< | :q'
 
 less : lesskey
-	lesskey -o $@ $<
+	@lesskey -o $@ $<
+
+config/starship.toml : config/starship.toml.PL
+	@perl $< $$USER $$(hostname) > $@

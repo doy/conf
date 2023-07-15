@@ -1,6 +1,26 @@
+#!/usr/bin/env perl
+use 5.014;
+use warnings;
+
+my $char = $ARGV[0] eq 'root' ? '#' : '$';
+my $host = {
+  'mz-doy1' => 'bright-white',
+  'tozt' => 'bright-yellow',
+  'partofme' => 'magenta',
+  'mail' => 'green',
+  'hornet' => 'red',
+}->{$ARGV[1]} // 'yellow';
+
+while (<DATA>) {
+  s/\@\@CHAR\@\@/$char/;
+  s/\@\@HOST\@\@/$host/;
+  print;
+}
+
+__DATA__
 format = """
  [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $aws)( $kubernetes)( $pulumi) $fill ($cmd_duration )($battery )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
-$status [\\$](user) 
+$status [\\@@CHAR@@](user) 
 """
 right_format = '$character'
 add_newline = false
@@ -113,4 +133,4 @@ vimcmd_symbol = '[\[NOR\]](bright-yellow)'
 bg = 'bright-black'
 git = 'green'
 user = 'bright-blue'
-host = 'red'
+host = '@@HOST@@'
