@@ -23,6 +23,7 @@ INSTALL := \
     .config/sh/env \
     .config/sh/functions \
     .config/sh/fzf \
+	.config/starship.toml \
     .config/tex/jesse_essay.sty \
     .config/tex/jesse_letter.sty \
     .config/tex/jesse_macros.sty \

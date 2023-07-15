@@ -79,24 +79,9 @@ source ~/.vim/pack/plugins/start/history-sync/sh/history-sync.zsh
 # }}}
 # }}}
 # prompt {{{
-if type fancy-prompt > /dev/null 2>&1; then
-    function shell_prompt_precmd () {
-        PROMPT=`fancy-prompt --prompt-escape zsh $?`
-        RPS1=''
-    }
-    precmd_functions+=(shell_prompt_precmd)
+if type starship > /dev/null 2>&1; then
+    eval "$(starship init zsh)"
 fi
-function zle-keymap-select () {
-    setopt localoptions no_ksharrays
-    { [[ "${@[2]-main}" == opp ]] } && return
-    if [[ "x$KEYMAP" == 'xmain' ]]; then
-        RPS1=''
-    else
-        RPS1="%{$fg_bold[yellow]%}[${KEYMAP/vicmd/NORMAL}]%{$reset_color%}"
-    fi
-    zle reset-prompt
-}
-zle -N zle-keymap-select
 # }}}
 # }}}
 # fortune {{{

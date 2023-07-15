@@ -61,9 +61,8 @@ source ~/.config/sh/fzf/shell/completion.bash
 source ~/.config/sh/fzf/shell/key-bindings.bash
 # }}}
 # prompt {{{
-if type fancy-prompt > /dev/null 2>&1; then
-    __err=0
-    export PROMPT_COMMAND="__err=\$?;$PROMPT_COMMAND;PS1=\"\$(fancy-prompt --prompt-escape bash \$__err)\""
+if type starship > /dev/null 2>&1; then
+    eval "$(starship init bash)"
 fi
 # }}}
 # }}}
