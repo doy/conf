@@ -7,7 +7,7 @@ my $user = $ARGV[0] eq 'root' ? 'bright-red' : 'bright-blue';
 my $host = {
   'mz-doy1' => 'bright-white',
   'tozt' => 'bright-yellow',
-  'partofme' => 'magenta',
+  'partofme' => 'purple',
   'mail' => 'green',
   'hornet' => 'red',
 }->{$ARGV[1]} // 'yellow';
@@ -66,18 +66,18 @@ behind = '-$count'
 
 [aws]
 format = '[$symbol$profile]($style)'
-symbol = '☁️'
+symbol = '☁️ '
 style = 'bg'
 
 [kubernetes]
 disabled = false
 format = '[$symbol$context]($style)'
-symbol = '☸'
+symbol = '☸ '
 style = 'bg'
 
 [pulumi]
 format = '[$symbol$stack]($style)'
-symbol = ''
+symbol = ' '
 style = 'bg'
 
 [fill]
@@ -94,14 +94,14 @@ unknown_symbol = '  ??'
 
 [[battery.display]]
 threshold = 5
-charging_symbol = '⚡️'
-discharging_symbol = '  '
+charging_symbol = '⚡️ '
+discharging_symbol = '   '
 style = 'bright-red'
 
 [[battery.display]]
 threshold = 15
-charging_symbol = '⚡️'
-discharging_symbol = '  '
+charging_symbol = '⚡️ '
+discharging_symbol = '   '
 style = 'red'
 
 [[battery.display]]
