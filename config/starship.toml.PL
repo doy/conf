@@ -21,7 +21,7 @@ while (<DATA>) {
 
 __DATA__
 format = """
- [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $aws)( $kubernetes)( $pulumi) $fill ($cmd_duration )($battery )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
+ [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $aws)( $kubernetes)( $pulumi)( $python) $fill ($cmd_duration )($battery )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
 $status [@@CHAR@@](user) 
 """
 right_format = '$character'
@@ -80,6 +80,10 @@ format = '[$symbol$stack]($style)'
 symbol = ' '
 style = 'bg'
 
+[python]
+format = '([🐍$virtualenv]($style))'
+style = 'bg'
+
 [fill]
 symbol = '─'
 style = 'bg'
@@ -90,36 +94,36 @@ style = 'bg'
 
 [battery]
 format = '[$symbol]($style)'
-unknown_symbol = '  ??'
+unknown_symbol = ''
 
 [[battery.display]]
 threshold = 5
 charging_symbol = '⚡️ '
-discharging_symbol = '   '
+discharging_symbol = ' '
 style = 'bright-red'
 
 [[battery.display]]
 threshold = 15
 charging_symbol = '⚡️ '
-discharging_symbol = '   '
+discharging_symbol = ' '
 style = 'red'
 
 [[battery.display]]
 threshold = 40
 charging_symbol = '⚡️ '
-discharging_symbol = '   '
+discharging_symbol = ' '
 style = 'yellow'
 
 [[battery.display]]
 threshold = 80
 charging_symbol = '⚡️ '
-discharging_symbol = '   '
+discharging_symbol = ' '
 style = 'bright-black'
 
 [[battery.display]]
 threshold = 100
 charging_symbol = '⚡️ '
-discharging_symbol = '   '
+discharging_symbol = ' '
 style = 'green'
 
 [username]
