@@ -21,7 +21,7 @@ while (<DATA>) {
 
 __DATA__
 format = """
- [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $aws)( $kubernetes)( $pulumi) $fill ($cmd_duration )($battery )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
+ [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $aws)( $kubernetes)( $pulumi) $fill ($cmd_duration )([{](host)$battery[}](host) )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
 $status [@@CHAR@@](user) 
 """
 right_format = '$character'
@@ -57,6 +57,7 @@ style = 'git'
 
 [git_status]
 format = '[$all_status$ahead_behind]($style)'
+style = 'bold git'
 modified = '*'
 stashed = ''
 diverged = '+$ahead_count-$behind_count'
