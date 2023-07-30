@@ -6,6 +6,7 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias bc="bc -lq"
+alias hx="helix"
 type forkprove >/dev/null 2>&1 && alias prove="forkprove"
 type tput >/dev/null 2>&1 && alias reset="tput reset"
 # }}}
