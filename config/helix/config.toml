@@ -9,6 +9,10 @@ true-color = true
 [editor.soft-wrap]
 enable = true
 
+[editor.indent-guides]
+render = true
+character = "⸽"
+
 [keys.normal]
 tab = ":w"
 "|" = ":q"

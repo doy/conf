@@ -14,6 +14,7 @@
 "ui.text.info" = { bg = "dark-white" }
 "ui.text.focus" = { fg = "yellow" }
 "ui.virtual.wrap" = { fg = "dark-blue" }
+"ui.virtual.indent-guide" = { fg = "dark-blue" }
 "ui.window" = { bg = "dark-white" }
 
 "diagnostic.error" = { bg = "dark-red" }
