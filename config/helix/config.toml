@@ -26,3 +26,6 @@ tab = ":w"
 [keys.normal.g]
 j = "goto_last_line"
 k = "goto_file_start"
+
+[keys.normal.space]
+o = ":diffg"
