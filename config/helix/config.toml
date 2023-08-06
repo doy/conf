@@ -13,6 +13,9 @@ enable = true
 render = true
 character = "⸽"
 
+[editor.lsp]
+display-messages = true
+
 [keys.normal]
 tab = ":w"
 "|" = ":q"
