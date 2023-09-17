@@ -2,16 +2,12 @@
 	email = doy@tozt.net
 	name = Jesse Luehrs
 [alias]
-	a = !git amend
 	aliases = !git config --get-regexp 'alias.*' | perl -nle'/^alias\\.([^ ]*) (.*)/ && printf \"%-15s = %s\\n\", $1, $2'
 	alias = "!f() { local name=$1; shift; git config --global alias.$name \"$*\"; }; f"
 	amend = !git add -p && git commit --amend
-	bd = "!f() { git choose-branch | head -n1 | xargs --no-run-if-empty git branch -D; }; f"
 	bda = "!f() { git branch --merged $(git default-branch) --format='%(refname:short)' | grep -v \"^$(git default-branch)$\" | xargs -r git branch -d; }; f"
 	blame-stats = !~/.bin/git/git-blame-stats
 	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:magenta)(%(committerdate:relative))'
-	choose-branch = "!f() { git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf --height 40% --no-sort --preview='git show {} -q --format=medium'; }; f"
-	c = "!f() { git choose-branch | head -n1 | xargs --no-run-if-empty git co; }; f"
 	cc = cherry-pick
 	co = checkout
 	default-branch = !~/.bin/git/git-default-branch
@@ -23,14 +19,11 @@
 	imerge = !~/.bin/git/git-imerge
 	info = remote show -n origin
 	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%aN%Creset %C(magenta)(%ar)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
-	m = "!f() { git co $(git default-branch) && git pull && EDITOR=true git merge --no-ff \"$@\" && git bda; }; f"
 	pr = !~/.bin/git/git-pr
 	prune-all = !git remote | xargs -n 1 git remote prune
-	pushall = "!f() { for repo in origin github; do git push $repo \"$@\"; done; }; f"
 	record = !git add -p && git commit --verbose
 	refix = "!f() { env EDITOR=true git rebase -i \"$@\"; }; f"
 	re = rebase -i @{u}
-	r = !git record
 	ri = rebase -i
 	root = !~/.bin/git/git-root
 	rv = checkout -p
