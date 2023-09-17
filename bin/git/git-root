@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+root="$(git rev-parse --show-superproject-working-tree 2>/dev/null)"
+if [ -n "$root" ]; then
+  echo "$root"
+else
+  git rev-parse --show-toplevel
+fi

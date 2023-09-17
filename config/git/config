@@ -32,6 +32,7 @@
 	re = rebase -i @{u}
 	r = !git record
 	ri = rebase -i
+	root = !~/.bin/git/git-root
 	rv = checkout -p
 	stashed = stash list --pretty=format:'%<(10)%gd: %Cred%h%Creset %Cgreen(%ar)%Creset%n  %s'
 	st = status -sb
