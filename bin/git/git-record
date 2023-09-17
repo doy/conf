@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+if [ -e "$(git root)/.git/branchless" ]; then
+  exec git branchless record "$@"
+else
+  if [ "${1:-}" = "-i" ]; then
+    git add -p
+  else
+    git add -u
+  fi
+  git commit
+fi

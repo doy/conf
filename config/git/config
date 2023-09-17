@@ -4,7 +4,7 @@
 [alias]
 	aliases = !git config --get-regexp 'alias.*' | perl -nle'/^alias\\.([^ ]*) (.*)/ && printf \"%-15s = %s\\n\", $1, $2'
 	alias = "!f() { local name=$1; shift; git config --global alias.$name \"$*\"; }; f"
-	amend = !git add -p && git commit --amend
+	amend = !~/.bin/git/git-amend
 	bda = "!f() { git branch --merged $(git default-branch) --format='%(refname:short)' | grep -v \"^$(git default-branch)$\" | xargs -r git branch -d; }; f"
 	blame-stats = !~/.bin/git/git-blame-stats
 	br = for-each-ref --sort=committerdate refs/heads/ --format='%(align:30,left)%(HEAD) %(refname:short)%(end) %(color:magenta)(%(committerdate:relative))'
@@ -21,7 +21,7 @@
 	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%aN%Creset %C(magenta)(%ar)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
 	pr = !~/.bin/git/git-pr
 	prune-all = !git remote | xargs -n 1 git remote prune
-	record = !git add -p && git commit --verbose
+	record = !~/.bin/git/git-record
 	refix = "!f() { env EDITOR=true git rebase -i \"$@\"; }; f"
 	re = rebase -i @{u}
 	ri = rebase -i
@@ -30,7 +30,7 @@
 	stashed = stash list --pretty=format:'%<(10)%gd: %Cred%h%Creset %Cgreen(%ar)%Creset%n  %s'
 	st = status -sb
 	start = "!f() { git commit --allow-empty -m 'initial commit' && git add . && git commit -m 'project skeleton'; }; f"
-	track = "!f() { local name=$(git name-rev --name-only @); git branch --set-upstream-to=origin/$name $name; }; f"
+	track = "!f() { local name=$(git name-rev --name-only --exclude='branchless/*' @); git branch --set-upstream-to=origin/$name $name; }; f"
 [github]
 	user = doy
 [color]
