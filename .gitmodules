@@ -1,84 +1,51 @@
-[submodule "vim/bundle/fuzzyfinder"]
-	path = vim/bundle/fuzzyfinder
-	url = https://github.com/vim-scripts/FuzzyFinder
-[submodule "vim/bundle/gundo"]
-	path = vim/pack/plugins/start/gundo
-	url = https://github.com/sjl/gundo.vim
-[submodule "vim/bundle/l9"]
-	path = vim/bundle/l9
-	url = https://github.com/vim-scripts/L9
-[submodule "vim/bundle/snipmate"]
-	path = vim/bundle/snipmate
-	url = https://github.com/garbas/vim-snipmate
-[submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
-	url = https://github.com/ervandew/supertab
-[submodule "vim/bundle/textobj"]
-	path = vim/pack/plugins/start/textobj
-	url = https://github.com/doy/vim-textobj
-[submodule "zsh/zsh-syntax-highlighting"]
-	path = config/zsh/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "vim/bundle/tlib"]
-	path = vim/bundle/tlib
-	url = https://github.com/tomtom/tlib_vim
-[submodule "vim/bundle/addon-mw-utils"]
-	path = vim/bundle/addon-mw-utils
-	url = https://github.com/MarcWeber/vim-addon-mw-utils
-[submodule "vim/bundle/startify"]
-	path = vim/pack/plugins/start/startify
-	url = https://github.com/mhinz/vim-startify
-[submodule "vim/bundle/airline"]
-	path = vim/pack/plugins/start/airline
-	url = https://github.com/bling/vim-airline
-[submodule "vim/bundle/neocomplete"]
-	path = vim/bundle/neocomplete
-	url = https://github.com/Shougo/neocomplete.vim
-[submodule "vim/bundle/typescript"]
-	path = vim/bundle/typescript
-	url = https://github.com/leafgarland/typescript-vim
-[submodule "vim/bundle/julia"]
-	path = vim/bundle/julia
-	url = https://github.com/JuliaLang/julia-vim
-[submodule "zsh/zsh-autosuggestions"]
-	path = config/zsh/zsh-autosuggestions
+[submodule "sh/.config/sh/fzf"]
+	path = sh/.config/sh/fzf
+	url = https://github.com/junegunn/fzf
+[submodule "zsh/.config/zsh/zsh-autosuggestions"]
+	path = zsh/.config/zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule "zsh/zsh-completions"]
-	path = config/zsh/zsh-completions
+[submodule "zsh/.config/zsh/zsh-completions"]
+	path = zsh/.config/zsh/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "vim/pack/local/start/ale"]
-	path = vim/pack/plugins/start/ale
-	url = https://github.com/w0rp/ale
-[submodule "vim/pack/local/start/commentary"]
-	path = vim/pack/plugins/start/commentary
-	url = https://github.com/tpope/vim-commentary
-[submodule "vim/pack/plugins/start/editorconfig"]
-	path = vim/pack/plugins/start/editorconfig
-	url = https://github.com/editorconfig/editorconfig-vim
-[submodule "zsh/fzf"]
-	path = config/sh/fzf
-	url = https://github.com/junegunn/fzf
-[submodule "vim/pack/plugins/start/fzf.vim"]
-	path = vim/pack/plugins/start/fzf.vim
-	url = https://github.com/junegunn/fzf.vim
-[submodule "vim/pack/plugins/start/fzf"]
-	path = vim/pack/plugins/start/fzf
-	url = https://github.com/junegunn/fzf
-[submodule "vim/pack/plugins/start/history-sync"]
-	path = vim/pack/plugins/start/history-sync
-	url = https://github.com/doy/vim-history-sync
-[submodule "vim/pack/plugins/start/diff-changes"]
-	path = vim/pack/plugins/start/diff-changes
-	url = https://github.com/doy/vim-diff-changes
-[submodule "vim/pack/plugins/start/autobrace"]
-	path = vim/pack/plugins/start/autobrace
-	url = https://github.com/doy/vim-autobrace
-[submodule "vim/pack/filetype/start/polyglot"]
-	path = vim/pack/filetype/start/polyglot
+[submodule "zsh/.config/zsh/zsh-syntax-highlighting"]
+	path = zsh/.config/zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "vim/.vim/pack/filetype/start/polyglot"]
+	path = vim/.vim/pack/filetype/start/polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "vim/pack/filetype/start/terraform"]
-	path = vim/pack/filetype/start/terraform
-	url = https://github.com/hashivim/vim-terraform
-[submodule "hammerspoon/src/spaces"]
-	path = hammerspoon/src/spaces
-	url = https://github.com/asmagill/hs._asm.undocumented.spaces
+[submodule "vim/.vim/pack/plugins/start/airline"]
+	path = vim/.vim/pack/plugins/start/airline
+	url = https://github.com/bling/vim-airline
+[submodule "vim/.vim/pack/plugins/start/ale"]
+	path = vim/.vim/pack/plugins/start/ale
+	url = https://github.com/w0rp/ale
+[submodule "vim/.vim/pack/plugins/start/autobrace"]
+	path = vim/.vim/pack/plugins/start/autobrace
+	url = https://github.com/doy/vim-autobrace
+[submodule "vim/.vim/pack/plugins/start/commentary"]
+	path = vim/.vim/pack/plugins/start/commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "vim/.vim/pack/plugins/start/diff-changes"]
+	path = vim/.vim/pack/plugins/start/diff-changes
+	url = https://github.com/doy/vim-diff-changes
+[submodule "vim/.vim/pack/plugins/start/editorconfig"]
+	path = vim/.vim/pack/plugins/start/editorconfig
+	url = https://github.com/editorconfig/editorconfig-vim
+[submodule "vim/.vim/pack/plugins/start/fzf"]
+	path = vim/.vim/pack/plugins/start/fzf
+	url = https://github.com/junegunn/fzf
+[submodule "vim/.vim/pack/plugins/start/fzf.vim"]
+	path = vim/.vim/pack/plugins/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "vim/.vim/pack/plugins/start/gundo"]
+	path = vim/.vim/pack/plugins/start/gundo
+	url = https://github.com/sjl/gundo.vim
+[submodule "vim/.vim/pack/plugins/start/history-sync"]
+	path = vim/.vim/pack/plugins/start/history-sync
+	url = https://github.com/doy/vim-history-sync
+[submodule "vim/.vim/pack/plugins/start/startify"]
+	path = vim/.vim/pack/plugins/start/startify
+	url = https://github.com/mhinz/vim-startify
+[submodule "vim/.vim/pack/plugins/start/textobj"]
+	path = vim/.vim/pack/plugins/start/textobj
+	url = https://github.com/doy/vim-textobj

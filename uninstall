@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+[ -d "$1" ] || (echo "package $1 not found" >&2; exit 1)
+
+[ -f "$1/Makefile" ] && (cd "$1" && make -s uninstall)
+stow -D "$1"
+
+true

@@ -1,0 +1,12 @@
+build:
+install:
+uninstall:
+clean:
+.PHONY: build install uninstall clean
+
+% : %.PL
+	@perl $< > $@
+
+$(HOME)/.services/enabled/% : $(HOME)/.services/available/%
+	@mkdir -p $(dir $<)
+	@ln -sf ../available/$(notdir $<) $@

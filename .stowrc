@@ -1,0 +1,5 @@
+-t ~
+--ignore=Makefile
+--ignore=.gitignore
+--ignore=.PL
+--ignore=.stowskip

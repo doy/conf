@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+set -o pipefail
+
+case "$(hostname)" in
+hornet)
+    echo 'source ~/.config/mutt/local'
+    ;;
+*)
+    echo 'source ~/.config/mutt/imap'
+    ;;
+esac
