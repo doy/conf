@@ -7,7 +7,6 @@ less
 local
 readline
 reply
-screen
 sh
 ssh
 starship

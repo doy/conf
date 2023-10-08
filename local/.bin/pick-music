@@ -1,6 +1,0 @@
-#!/bin/sh
-set -eu
-set -o pipefail
-
-lastfm-query sync doyster
-lastfm-query recommend "${1:-20}"

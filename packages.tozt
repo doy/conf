@@ -1,4 +1,3 @@
-abook
 bash
 crawl
 fortune-mod
@@ -11,7 +10,6 @@ mutt
 nethack
 readline
 reply
-screen
 sh
 ssh
 starship

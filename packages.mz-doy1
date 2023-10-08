@@ -13,7 +13,6 @@ local
 readline
 redshift
 reply
-screen
 sh
 starship
 tig

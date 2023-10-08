@@ -1,4 +1,3 @@
-abook
 alacritty
 bash
 compton
@@ -14,16 +13,13 @@ less
 local
 mbsync
 mbsyncloop
-mpd
 msmtp
 mutt
-ncmpcpp
 nethack
 notmuch
 readline
 redshift
 reply
-screen
 sh
 ssh
 starship
