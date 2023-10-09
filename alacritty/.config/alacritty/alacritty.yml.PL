@@ -7,7 +7,7 @@ chomp(my $hostname = `hostname`);
 
 while (<DATA>) {
   if ($hostname eq 'mz-doy1') {
-    s/family: .*/family: Fixed/;
+    s/family: .*/family: Fixed Fallback/;
     s/size: .*/size: 10.5/;
   }
   print;
