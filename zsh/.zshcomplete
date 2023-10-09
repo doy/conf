@@ -19,3 +19,8 @@ bashcompinit
 # End of lines added by compinstall
 
 source ~/.config/sh/fzf/shell/completion.zsh
+type kubectl >/dev/null 2>&1 && source <(kubectl completion zsh)
+if type steampipe >/dev/null 2>&1; then
+	source <(steampipe completion zsh)
+	compdef _steampipe steampipe
+fi
