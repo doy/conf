@@ -1,6 +1,5 @@
 alacritty
 bash
-compton
 crawl
 cron
 fortune-mod
@@ -17,6 +16,7 @@ msmtp
 mutt
 nethack
 notmuch
+picom
 readline
 redshift
 reply

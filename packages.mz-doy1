@@ -1,6 +1,5 @@
 alacritty
 bash
-compton
 cron
 fortune-mod
 gdb
@@ -10,6 +9,7 @@ i3
 i3status
 less
 local
+picom
 readline
 redshift
 reply
