@@ -23,7 +23,7 @@ while (<DATA>) {
 
 __DATA__
 format = """
- [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $kubernetes)( $pulumi)( $python) $fill ($cmd_duration )($battery )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
+ [\\(](host)$directory([|](host)$git_branch$git_commit$git_status([|](host)$git_state))[\\)](host)( $python) $fill ($cmd_duration )($battery )$username[@](bg)$hostname [\\[](host)$time[\\]](host) $line_break\
 $status [@@CHAR@@](user) 
 """
 right_format = '$character'
