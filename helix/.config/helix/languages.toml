@@ -6,5 +6,5 @@ config = { checkOnSave = { command = "clippy" }, cargo = { allFeatures = true },
 name = "python"
 language-server = { command = "pyright-langserver", args = ["--stdio"] }
 config = {}
-formatter = { command = "black", args = ["--quiet", "-"] }
+formatter = { command = "black", args = ["--target-version=py311", "--quiet", "-"] }
 auto-format = true
