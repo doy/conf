@@ -1,4 +1,4 @@
-theme = "doy"
+theme = "vim_dark_high_contrast"
 
 [editor]
 gutters = ["diagnostics", "diff"]
