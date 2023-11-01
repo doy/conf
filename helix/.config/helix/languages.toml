@@ -1,10 +1,13 @@
-[[language]]
-name = "rust"
+[language-server.rust-analyzer]
 config = { checkOnSave = { command = "clippy" }, cargo = { allFeatures = true }, diagnostics = { disabled = ["inactive-code"] } }
 
 [[language]]
 name = "python"
-language-server = { command = "pyright-langserver", args = ["--stdio"] }
-config = {}
+language-servers = ["pyright"]
 formatter = { command = "black", args = ["--target-version=py311", "--quiet", "-"] }
 auto-format = true
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+config = {}
