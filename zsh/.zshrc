@@ -74,9 +74,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=black,bold'
 # see https://github.com/zsh-users/zsh-autosuggestions/issues/619
 unset ZSH_AUTOSUGGEST_USE_ASYNC
 # }}}
-# vim-history-sync {{{
-source ~/.vim/pack/plugins/start/history-sync/sh/history-sync.zsh
-# }}}
 # }}}
 # prompt {{{
 if type starship > /dev/null 2>&1; then

@@ -20,6 +20,6 @@ submodules:
 	@git submodule update --init --recursive
 
 update:
-	@git submodule foreach '(if [ $$sm_path == "vim/.vim/pack/filetype/start/perl" ]; then git checkout dev; else git checkout master; fi) && git pull'
+	@git submodule foreach 'git checkout master && git pull'
 
 .PHONY: build install uninstall clean submodules update
