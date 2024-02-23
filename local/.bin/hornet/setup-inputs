@@ -14,5 +14,5 @@ xinput set-prop "$touchpad" "libinput Accel Speed" 0.4
 xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
 
 # needs to happen after xmodmap stuff
-svre xcape
-svre xbindkeys
+systemctl --user restart xcape
+systemctl --user restart xbindkeys

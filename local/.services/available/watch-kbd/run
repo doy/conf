@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec watch-kbd 2>&1

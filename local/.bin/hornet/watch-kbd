@@ -4,10 +4,10 @@ set -o pipefail
 
 trap 'kill $(jobs -p)' EXIT
 
-inotifywait -mq -e create -e delete -e moved_to --exclude '.*tmp.*' /dev/input/by-id/ |
+inotifywait -mq -e create -e delete -e moved_to --exclude '.*tmp.*' /dev/input/by-path/ |
     while read -r event; do
         echo "$event"
-        if echo "$event" | grep -q USB_Keyboard; then
+        if echo "$event" | grep -q -- '-usb.*-kbd'; then
             setup-inputs
         fi
     done &

@@ -1,4 +1,9 @@
 include ../Makefile.include
 
-install: $(HOME)/.services/enabled/watch-kbd
-	@mkdir -p $(HOME)/.log/watch-kbd
+install:
+	@systemctl --user enable watch-kbd
+	@systemctl --user start watch-kbd
+
+uninstall:
+	@systemctl --user stop watch-kbd
+	@systemctl --user disable watch-kbd

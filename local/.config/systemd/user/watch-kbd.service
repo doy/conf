@@ -1,0 +1,5 @@
+[Service]
+ExecStart=%h/.bin/%H/watch-kbd
+
+[Install]
+WantedBy=default.target
