@@ -1,4 +1,9 @@
 include ../Makefile.include
 
-install: $(HOME)/.services/enabled/picom
-	@mkdir -p $(HOME)/.log/picom
+install:
+	@systemctl --user enable picom
+	@systemctl --user start picom
+
+uninstall:
+	@systemctl --user stop picom
+	@systemctl --user disable picom
