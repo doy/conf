@@ -1,36 +1,17 @@
-bin/git/git-blame-stats
-- from perigrin at some point, but all relevant links are now dead
-bin/git/git-imerge
-- https://github.com/mhagger/git-imerge
-bin/ringtone
-- http://uselessdiaries.blogspot.com/2008/04/converting-audio-files-to-mp3-using.html
-bin/show_colors
-- http://www.linuxfocus.org/English/May2004/article335.shtml
-bin/vimmanpager
-- gentoo vim ebuild, somewhere in the middle
-local/share/fortune/*
+fortune/.local/share/fortune/*
 - ideas, and yasd-fortune compiled by sartak
 - perl from the base fortune-mod distribution
 - calvin, kernelcookies, firefly, hitchhiker, and various dune quotes from the corresponding gentoo packages
 - song-of-ice-and-fire and buffy compiled by me
-nethackrc
+git/.bin/git/git-blame-stats
+- from perigrin at some point, but all relevant links are now dead
+local/.bin/show_colors
+- http://www.linuxfocus.org/English/May2004/article335.shtml
+local/.bin/vimmanpager
+- gentoo vim ebuild, somewhere in the middle
+nethack/.nethackrc
 - based on https://github.com/TAEB/TAEB/blob/master/lib/TAEB/Config.pm#L192 by sartak
-procmail/mark_as_read
-- http://www.mhonarc.org/archive/html/procmail/2005-08/msg00176.html
-config/sh/cdhist.sh
-- git://github.com/kana/config.git
-ssh/cao_key
+ssh/.ssh/cao_key
 - http://crawl.akrasiac.org/cao_key
-config/tex/jesse_resume.sty
+tex/.config/tex/jesse_resume.sty
 - based on http://www.courtesan.com/todd/resume.html
-vimrc
-- originally based on http://sartak.org/conf/vimrc
-vim/syntax/levdes.vim
-- Darshan Shaligram
-vim/syntax/nhdes.vim
-- http://bilious.alt.org/~paxed/nethack/nhdes.vim
-weechat/perl/autoload/*
-- http://www.weechat.org/scripts/source/beep.pl.html/
-- http://www.weechat.org/scripts/source/buffers.pl.html/
-- http://www.weechat.org/scripts/source/chanmon.pl.html/
-- http://www.weechat.org/scripts/source/chatters.pl.html/
