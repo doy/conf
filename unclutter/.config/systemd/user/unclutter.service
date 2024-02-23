@@ -1,0 +1,5 @@
+[Service]
+ExecStart=unclutter --timeout 1
+
+[Install]
+WantedBy=default.target

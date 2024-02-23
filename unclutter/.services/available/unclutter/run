@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec unclutter --timeout 1 2>&1

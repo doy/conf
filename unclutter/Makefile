@@ -1,4 +1,9 @@
 include ../Makefile.include
 
-install: $(HOME)/.services/enabled/unclutter
-	@mkdir -p $(HOME)/.log/unclutter
+install:
+	@systemctl --user enable unclutter
+	@systemctl --user start unclutter
+
+uninstall:
+	@systemctl --user stop unclutter
+	@systemctl --user disable unclutter
