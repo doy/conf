@@ -1,5 +1,6 @@
 [Service]
 ExecStart=%h/.bin/%H/watch-kbd
+Restart=always
 
 [Install]
 WantedBy=default.target

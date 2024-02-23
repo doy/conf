@@ -1,5 +1,6 @@
 [Service]
 ExecStart=xcape -d -e 'Control_L=Escape;Control_R=Escape'
+Restart=always
 
 [Install]
 WantedBy=default.target
