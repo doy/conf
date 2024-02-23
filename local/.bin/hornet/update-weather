@@ -2,5 +2,6 @@
 set -eu
 set -o pipefail
 
-weather >~/.cache/weather.new
+echo "updating weather..."
+"$(dirname "$0")"/weather >~/.cache/weather.new
 mv ~/.cache/weather.new ~/.cache/weather

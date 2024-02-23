@@ -1,1 +1,0 @@
-*/15 * * * * /bin/bash -c 'export PATH=~/.bin/$(hostname):~/.bin:/usr/bin:/usr/bin/vendor_perl:$PATH && update-weather'
