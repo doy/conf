@@ -12,31 +12,21 @@ bindkey "^[OB" history-beginning-search-forward-end
 
 bindkey -M viins '^R' fzf-history-widget
 bindkey -M vicmd '^R' fzf-history-widget
-bindkey -M vicmd '/' history-incremental-search-backward
-bindkey -M vicmd '?' history-incremental-search-forward
-bindkey -rM viins '^[/'
 
 bindkey -M vicmd ')' vi-digit-or-beginning-of-line
 bindkey -M vicmd 'e' vi-change
 bindkey -M vicmd 'E' vi-change-eol
-bindkey -M vicmd ',' execute-named-cmd
-bindkey -M vicmd '!' vi-insert
 bindkey -M vicmd '_' vi-first-non-blank
 bindkey -M vicmd '|' send-break
-bindkey -M vicmd '\' send-break
 
 bindkey "^?" backward-delete-char
 bindkey "^H" backward-delete-char
-bindkey "^U" backward-kill-line
-
-bindkey "^[[3~" delete-char
+bindkey -M viins "^[[3~" delete-char
+bindkey -M vicmd "^[[3~" delete-char
 
 page-up-within-tmux() {
   if [[ $TMUX == '' ]]; then
-    # no-op; default behavior isn't useful, and anyway you don't want to do
-    # something TOO cool here since you won't be able to do it inside tmux.
-    # TODO if there's any way to command the /emu/ to scroll up one page, i
-    # would love to hear about it
+    :
   else
     tmux copy-mode -u
   fi

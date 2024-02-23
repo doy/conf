@@ -1,15 +1,10 @@
 # language environments {{{
-# shellcheck disable=1090
-test -f "$HOME"/perl5/perlbrew/etc/bashrc && source "$HOME"/perl5/perlbrew/etc/bashrc
-test -f "$HOME"/python/bin/activate && source "$HOME"/python/bin/activate
-type rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
-test -d "$HOME"/.cargo/bin && export PATH="$HOME/.cargo/bin:$PATH"
+test -d "$HOME/.cargo/bin" && export PATH="$HOME/.cargo/bin:$PATH"
 # }}}
 # environment {{{
-[ -d /usr/share/git/diff-highlight ] && export PATH="/usr/share/git/diff-highlight:${PATH}"
-[ -d /usr/local/share/git-core/contrib/diff-highlight ] && export PATH="/usr/local/share/git-core/contrib/diff-highlight:${PATH}"
-PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:/usr/lib/ccache/bin:$PATH"
+PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:$PATH"
 export PATH
+# shellcheck source=sh/.config/sh/env
 [ -f "$HOME/.config/sh/env" ] && source "$HOME"/.config/sh/env
 # }}}
 # Test for an interactive shell. {{{
@@ -19,16 +14,11 @@ if [[ $- != *i* ]] ; then
     # Shell is non-interactive.  Be done now!
     return
 fi
-[ -z "$PS1" ] && return # }}}
-# Change the window title of X terminals {{{
-case ${TERM} in
-    xterm*|rxvt*|Eterm|aterm|kterm|gnome|screen*)
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
-        ;;
-esac # }}}
+[ -z "$PS1" ] && return
+# }}}
 # aliases {{{
+# shellcheck source=sh/.config/sh/aliases
 [ -f "$HOME/.config/sh/aliases" ] && source "$HOME"/.config/sh/aliases
-[ -f "$HOME/.config/sh/functions" ] && source "$HOME"/.config/sh/functions
 # }}}
 # completion {{{
 #shellcheck disable=SC1091
@@ -56,8 +46,9 @@ else
     export PROMPT_COMMAND="${PROMPT_COMMAND};history -a"
 fi
 # plugins {{{
-source ~/.config/sh/cdhist.sh
+# shellcheck source=sh/.config/sh/fzf/shell/completion.bash
 source ~/.config/sh/fzf/shell/completion.bash
+# shellcheck source=sh/.config/sh/fzf/shell/key-bindings.bash
 source ~/.config/sh/fzf/shell/key-bindings.bash
 # }}}
 # prompt {{{
