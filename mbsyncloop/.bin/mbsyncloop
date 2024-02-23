@@ -9,6 +9,11 @@ use File::Temp;
 use JSON::PP;
 use POSIX 'mkfifo';
 
+# running a local build until
+# https://gitlab.com/shackra/goimapnotify/-/merge_requests/14 makes it into a
+# release
+my $GOIMAPNOTIFY = "$ENV{HOME}/.bin/local/goimapnotify";
+
 my $RUN_DIR = make_run_dir();
 my ($PW_PID, $GOIMAPNOTIFY_PID);
 
@@ -124,7 +129,7 @@ sub read_mailboxes {
     my $tmp = File::Temp->new(DIR => $RUN_DIR);
     $tmp->print(JSON::PP::encode_json($config));
     $tmp->flush;
-    open my $fh, '-|', 'goimapnotify', '--conf', $tmp->filename, '--list'
+    open my $fh, '-|', $GOIMAPNOTIFY, '--conf', $tmp->filename, '--list'
         or die "couldn't run goimapnotify: $!";
     <$fh>;
 
@@ -179,7 +184,7 @@ sub spawn_goimapnotify_proc {
         $tmp->flush;
 
         while (1) {
-            open my $fh, '-|', 'goimapnotify', '--conf', $tmp->filename
+            open my $fh, '-|', $GOIMAPNOTIFY, '--conf', $tmp->filename
                 or die "couldn't run goimapnotify: $!";
             while (<$fh>) {
                 $goimapnotify_w->print("N\n");

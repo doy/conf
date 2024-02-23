@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec mbsyncloop 2>&1
