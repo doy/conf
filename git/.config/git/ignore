@@ -1,10 +1,1 @@
-# ignore vim swap files
-.*.sw?
-# openoffice lock files
-.~lock.*
-# prove state files
-.prove
-# ctags files
-tags
-tags-ja
 .obsidian

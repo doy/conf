@@ -16,35 +16,23 @@
 	file-size = !~/.bin/git/git-file-size
 	fixup = "!f() { git record --fixup \"$@\"; }; f"
 	gc-aggressive = "!f() { git repack -Abd --window=250 --depth=250 --window-memory=1g && git prune --expire \"1 day ago\" && rm -f .git/gc.log && git gc; }; f"
-	imerge = !~/.bin/git/git-imerge
-	info = remote show -n origin
 	lg = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(bold blue)%aN%Creset %C(magenta)(%ar)%Creset%n%s%n' --abbrev-commit --date=relative --stat=72
 	pr = !~/.bin/git/git-pr
-	prune-all = !git remote | xargs -n 1 git remote prune
 	record = !~/.bin/git/git-record
 	refix = "!f() { env EDITOR=true git rebase -i \"$@\"; }; f"
 	re = rebase -i @{u}
 	ri = rebase -i
 	root = !~/.bin/git/git-root
 	rv = checkout -p
-	stashed = stash list --pretty=format:'%<(10)%gd: %Cred%h%Creset %Cgreen(%ar)%Creset%n  %s'
 	st = status -sb
 	start = "!f() { git commit --allow-empty -m 'initial commit' && git add . && git commit -m 'project skeleton'; }; f"
 	track = "!f() { local name=$(git name-rev --name-only --exclude='branchless/*' @); git branch --set-upstream-to=origin/$name $name; }; f"
 [github]
 	user = doy
-[color]
-	ui = auto
 [core]
-	excludesfile = ~/.config/git/ignore
 	pager = delta
-	untrackedCache = true
-[push]
-	default = current
-[branch]
-	autosetuprebase = always
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [rebase]
 	autosquash = true
 	autostash = true
@@ -52,7 +40,7 @@
 	autocorrect = 5
 [diff]
 	mnemonicprefix = true
-	external = difft
+	algorithm = histogram
 [advice]
 	pushUpdateRejected = false
 	statusHints = false
@@ -75,5 +63,9 @@
 	defaultBranch = main
 [submodule]
 	recurse = true
+[push]
+	autosetupremote = true
+[commit]
+	verbose = true
 
 ; vim:ft=gitconfig:
