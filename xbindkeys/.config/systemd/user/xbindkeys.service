@@ -1,0 +1,5 @@
+[Service]
+ExecStart=xbindkeys -p -n
+
+[Install]
+WantedBy=default.target

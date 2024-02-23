@@ -1,5 +1,0 @@
-#!/bin/sh
-set -eu
-
-cd "$HOME"
-exec xbindkeys -p -n 2>&1

@@ -1,4 +1,9 @@
 include ../Makefile.include
 
-install: $(HOME)/.services/enabled/xbindkeys
-	@mkdir -p $(HOME)/.log/xbindkeys
+install:
+	@systemctl --user enable xbindkeys
+	@systemctl --user start xbindkeys
+
+uninstall:
+	@systemctl --user stop xbindkeys
+	@systemctl --user disable xbindkeys
