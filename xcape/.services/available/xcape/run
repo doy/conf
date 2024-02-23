@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec xcape -d -e 'Control_L=Escape;Control_R=Escape' >/dev/null 2>&1
