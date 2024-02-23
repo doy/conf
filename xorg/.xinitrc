@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# shellcheck source=xprofile
+# shellcheck source=xorg/.xprofile
 [ -f ~/.xprofile ] && . ~/.xprofile
 
 exec i3

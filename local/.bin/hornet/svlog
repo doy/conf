@@ -1,5 +1,0 @@
-#!/bin/sh
-set -eu
-set -o pipefail
-
-tail -F "$HOME/.log/$1/current" | tai64nlocal

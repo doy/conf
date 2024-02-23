@@ -1,10 +1,11 @@
 #!/bin/sh
 
-for service in unclutter compton; do
-    if svst $service; then
-        svdn $service >/dev/null
-        # shellcheck disable=SC2064
-        trap "svup $service > /dev/null" EXIT
+services=""
+trap 'for service in $services; do systemctl --user start $service; done' EXIT
+for service in unclutter picom; do
+    if [ "$(systemctl --user show --property MainPID --value "$service")" != 0 ]; then
+        systemctl --user stop "$service"
+        services="$service $services"
     fi
 done
 /usr/bin/import "$@"

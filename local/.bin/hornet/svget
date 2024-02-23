@@ -1,5 +1,0 @@
-#!/bin/sh
-set -eu
-set -o pipefail
-
-svstat "$HOME/.services/enabled/$1"
