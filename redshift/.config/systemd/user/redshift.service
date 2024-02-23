@@ -1,0 +1,5 @@
+[Service]
+ExecStart=%h/.bin/redshift
+
+[Install]
+WantedBy=default.target

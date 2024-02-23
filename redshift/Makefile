@@ -1,4 +1,9 @@
 include ../Makefile.include
 
-install: $(HOME)/.services/enabled/redshift
-	@mkdir -p $(HOME)/.log/redshift
+install:
+	@systemctl --user enable redshift
+	@systemctl --user start redshift
+
+uninstall:
+	@systemctl --user stop redshift
+	@systemctl --user disable redshift

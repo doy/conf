@@ -1,4 +1,0 @@
-#!/bin/sh
-set -eu
-
-exec redshift -l "$(sed 's/,/:/' <~/.config/weather/location)" 2>&1
