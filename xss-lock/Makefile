@@ -1,4 +1,9 @@
 include ../Makefile.include
 
-install: $(HOME)/.services/enabled/xss-lock
-	@mkdir -p $(HOME)/.log/xss-lock
+install:
+	@systemctl --user enable xss-lock
+	@systemctl --user start xss-lock
+
+uninstall:
+	@systemctl --user stop xss-lock
+	@systemctl --user disable xss-lock

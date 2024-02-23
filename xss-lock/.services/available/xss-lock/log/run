@@ -1,4 +1,0 @@
-#!/bin/sh
-set -eu
-
-exec multilog t s16777215 "$HOME/.log/xss-lock"
