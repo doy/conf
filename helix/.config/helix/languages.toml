@@ -1,4 +1,5 @@
 [language-server.rust-analyzer]
+command = "ra-multiplex"
 config = { checkOnSave = { command = "clippy" }, cargo = { allFeatures = true }, diagnostics = { disabled = ["inactive-code"] } }
 
 [[language]]
