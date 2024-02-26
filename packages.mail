@@ -1,5 +1,6 @@
 bash
 crawl
+docker
 fortune-mod
 gdb
 git
