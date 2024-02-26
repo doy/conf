@@ -27,6 +27,7 @@
 	st = status -sb
 	start = "!f() { git commit --allow-empty -m 'initial commit' && git add . && git commit -m 'project skeleton'; }; f"
 	track = "!f() { local name=$(git name-rev --name-only --exclude='branchless/*' @); git branch --set-upstream-to=origin/$name $name; }; f"
+	git = !git
 [github]
 	user = doy
 [core]
