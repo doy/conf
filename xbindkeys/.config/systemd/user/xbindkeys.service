@@ -1,6 +1,9 @@
 [Service]
 ExecStart=xbindkeys -p -n
 Restart=always
+# otherwise any applications launched via a keybinding will be killed when
+# the service is restarted
+KillMode=process
 
 [Install]
 WantedBy=default.target
