@@ -1,5 +1,5 @@
 [Service]
-ExecStart=xbindkeys -p -n
+ExecStart=/bin/sh -c 'PATH="$HOME/.bin/local:$HOME/.bin/$(hostname):$HOME/.bin:$PATH" xbindkeys -p -n'
 Restart=always
 # otherwise any applications launched via a keybinding will be killed when
 # the service is restarted
