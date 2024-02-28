@@ -10,6 +10,7 @@ less
 mutt
 readline
 reply
+ripgrep
 sh
 ssh
 starship

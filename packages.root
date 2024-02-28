@@ -9,6 +9,7 @@ helix
 less
 readline
 reply
+ripgrep
 sh
 ssh
 starship
