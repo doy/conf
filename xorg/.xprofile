@@ -1,7 +1,7 @@
 #!/bin/sh
 
-PATH="$HOME/.bin/local:$HOME/.bin/$(hostname):$HOME/.bin:$PATH"
-export PATH
+# shellcheck disable=SC1091
+. "${HOME}/.config/sh/rc.d/00path"
 
 eval "$(ssh-agent)"
 

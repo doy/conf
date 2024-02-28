@@ -1,12 +1,3 @@
-# language environments {{{
-test -d "$HOME/.cargo/bin" && export PATH="$HOME/.cargo/bin:$PATH"
-# }}}
-# environment {{{
-# not using .zshenv, because it runs before /etc/profile, and /etc/profile
-# tends to hard-set $PATH and such
-PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:$PATH"
-export PATH
-# }}}
 for file in ~/.config/sh/rc.d/*; do
     # shellcheck disable=SC1090
     source "$file"

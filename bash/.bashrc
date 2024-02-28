@@ -1,19 +1,3 @@
-# language environments {{{
-test -d "$HOME/.cargo/bin" && export PATH="$HOME/.cargo/bin:$PATH"
-# }}}
-# environment {{{
-PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:$PATH"
-export PATH
-# }}}
-# Test for an interactive shell. {{{
-# There is no need to set anything past this point for scp and rcp, and it's
-# important to refrain from outputting anything in those cases.
-if [[ $- != *i* ]] ; then
-    # Shell is non-interactive.  Be done now!
-    return
-fi
-[ -z "$PS1" ] && return
-# }}}
 for file in ~/.config/sh/rc.d/*; do
     # shellcheck disable=SC1090
     source "$file"
