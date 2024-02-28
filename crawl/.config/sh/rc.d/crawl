@@ -1,0 +1,2 @@
+alias cao="env TERM=screen-256color /usr/bin/ssh -C -i \$HOME/.ssh/cao_key joshua@crawl.akrasiac.org"
+alias cdo="ssh -C -i \$HOME/.ssh/cao_key crawl@crawl.develz.org"

@@ -1,10 +1,12 @@
 bash
+bin
+exa
 fortune-mod
+fzf
 gdb
 git
 helix
 less
-local
 readline
 reply
 sh

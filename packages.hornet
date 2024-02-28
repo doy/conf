@@ -1,7 +1,10 @@
 alacritty
 bash
+bin
 crawl
+exa
 fortune-mod
+fzf
 gdb
 git
 helix
@@ -9,7 +12,6 @@ i3
 i3status
 laptop
 less
-local
 mbsync
 mbsyncloop
 msmtp
@@ -17,7 +19,9 @@ mutt
 nethack
 notmuch
 picom
+podman
 ra-multiplex
+rbw
 readline
 redshift
 reply

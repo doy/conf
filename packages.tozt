@@ -1,11 +1,13 @@
 bash
+bin
 crawl
+exa
 fortune-mod
+fzf
 gdb
 git
 helix
 less
-local
 mutt
 nethack
 readline

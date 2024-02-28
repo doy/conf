@@ -1,0 +1,10 @@
+alias ll="ls -l"
+alias grep="grep --color=auto"
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias bc="bc -lq"
+type tput >/dev/null 2>&1 && alias reset="tput reset"
+alias utc="env TZ=UTC date"
+
+# vim:ft=sh:fdm=marker

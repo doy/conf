@@ -1,7 +1,10 @@
 alacritty
 bash
+bin
 docker
+exa
 fortune-mod
+fzf
 gdb
 git
 helix
@@ -9,7 +12,6 @@ i3
 i3status
 laptop
 less
-local
 picom
 ra-multiplex
 readline

@@ -1,0 +1,2 @@
+alias hx="helix"
+export EDITOR=$(command -v helix)

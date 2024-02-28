@@ -1,0 +1,2 @@
+export MANPAGER="$HOME/.bin/vimmanpager"
+export PERLDOC_PAGER="$HOME/.bin/vimmanpager"

@@ -1,0 +1,5 @@
+alias main='tmux new -As main'
+alias chat='tmux new -As chat'
+alias work='tmux new -As work'
+alias docs='tmux new -As docs'
+alias misc='tmux new -As misc'
