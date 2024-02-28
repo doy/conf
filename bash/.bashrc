@@ -4,8 +4,6 @@ test -d "$HOME/.cargo/bin" && export PATH="$HOME/.cargo/bin:$PATH"
 # environment {{{
 PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:$PATH"
 export PATH
-# shellcheck source=sh/.config/sh/env
-[ -f "$HOME/.config/sh/env" ] && source "$HOME"/.config/sh/env
 # }}}
 # Test for an interactive shell. {{{
 # There is no need to set anything past this point for scp and rcp, and it's
@@ -16,10 +14,10 @@ if [[ $- != *i* ]] ; then
 fi
 [ -z "$PS1" ] && return
 # }}}
-# aliases {{{
-# shellcheck source=sh/.config/sh/aliases
-[ -f "$HOME/.config/sh/aliases" ] && source "$HOME"/.config/sh/aliases
-# }}}
+for file in ~/.config/sh/rc.d/*; do
+    # shellcheck disable=SC1090
+    source "$file"
+done
 # completion {{{
 #shellcheck disable=SC1091
 [ -f /etc/bash_completion ] && source /etc/bash_completion

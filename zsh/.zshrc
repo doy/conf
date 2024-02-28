@@ -6,13 +6,11 @@ test -d "$HOME/.cargo/bin" && export PATH="$HOME/.cargo/bin:$PATH"
 # tends to hard-set $PATH and such
 PATH="${HOME}/.bin/local:${HOME}/.bin/$(hostname):${HOME}/.bin:$PATH"
 export PATH
-# shellcheck source=sh/.config/sh/env
-[ -f "$HOME/.config/sh/env" ] && source "$HOME/.config/sh/env"
 # }}}
-# aliases {{{
-# shellcheck source=sh/.config/sh/aliases
-[ -f "$HOME/.config/sh/aliases" ] && source "$HOME/.config/sh/aliases"
-# }}}
+for file in ~/.config/sh/rc.d/*; do
+    # shellcheck disable=SC1090
+    source "$file"
+done
 # completion {{{
 # shellcheck disable=SC2206
 fpath=( \
