@@ -1,6 +1,5 @@
 bash
 bin
-crawl
 exa
 fortune-mod
 fzf
@@ -9,13 +8,11 @@ git
 helix
 less
 mutt
-nethack
 readline
 reply
 sh
 ssh
 starship
-tex
 tig
 tmux
 zsh
