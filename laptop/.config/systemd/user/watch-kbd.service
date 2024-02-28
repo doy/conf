@@ -1,5 +1,5 @@
 [Service]
-ExecStart=%h/.bin/%H/watch-kbd
+ExecStart=%h/.bin/watch-kbd
 Restart=always
 
 [Install]
