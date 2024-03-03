@@ -1,0 +1,3 @@
+#!/bin/sh
+
+col -bx | bat -l man -p

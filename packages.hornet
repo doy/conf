@@ -1,5 +1,6 @@
 alacritty
 bash
+bat
 bin
 crawl
 eza
@@ -33,7 +34,6 @@ tex
 tig
 tmux
 unclutter
-vimmanpager
 xbindkeys
 xcape
 xorg

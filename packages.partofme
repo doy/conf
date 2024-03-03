@@ -1,4 +1,5 @@
 bash
+bat
 bin
 eza
 fortune-mod
@@ -16,6 +17,5 @@ ssh
 starship
 tig
 tmux
-vimmanpager
 zsh
 

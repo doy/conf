@@ -1,5 +1,6 @@
 alacritty
 bash
+bat
 bin
 docker
 eza
@@ -23,7 +24,6 @@ starship
 tig
 tmux
 unclutter
-vimmanpager
 xbindkeys
 xcape
 xorg
