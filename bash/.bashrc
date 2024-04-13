@@ -1,3 +1,6 @@
+if [[ $- != *i* ]]; then
+    return
+fi
 for file in ~/.config/sh/rc.d/*; do
     # shellcheck disable=SC1090
     source "$file"
