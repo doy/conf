@@ -51,7 +51,7 @@ am_or_rebase = 'r'
 [git_branch]
 format = '[$branch(:$remote_branch)]($style)'
 style = 'git'
-ignore_branches = ['main', 'master']
+ignore_branches = ['main', 'master', 'HEAD']
 
 [git_commit]
 format = '[$hash$tag]($style)'
