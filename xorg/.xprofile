@@ -5,6 +5,10 @@
 
 eval "$(ssh-agent)"
 
+XDG_SESSION_ID="$(loginctl list-sessions --no-legend | awk '{ print $1 }' | head -n1)"
+export XDG_SESSION_ID
+systemctl --user import-environment XDG_SESSION_ID
+
 setup-inputs
 
 xset s 300 5
