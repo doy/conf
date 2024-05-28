@@ -1,6 +1,6 @@
 [language-server.rust-analyzer]
 command = "ra-multiplex"
-config = { checkOnSave = { command = "clippy" }, cargo = { allFeatures = true }, diagnostics = { disabled = ["inactive-code"] } }
+config = { checkOnSave = { command = "clippy" }, cargo = { allFeatures = true }, diagnostics = { disabled = ["inactive-code"] }, rust = { analyzerTargetDir = "target-ra" } }
 
 [[language]]
 name = "python"
