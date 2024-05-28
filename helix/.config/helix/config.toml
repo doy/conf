@@ -28,3 +28,4 @@ tab = ":w"
 
 [keys.normal.space]
 o = ":diffg"
+F = "file_picker_in_current_buffer_directory"
