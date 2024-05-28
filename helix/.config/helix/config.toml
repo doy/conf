@@ -26,9 +26,5 @@ tab = ":w"
 "ret" = "goto_definition"
 "backspace" = "jump_backward"
 
-[keys.normal.g]
-j = "goto_last_line"
-k = "goto_file_start"
-
 [keys.normal.space]
 o = ":diffg"
