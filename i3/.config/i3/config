@@ -16,10 +16,8 @@ focus_wrapping no
 for_window [instance="Alacritty-tdrop"] floating enable
 for_window [instance="Alacritty-tdrop"] sticky enable
 
-for_window [class="Steam"] floating enable
-for_window [class="ArenaTracker"] floating enable
-
-for_window [title="zoom"] floating enable
+for_window [class="zoom" title="zoom"] floating enable
+no_focus [class="zoom" title="zoom"]
 
 bindsym $mod+q kill
 
@@ -36,7 +34,6 @@ bindsym $mod+Shift+l move right
 bindsym $mod+f fullscreen
 
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space       focus mode_toggle
 
 bindsym $mod+bracketleft  exec i3-switch-workspace prev
 bindsym $mod+bracketright exec i3-switch-workspace next
