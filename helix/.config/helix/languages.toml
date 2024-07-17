@@ -4,7 +4,7 @@ config = { checkOnSave = { command = "clippy" }, cargo = { allFeatures = true },
 
 [[language]]
 name = "python"
-language-servers = ["pyright"]
+language-servers = ["pyright", "ruff"]
 formatter = { command = "black", args = ["--target-version=py311", "--quiet", "-"] }
 auto-format = true
 
@@ -12,3 +12,6 @@ auto-format = true
 command = "pyright-langserver"
 args = ["--stdio"]
 config = {}
+
+[language-server.ruff]
+command = "ruff-lsp"
