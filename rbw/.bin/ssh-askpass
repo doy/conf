@@ -2,4 +2,4 @@
 set -eu
 set -o pipefail
 
-exec rbw get hornet ssh
+exec rbw get "$(hostname)" ssh
