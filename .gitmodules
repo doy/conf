@@ -1,5 +1,5 @@
 [submodule "sh/.config/sh/fzf"]
-	path = sh/.config/sh/fzf
+	path = fzf/.config/sh/fzf
 	url = https://github.com/junegunn/fzf
 [submodule "zsh/.config/zsh/zsh-autosuggestions"]
 	path = zsh/.config/zsh/zsh-autosuggestions
