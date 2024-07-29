@@ -2,7 +2,7 @@
 set -eu
 
 link() {
-    sudo ip link set dev wlp0s20f3 "$@"
+    sudo ip link set dev wlan0 "$@"
 }
 
 link down

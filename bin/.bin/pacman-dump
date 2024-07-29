@@ -1,6 +1,0 @@
-#!/bin/bash
-set -eu
-set -o pipefail
-
-echo base-devel
-comm -23 <(pacman -Qeq | sort) <(pacman -Qgq base-devel | sort)
