@@ -1,2 +1,1 @@
 export FZF_DEFAULT_OPTS="--reverse --inline-info --bind=tab:down,shift-tab:up,change:top,ctrl-space:toggle"
-export FZF_DEFAULT_COMMAND="rg --hidden -l ."
