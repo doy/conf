@@ -4,11 +4,11 @@ application/x-tar; /bin/tar tvf -; print=/bin/tar tvf - | print text/plain:-; co
 application/x-gtar; /bin/tar tvzf -; print=/bin/tar tvzf - | print text/plain:-; copiousoutput
 application/zip; unzip -l '%s'; nametemplate=%s.zip; copiousoutput
 text/*; less '%s'; needsterminal
-image/png; sxiv '%s'
-image/jpeg; sxiv '%s'
-image/gif; sxiv '%s'
-image/bmp; sxiv '%s'
-image/tiff; sxiv '%s'
+image/png; nsxiv '%s'
+image/jpeg; nsxiv '%s'
+image/gif; nsxiv '%s'
+image/bmp; nsxiv '%s'
+image/tiff; nsxiv '%s'
 application/pdf; zathura '%s'
 application/msword; libreoffice '%s'
 application/vnd.ms-excel; libreoffice '%s'
