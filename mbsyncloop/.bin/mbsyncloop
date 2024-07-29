@@ -98,7 +98,8 @@ sub extract_goimapnotify_config {
         port => $port,
         tls => $tls,
         username => $user,
-        passwordCmd => $password_command,
+        passwordCMD => $password_command,
+        boxes => [],
     };
 
     my @mailboxes;
@@ -106,7 +107,9 @@ sub extract_goimapnotify_config {
         @mailboxes = @{ $config_data->{boxes} };
     }
     else {
-        @mailboxes = read_mailboxes($goimapnotify_config);
+        @mailboxes = read_mailboxes({
+            configurations => [ $goimapnotify_config ],
+        });
         if ($config_data->{box_patterns}) {
             @mailboxes = grep {
                 my $mailbox = $_;
@@ -118,15 +121,15 @@ sub extract_goimapnotify_config {
     }
 
     $goimapnotify_config->{onNewMail} = "echo new";
-    $goimapnotify_config->{boxes} = \@mailboxes;
+    $goimapnotify_config->{boxes} = [ map { +{ mailbox => $_ } } @mailboxes];
 
-    $goimapnotify_config
+    { configurations => [ $goimapnotify_config ] }
 }
 
 sub read_mailboxes {
     my ($config) = @_;
 
-    my $tmp = File::Temp->new(DIR => $RUN_DIR);
+    my $tmp = File::Temp->new(DIR => $RUN_DIR, SUFFIX => '.json');
     $tmp->print(JSON::PP::encode_json($config));
     $tmp->flush;
     open my $fh, '-|', $GOIMAPNOTIFY, '--conf', $tmp->filename, '--list'
@@ -179,7 +182,7 @@ sub spawn_goimapnotify_proc {
         setpgrp(0, 0);
         close $goimapnotify_r;
 
-        my $tmp = File::Temp->new(DIR => $RUN_DIR);
+        my $tmp = File::Temp->new(DIR => $RUN_DIR, SUFFIX => '.json');
         $tmp->print(JSON::PP::encode_json($config));
         $tmp->flush;
 
