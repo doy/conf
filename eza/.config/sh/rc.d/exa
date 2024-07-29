@@ -1,1 +1,0 @@
-alias ls="exa --group-directories-first --time-style=long-iso --git --color-scale"
