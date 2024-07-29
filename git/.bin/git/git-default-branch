@@ -1,4 +1,0 @@
-#!/bin/sh
-set -eu
-
-git symbolic-ref refs/remotes/origin/HEAD | sed 's/.*\///'
