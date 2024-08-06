@@ -6,7 +6,3 @@ clean:
 
 % : %.PL
 	@perl $< > $@
-
-$(HOME)/.services/enabled/% : $(HOME)/.services/available/%
-	@mkdir -p $(dir $@)
-	@ln -sf ../available/$(notdir $<) $@
