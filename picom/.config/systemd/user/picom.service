@@ -1,5 +1,5 @@
 [Service]
-ExecStart=picom -m 0.9 -i 0.8 -f -D 5 --inactive-dim 0.3
+ExecStart=picom --config %h/.config/picom/picom.conf
 Restart=always
 
 [Install]
