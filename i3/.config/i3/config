@@ -19,6 +19,11 @@ for_window [instance="Alacritty-tdrop"] sticky enable
 for_window [class="zoom" title="zoom"] floating enable
 no_focus [class="zoom" title="zoom"]
 
+for_window [class="zoom" title="Zoom Workplace"] floating enable
+no_focus [class="zoom" title="Zoom Workplace"]
+
+for_window [class="zoom" title="Meeting"] exec xdg-screensaver suspend $I3_WINDOW_ID
+
 bindsym $mod+q kill
 
 bindsym $mod+h focus left
