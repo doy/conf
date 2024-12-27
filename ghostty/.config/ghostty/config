@@ -1,6 +1,7 @@
 window-decoration = false
 gtk-titlebar = false
 gtk-single-instance = true
+confirm-close-surface = false
 
 font-family = FiraMono
 font-style-bold = false
