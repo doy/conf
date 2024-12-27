@@ -1,0 +1,10 @@
+[user]
+name = "Jesse Luehrs"
+email = "doy@tozt.net"
+
+[ui]
+default-command = ["log", "--reversed", "--no-pager"]
+
+[ui.diff]
+tool = "delta"
+
