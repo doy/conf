@@ -23,7 +23,7 @@
             "percent": 0.333333333333333,
             "swallows": [
                {
-               "instance": "^Alacritty$"
+               "instance": "^ghostty$"
                }
             ],
             "type": "con"
@@ -43,7 +43,7 @@
             "percent": 0.333333333333333,
             "swallows": [
                {
-               "instance": "^Alacritty$"
+               "instance": "^ghostty$"
                }
             ],
             "type": "con"
@@ -63,7 +63,7 @@
             "percent": 0.333333333333333,
             "swallows": [
                {
-               "instance": "^Alacritty$"
+               "instance": "^ghostty$"
                }
             ],
             "type": "con"
@@ -95,7 +95,7 @@
             "percent": 0.5,
             "swallows": [
                {
-               "instance": "^Alacritty$"
+               "instance": "^ghostty$"
                }
             ],
             "type": "con"
@@ -115,11 +115,12 @@
             "percent": 0.5,
             "swallows": [
                {
-               "instance": "^Alacritty$"
+               "instance": "^ghostty$"
                }
             ],
             "type": "con"
         }
     ]
 }
+
 

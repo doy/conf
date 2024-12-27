@@ -1,0 +1,28 @@
+window-decoration = false
+gtk-titlebar = false
+gtk-single-instance = true
+
+font-family = FiraMono
+font-style-bold = false
+font-size = 11
+bold-is-bright = true
+
+background = #000000
+foreground = #c1c9d2
+cursor-color = #00ff00
+palette = 0=#000000
+palette = 1=#ed5f74
+palette = 2=#1ea672
+palette = 3=#d97917
+palette = 4=#688ef1
+palette = 5=#c96ed0
+palette = 6=#3a97d4
+palette = 7=#e3e8ee
+palette = 8=#697386
+palette = 9=#fbb5b2
+palette = 10=#85d996
+palette = 11=#efc078
+palette = 12=#9fcdff
+palette = 13=#f0b4e4
+palette = 14=#7fd3ed
+palette = 15=#ffffff

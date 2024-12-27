@@ -15,6 +15,10 @@ focus_wrapping no
 
 for_window [instance="Alacritty-tdrop"] floating enable
 for_window [instance="Alacritty-tdrop"] sticky enable
+for_window [instance="ghostty-tdrop"] floating enable
+for_window [instance="ghostty-tdrop"] sticky enable
+
+for_window [instance="ghostty"] border pixel
 
 for_window [class="zoom" title="zoom"] floating enable
 no_focus [class="zoom" title="zoom"]
@@ -44,7 +48,7 @@ bindsym $mod+bracketleft  exec i3-switch-workspace prev
 bindsym $mod+bracketright exec i3-switch-workspace next
 bindsym $mod+v            exec vscreen goto
 
-bindsym $mod+Shift+o exec "i3-msg 'append_layout .config/i3/terminal-workspace.json; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty; exec env WINIT_X11_SCALE_FACTOR=1 alacritty'"
+bindsym $mod+Shift+o exec "i3-msg 'append_layout .config/i3/terminal-workspace.json; exec ghostty; exec ghostty; exec ghostty; exec ghostty; exec ghostty'"
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
