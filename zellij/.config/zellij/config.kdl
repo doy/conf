@@ -40,7 +40,16 @@ keybinds clear-defaults=true {
         bind "}" { EditScrollback; SwitchToMode "locked"; }
     }
 
-    scroll {
+    entersearch {
+        bind "Enter" { SwitchToMode "search"; }
+    }
+
+    search {
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
+    }
+
+    shared_among "search" "scroll" {
         bind "PageUp" { PageScrollUp; }
         bind "PageDown" { PageScrollDown; }
         bind "j" { ScrollDown; }
@@ -48,5 +57,6 @@ keybinds clear-defaults=true {
         bind "g" { ScrollToTop; }
         bind "G" { ScrollToBottom; }
         bind "q" { ScrollToBottom; SwitchToMode "locked"; }
+        bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
     }
 }
