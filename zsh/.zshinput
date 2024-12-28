@@ -25,10 +25,11 @@ bindkey -M viins "^[[3~" delete-char
 bindkey -M vicmd "^[[3~" delete-char
 
 page-up-within-tmux() {
-  if [[ $TMUX == '' ]]; then
-    :
-  else
+  if [[ -n "$TMUX" ]]; then
     tmux copy-mode -u
+  elif [[ -n "$ZELLIJ" ]]; then
+    zellij action switch-mode scroll
+    zellij action page-scroll-up
   fi
 }
 zle -N page-up-within-tmux

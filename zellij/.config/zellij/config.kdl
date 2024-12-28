@@ -1,0 +1,45 @@
+session_serialization false
+
+default_mode "locked"
+keybinds clear-defaults=true {
+    locked {
+        bind "Ctrl f" { SwitchToMode "normal"; }
+    }
+
+    normal {
+        bind "f" {
+            Write 6;
+            SwitchToMode "locked";
+        }
+        bind "Ctrl f" {
+            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/room.wasm" {
+                floating true
+                ignore_case true
+                quick_jump true
+            };
+            SwitchToMode "locked";
+        }
+        bind "Ctrl n" {
+            NewTab {
+                cwd "~"
+            };
+            SwitchToMode "locked";
+        }
+        bind "Ctrl d" { Detach; }
+        bind "Ctrl w" { CloseFocus; SwitchToMode "locked"; }
+        bind "Ctrl q" { CloseTab; SwitchToMode "locked"; }
+
+        bind "{" { SwitchToMode "scroll"; }
+        bind "}" { EditScrollback; SwitchToMode "locked"; }
+    }
+
+    scroll {
+        bind "PageUp" { PageScrollUp; }
+        bind "PageDown" { PageScrollDown; }
+        bind "j" { ScrollDown; }
+        bind "k" { ScrollUp; }
+        bind "g" { ScrollToTop; }
+        bind "G" { ScrollToBottom; }
+        bind "q" { ScrollToBottom; SwitchToMode "locked"; }
+    }
+}

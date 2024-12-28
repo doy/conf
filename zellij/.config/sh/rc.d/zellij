@@ -1,0 +1,21 @@
+alias main='zellij-create-or-attach main'
+alias chat='zellij-create-or-attach chat'
+alias work='zellij-create-or-attach work'
+alias docs='zellij-create-or-attach docs'
+alias misc='zellij-create-or-attach misc'
+
+zellij_tab_name_update() {
+	if [[ -n "$ZELLIJ" ]]; then
+		if [[ -n "$1" ]]; then
+			prefix="${1%% *} - "
+		else
+			prefix=""
+		fi
+		root="$(git root || pwd)"
+		zellij action rename-tab "${prefix}${root/$HOME/~}"
+	fi
+}
+zellij_tab_name_update
+chpwd_functions+=(zellij_tab_name_update)
+preexec_functions+=(zellij_tab_name_update)
+precmd_functions+=(zellij_tab_name_update)
