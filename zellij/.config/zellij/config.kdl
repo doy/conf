@@ -1,4 +1,5 @@
 session_serialization false
+copy_clipboard "primary"
 
 default_mode "locked"
 keybinds clear-defaults=true {
