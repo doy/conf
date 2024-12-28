@@ -47,9 +47,16 @@ impl ZellijPlugin for State {
                 set_selectable(false);
                 hide_self();
 
-                run_command(&["which", "pbpaste"], ctx("which pbpaste"));
-                run_command(&["which", "wl-paste"], ctx("which wl-paste"));
-                run_command(&["which", "xclip"], ctx("which xclip"));
+                if self.cmd.is_some() {
+                    self.ready = 3;
+                } else {
+                    run_command(&["which", "pbpaste"], ctx("which pbpaste"));
+                    run_command(
+                        &["which", "wl-paste"],
+                        ctx("which wl-paste"),
+                    );
+                    run_command(&["which", "xclip"], ctx("which xclip"));
+                }
             }
             Event::RunCommandResult(code, stdout, _, context) => {
                 match context.get("source").map(|s| s.as_str()) {
