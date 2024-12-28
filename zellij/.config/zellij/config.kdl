@@ -2,6 +2,10 @@ session_serialization false
 
 default_mode "locked"
 keybinds clear-defaults=true {
+    shared_except "locked" {
+        bind "Esc" "Ctrl c" { SwitchToMode "locked"; }
+    }
+
     locked {
         bind "Ctrl f" { SwitchToMode "normal"; }
     }
