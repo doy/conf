@@ -13,6 +13,7 @@ zellij_tab_name_update() {
 		fi
 		root="$(git root || pwd)"
 		zellij action rename-tab "${prefix}${root/$HOME/~}"
+		zellij action rename-pane "${prefix}${root/$HOME/~}"
 	fi
 }
 zellij_tab_name_update
