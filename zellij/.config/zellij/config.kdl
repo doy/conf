@@ -1,5 +1,7 @@
 session_serialization false
 copy_clipboard "primary"
+scrollback_editor "less +G"
+pane_frames false
 
 default_mode "locked"
 keybinds clear-defaults=true {
