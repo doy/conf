@@ -8,6 +8,9 @@ font-style-bold = false
 font-size = 11
 bold-is-bright = true
 
+shell-integration-features = no-cursor
+cursor-style-blink = false
+
 background = #000000
 foreground = #c1c9d2
 cursor-color = #00ff00
