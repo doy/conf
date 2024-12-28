@@ -38,6 +38,11 @@ keybinds clear-defaults=true {
 
         bind "{" { SwitchToMode "scroll"; }
         bind "}" { EditScrollback; SwitchToMode "locked"; }
+
+        bind "Ctrl v" {
+            MessagePlugin "file:~/.config/zellij/plugins/paste.wasm";
+            SwitchToMode "locked";
+        }
     }
 
     entersearch {
@@ -59,4 +64,8 @@ keybinds clear-defaults=true {
         bind "q" { ScrollToBottom; SwitchToMode "locked"; }
         bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
     }
+}
+
+load_plugins {
+    "file:~/.config/zellij/plugins/paste.wasm"
 }
