@@ -21,5 +21,6 @@ submodules:
 
 update:
 	@git submodule foreach 'git checkout master && git pull'
+	@for package in $(PACKAGES); do ./clean $${package}; ./build $${package}; done
 
 .PHONY: build install uninstall clean submodules update
