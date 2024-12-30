@@ -30,5 +30,5 @@ log = '''
 [template-aliases]
 'format_short_change_id(id)' = 'id.shortest(3)'
 'format_short_commit_id(id)' = 'id.shortest(7)'
-'format_short_signature(signature)' = 'coalesce(signature.username(), email_placeholder)'
+'format_short_signature(signature)' = 'coalesce(signature.email().local(), email_placeholder)'
 'format_timestamp(timestamp)' = 'timestamp.ago().remove_suffix(" ago").remove_suffix("s").remove_suffix(" second").remove_suffix(" minute").remove_suffix(" hour").remove_suffix(" day").remove_suffix(" week").remove_suffix(" month").remove_suffix(" year") ++ label("timestamp", if(timestamp.ago().ends_with(" seconds ago") || timestamp.ago().ends_with(" second ago"), "s") ++ if(timestamp.ago().ends_with(" minutes ago") || timestamp.ago().ends_with(" minute ago"), "m") ++ if(timestamp.ago().ends_with(" hours ago") || timestamp.ago().ends_with(" hour ago"), "h") ++ if(timestamp.ago().ends_with(" days ago") || timestamp.ago().ends_with(" day ago"), "d") ++ if(timestamp.ago().ends_with(" weeks ago") || timestamp.ago().ends_with(" week ago"), "w") ++ if(timestamp.ago().ends_with(" months ago") || timestamp.ago().ends_with(" month ago"), "mo") ++ if(timestamp.ago().ends_with(" years ago") || timestamp.ago().ends_with(" year ago"), "y"))'
