@@ -8,3 +8,27 @@ default-command = ["log", "--reversed", "--no-pager"]
 [ui.diff]
 tool = "delta"
 
+[templates]
+# this is basically oneline_comfortable (all information on a single line,
+# but empty lines in between) - it'd be nice if this was builtin
+log = '''
+  if(root,
+    format_root_commit(self),
+    label(if(current_working_copy, "working_copy"),
+      separate(" ",
+        format_short_commit_header(self),
+        if(empty, label("empty", "(empty)")),
+        if(description,
+          description.first_line(),
+          label(if(empty, "empty"), description_placeholder),
+        ),
+      ),
+    )
+  ) ++ if(!current_working_copy, "\n\n")
+'''
+
+[template-aliases]
+'format_short_change_id(id)' = 'id.shortest(3)'
+'format_short_commit_id(id)' = 'id.shortest(7)'
+'format_short_signature(signature)' = 'coalesce(signature.username(), email_placeholder)'
+'format_timestamp(timestamp)' = 'timestamp.ago().remove_suffix(" ago").remove_suffix("s").remove_suffix(" second").remove_suffix(" minute").remove_suffix(" hour").remove_suffix(" day").remove_suffix(" week").remove_suffix(" month").remove_suffix(" year") ++ label("timestamp", if(timestamp.ago().ends_with(" seconds ago") || timestamp.ago().ends_with(" second ago"), "s") ++ if(timestamp.ago().ends_with(" minutes ago") || timestamp.ago().ends_with(" minute ago"), "m") ++ if(timestamp.ago().ends_with(" hours ago") || timestamp.ago().ends_with(" hour ago"), "h") ++ if(timestamp.ago().ends_with(" days ago") || timestamp.ago().ends_with(" day ago"), "d") ++ if(timestamp.ago().ends_with(" weeks ago") || timestamp.ago().ends_with(" week ago"), "w") ++ if(timestamp.ago().ends_with(" months ago") || timestamp.ago().ends_with(" month ago"), "mo") ++ if(timestamp.ago().ends_with(" years ago") || timestamp.ago().ends_with(" year ago"), "y"))'
