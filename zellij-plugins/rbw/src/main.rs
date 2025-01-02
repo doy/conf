@@ -88,17 +88,16 @@ impl ZellijPlugin for State {
         &mut self,
         _configuration: std::collections::BTreeMap<String, String>,
     ) {
-        picker::request_permission();
-        picker::subscribe();
+        let mut permissions =
+            vec![PermissionType::RunCommands, PermissionType::WriteToStdin];
+        permissions.extend(picker::permissions());
+        request_permission(&permissions);
 
-        request_permission(&[
-            PermissionType::RunCommands,
-            PermissionType::WriteToStdin,
-        ]);
         subscribe(&[
             EventType::RunCommandResult,
             EventType::PermissionRequestResult,
         ]);
+        picker::subscribe();
 
         RbwPicker::enter_search_mode();
     }

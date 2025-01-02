@@ -13,8 +13,8 @@ const PICKERWORKER_EVENTS: &[EventType] = &[
     EventType::TabUpdate,
 ];
 
-pub fn request_permission() {
-    zellij_tile::prelude::request_permission(PICKERWORKER_PERMISSIONS);
+pub fn permissions() -> &'static [PermissionType] {
+    PICKERWORKER_PERMISSIONS
 }
 
 pub fn subscribe() {

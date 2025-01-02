@@ -51,14 +51,15 @@ impl ZellijPlugin for State {
         &mut self,
         _configuration: std::collections::BTreeMap<String, String>,
     ) {
-        picker::request_permission();
-        picker::subscribe();
-
-        request_permission(&[
+        let mut permissions = vec![
             PermissionType::ReadApplicationState,
             PermissionType::ChangeApplicationState,
-        ]);
+        ];
+        permissions.extend(picker::permissions());
+        request_permission(&permissions);
+
         subscribe(&[EventType::TabUpdate]);
+        picker::subscribe();
     }
 
     fn update(&mut self, event: Event) -> bool {
