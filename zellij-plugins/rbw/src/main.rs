@@ -68,8 +68,6 @@ impl picker::Picker<'_> for RbwPicker {
                             }
                         })
                         .collect();
-                } else {
-                    todo!();
                 }
                 return true;
             }
@@ -142,25 +140,21 @@ impl ZellijPlugin for State {
                     self.panes = panes;
                 }
                 Event::RunCommandResult(code, stdout, _, ctx) => {
-                    if ctx["source"] == "rbw get" {
-                        if code == Some(0) {
-                            if let Some(pane) = get_focused_pane(
-                                get_focused_tab(&self.tabs)
-                                    .map(|tab| tab.position)
-                                    .unwrap_or(0),
-                                &self.panes,
-                            ) {
-                                if !pane.is_plugin {
-                                    write_to_pane_id(
-                                        stdout,
-                                        PaneId::Terminal(pane.id),
-                                    );
-                                }
+                    if ctx["source"] == "rbw get" && code == Some(0) {
+                        if let Some(pane) = get_focused_pane(
+                            get_focused_tab(&self.tabs)
+                                .map(|tab| tab.position)
+                                .unwrap_or(0),
+                            &self.panes,
+                        ) {
+                            if !pane.is_plugin {
+                                write_to_pane_id(
+                                    stdout,
+                                    PaneId::Terminal(pane.id),
+                                );
                             }
-                            close_self();
-                        } else {
-                            todo!()
                         }
+                        close_self();
                     }
                 }
                 _ => (),
