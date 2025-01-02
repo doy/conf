@@ -332,43 +332,33 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
             .map(|(item, _)| item)
             .collect();
 
-        if self.query.is_empty() {
-            self.search_results = self
-                .all_entries
-                .iter()
-                .cloned()
-                .map(|entry| (entry, vec![]))
-                .collect();
-        } else {
-            self.pattern.reparse(
-                &self.query,
-                nucleo_matcher::pattern::CaseMatching::Ignore,
-                nucleo_matcher::pattern::Normalization::Smart,
-            );
-            let mut haystack = vec![];
-            let mut new_search_results: Vec<_> = self
-                .all_entries
-                .iter()
-                .filter_map(|entry| {
-                    let haystack = nucleo_matcher::Utf32Str::new(
-                        &entry.string,
-                        &mut haystack,
-                    );
-                    let mut indices = vec![];
-                    self.pattern
-                        .indices(haystack, &mut self.matcher, &mut indices)
-                        .map(|score| (entry.clone(), score, indices))
-                })
-                .collect();
-            new_search_results
-                .sort_by_key(|(_, score, _)| std::cmp::Reverse(*score));
-            new_search_results
-                .sort_by_key(|(entry, _, _)| entry.string.len());
-            self.search_results = new_search_results
-                .into_iter()
-                .map(|(entry, _, indices)| (entry, indices))
-                .collect();
-        }
+        self.pattern.reparse(
+            &self.query,
+            nucleo_matcher::pattern::CaseMatching::Ignore,
+            nucleo_matcher::pattern::Normalization::Smart,
+        );
+        let mut haystack = vec![];
+        let mut new_search_results: Vec<_> = self
+            .all_entries
+            .iter()
+            .filter_map(|entry| {
+                let haystack = nucleo_matcher::Utf32Str::new(
+                    &entry.string,
+                    &mut haystack,
+                );
+                let mut indices = vec![];
+                self.pattern
+                    .indices(haystack, &mut self.matcher, &mut indices)
+                    .map(|score| (entry.clone(), score, indices))
+            })
+            .collect();
+        new_search_results
+            .sort_by_key(|(_, score, _)| std::cmp::Reverse(*score));
+        new_search_results.sort_by_key(|(entry, _, _)| entry.string.len());
+        self.search_results = new_search_results
+            .into_iter()
+            .map(|(entry, _, indices)| (entry, indices))
+            .collect();
 
         self.selected = (0..=self.selected)
             .rev()
