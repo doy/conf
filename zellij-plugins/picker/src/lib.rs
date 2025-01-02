@@ -250,7 +250,8 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
                 Some(true)
             }
             BareKey::Char(c @ '1'..='8') if key.has_no_modifiers() => {
-                let position = usize::from(u8::try_from(c).unwrap() - b'1');
+                let position =
+                    usize::try_from(c.to_digit(10).unwrap() - 1).unwrap();
                 if let Some(item) = self.search_results.get(position) {
                     Self::send_response(&Response::Select(item.0.clone()));
                 }
