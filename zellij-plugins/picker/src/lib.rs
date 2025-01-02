@@ -4,12 +4,22 @@ use std::fmt::Write as _;
 
 use unicode_width::UnicodeWidthChar as _;
 
+const PICKERWORKER_PERMISSIONS: &[PermissionType] =
+    &[PermissionType::ReadApplicationState];
 const PICKERWORKER_EVENTS: &[EventType] = &[
     EventType::Key,
     EventType::CustomMessage,
     EventType::PaneUpdate,
     EventType::TabUpdate,
 ];
+
+pub fn request_permission() {
+    zellij_tile::prelude::request_permission(PICKERWORKER_PERMISSIONS);
+}
+
+pub fn subscribe() {
+    zellij_tile::prelude::subscribe(PICKERWORKER_EVENTS);
+}
 
 #[derive(
     Clone, Default, serde::Serialize, serde::Deserialize, PartialEq, Eq,
@@ -124,7 +134,6 @@ pub enum Response<T> {
 }
 
 pub trait Picker<'a>: Default {
-    const EVENTS: &'static [EventType];
     const WORKER_NAME: &'static str;
     type Item: Default
         + Clone
@@ -151,11 +160,6 @@ pub trait Picker<'a>: Default {
             }
             _ => None,
         }
-    }
-
-    fn subscribe() {
-        zellij_tile::prelude::subscribe(PICKERWORKER_EVENTS);
-        zellij_tile::prelude::subscribe(Self::EVENTS);
     }
 
     fn enter_search_mode() {

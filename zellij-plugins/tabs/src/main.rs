@@ -11,7 +11,6 @@ struct State {
 struct TabPicker;
 
 impl picker::Picker<'_> for TabPicker {
-    const EVENTS: &'static [EventType] = &[EventType::TabUpdate];
     const WORKER_NAME: &'static str = "tab_picker";
     type Item = u32;
 
@@ -52,11 +51,14 @@ impl ZellijPlugin for State {
         &mut self,
         _configuration: std::collections::BTreeMap<String, String>,
     ) {
+        picker::request_permission();
+        picker::subscribe();
+
         request_permission(&[
             PermissionType::ReadApplicationState,
             PermissionType::ChangeApplicationState,
         ]);
-        TabPicker::subscribe();
+        subscribe(&[EventType::TabUpdate]);
     }
 
     fn update(&mut self, event: Event) -> bool {

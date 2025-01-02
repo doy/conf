@@ -22,7 +22,6 @@ struct State {
 struct RbwPicker;
 
 impl picker::Picker<'_> for RbwPicker {
-    const EVENTS: &'static [EventType] = &[EventType::RunCommandResult];
     const WORKER_NAME: &'static str = "rbw_picker";
     type Item = RbwEntry;
 
@@ -91,16 +90,18 @@ impl ZellijPlugin for State {
         &mut self,
         _configuration: std::collections::BTreeMap<String, String>,
     ) {
+        picker::request_permission();
+        picker::subscribe();
+
         request_permission(&[
-            PermissionType::ReadApplicationState,
             PermissionType::RunCommands,
             PermissionType::WriteToStdin,
         ]);
-        RbwPicker::subscribe();
         subscribe(&[
             EventType::RunCommandResult,
             EventType::PermissionRequestResult,
         ]);
+
         RbwPicker::enter_search_mode();
     }
 
