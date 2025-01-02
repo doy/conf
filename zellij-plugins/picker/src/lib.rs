@@ -326,11 +326,7 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
     }
 
     fn search(&mut self) {
-        let prev_search_results: Vec<_> = self
-            .search_results
-            .drain(..)
-            .map(|(item, _)| item)
-            .collect();
+        let prev_len = self.search_results.len();
 
         self.pattern.reparse(
             &self.query,
@@ -360,14 +356,9 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
             .map(|(entry, _, indices)| (entry, indices))
             .collect();
 
-        self.selected = (0..=self.selected)
-            .rev()
-            .find_map(|selection| {
-                self.search_results.iter().map(|(item, _)| item).position(
-                    |item| prev_search_results.get(selection) == Some(item),
-                )
-            })
-            .unwrap_or(0);
+        if prev_len != self.search_results.len() {
+            self.selected = 0;
+        }
     }
 
     fn render(&self) {
