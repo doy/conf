@@ -1,8 +1,8 @@
-alias main='zellij-create-or-attach main'
-alias chat='zellij-create-or-attach chat'
-alias work='zellij-create-or-attach work'
-alias docs='zellij-create-or-attach docs'
-alias misc='zellij-create-or-attach misc'
+alias main='zellij a -c main'
+alias chat='zellij a -c chat'
+alias work='zellij a -c work'
+alias docs='zellij a -c docs'
+alias misc='zellij a -c misc'
 
 zellij_tab_name_update() {
 	if [[ -n "$ZELLIJ" ]]; then

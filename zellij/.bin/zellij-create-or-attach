@@ -1,8 +1,0 @@
-#!/bin/sh
-set -eu
-
-if zellij list-sessions -n | awk '{ print $1 }' | grep -q "^$1\$"; then
-	zellij a "$1"
-else
-	zellij -s "$1"
-fi
