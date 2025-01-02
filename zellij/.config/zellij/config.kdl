@@ -41,6 +41,12 @@ keybinds clear-defaults=true {
             MessagePlugin "file:~/.config/zellij/plugins/paste.wasm";
             SwitchToMode "locked";
         }
+        bind "p" {
+            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/rbw.wasm" {
+                floating true
+            };
+            SwitchToMode "locked";
+        }
     }
 
     entersearch {
