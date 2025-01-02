@@ -3,7 +3,7 @@ use zellij_tile::prelude::*;
 use picker::Picker as _;
 
 #[derive(
-    Clone, Default, serde::Serialize, serde::Deserialize, PartialEq, Eq,
+    Debug, Clone, Default, serde::Serialize, serde::Deserialize, PartialEq, Eq,
 )]
 struct RbwEntry {
     name: String,

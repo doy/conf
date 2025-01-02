@@ -22,7 +22,7 @@ pub fn subscribe() {
 }
 
 #[derive(
-    Clone, Default, serde::Serialize, serde::Deserialize, PartialEq, Eq,
+    Debug, Clone, Default, serde::Serialize, serde::Deserialize, PartialEq, Eq,
 )]
 pub struct Entry<T> {
     pub string: String,
@@ -35,7 +35,7 @@ impl<T> AsRef<str> for Entry<T> {
     }
 }
 
-#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct Renderer<T> {
     visible_entries: Vec<(Entry<T>, Vec<u32>)>,
     query: String,
@@ -120,13 +120,13 @@ impl<T> Renderer<T> {
     }
 }
 
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub enum Request {
     Event(Event),
     ChangeMode(InputMode),
 }
 
-#[derive(Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub enum Response<T> {
     Render(Renderer<T>),
     Select(Entry<T>),
@@ -135,7 +135,8 @@ pub enum Response<T> {
 
 pub trait Picker<'a>: Default {
     const WORKER_NAME: &'static str;
-    type Item: Default
+    type Item: std::fmt::Debug
+        + Default
         + Clone
         + serde::Serialize
         + serde::de::DeserializeOwned
@@ -172,7 +173,14 @@ pub trait Picker<'a>: Default {
 }
 
 #[derive(
-    Default, serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Eq,
+    Debug,
+    Default,
+    serde::Serialize,
+    serde::Deserialize,
+    Clone,
+    Copy,
+    PartialEq,
+    Eq,
 )]
 pub enum InputMode {
     #[default]
