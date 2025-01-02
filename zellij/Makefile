@@ -1,19 +1,19 @@
 include ../Makefile.include
 
-build: .config/zellij/plugins/room.wasm .config/zellij/plugins/paste.wasm
+LOCAL_PLUGINS=paste tabs
+BUILT_PLUGINS=$(patsubst %,../zellij-plugins/target/wasm32-wasip1/release/%.wasm,$(LOCAL_PLUGINS))
+INSTALLED_PLUGINS=$(patsubst %,.config/zellij/plugins/%.wasm,$(LOCAL_PLUGINS))
+
+build: $(INSTALLED_PLUGINS)
 
 clean:
-	@rm -f .config/zellij/plugins/room.wasm .config/zellij/plugins/paste.wasm
+	@rm -f $(INSTALLED_PLUGINS)
 
-.config/zellij/plugins/room.wasm:
-	@mkdir -p "$(dir $@)"
-	@curl -sL https://github.com/rvcas/room/releases/latest/download/"$(notdir $@)" > "$@"
-
-.config/zellij/plugins/paste.wasm: ../zellij-plugins/target/wasm32-wasip1/release/paste.wasm
+.config/zellij/plugins/%.wasm: ../zellij-plugins/target/wasm32-wasip1/release/%.wasm
 	@mkdir -p "$(dir $@)"
 	@cp $< $@
 
-../zellij-plugins/target/wasm32-wasip1/release/paste.wasm: zellij-plugins
+$(BUILT_PLUGINS): zellij-plugins
 
 zellij-plugins:
 	@cd ../zellij-plugins && cargo build --release

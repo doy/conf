@@ -19,10 +19,8 @@ keybinds clear-defaults=true {
             SwitchToMode "locked";
         }
         bind "Ctrl f" {
-            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/room.wasm" {
+            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/tabs.wasm" {
                 floating true
-                ignore_case true
-                quick_jump true
             };
             SwitchToMode "locked";
         }
