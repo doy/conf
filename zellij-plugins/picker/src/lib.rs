@@ -170,25 +170,19 @@ enum InputMode {
 #[derive(Default, serde::Serialize, serde::Deserialize)]
 pub struct PickerWorker<'a, T: Picker<'a>> {
     picker: T,
-    #[serde(skip_serializing, skip_deserializing)]
     query: String,
-    #[serde(skip_serializing, skip_deserializing)]
     all_entries: Vec<Entry<T::Item>>,
-    #[serde(skip_serializing, skip_deserializing)]
     search_results: Vec<(Entry<T::Item>, Vec<u32>)>,
-    #[serde(skip_serializing, skip_deserializing)]
     selected: usize,
-    #[serde(skip_serializing, skip_deserializing)]
     rows: usize,
-    #[serde(skip_serializing, skip_deserializing)]
     cols: usize,
-    #[serde(skip_serializing, skip_deserializing)]
     input_mode: InputMode,
+
     #[serde(skip_serializing, skip_deserializing)]
     pattern: nucleo_matcher::pattern::Pattern,
     #[serde(skip_serializing, skip_deserializing)]
     matcher: nucleo_matcher::Matcher,
-    #[serde(skip_serializing, skip_deserializing)]
+
     _marker: std::marker::PhantomData<&'a T>,
 }
 
