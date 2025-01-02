@@ -358,7 +358,6 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
             .collect();
         new_search_results
             .sort_by_key(|(_, score, _)| std::cmp::Reverse(*score));
-        new_search_results.sort_by_key(|(entry, _, _)| entry.string.len());
         self.search_results = new_search_results
             .into_iter()
             .map(|(entry, _, indices)| (entry, indices))
