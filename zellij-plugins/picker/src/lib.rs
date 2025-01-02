@@ -182,8 +182,6 @@ pub struct PickerWorker<'a, T: Picker<'a>> {
     pattern: nucleo_matcher::pattern::Pattern,
     #[serde(skip_serializing, skip_deserializing)]
     matcher: nucleo_matcher::Matcher,
-
-    _marker: std::marker::PhantomData<&'a T>,
 }
 
 impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
