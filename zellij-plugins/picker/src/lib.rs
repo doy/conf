@@ -398,11 +398,17 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
     }
 
     fn down(&mut self) {
+        if self.search_results.is_empty() {
+            return;
+        }
         self.selected = (self.search_results.len() + self.selected + 1)
             % self.search_results.len();
     }
 
     fn up(&mut self) {
+        if self.search_results.is_empty() {
+            return;
+        }
         self.selected = (self.search_results.len() + self.selected - 1)
             % self.search_results.len();
     }
