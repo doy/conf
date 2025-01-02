@@ -101,6 +101,7 @@ impl ZellijPlugin for State {
             EventType::RunCommandResult,
             EventType::PermissionRequestResult,
         ]);
+        RbwPicker::enter_search_mode();
     }
 
     fn update(&mut self, event: Event) -> bool {

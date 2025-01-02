@@ -113,6 +113,7 @@ impl<T> Renderer<T> {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub enum Request {
     Event(Event),
+    ChangeMode(InputMode),
 }
 
 #[derive(Clone, serde::Serialize, serde::Deserialize)]
@@ -156,12 +157,20 @@ pub trait Picker<'a>: Default {
         zellij_tile::prelude::subscribe(PICKERWORKER_EVENTS);
         zellij_tile::prelude::subscribe(Self::EVENTS);
     }
+
+    fn enter_search_mode() {
+        send_request(
+            Self::WORKER_NAME,
+            Self::WORKER_NAME,
+            &Request::ChangeMode(InputMode::Search),
+        );
+    }
 }
 
 #[derive(
     Default, serde::Serialize, serde::Deserialize, Clone, Copy, PartialEq, Eq,
 )]
-enum InputMode {
+pub enum InputMode {
     #[default]
     Normal,
     Search,
@@ -417,6 +426,9 @@ where
 
         match serde_json::from_str(&message) {
             Ok(Request::Event(event)) => self.update(&event),
+            Ok(Request::ChangeMode(mode)) => {
+                self.input_mode = mode;
+            }
             Err(_e) => todo!(),
         }
     }
