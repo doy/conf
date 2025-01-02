@@ -1,5 +1,5 @@
-window-decoration = false
 gtk-titlebar = false
+gtk-adwaita = false
 gtk-single-instance = true
 confirm-close-surface = false
 
