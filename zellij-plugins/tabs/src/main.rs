@@ -19,9 +19,9 @@ impl picker::Picker<'_> for TabPicker {
         event: &Event,
         all_entries: &mut Vec<picker::Entry<Self::Item>>,
     ) -> bool {
-        if let Event::TabUpdate(info) = event {
-            let digits = digits(info.len());
-            *all_entries = info
+        if let Event::TabUpdate(tabs) = event {
+            let digits = digits(tabs.len());
+            *all_entries = tabs
                 .iter()
                 .map(|tab| picker::Entry {
                     data: u32::try_from(tab.position).unwrap(),
