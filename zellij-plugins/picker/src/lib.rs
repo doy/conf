@@ -2,23 +2,10 @@ use zellij_tile::prelude::*;
 
 use std::fmt::Write as _;
 
+use owo_colors::OwoColorize as _;
 use unicode_width::UnicodeWidthChar as _;
 
-const PICKERWORKER_PERMISSIONS: &[PermissionType] =
-    &[PermissionType::ReadApplicationState];
-const PICKERWORKER_EVENTS: &[EventType] = &[
-    EventType::Key,
-    EventType::CustomMessage,
-    EventType::PaneUpdate,
-];
-
-pub fn permissions() -> &'static [PermissionType] {
-    PICKERWORKER_PERMISSIONS
-}
-
-pub fn subscribe() {
-    zellij_tile::prelude::subscribe(PICKERWORKER_EVENTS);
-}
+const PICKER_EVENTS: &[EventType] = &[EventType::Key];
 
 #[derive(
     Debug, Clone, Default, serde::Serialize, serde::Deserialize, PartialEq, Eq,
@@ -34,19 +21,61 @@ impl<T> AsRef<str> for Entry<T> {
     }
 }
 
-#[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
-pub struct Renderer<T> {
-    visible_entries: Vec<(Entry<T>, Vec<u32>)>,
-    query: String,
-    selected: usize,
-    input_mode: InputMode,
-    rows: usize,
-    cols: usize,
+#[derive(Debug)]
+pub enum Response<T> {
+    Select(Entry<T>),
+    Cancel,
 }
 
-impl<T> Renderer<T> {
-    pub fn render(&self) {
-        use owo_colors::OwoColorize as _;
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+enum InputMode {
+    #[default]
+    Normal,
+    Search,
+}
+
+#[derive(Default)]
+pub struct Picker<T: Clone + PartialEq> {
+    query: String,
+    all_entries: Vec<Entry<T>>,
+    search_results: Vec<(Entry<T>, Vec<u32>)>,
+    selected: usize,
+    input_mode: InputMode,
+    needs_redraw: bool,
+
+    pattern: nucleo_matcher::pattern::Pattern,
+    matcher: nucleo_matcher::Matcher,
+}
+
+impl<T: Clone + PartialEq> Picker<T> {
+    pub fn load(
+        &mut self,
+        _configuration: &std::collections::BTreeMap<String, String>,
+    ) {
+        subscribe(PICKER_EVENTS);
+    }
+
+    pub fn update(&mut self, event: &Event) -> Option<Response<T>> {
+        match event {
+            Event::Key(key) => self.handle_key(key),
+            _ => None,
+        }
+    }
+
+    pub fn render(&mut self, rows: usize, cols: usize) {
+        if rows == 0 {
+            return;
+        }
+
+        let visible_entry_count = rows - 1;
+        let visible_entries: Vec<(Entry<T>, Vec<u32>)> = self
+            .search_results
+            .iter()
+            .skip((self.selected / visible_entry_count) * visible_entry_count)
+            .take(visible_entry_count)
+            .cloned()
+            .collect();
+        let visible_selected = self.selected % visible_entry_count;
 
         print!("  ");
         if self.input_mode == InputMode::Normal && self.query.is_empty() {
@@ -62,14 +91,13 @@ impl<T> Renderer<T> {
         }
         println!();
 
-        let lines: Vec<_> = self
-            .visible_entries
+        let lines: Vec<_> = visible_entries
             .iter()
             .enumerate()
             .map(|(i, (item, indices))| {
                 let mut line = String::new();
 
-                if i == self.selected {
+                if i == visible_selected {
                     write!(
                         &mut line,
                         "{} ",
@@ -82,7 +110,7 @@ impl<T> Renderer<T> {
 
                 let mut current_col = 2;
                 for (char_idx, c) in item.string.chars().enumerate() {
-                    if current_col + c.width().unwrap_or(0) > self.cols - 6 {
+                    if current_col + c.width().unwrap_or(0) > cols - 6 {
                         write!(
                             &mut line,
                             "{}",
@@ -98,7 +126,7 @@ impl<T> Renderer<T> {
                             c.fg::<owo_colors::colors::Cyan>()
                         )
                         .unwrap();
-                    } else if i == self.selected {
+                    } else if i == visible_selected {
                         write!(
                             &mut line,
                             "{}",
@@ -116,228 +144,38 @@ impl<T> Renderer<T> {
             .collect();
 
         print!("{}", lines.join("\n"));
-    }
-}
 
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub enum Request {
-    Event(Event),
-    Select(usize),
-    ChangeMode(InputMode),
-}
-
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
-pub enum Response<T> {
-    Render(Renderer<T>),
-    Select(Entry<T>),
-    Cancel,
-}
-
-pub trait Picker<'a>: Default {
-    const WORKER_NAME: &'static str;
-    type Item: std::fmt::Debug
-        + Default
-        + Clone
-        + serde::Serialize
-        + serde::de::DeserializeOwned
-        + PartialEq
-        + Eq;
-
-    fn update(
-        &mut self,
-        event: &Event,
-        all_entries: &mut Vec<Entry<Self::Item>>,
-    ) -> bool;
-
-    fn handle_event(event: Event) -> Option<Response<Self::Item>> {
-        send_request(
-            Self::WORKER_NAME,
-            Self::WORKER_NAME,
-            &Request::Event(event.clone()),
-        );
-        match event {
-            Event::CustomMessage(message, id) if id == Self::WORKER_NAME => {
-                Some(serde_json::from_str(&message).unwrap())
-            }
-            _ => None,
-        }
+        self.needs_redraw = false;
     }
 
-    fn select(idx: usize) {
-        send_request(
-            Self::WORKER_NAME,
-            Self::WORKER_NAME,
-            &Request::Select(idx),
-        );
+    pub fn needs_redraw(&self) -> bool {
+        self.needs_redraw
     }
 
-    fn enter_search_mode() {
-        send_request(
-            Self::WORKER_NAME,
-            Self::WORKER_NAME,
-            &Request::ChangeMode(InputMode::Search),
-        );
-    }
-}
-
-#[derive(
-    Debug,
-    Default,
-    serde::Serialize,
-    serde::Deserialize,
-    Clone,
-    Copy,
-    PartialEq,
-    Eq,
-)]
-pub enum InputMode {
-    #[default]
-    Normal,
-    Search,
-}
-
-#[derive(Default, serde::Serialize, serde::Deserialize)]
-pub struct PickerWorker<'a, T: Picker<'a>> {
-    picker: T,
-    query: String,
-    all_entries: Vec<Entry<T::Item>>,
-    search_results: Vec<(Entry<T::Item>, Vec<u32>)>,
-    selected: usize,
-    rows: usize,
-    cols: usize,
-    input_mode: InputMode,
-
-    #[serde(skip_serializing, skip_deserializing)]
-    pattern: nucleo_matcher::pattern::Pattern,
-    #[serde(skip_serializing, skip_deserializing)]
-    matcher: nucleo_matcher::Matcher,
-}
-
-impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
-    fn update(&mut self, event: &Event) {
-        let mut update = false;
-
-        update |= self.picker.update(event, &mut self.all_entries);
-
-        match event {
-            Event::Key(key) => update |= self.handle_key(key),
-            Event::PaneUpdate(panes) => {
-                let id = get_plugin_ids().plugin_id;
-                for pane in panes.panes.values().flatten() {
-                    if pane.is_plugin && pane.id == id {
-                        if self.rows != pane.pane_content_rows
-                            || self.cols != pane.pane_content_columns
-                        {
-                            self.rows = pane.pane_content_rows;
-                            self.cols = pane.pane_content_columns;
-                            update = true;
-                        }
-                        break;
-                    }
-                }
-            }
-            _ => {}
-        }
-
-        if update {
-            self.search();
-            self.render();
-        }
+    pub fn select(&mut self, idx: usize) {
+        self.selected = idx;
+        self.needs_redraw = true;
     }
 
-    fn handle_key(&mut self, key: &KeyWithModifier) -> bool {
-        self.handle_global_key(key)
-            .or_else(|| match self.input_mode {
-                InputMode::Normal => self.handle_normal_key(key),
-                InputMode::Search => self.handle_search_key(key),
-            })
-            .unwrap_or(false)
+    pub fn clear(&mut self) {
+        self.all_entries.clear();
+        self.search();
     }
 
-    fn handle_normal_key(&mut self, key: &KeyWithModifier) -> Option<bool> {
-        match key.bare_key {
-            BareKey::Char('j') if key.has_no_modifiers() => {
-                self.down();
-                Some(true)
-            }
-            BareKey::Char('k') if key.has_no_modifiers() => {
-                self.up();
-                Some(true)
-            }
-            BareKey::Char(c @ '1'..='8') if key.has_no_modifiers() => {
-                let position =
-                    usize::try_from(c.to_digit(10).unwrap() - 1).unwrap();
-                if let Some(item) = self.search_results.get(position) {
-                    Self::send_response(&Response::Select(item.0.clone()));
-                }
-                Some(false)
-            }
-            BareKey::Char('9') if key.has_no_modifiers() => {
-                if let Some(item) = self.search_results.last() {
-                    Self::send_response(&Response::Select(item.0.clone()));
-                }
-                Some(false)
-            }
-            BareKey::Char('/') if key.has_no_modifiers() => {
-                self.input_mode = InputMode::Search;
-                Some(true)
-            }
-            _ => None,
-        }
+    pub fn extend(&mut self, iter: impl IntoIterator<Item = Entry<T>>) {
+        self.all_entries.extend(iter);
+        self.search();
     }
 
-    fn handle_search_key(&mut self, key: &KeyWithModifier) -> Option<bool> {
-        match key.bare_key {
-            BareKey::Char(c) if key.has_no_modifiers() => {
-                self.query.push(c);
-                Some(true)
-            }
-            BareKey::Backspace if key.has_no_modifiers() => {
-                self.query.pop();
-                Some(true)
-            }
-            _ => None,
-        }
-    }
-
-    fn handle_global_key(&mut self, key: &KeyWithModifier) -> Option<bool> {
-        match key.bare_key {
-            BareKey::Tab if key.has_no_modifiers() => {
-                self.down();
-                Some(true)
-            }
-            BareKey::Down if key.has_no_modifiers() => {
-                self.down();
-                Some(true)
-            }
-            BareKey::Tab if key.has_modifiers(&[KeyModifier::Shift]) => {
-                self.up();
-                Some(true)
-            }
-            BareKey::Up if key.has_no_modifiers() => {
-                self.up();
-                Some(true)
-            }
-            BareKey::Esc if key.has_no_modifiers() => {
-                self.input_mode = InputMode::Normal;
-                Some(true)
-            }
-            BareKey::Char('c') if key.has_modifiers(&[KeyModifier::Ctrl]) => {
-                Self::send_response(&Response::Cancel);
-                Some(false)
-            }
-            BareKey::Enter if key.has_no_modifiers() => {
-                Self::send_response(&Response::Select(
-                    self.search_results[self.selected].0.clone(),
-                ));
-                Some(false)
-            }
-            _ => None,
-        }
+    pub fn enter_search_mode(&mut self) {
+        self.input_mode = InputMode::Search;
     }
 
     fn search(&mut self) {
-        let prev_len = self.search_results.len();
+        let prev_selected = self
+            .search_results
+            .get(self.selected)
+            .map(|(entry, _)| entry.clone());
 
         self.pattern.reparse(
             &self.query,
@@ -366,38 +204,117 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
             .map(|(entry, _, indices)| (entry, indices))
             .collect();
 
-        if prev_len != self.search_results.len() {
-            self.selected = 0;
-        }
-    }
-
-    fn render(&self) {
-        if self.rows == 0 {
-            return;
-        }
-        let visible_entry_count = self.rows - 1;
-        let renderer = Renderer {
-            visible_entries: self
+        if let Some(prev_selected) = prev_selected {
+            self.selected = self
                 .search_results
                 .iter()
-                .skip(
-                    (self.selected / visible_entry_count)
-                        * visible_entry_count,
-                )
-                .take(visible_entry_count)
-                .cloned()
-                .collect(),
-            query: self.query.clone(),
-            selected: self.selected % visible_entry_count,
-            input_mode: self.input_mode,
-            rows: self.rows,
-            cols: self.cols,
-        };
-        Self::send_response(&Response::Render(renderer));
+                .enumerate()
+                .find_map(|(idx, (entry, _))| {
+                    (*entry == prev_selected).then_some(idx)
+                })
+                .unwrap_or(0);
+        }
+
+        self.needs_redraw = true;
     }
 
-    fn send_response(response: &Response<T::Item>) {
-        send_response(T::WORKER_NAME, response);
+    fn handle_key(&mut self, key: &KeyWithModifier) -> Option<Response<T>> {
+        self.handle_global_key(key)
+            .or_else(|| match self.input_mode {
+                InputMode::Normal => self.handle_normal_key(key),
+                InputMode::Search => self.handle_search_key(key),
+            })
+    }
+
+    fn handle_normal_key(
+        &mut self,
+        key: &KeyWithModifier,
+    ) -> Option<Response<T>> {
+        match key.bare_key {
+            BareKey::Char('j') if key.has_no_modifiers() => {
+                self.down();
+            }
+            BareKey::Char('k') if key.has_no_modifiers() => {
+                self.up();
+            }
+            BareKey::Char(c @ '1'..='8') if key.has_no_modifiers() => {
+                let position =
+                    usize::try_from(c.to_digit(10).unwrap() - 1).unwrap();
+                return self
+                    .search_results
+                    .get(position)
+                    .map(|item| Response::Select(item.0.clone()));
+            }
+            BareKey::Char('9') if key.has_no_modifiers() => {
+                return self
+                    .search_results
+                    .last()
+                    .map(|item| Response::Select(item.0.clone()))
+            }
+            BareKey::Char('/') if key.has_no_modifiers() => {
+                self.input_mode = InputMode::Search;
+                self.needs_redraw = true;
+            }
+            _ => {}
+        }
+
+        None
+    }
+
+    fn handle_search_key(
+        &mut self,
+        key: &KeyWithModifier,
+    ) -> Option<Response<T>> {
+        match key.bare_key {
+            BareKey::Char(c) if key.has_no_modifiers() => {
+                self.query.push(c);
+                self.search();
+                self.selected = 0;
+            }
+            BareKey::Backspace if key.has_no_modifiers() => {
+                self.query.pop();
+                self.search();
+                self.selected = 0;
+            }
+            _ => {}
+        }
+
+        None
+    }
+
+    fn handle_global_key(
+        &mut self,
+        key: &KeyWithModifier,
+    ) -> Option<Response<T>> {
+        match key.bare_key {
+            BareKey::Tab if key.has_no_modifiers() => {
+                self.down();
+            }
+            BareKey::Down if key.has_no_modifiers() => {
+                self.down();
+            }
+            BareKey::Tab if key.has_modifiers(&[KeyModifier::Shift]) => {
+                self.up();
+            }
+            BareKey::Up if key.has_no_modifiers() => {
+                self.up();
+            }
+            BareKey::Esc if key.has_no_modifiers() => {
+                self.input_mode = InputMode::Normal;
+                self.needs_redraw = true;
+            }
+            BareKey::Char('c') if key.has_modifiers(&[KeyModifier::Ctrl]) => {
+                return Some(Response::Cancel);
+            }
+            BareKey::Enter if key.has_no_modifiers() => {
+                return Some(Response::Select(
+                    self.search_results[self.selected].0.clone(),
+                ));
+            }
+            _ => {}
+        }
+
+        None
     }
 
     fn down(&mut self) {
@@ -406,6 +323,7 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
         }
         self.selected = (self.search_results.len() + self.selected + 1)
             % self.search_results.len();
+        self.needs_redraw = true;
     }
 
     fn up(&mut self) {
@@ -414,43 +332,6 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
         }
         self.selected = (self.search_results.len() + self.selected - 1)
             % self.search_results.len();
+        self.needs_redraw = true;
     }
-}
-
-impl<'a, T> zellij_tile::ZellijWorker<'a> for PickerWorker<'a, T>
-where
-    T: Picker<'a> + serde::Serialize + serde::Deserialize<'a>,
-{
-    fn on_message(&mut self, message: String, id: String) {
-        if id != T::WORKER_NAME {
-            return;
-        }
-
-        match serde_json::from_str(&message) {
-            Ok(Request::Event(event)) => self.update(&event),
-            Ok(Request::Select(idx)) => self.selected = idx,
-            Ok(Request::ChangeMode(mode)) => {
-                self.input_mode = mode;
-            }
-            Err(_e) => todo!(),
-        }
-    }
-}
-
-fn send_request(worker_name: &str, message_id: &str, request: &Request) {
-    post_message_to(PluginMessage::new_to_worker(
-        worker_name,
-        &serde_json::to_string(request).unwrap(),
-        message_id,
-    ));
-}
-
-fn send_response<T: serde::Serialize>(
-    message_id: &str,
-    response: &Response<T>,
-) {
-    post_message_to_plugin(PluginMessage::new_to_plugin(
-        &serde_json::to_string(response).unwrap(),
-        message_id,
-    ));
 }
