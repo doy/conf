@@ -63,22 +63,25 @@ impl ZellijPlugin for State {
     }
 
     fn update(&mut self, event: Event) -> bool {
-        let Some(response) = TabPicker::handle_event(event.clone()) else {
-            return false;
-        };
+        if let Event::TabUpdate(tabs) = &event {
+            TabPicker::select(
+                get_focused_tab(tabs).map(|tab| tab.position).unwrap_or(0),
+            );
+        }
 
-        match response {
-            picker::Response::Render(renderer) => {
+        match TabPicker::handle_event(event) {
+            Some(picker::Response::Render(renderer)) => {
                 self.picker_renderer = renderer;
                 return true;
             }
-            picker::Response::Select(tab) => {
+            Some(picker::Response::Select(tab)) => {
                 go_to_tab(tab.data);
                 close_self();
             }
-            picker::Response::Cancel => {
+            Some(picker::Response::Cancel) => {
                 close_self();
             }
+            None => {}
         }
 
         false

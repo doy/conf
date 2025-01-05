@@ -10,7 +10,6 @@ const PICKERWORKER_EVENTS: &[EventType] = &[
     EventType::Key,
     EventType::CustomMessage,
     EventType::PaneUpdate,
-    EventType::TabUpdate,
 ];
 
 pub fn permissions() -> &'static [PermissionType] {
@@ -123,6 +122,7 @@ impl<T> Renderer<T> {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub enum Request {
     Event(Event),
+    Select(usize),
     ChangeMode(InputMode),
 }
 
@@ -161,6 +161,14 @@ pub trait Picker<'a>: Default {
             }
             _ => None,
         }
+    }
+
+    fn select(idx: usize) {
+        send_request(
+            Self::WORKER_NAME,
+            Self::WORKER_NAME,
+            &Request::Select(idx),
+        );
     }
 
     fn enter_search_mode() {
@@ -213,11 +221,6 @@ impl<'a, T: Picker<'a>> PickerWorker<'a, T> {
 
         match event {
             Event::Key(key) => update |= self.handle_key(key),
-            Event::TabUpdate(tabs) => {
-                self.selected = get_focused_tab(tabs)
-                    .map(|info| info.position)
-                    .unwrap_or(0);
-            }
             Event::PaneUpdate(panes) => {
                 let id = get_plugin_ids().plugin_id;
                 for pane in panes.panes.values().flatten() {
@@ -425,6 +428,7 @@ where
 
         match serde_json::from_str(&message) {
             Ok(Request::Event(event)) => self.update(&event),
+            Ok(Request::Select(idx)) => self.selected = idx,
             Ok(Request::ChangeMode(mode)) => {
                 self.input_mode = mode;
             }
