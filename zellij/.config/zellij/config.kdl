@@ -70,7 +70,3 @@ keybinds clear-defaults=true {
         bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
     }
 }
-
-load_plugins {
-    "file:~/.config/zellij/plugins/paste.wasm"
-}
