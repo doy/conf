@@ -11,7 +11,7 @@ struct RbwEntry {
 
 #[derive(Default)]
 struct State {
-    picker: picker::Picker<RbwEntry>,
+    picker: zellij_nucleo::Picker<RbwEntry>,
     tabs: Vec<TabInfo>,
     panes: PaneManifest,
 }
@@ -39,7 +39,7 @@ impl ZellijPlugin for State {
     fn update(&mut self, event: Event) -> bool {
         if let Some(response) = self.picker.update(&event) {
             match response {
-                picker::Response::Select(entry) => {
+                zellij_nucleo::Response::Select(entry) => {
                     let mut cmd = vec!["rbw", "get", &entry.data.name];
                     if let Some(user) = &entry.data.user {
                         cmd.push(user);
@@ -50,7 +50,7 @@ impl ZellijPlugin for State {
                     }
                     run_command(&cmd, ctx("rbw get"));
                 }
-                picker::Response::Cancel => {
+                zellij_nucleo::Response::Cancel => {
                     close_self();
                 }
             }
@@ -103,7 +103,7 @@ impl ZellijPlugin for State {
                                 .into_iter()
                                 .flatten()
                                 .collect();
-                                picker::Entry {
+                                zellij_nucleo::Entry {
                                     data: RbwEntry { name, user, folder },
                                     string: parts.join("/"),
                                 }

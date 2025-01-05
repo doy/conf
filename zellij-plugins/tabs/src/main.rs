@@ -2,7 +2,7 @@ use zellij_tile::prelude::*;
 
 #[derive(Default)]
 struct State {
-    picker: picker::Picker<u32>,
+    picker: zellij_nucleo::Picker<u32>,
 }
 
 register_plugin!(State);
@@ -23,11 +23,11 @@ impl ZellijPlugin for State {
 
     fn update(&mut self, event: Event) -> bool {
         match self.picker.update(&event) {
-            Some(picker::Response::Select(entry)) => {
+            Some(zellij_nucleo::Response::Select(entry)) => {
                 go_to_tab(entry.data);
                 close_self();
             }
-            Some(picker::Response::Cancel) => {
+            Some(zellij_nucleo::Response::Cancel) => {
                 close_self();
             }
             None => {}
@@ -42,10 +42,15 @@ impl ZellijPlugin for State {
             };
 
             self.picker.clear();
-            self.picker.extend(tabs.iter().map(|tab| picker::Entry {
-                data: u32::try_from(tab.position).unwrap(),
-                string: format!("{:digits$}: {}", tab.position + 1, tab.name),
-            }));
+            self.picker
+                .extend(tabs.iter().map(|tab| zellij_nucleo::Entry {
+                    data: u32::try_from(tab.position).unwrap(),
+                    string: format!(
+                        "{:digits$}: {}",
+                        tab.position + 1,
+                        tab.name
+                    ),
+                }));
 
             self.picker.select(
                 get_focused_tab(&tabs).map(|tab| tab.position).unwrap_or(0),

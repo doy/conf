@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-picker = { path = "../picker" }
 serde = "1.0.217"
+zellij-nucleo = "0.0.1"
 zellij-tile = "0.41.1"

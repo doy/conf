@@ -1,4 +1,4 @@
 [workspace]
-members = ["paste", "picker", "rbw", "tabs"]
-default-members = ["paste", "picker", "rbw", "tabs"]
+members = ["paste", "rbw", "tabs"]
+default-members = ["paste", "rbw", "tabs"]
 resolver = "2"

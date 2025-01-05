@@ -2015,18 +2015,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "picker"
-version = "0.1.0"
-dependencies = [
- "nucleo-matcher",
- "owo-colors",
- "serde",
- "serde_json",
- "unicode-width",
- "zellij-tile",
-]
-
-[[package]]
 name = "pin-project"
 version = "1.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2255,8 +2243,8 @@ dependencies = [
 name = "rbw"
 version = "0.1.0"
 dependencies = [
- "picker",
  "serde",
+ "zellij-nucleo",
  "zellij-tile",
 ]
 
@@ -2674,8 +2662,8 @@ dependencies = [
 name = "tabs"
 version = "0.1.0"
 dependencies = [
- "picker",
  "serde",
+ "zellij-nucleo",
  "zellij-tile",
 ]
 
@@ -3466,6 +3454,20 @@ dependencies = [
  "quote",
  "syn 2.0.92",
  "synstructure",
+]
+
+[[package]]
+name = "zellij-nucleo"
+version = "0.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc9dfaf03639e7ea631cd41c4961620952ba90d6f860b36841b7314e28277894"
+dependencies = [
+ "nucleo-matcher",
+ "owo-colors",
+ "serde",
+ "serde_json",
+ "unicode-width",
+ "zellij-tile",
 ]
 
 [[package]]
