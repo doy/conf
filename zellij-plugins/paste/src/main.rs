@@ -1,11 +1,26 @@
 use zellij_tile::prelude::*;
 
+const DEFAULT_COMMANDS: &[&str] =
+    &["pbpaste", "wl-paste", "xclip -o -selection clipboard"];
+
 #[derive(Default)]
 struct State {
     got_permission: bool,
-    cmd: Option<String>,
-    buffer: usize,
-    ready: usize,
+    cmds: Vec<(String, Option<bool>)>,
+    pending_pastes: usize,
+}
+
+impl State {
+    fn cmd(&self) -> Option<&str> {
+        if self.cmds.iter().all(|cmd| cmd.1.is_some()) {
+            self.cmds
+                .iter()
+                .find(|cmd| cmd.1.unwrap())
+                .map(|cmd| cmd.0.as_ref())
+        } else {
+            None
+        }
+    }
 }
 
 register_plugin!(State);
@@ -23,18 +38,20 @@ impl ZellijPlugin for State {
             EventType::PermissionRequestResult,
             EventType::RunCommandResult,
         ]);
-        self.cmd = configuration.get("cmd").cloned();
+        self.cmds = configuration
+            .get("cmds")
+            .map(|cmds| cmds.split(',').collect())
+            .unwrap_or_else(|| DEFAULT_COMMANDS.to_vec())
+            .into_iter()
+            .map(|s| (s.to_string(), None))
+            .collect();
     }
 
     fn pipe(&mut self, _message: PipeMessage) -> bool {
-        if self.got_permission {
-            if let Some(cmd) = &self.cmd {
-                run_command(&["sh", "-c", cmd], ctx("paste"));
-            } else {
-                self.buffer += 1;
-            }
+        if let Some(cmd) = self.cmd() {
+            run_command(&["sh", "-c", cmd], ctx("paste"));
         } else {
-            self.buffer += 1;
+            self.pending_pastes += 1;
         }
 
         false
@@ -47,38 +64,20 @@ impl ZellijPlugin for State {
                 set_selectable(false);
                 hide_self();
 
-                if self.cmd.is_some() {
-                    self.ready = 3;
-                } else {
-                    run_command(&["which", "pbpaste"], ctx("which pbpaste"));
-                    run_command(
-                        &["which", "wl-paste"],
-                        ctx("which wl-paste"),
-                    );
-                    run_command(&["which", "xclip"], ctx("which xclip"));
+                let ctx = ctx("which");
+                for (i, (cmd, _)) in self.cmds.iter().enumerate() {
+                    let mut ctx = ctx.clone();
+                    ctx.insert("idx".to_string(), i.to_string());
+                    let cmd = cmd.split_whitespace().next().unwrap();
+                    run_command(&["which", cmd], ctx);
                 }
             }
             Event::RunCommandResult(code, stdout, _, context) => {
                 match context.get("source").map(|s| s.as_str()) {
-                    Some("which pbpaste") => {
-                        if code == Some(0) {
-                            self.cmd = Some("pbpaste".to_string());
-                        }
-                        self.ready += 1;
-                    }
-                    Some("which wl-paste") => {
-                        if code == Some(0) {
-                            self.cmd = Some("wl-paste".to_string());
-                        }
-                        self.ready += 1;
-                    }
-                    Some("which xclip") => {
-                        if code == Some(0) && self.cmd.is_none() {
-                            self.cmd = Some(
-                                "xclip -o -selection clipboard".to_string(),
-                            );
-                        }
-                        self.ready += 1;
+                    Some("which") => {
+                        let idx: usize =
+                            context.get("idx").unwrap().parse().unwrap();
+                        self.cmds[idx].1 = Some(code == Some(0));
                     }
                     Some("paste") => {
                         if code == Some(0) {
@@ -91,12 +90,12 @@ impl ZellijPlugin for State {
             _ => (),
         }
 
-        if self.got_permission && self.ready == 3 && self.buffer > 0 {
-            if let Some(cmd) = &self.cmd {
-                for _ in 0..self.buffer {
+        if self.pending_pastes > 0 {
+            if let (true, Some(cmd)) = (self.got_permission, self.cmd()) {
+                for _ in 0..self.pending_pastes {
                     run_command(&["sh", "-c", cmd], ctx("paste"));
                 }
-                self.buffer = 0;
+                self.pending_pastes = 0;
             }
         }
 
