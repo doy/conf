@@ -26,8 +26,9 @@ impl ZellijPlugin for State {
             EventType::PermissionRequestResult,
         ]);
         self.pane_tracker.load();
-        self.picker.load(&configuration);
         self.picker.enter_search_mode();
+        self.picker.set_match_paths();
+        self.picker.load(&configuration);
     }
 
     fn update(&mut self, event: Event) -> bool {
