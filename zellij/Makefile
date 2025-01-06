@@ -13,8 +13,7 @@ clean:
 	@mkdir -p "$(dir $@)"
 	@cp $< $@
 
-$(BUILT_PLUGINS): zellij-plugins
-
-zellij-plugins:
+$(BUILT_PLUGINS) &: FORCE
 	@cd ../zellij-plugins && cargo build --release
-.PHONY: zellij-plugins
+
+FORCE:
