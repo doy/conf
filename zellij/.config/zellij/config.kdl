@@ -48,6 +48,12 @@ keybinds clear-defaults=true {
             };
             SwitchToMode "locked";
         }
+        bind "t" {
+            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/fzf.wasm" {
+                floating true
+            };
+            SwitchToMode "locked";
+        }
     }
 
     entersearch {

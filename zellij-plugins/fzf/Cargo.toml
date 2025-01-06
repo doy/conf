@@ -1,0 +1,9 @@
+[package]
+name = "fzf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = "1.0.217"
+zellij-nucleo = "0.0.1"
+zellij-tile = "0.41.1"
