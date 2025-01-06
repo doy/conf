@@ -2,7 +2,7 @@ use zellij_tile::prelude::*;
 
 #[derive(Default)]
 struct State {
-    picker: zellij_nucleo::Picker<()>,
+    picker: zellij_nucleo::Picker<Vec<u8>>,
     pane_tracker: util::FocusedPaneTracker,
 }
 
@@ -34,7 +34,7 @@ impl ZellijPlugin for State {
     fn update(&mut self, event: Event) -> bool {
         match self.picker.update(&event) {
             Some(zellij_nucleo::Response::Select(entry)) => {
-                self.pane_tracker.write_chars(&entry.string);
+                self.pane_tracker.write(entry.data);
                 close_self();
             }
             Some(zellij_nucleo::Response::Cancel) => {
@@ -55,15 +55,13 @@ impl ZellijPlugin for State {
             Event::RunCommandResult(code, stdout, _, ctx) => {
                 if code == Some(0) && ctx["source"] == "rg files" {
                     self.picker.extend(
-                        std::str::from_utf8(&stdout)
-                            .unwrap()
-                            .trim_end_matches('\n')
-                            .split('\n')
-                            .map(str::to_string)
-                            .map(|string| zellij_nucleo::Entry {
-                                string,
-                                data: (),
-                            }),
+                        stdout.trim_ascii_end().split(|c| *c == b'\n').map(
+                            |s| zellij_nucleo::Entry {
+                                string: String::from_utf8_lossy(s)
+                                    .into_owned(),
+                                data: s.to_vec(),
+                            },
+                        ),
                     )
                 }
             }
