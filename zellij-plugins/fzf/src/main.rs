@@ -3,8 +3,7 @@ use zellij_tile::prelude::*;
 #[derive(Default)]
 struct State {
     picker: zellij_nucleo::Picker<()>,
-    tabs: Vec<TabInfo>,
-    panes: PaneManifest,
+    pane_tracker: util::FocusedPaneTracker,
 }
 
 register_plugin!(State);
@@ -26,6 +25,7 @@ impl ZellijPlugin for State {
             EventType::RunCommandResult,
             EventType::PermissionRequestResult,
         ]);
+        self.pane_tracker.load();
         self.picker.load(&configuration);
         self.picker.enter_search_mode();
     }
@@ -33,19 +33,7 @@ impl ZellijPlugin for State {
     fn update(&mut self, event: Event) -> bool {
         match self.picker.update(&event) {
             Some(zellij_nucleo::Response::Select(entry)) => {
-                if let Some(pane) = get_focused_pane(
-                    get_focused_tab(&self.tabs)
-                        .map(|tab| tab.position)
-                        .unwrap_or(0),
-                    &self.panes,
-                ) {
-                    if !pane.is_plugin {
-                        write_chars_to_pane_id(
-                            &entry.string,
-                            PaneId::Terminal(pane.id),
-                        );
-                    }
-                }
+                self.pane_tracker.write_chars(&entry.string);
                 close_self();
             }
             Some(zellij_nucleo::Response::Cancel) => {
@@ -54,15 +42,14 @@ impl ZellijPlugin for State {
             None => {}
         }
 
+        self.pane_tracker.update(&event);
+
         match event {
             Event::PermissionRequestResult(PermissionStatus::Granted) => {
-                run_command(&["rg", "--files", "--hidden"], ctx("rg files"));
-            }
-            Event::TabUpdate(tabs) => {
-                self.tabs = tabs;
-            }
-            Event::PaneUpdate(panes) => {
-                self.panes = panes;
+                run_command(
+                    &["rg", "--files", "--hidden"],
+                    util::ctx("rg files"),
+                );
             }
             Event::RunCommandResult(code, stdout, _, ctx) => {
                 if code == Some(0) && ctx["source"] == "rg files" {
@@ -88,10 +75,4 @@ impl ZellijPlugin for State {
     fn render(&mut self, rows: usize, cols: usize) {
         self.picker.render(rows, cols);
     }
-}
-
-fn ctx(source: &str) -> std::collections::BTreeMap<String, String> {
-    let mut map = std::collections::BTreeMap::new();
-    map.insert("source".to_string(), source.to_string());
-    map
 }

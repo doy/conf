@@ -1,4 +1,4 @@
 [workspace]
-members = ["fzf", "paste", "rbw", "tabs"]
+members = ["fzf", "paste", "rbw", "tabs", "util"]
 default-members = ["fzf", "paste", "rbw", "tabs"]
 resolver = "2"

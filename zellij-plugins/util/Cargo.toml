@@ -1,9 +1,7 @@
 [package]
-name = "fzf"
+name = "util"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-util = { path = "../util" }
-zellij-nucleo = "0.0.1"
 zellij-tile = "0.41.1"

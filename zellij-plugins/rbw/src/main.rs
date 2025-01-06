@@ -10,8 +10,7 @@ struct RbwEntry {
 #[derive(Default)]
 struct State {
     picker: zellij_nucleo::Picker<RbwEntry>,
-    tabs: Vec<TabInfo>,
-    panes: PaneManifest,
+    pane_tracker: util::FocusedPaneTracker,
 }
 
 register_plugin!(State);
@@ -33,6 +32,7 @@ impl ZellijPlugin for State {
             EventType::RunCommandResult,
             EventType::PermissionRequestResult,
         ]);
+        self.pane_tracker.load();
         self.picker.load(&configuration);
         self.picker.enter_search_mode();
     }
@@ -49,7 +49,7 @@ impl ZellijPlugin for State {
                         cmd.push("--folder");
                         cmd.push(folder);
                     }
-                    run_command(&cmd, ctx("rbw get"));
+                    run_command(&cmd, util::ctx("rbw get"));
                 }
                 zellij_nucleo::Response::Cancel => {
                     close_self();
@@ -57,18 +57,14 @@ impl ZellijPlugin for State {
             }
         }
 
+        self.pane_tracker.update(&event);
+
         match event {
             Event::PermissionRequestResult(PermissionStatus::Granted) => {
                 run_command(
                     &["rbw", "ls", "--fields", "name,user,folder"],
-                    ctx("rbw ls"),
+                    util::ctx("rbw ls"),
                 );
-            }
-            Event::TabUpdate(tabs) => {
-                self.tabs = tabs;
-            }
-            Event::PaneUpdate(panes) => {
-                self.panes = panes;
             }
             Event::RunCommandResult(code, stdout, _, ctx) => {
                 if ctx["source"] == "rbw ls" && code == Some(0) {
@@ -112,19 +108,7 @@ impl ZellijPlugin for State {
                     );
                     return true;
                 } else if ctx["source"] == "rbw get" && code == Some(0) {
-                    if let Some(pane) = get_focused_pane(
-                        get_focused_tab(&self.tabs)
-                            .map(|tab| tab.position)
-                            .unwrap_or(0),
-                        &self.panes,
-                    ) {
-                        if !pane.is_plugin {
-                            write_to_pane_id(
-                                stdout,
-                                PaneId::Terminal(pane.id),
-                            );
-                        }
-                    }
+                    self.pane_tracker.write(stdout);
                     close_self();
                 }
             }
@@ -137,10 +121,4 @@ impl ZellijPlugin for State {
     fn render(&mut self, rows: usize, cols: usize) {
         self.picker.render(rows, cols);
     }
-}
-
-fn ctx(source: &str) -> std::collections::BTreeMap<String, String> {
-    let mut map = std::collections::BTreeMap::new();
-    map.insert("source".to_string(), source.to_string());
-    map
 }
