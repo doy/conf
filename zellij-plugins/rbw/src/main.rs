@@ -1,8 +1,6 @@
 use zellij_tile::prelude::*;
 
-#[derive(
-    Debug, Clone, Default, serde::Serialize, serde::Deserialize, PartialEq, Eq,
-)]
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
 struct RbwEntry {
     name: String,
     user: Option<String>,

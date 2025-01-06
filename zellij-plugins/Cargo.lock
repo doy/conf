@@ -968,7 +968,6 @@ dependencies = [
 name = "fzf"
 version = "0.1.0"
 dependencies = [
- "serde",
  "zellij-nucleo",
  "zellij-tile",
 ]
@@ -2252,7 +2251,6 @@ dependencies = [
 name = "rbw"
 version = "0.1.0"
 dependencies = [
- "serde",
  "zellij-nucleo",
  "zellij-tile",
 ]
@@ -2671,7 +2669,6 @@ dependencies = [
 name = "tabs"
 version = "0.1.0"
 dependencies = [
- "serde",
  "zellij-nucleo",
  "zellij-tile",
 ]
