@@ -3,7 +3,7 @@ set -eu
 set -o pipefail
 
 # key bindings
-setxkbmap -option ctrl:nocaps
+setxkbmap -option
 setxkbmap -option compose:caps
 xmodmap "$HOME"/.Xmodmap
 "$(dirname "$0")"/numkeys on
