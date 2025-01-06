@@ -24,11 +24,14 @@ impl ZellijPlugin for State {
         configuration: std::collections::BTreeMap<String, String>,
     ) {
         request_permission(&[
+            PermissionType::ReadApplicationState,
             PermissionType::RunCommands,
             PermissionType::WriteToStdin,
         ]);
 
         subscribe(&[
+            EventType::TabUpdate,
+            EventType::PaneUpdate,
             EventType::RunCommandResult,
             EventType::PermissionRequestResult,
         ]);
