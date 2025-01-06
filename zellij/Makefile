@@ -13,7 +13,5 @@ clean:
 	@mkdir -p "$(dir $@)"
 	@cp $< $@
 
-$(BUILT_PLUGINS) &: FORCE
-	@cd ../zellij-plugins && cargo build --release
-
-FORCE:
+$(BUILT_PLUGINS) &: $(shell git ls-files ../zellij-plugins)
+	@cd ../zellij-plugins && cargo build --release && touch target/wasm32-wasip1/release/*.wasm
