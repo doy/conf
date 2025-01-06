@@ -42,6 +42,7 @@ impl ZellijPlugin for State {
         if let Some(response) = self.picker.update(&event) {
             match response {
                 zellij_nucleo::Response::Select(entry) => {
+                    let entry = &self.picker.entries()[entry];
                     let mut cmd = vec!["rbw", "get", &entry.data.name];
                     if let Some(user) = &entry.data.user {
                         cmd.push(user);

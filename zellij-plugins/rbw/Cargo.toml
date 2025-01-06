@@ -5,5 +5,5 @@ edition = "2021"
 
 [dependencies]
 util = { path = "../util" }
-zellij-nucleo = "0.0.5"
+zellij-nucleo = "0.0.6"
 zellij-tile = "0.41.1"

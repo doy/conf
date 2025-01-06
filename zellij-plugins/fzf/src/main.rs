@@ -34,7 +34,8 @@ impl ZellijPlugin for State {
     fn update(&mut self, event: Event) -> bool {
         match self.picker.update(&event) {
             Some(zellij_nucleo::Response::Select(entry)) => {
-                self.pane_tracker.write(entry.data);
+                self.pane_tracker
+                    .write(self.picker.entries()[entry].data.clone());
                 close_self();
             }
             Some(zellij_nucleo::Response::Cancel) => {

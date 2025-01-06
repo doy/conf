@@ -24,7 +24,7 @@ impl ZellijPlugin for State {
     fn update(&mut self, event: Event) -> bool {
         match self.picker.update(&event) {
             Some(zellij_nucleo::Response::Select(entry)) => {
-                go_to_tab(entry.data);
+                go_to_tab(self.picker.entries()[entry].data);
                 close_self();
             }
             Some(zellij_nucleo::Response::Cancel) => {

@@ -3473,14 +3473,12 @@ dependencies = [
 
 [[package]]
 name = "zellij-nucleo"
-version = "0.0.5"
+version = "0.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43cb4736df2df8d0a7bce1b43bb95382cbea05883c60f8fa27ba7a30c103e15a"
+checksum = "7c3508c8773de4339c50e8f5a26a2b186600208c1d4ac51a559acd492d0f103f"
 dependencies = [
  "nucleo-matcher",
  "owo-colors",
- "serde",
- "serde_json",
  "unicode-width",
  "zellij-tile",
 ]
