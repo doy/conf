@@ -8,6 +8,7 @@ my $char = $ENV{USER} eq 'root' ? '#' : '\\\\$';
 my $user = $ENV{USER} eq 'root' ? 'bright-red' : 'bright-blue';
 my $host = {
   'mz-doy1' => 'bright-white',
+  'mz-doy2' => 'bright-white',
   'tozt' => 'bright-yellow',
   'partofme' => 'purple',
   'mail' => 'green',
