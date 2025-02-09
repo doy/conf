@@ -1,0 +1,25 @@
+#!/bin/sh
+set -eu
+
+write() {
+  echo "$1" | sudo tee /sys/class/power_supply/BAT0/"$2" > /dev/null
+}
+
+case "$1" in
+  restrict)
+    write 40 charge_control_start_threshold
+    write 80 charge_control_end_threshold
+    write auto charge_behaviour
+  ;;
+  force)
+    write force-discharge charge_behaviour
+  ;;
+  inhibit)
+    write inhibit-charge charge_behaviour
+  ;;
+  reset)
+    write 0 charge_control_start_threshold
+    write 100 charge_control_end_threshold
+    write auto charge_behaviour
+  ;;
+esac
