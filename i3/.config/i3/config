@@ -17,6 +17,7 @@ for_window [instance="Alacritty-tdrop"] floating enable
 for_window [instance="Alacritty-tdrop"] sticky enable
 for_window [instance="ghostty-tdrop"] floating enable
 for_window [instance="ghostty-tdrop"] sticky enable
+for_window [instance="ghostty"] border pixel 1
 
 for_window [class="zoom" title="zoom"] floating enable
 no_focus [class="zoom" title="zoom"]
