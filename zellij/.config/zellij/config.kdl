@@ -1,4 +1,5 @@
 session_serialization false
+show_startup_tips false
 copy_clipboard "primary"
 scrollback_editor "less +G"
 pane_frames false
@@ -6,73 +7,80 @@ mouse_mode false
 
 default_mode "locked"
 keybinds clear-defaults=true {
-    shared_except "locked" {
-        bind "Esc" "Ctrl c" { SwitchToMode "locked"; }
+    normal {
+        bind "Ctrl d" { Detach; }
+        bind "f" { Write 6; SwitchToMode "locked"; }
+        bind "Ctrl f" {
+            LaunchOrFocusPlugin "file:/home/doy/.config/zellij/plugins/tabs.wasm" {
+                floating true
+            }
+            SwitchToMode "locked"
+        }
+        bind "Ctrl n" { NewTab; SwitchToMode "locked"; }
+        bind "p" {
+            LaunchOrFocusPlugin "file:/home/doy/.config/zellij/plugins/rbw.wasm" {
+                floating true
+            }
+            SwitchToMode "locked"
+        }
+        bind "Ctrl q" { CloseTab; SwitchToMode "locked"; }
+        bind "t" {
+            LaunchOrFocusPlugin "file:/home/doy/.config/zellij/plugins/fzf.wasm" {
+                floating true
+            }
+            SwitchToMode "locked"
+        }
+        bind "Ctrl v" {
+            MessagePlugin "file:~/.config/zellij/plugins/paste.wasm" {
+                name "file:~/.config/zellij/plugins/paste.wasm"
+                floating false
+            }
+            SwitchToMode "locked"
+        }
+        bind "Ctrl w" { CloseFocus; SwitchToMode "locked"; }
+        bind "{" { SwitchToMode "scroll"; }
+        bind "}" { EditScrollback; SwitchToMode "locked"; }
     }
-
     locked {
         bind "Ctrl f" { SwitchToMode "normal"; }
     }
-
-    normal {
-        bind "f" {
-            Write 6;
-            SwitchToMode "locked";
-        }
-        bind "Ctrl f" {
-            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/tabs.wasm" {
-                floating true
-            };
-            SwitchToMode "locked";
-        }
-        bind "Ctrl n" {
-            NewTab {
-                cwd "~"
-            };
-            SwitchToMode "locked";
-        }
-        bind "Ctrl d" { Detach; }
-        bind "Ctrl w" { CloseFocus; SwitchToMode "locked"; }
-        bind "Ctrl q" { CloseTab; SwitchToMode "locked"; }
-
-        bind "{" { SwitchToMode "scroll"; }
-        bind "}" { EditScrollback; SwitchToMode "locked"; }
-
-        bind "Ctrl v" {
-            MessagePlugin "file:~/.config/zellij/plugins/paste.wasm";
-            SwitchToMode "locked";
-        }
-        bind "p" {
-            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/rbw.wasm" {
-                floating true
-            };
-            SwitchToMode "locked";
-        }
-        bind "t" {
-            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/fzf.wasm" {
-                floating true
-            };
-            SwitchToMode "locked";
-        }
-    }
-
-    entersearch {
-        bind "Enter" { SwitchToMode "search"; }
-    }
-
     search {
-        bind "n" { Search "down"; }
         bind "N" { Search "up"; }
+        bind "n" { Search "down"; }
     }
-
-    shared_among "search" "scroll" {
-        bind "PageUp" { PageScrollUp; }
+    shared_except "locked" {
+        bind "Ctrl c" { SwitchToMode "locked"; }
+        bind "esc" { SwitchToMode "locked"; }
+    }
+    shared_among "scroll" "search" {
         bind "PageDown" { PageScrollDown; }
+        bind "PageUp" { PageScrollUp; }
+        bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
+        bind "G" { ScrollToBottom; }
+        bind "g" { ScrollToTop; }
         bind "j" { ScrollDown; }
         bind "k" { ScrollUp; }
-        bind "g" { ScrollToTop; }
-        bind "G" { ScrollToBottom; }
         bind "q" { ScrollToBottom; SwitchToMode "locked"; }
-        bind "/" { SwitchToMode "entersearch"; SearchInput 0; }
+    }
+    entersearch {
+        bind "enter" { SwitchToMode "search"; }
     }
 }
+
+plugins {
+    about location="zellij:about"
+    compact-bar location="zellij:compact-bar"
+    configuration location="zellij:configuration"
+    filepicker location="zellij:strider" {
+        cwd "/"
+    }
+    plugin-manager location="zellij:plugin-manager"
+    session-manager location="zellij:session-manager"
+    status-bar location="zellij:status-bar"
+    strider location="zellij:strider"
+    tab-bar location="zellij:tab-bar"
+    welcome-screen location="zellij:session-manager" {
+        welcome_screen true
+    }
+}
+ 
