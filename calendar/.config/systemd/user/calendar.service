@@ -1,0 +1,7 @@
+[Service]
+ExecStart=/usr/bin/cargo run --release --bin watch-calendar -- %h/obsidian/obsidian-test/todo/now.md
+WorkingDirectory=%h/coding/calendar
+Restart=always
+
+[Install]
+WantedBy=default.target
