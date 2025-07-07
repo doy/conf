@@ -4,9 +4,7 @@ email = "doy@tozt.net"
 
 [ui]
 default-command = ["log", "--reversed", "--no-pager"]
-
-[ui.diff]
-tool = "delta"
+diff-formatter = "delta"
 
 [merge-tools.delta]
 diff-args = ["--file-transformation", "s,^[12]/tmp/jj-diff-[^/]*/,,", "$left", "$right"]
