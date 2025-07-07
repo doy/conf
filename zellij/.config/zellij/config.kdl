@@ -16,7 +16,12 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "locked"
         }
-        bind "Ctrl n" { NewTab; SwitchToMode "locked"; }
+        bind "Ctrl n" {
+            NewTab {
+                cwd "~"
+            }
+            SwitchToMode "locked"
+        }
         bind "p" {
             LaunchOrFocusPlugin "file:/home/doy/.config/zellij/plugins/rbw.wasm" {
                 floating true
