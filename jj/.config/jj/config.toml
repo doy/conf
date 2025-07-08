@@ -14,6 +14,9 @@ lg = ["log", "-r", "::@", "-T", 'builtin_log_comfortable ++ diff.stat(72) ++ "\n
 pull = ["util", "exec", "--", "bash", "-c", "jj git fetch && jj sync"]
 sync = ["rebase", "-r", "mutable()", "-d", "main"]
 
+[git]
+private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
+
 [templates]
 draft_commit_description = '''
 concat(
