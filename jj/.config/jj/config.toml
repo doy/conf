@@ -10,7 +10,7 @@ diff-formatter = "delta"
 diff-args = ["--file-transformation", "s,^[12]/tmp/jj-diff-[^/]*/,,", "$left", "$right"]
 
 [aliases]
-lg = ["log", "-r", "..", "-T", 'builtin_log_comfortable ++ diff.stat(72) ++ "\n"']
+lg = ["log", "-r", "::@", "-T", 'builtin_log_comfortable ++ diff.stat(72) ++ "\n"']
 pull = ["util", "exec", "--", "bash", "-c", "jj git fetch && jj sync"]
 sync = ["rebase", "-r", "mutable()", "-d", "main"]
 
