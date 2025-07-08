@@ -5,7 +5,10 @@ upstream="${2-origin}"
 git fetch "$upstream" "pull/${pr_num}/head:pull-${pr_num}"
 if [ -d "$(git root)/.jj" ]; then
   ref=$(git name-rev --name-only --refs='remotes/*' "pull-${pr_num}")
-  remote="${ref%%/*}"
-  branch="${ref#*/}"
-  jj bookmark track "${branch}@${remote}"
+  # can't get ref information about branches from different forks
+  if [ "$ref" != "undefined" ]; then
+    remote="${ref%%/*}"
+    branch="${ref#*/}"
+    jj bookmark track "${branch}@${remote}"
+  fi
 fi
