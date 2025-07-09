@@ -33,6 +33,7 @@ if status is-interactive
 
     fish_config theme choose 'Tomorrow Night Bright'
     set fish_color_valid_path 7fd3ed
+    set fish_color_search_match --background=222
 
     if type fzf >/dev/null 2>&1
         fzf --fish | source
