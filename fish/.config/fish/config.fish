@@ -25,6 +25,8 @@ if status is-interactive
     bind gs beginning-of-line
     bind gl end-of-line
     bind mm jump-to-matching-bracket
+    bind -M insert up history-prefix-search-backward
+    bind -M insert down history-prefix-search-forward
 
     bind pageup page-up-within-tmux
     bind -M insert pageup page-up-within-tmux
@@ -33,6 +35,9 @@ if status is-interactive
     fzf_key_bindings
     bind ctrl-r fzf-history-widget
     bind -M insert ctrl-r fzf-history-widget
+
+    fish_config theme choose 'Tomorrow Night Bright'
+    set fish_color_valid_path 7fd3ed
 
     if type starship >/dev/null 2>&1
         starship init fish | source
