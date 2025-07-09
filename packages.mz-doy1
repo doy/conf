@@ -5,6 +5,7 @@ bin
 blueman
 docker
 eza
+fish
 fortune-mod
 fzf
 gdb

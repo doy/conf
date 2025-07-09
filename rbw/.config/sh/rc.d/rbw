@@ -1,5 +1,5 @@
 alias pc="p | xclip -l 1"
 
-export GIT_SSH="${HOME}/.bin/ssh"
-export RSYNC_RSH="${HOME}/.bin/ssh"
-export SUDO_ASKPASS="${HOME}/.bin/sudo-askpass"
+export GIT_SSH="$HOME/.bin/ssh"
+export RSYNC_RSH="$HOME/.bin/ssh"
+export SUDO_ASKPASS="$HOME/.bin/sudo-askpass"

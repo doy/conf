@@ -3,20 +3,3 @@ alias chat='zellij a -c chat'
 alias work='zellij a -c work'
 alias docs='zellij a -c docs'
 alias misc='zellij a -c misc'
-
-zellij_tab_name_update() {
-	if [[ -n "$ZELLIJ" ]]; then
-		if [[ -n "$1" ]]; then
-			prefix="${1%% *} - "
-		else
-			prefix=""
-		fi
-		root="$(git root || pwd)"
-		zellij action rename-tab "${prefix}${root/$HOME/~}"
-		zellij action rename-pane "${prefix}${root/$HOME/~}"
-	fi
-}
-zellij_tab_name_update
-chpwd_functions+=(zellij_tab_name_update)
-preexec_functions+=(zellij_tab_name_update)
-precmd_functions+=(zellij_tab_name_update)

@@ -1,4 +1,4 @@
-for file in ~/.config/sh/rc.d/*; do
+for file in ~/.config/sh/rc.d/* ~/.config/zsh/rc.d/*; do
     # shellcheck disable=SC1090
     source "$file"
 done
