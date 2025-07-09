@@ -1,6 +1,3 @@
-[submodule "sh/.config/sh/fzf"]
-	path = fzf/.config/sh/fzf
-	url = https://github.com/junegunn/fzf
 [submodule "zsh/.config/zsh/zsh-autosuggestions"]
 	path = zsh/.config/zsh/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions

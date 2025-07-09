@@ -1,6 +1,10 @@
 bindkey -v
 
-source ~/.config/sh/fzf/shell/key-bindings.zsh
+if type fzf > /dev/null 2>&1; then
+  source <(fzf --zsh)
+  bindkey -M viins '^R' fzf-history-widget
+  bindkey -M vicmd '^R' fzf-history-widget
+fi
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -9,9 +13,6 @@ bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
 bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
-
-bindkey -M viins '^R' fzf-history-widget
-bindkey -M vicmd '^R' fzf-history-widget
 
 bindkey -M vicmd ')' vi-digit-or-beginning-of-line
 bindkey -M vicmd 'e' vi-change

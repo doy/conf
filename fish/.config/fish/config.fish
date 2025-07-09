@@ -31,13 +31,14 @@ if status is-interactive
     bind pageup page-up-within-tmux
     bind -M insert pageup page-up-within-tmux
 
-    source ~/.config/sh/fzf/shell/key-bindings.fish
-    fzf_key_bindings
-    bind ctrl-r fzf-history-widget
-    bind -M insert ctrl-r fzf-history-widget
-
     fish_config theme choose 'Tomorrow Night Bright'
     set fish_color_valid_path 7fd3ed
+
+    if type fzf >/dev/null 2>&1
+        fzf --fish | source
+        bind ctrl-r fzf-history-widget
+        bind -M insert ctrl-r fzf-history-widget
+    end
 
     if type starship >/dev/null 2>&1
         starship init fish | source

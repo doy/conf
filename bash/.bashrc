@@ -31,10 +31,9 @@ else
     export PROMPT_COMMAND="${PROMPT_COMMAND};history -a"
 fi
 # plugins {{{
-# shellcheck source=sh/.config/sh/fzf/shell/completion.bash
-source ~/.config/sh/fzf/shell/completion.bash
-# shellcheck source=sh/.config/sh/fzf/shell/key-bindings.bash
-source ~/.config/sh/fzf/shell/key-bindings.bash
+if type fzf > /dev/null 2>&1; then
+    eval "$(fzf --bash)"
+fi
 # }}}
 # prompt {{{
 if type starship > /dev/null 2>&1; then
