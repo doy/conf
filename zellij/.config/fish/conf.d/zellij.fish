@@ -10,3 +10,8 @@ function zellij_tab_name_update --on-event fish_prompt --on-event fish_preexec -
         zellij action rename-pane "$prefix$(string replace $HOME '~' $root)"
     end
 end
+
+function page-up-within-zellij
+    zellij action switch-mode scroll
+    zellij action page-scroll-up
+end

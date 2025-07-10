@@ -6,15 +6,6 @@ function fish_greeting
     fortune -n600 -s ~/.local/share/fortune | grep -v -E "^\$"
 end
 
-function page-up-within-tmux
-    if [ -n "$TMUX" ]
-        tmux copy-mode -u
-    else if [ -n "$ZELLIJ" ]
-        zellij action switch-mode scroll
-        zellij action page-scroll-up
-    end
-end
-
 if status is-interactive
     fish_vi_key_bindings
 
@@ -28,20 +19,22 @@ if status is-interactive
     bind -M insert up history-prefix-search-backward
     bind -M insert down history-prefix-search-forward
 
-    bind pageup page-up-within-tmux
-    bind -M insert pageup page-up-within-tmux
+    if [ -n "$TMUX" ] && type page-up-within-tmux >/dev/null 2>&1
+        bind pageup page-up-within-tmux
+        bind -M insert pageup page-up-within-tmux
+    end
 
-    fish_config theme choose 'Tomorrow Night Bright'
-    set fish_color_valid_path 7fd3ed
-    set fish_color_search_match --background=222
+    if [ -n "$ZELLIJ" ] && type page-up-within-zellij >/dev/null 2>&1
+        bind pageup page-up-within-zellij
+        bind -M insert pageup page-up-within-zellij
+    end
 
-    if type fzf >/dev/null 2>&1
-        fzf --fish | source
+    if type fzf >/dev/null 2>&1 && type fzf-history-widget >/dev/null 2>&1
         bind ctrl-r fzf-history-widget
         bind -M insert ctrl-r fzf-history-widget
     end
 
-    if type starship >/dev/null 2>&1
-        starship init fish | source
-    end
+    fish_config theme choose 'Tomorrow Night Bright'
+    set fish_color_valid_path 7fd3ed
+    set fish_color_search_match --background=222
 end
