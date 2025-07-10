@@ -1,0 +1,12 @@
+update_check = false
+sync_address = "https://atuin.tozt.net"
+inline_height = 12
+show_help = false
+enter_accept = false
+keymap_mode = "vim-insert"
+
+[sync]
+records = true
+
+[keys]
+scroll_exits = false
