@@ -4,11 +4,14 @@
 "firefox"
   Mod4 + b
 
-"xclip -o | xargs xdg-open"
+"~/coding/rbw/bin/rbw-rofi"
   Mod4 + p
 
-"dmenu_run -fn 'Misc Fixed:pixelsize=14'"
+"rofi -modes drun -show drun"
   Mod4 + r
+
+"rofi -modes window -show window"
+  Mod4 + Tab
 
 "xset s activate"
   Mod4 + d

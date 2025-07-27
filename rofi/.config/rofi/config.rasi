@@ -1,0 +1,5 @@
+configuration {
+	show-icons: true;
+	drun-match-fields: "name,exec";
+}
+@theme "purple"
