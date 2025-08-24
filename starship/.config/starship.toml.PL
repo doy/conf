@@ -96,33 +96,21 @@ unknown_symbol = ''
 
 [[battery.display]]
 threshold = 5
-charging_symbol = '⚡️ '
-discharging_symbol = ' '
-style = 'bright-red'
+charging_symbol = ''
+discharging_symbol = '🪫$percentage'
+style = 'inverted fg:red'
 
 [[battery.display]]
 threshold = 15
-charging_symbol = '⚡️ '
-discharging_symbol = ' '
-style = 'red'
+charging_symbol = ''
+discharging_symbol = '🪫$percentage'
+style = ''
 
 [[battery.display]]
 threshold = 40
-charging_symbol = '⚡️ '
-discharging_symbol = ' '
-style = 'yellow'
-
-[[battery.display]]
-threshold = 80
-charging_symbol = '⚡️ '
-discharging_symbol = ' '
-style = 'bright-black'
-
-[[battery.display]]
-threshold = 100
-charging_symbol = '⚡️ '
-discharging_symbol = ' '
-style = 'green'
+charging_symbol = ''
+discharging_symbol = '🪫'
+style = ''
 
 [username]
 disabled = false
