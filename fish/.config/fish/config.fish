@@ -29,9 +29,9 @@ if status is-interactive
         bind -M insert pageup page-up-within-zellij
     end
 
-    if type atuin >/dev/null 2>&1 && type _atuin_search >/dev/null 2>&1
-        bind ctrl-r _atuin_search
-        bind -M insert ctrl-r _atuin_search
+    if type fzf >/dev/null 2>&1 && type fzf-history-widget >/dev/null 2>&1
+        bind ctrl-r fzf-history-widget
+        bind -M insert ctrl-r fzf-history-widget
     end
 
     fish_config theme choose 'Tomorrow Night Bright'
