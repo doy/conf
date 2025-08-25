@@ -3,8 +3,6 @@
 # shellcheck disable=SC1091
 . "${HOME}/.config/sh/rc.d/00path"
 
-eval "$(ssh-agent)"
-
 XDG_SESSION_ID="$(loginctl list-sessions --no-legend | awk '{ print $1 }' | head -n1)"
 export XDG_SESSION_ID
 systemctl --user import-environment XDG_SESSION_ID

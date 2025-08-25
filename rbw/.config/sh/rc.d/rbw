@@ -1,5 +1,5 @@
 alias pc="p | xclip -l 1"
+alias sudo="sudo -A"
 
-export GIT_SSH="$HOME/.bin/ssh"
-export RSYNC_RSH="$HOME/.bin/ssh"
+export SSH_AUTH_SOCK=/run/user/$(id -u)/rbw/ssh-agent-socket
 export SUDO_ASKPASS="$HOME/.bin/sudo-askpass"
