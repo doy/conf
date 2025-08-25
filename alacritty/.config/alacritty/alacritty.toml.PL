@@ -45,9 +45,6 @@ yellow = "0xd97917"
 background = "0x000000"
 foreground = "0xc1c9d2"
 
-[env]
-TERM = "alacritty-direct"
-
 [font]
 size = 5.5
 
