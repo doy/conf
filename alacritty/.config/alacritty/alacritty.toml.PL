@@ -49,7 +49,7 @@ foreground = "0xc1c9d2"
 TERM = "alacritty-direct"
 
 [font]
-size = 11
+size = 5.5
 
 [font.bold]
 family = "FiraMono"
@@ -574,5 +574,5 @@ columns = 80
 lines = 24
 
 [window.padding]
-x = 2
-y = 2
+x = 1
+y = 1

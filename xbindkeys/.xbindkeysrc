@@ -1,4 +1,4 @@
-"ghostty"
+"alacritty"
   Mod4 + o
 
 "firefox"
@@ -46,7 +46,7 @@
 "[ $(rfkill --output type,soft | grep wlan | awk '{print $2}') = 'unblocked' ] && sudo rfkill block wlan || sudo rfkill unblock wlan"
   XF86WLAN
 
-"tdrop -w 724 -h 436 ghostty --x11-instance-name=ghostty-tdrop -e zellij"
+"tdrop -w 724 -h 436 alacritty --class Alacritty-tdrop -e zellij"
   XF86Tools
 
 "xset dpms force off"

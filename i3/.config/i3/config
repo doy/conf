@@ -47,7 +47,7 @@ bindsym $mod+bracketleft  exec i3-switch-workspace prev
 bindsym $mod+bracketright exec i3-switch-workspace next
 bindsym $mod+v            exec vscreen goto
 
-bindsym $mod+Shift+o exec "i3-msg 'append_layout .config/i3/terminal-workspace.json; exec ghostty; exec ghostty; exec ghostty; exec ghostty; exec ghostty'"
+bindsym $mod+Shift+o exec "i3-msg 'append_layout .config/i3/terminal-workspace.json; exec alacritty; exec alacritty; exec alacritty; exec alacritty; exec alacritty'"
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
