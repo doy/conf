@@ -12,10 +12,11 @@ diff-args = ["--file-transformation", "s,^[12]/tmp/jj-diff-[^/]*/,,", "$left", "
 [aliases]
 lg = ["log", "-r", "::@", "-T", 'builtin_log_comfortable ++ diff.stat(72) ++ "\n"']
 pull = ["util", "exec", "--", "bash", "-c", "jj git fetch && jj sync"]
-sync = ["rebase", "-r", "mutable()", "-d", "main"]
+sync = ["rebase", "-r", "mutable()", "-d", "exactly(trunk(), 1)"]
 submit = ["git", "push", "-c", "@-"]
 up = ["git", "push"]
-push = ["util", "exec", "--", "bash", "-c", "jj bookmark move main --to @- && jj up"]
+push = ["util", "exec", "--", "bash", "-c", "jj bookmark move $(jj bookmark list -r 'exactly(trunk(), 1)' -T name) --to @- && jj up"]
+e = ["util", "exec", "--", "bash", "-c", "$EDITOR $(jj show --name-only -T= ${1:-@})", ""]
 
 [git]
 private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
