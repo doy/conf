@@ -1,6 +1,6 @@
 [Timer]
 OnStartupSec=0
-OnUnitActiveSec=3600
+OnUnitActiveSec=21600
 
 [Install]
 WantedBy=timers.target
