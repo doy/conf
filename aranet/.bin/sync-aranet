@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+
+from datetime import datetime, timedelta, timezone
+import sqlite3
+import sys
+from time import sleep
+from typing import Callable, TypeVar
+
+from aranet4 import client
+
+DDL = """
+    CREATE TABLE IF NOT EXISTS readings (
+        date INTEGER UNIQUE PRIMARY KEY,
+        co2 INTEGER,
+        temp INTEGER,
+        humid INTEGER,
+        pressure INTEGER
+    )
+"""
+
+T = TypeVar("T")
+
+
+class Db:
+    def __init__(self, db_name: str):
+        self.con = sqlite3.connect(db_name)
+        self.con.autocommit = False
+
+    def init_ddl(self):
+        with self.con:
+            self.con.execute(DDL)
+
+    def latest_reading(self):
+        with self.con:
+            res = self.con.execute("SELECT max(date) FROM readings")
+        row = res.fetchone()
+        if row is None or row[0] is None:
+            return None
+        return datetime.fromtimestamp(row[0], timezone.utc)
+
+    def insert(self, values: list[tuple[int, int, int, int, int]]):
+        with self.con:
+            self.con.executemany(
+                "INSERT OR IGNORE INTO readings VALUES (?, ?, ?, ?, ?)",
+                values,
+            )
+
+    def changes(self):
+        return self.con.total_changes
+
+
+def retry(f: Callable[[], T], n: int, exceptions: list[type[Exception]]) -> T:
+    for i in range(n):
+        try:
+            return f()
+        except tuple(exceptions):
+            if i == n - 1:
+                raise
+        sleep(1)
+    raise RuntimeError("unreachable")
+
+
+def main():
+    mac = sys.argv[1]
+    db_name = sys.argv[2]
+
+    db = Db(db_name)
+    db.init_ddl()
+    latest = db.latest_reading()
+    filter = {}
+    if latest is not None:
+        filter["start"] = latest - timedelta(hours=1)
+
+    history = retry(lambda: client.get_all_records(mac, filter), 5, [TimeoutError])
+    rows = [
+        (
+            int(record.date.timestamp()),  # type: ignore
+            int(record.co2),
+            int(record.temperature * 10),
+            int(record.humidity),
+            int(record.pressure * 10),
+        )
+        for record in history.value
+    ]
+    db.insert(rows)
+    print(f"inserted {db.changes()} rows")
+
+
+if __name__ == "__main__":
+    main()
