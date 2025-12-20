@@ -81,6 +81,10 @@ def main():
             int(record.pressure * 10),
         )
         for record in history.value
+        if record.co2 >= 0
+        and record.temperature >= 0
+        and record.humidity >= 0
+        and record.pressure >= 0
     ]
     db.insert(rows)
     print(f"inserted {db.changes()} rows")
