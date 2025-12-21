@@ -19,11 +19,6 @@ if status is-interactive
     bind -M insert up history-prefix-search-backward
     bind -M insert down history-prefix-search-forward
 
-    if [ -n "$TMUX" ] && type page-up-within-tmux >/dev/null 2>&1
-        bind pageup page-up-within-tmux
-        bind -M insert pageup page-up-within-tmux
-    end
-
     if [ -n "$ZELLIJ" ] && type page-up-within-zellij >/dev/null 2>&1
         bind pageup page-up-within-zellij
         bind -M insert pageup page-up-within-zellij

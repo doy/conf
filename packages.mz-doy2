@@ -27,7 +27,6 @@ rust
 sh
 starship
 tig
-tmux
 unclutter
 xbindkeys
 xcape
