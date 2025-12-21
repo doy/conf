@@ -18,6 +18,7 @@ i3status
 jj
 laptop
 less
+lspmux
 mbsync
 mbsyncloop
 msmtp
@@ -27,7 +28,6 @@ notmuch
 rofi
 picom
 podman
-ra-multiplex
 rbw
 readline
 redshift

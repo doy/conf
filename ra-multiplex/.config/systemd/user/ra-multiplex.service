@@ -1,7 +1,0 @@
-[Service]
-ExecStart=/usr/bin/ra-multiplex server
-Environment=PATH=/usr/bin:/usr/lib/rustup/bin
-Restart=always
-
-[Install]
-WantedBy=default.target

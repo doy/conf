@@ -1,5 +1,5 @@
 [language-server.rust-analyzer]
-command = "ra-multiplex"
+command = "lspmux"
 config = { check = { command = "clippy" }, cargo = { allFeatures = true }, diagnostics = { disabled = ["inactive-code"] }, rust = { analyzerTargetDir = "target-ra" } }
 
 [[language]]
