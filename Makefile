@@ -7,6 +7,9 @@ endif
 build: submodules
 	@for package in $(PACKAGES); do ./build $${package}; done
 
+gen: submodules
+	@for package in $(PACKAGES); do ./gen $${package}; done
+
 install: submodules
 	@for package in $(PACKAGES); do ./install $${package}; done
 

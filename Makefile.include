@@ -1,4 +1,5 @@
 build:
+gen:
 install:
 uninstall:
 clean:
