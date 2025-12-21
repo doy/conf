@@ -11,7 +11,6 @@ fish
 fortune-mod
 fzf
 gdb
-ghostty
 git
 helix
 i3
@@ -47,5 +46,4 @@ xcape
 xorg
 xss-lock
 zellij
-zsh
 
