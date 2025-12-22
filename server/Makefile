@@ -1,9 +1,9 @@
 include ../Makefile.include
 
 install:
-	@systemctl --user enable logout
-	@systemctl --user start logout
+	@[ -n "$XDG_RUNTIME_DIR" ] && systemctl --user enable logout
+	@[ -n "$XDG_RUNTIME_DIR" ] && systemctl --user start logout
 
 uninstall:
-	@systemctl --user stop logout
-	@systemctl --user disable logout
+	@[ -n "$XDG_RUNTIME_DIR" ] && systemctl --user stop logout
+	@[ -n "$XDG_RUNTIME_DIR" ] && systemctl --user disable logout
