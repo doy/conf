@@ -1,0 +1,7 @@
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStop=sudo -K
+
+[Install]
+WantedBy=default.target
