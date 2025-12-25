@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from bleak.exc import BleakError
 from datetime import datetime, timedelta, timezone
 import sqlite3
 import sys
@@ -8,6 +9,8 @@ from typing import Callable, TypeVar
 
 from aranet4 import client
 
+NOW = datetime.today()
+
 DDL = """
     CREATE TABLE IF NOT EXISTS readings (
         date INTEGER UNIQUE PRIMARY KEY,
@@ -15,7 +18,11 @@ DDL = """
         temp INTEGER,
         humid INTEGER,
         pressure INTEGER
-    )
+    );
+    CREATE TABLE IF NOT EXISTS battery (
+        date INTEGER UNIQUE PRIMARY KEY,
+        battery INTEGER
+    );
 """
 
 T = TypeVar("T")
@@ -28,7 +35,7 @@ class Db:
 
     def init_ddl(self):
         with self.con:
-            self.con.execute(DDL)
+            self.con.executescript(DDL)
 
     def latest_reading(self):
         with self.con:
@@ -38,11 +45,18 @@ class Db:
             return None
         return datetime.fromtimestamp(row[0], timezone.utc)
 
-    def insert(self, values: list[tuple[int, int, int, int, int]]):
+    def insert_readings(self, values: list[tuple[int, int, int, int, int]]):
         with self.con:
             self.con.executemany(
                 "INSERT OR IGNORE INTO readings VALUES (?, ?, ?, ?, ?)",
                 values,
+            )
+
+    def insert_battery(self, value: int):
+        with self.con:
+            self.con.execute(
+                "INSERT INTO battery VALUES (?, ?)",
+                (int(NOW.timestamp()), value),
             )
 
     def changes(self):
@@ -71,7 +85,11 @@ def main():
     if latest is not None:
         filter["start"] = latest - timedelta(hours=1)
 
-    history = retry(lambda: client.get_all_records(mac, filter), 5, [TimeoutError])
+    history = retry(
+        lambda: client.get_all_records(mac, filter),
+        5,
+        [TimeoutError, BleakError],
+    )
     rows = [
         (
             int(record.date.timestamp()),  # type: ignore
@@ -86,8 +104,16 @@ def main():
         and record.humidity >= 0
         and record.pressure >= 0
     ]
-    db.insert(rows)
+    db.insert_readings(rows)
     print(f"inserted {db.changes()} rows")
+
+    current = retry(
+        lambda: client.get_current_readings(mac),
+        5,
+        [TimeoutError, BleakError],
+    )
+    db.insert_battery(current.battery)
+    print(f"current battery: {current.battery}")
 
 
 if __name__ == "__main__":
