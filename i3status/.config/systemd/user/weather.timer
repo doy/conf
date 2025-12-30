@@ -1,6 +1,5 @@
 [Timer]
-OnStartupSec=0
-OnUnitActiveSec=900
+OnCalendar=hourly
 Persistent=true
 
 [Install]

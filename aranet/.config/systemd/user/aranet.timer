@@ -1,6 +1,5 @@
 [Timer]
-OnStartupSec=0
-OnUnitActiveSec=21600
+OnCalendar=00/6:00
 Persistent=true
 
 [Install]
