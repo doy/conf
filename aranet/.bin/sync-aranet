@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from bleak.exc import BleakError
 from datetime import datetime, timedelta, timezone
 import sqlite3
 import sys
 from time import sleep
+import traceback
 from typing import Callable, TypeVar
 
 from aranet4 import client
@@ -63,13 +63,16 @@ class Db:
         return self.con.total_changes
 
 
-def retry(f: Callable[[], T], n: int, exceptions: list[type[Exception]]) -> T:
+def retry(f: Callable[[], T], n: int) -> T:
     for i in range(n):
         try:
             return f()
-        except tuple(exceptions):
+        except:
             if i == n - 1:
                 raise
+            else:
+                print(f"attempt {i + 1} failed, retrying:", file=sys.stderr)
+                traceback.print_exc()
         sleep(1)
     raise RuntimeError("unreachable")
 
@@ -85,11 +88,7 @@ def main():
     if latest is not None:
         filter["start"] = latest - timedelta(hours=1)
 
-    history = retry(
-        lambda: client.get_all_records(mac, filter),
-        5,
-        [TimeoutError, BleakError],
-    )
+    history = retry(lambda: client.get_all_records(mac, filter), 5)
     rows = [
         (
             int(record.date.timestamp()),  # type: ignore
@@ -107,11 +106,7 @@ def main():
     db.insert_readings(rows)
     print(f"inserted {db.changes()} rows")
 
-    current = retry(
-        lambda: client.get_current_readings(mac),
-        5,
-        [TimeoutError, BleakError],
-    )
+    current = retry(lambda: client.get_current_readings(mac), 5)
     db.insert_battery(current.battery)
     print(f"current battery: {current.battery}")
 

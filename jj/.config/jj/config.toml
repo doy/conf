@@ -3,14 +3,17 @@ name = "Jesse Luehrs"
 email = "doy@tozt.net"
 
 [ui]
-default-command = ["log", "--reversed", "--no-pager"]
+default-command = ["log", "--reversed", "--no-pager", "-r", "present(@) | ancestors(immutable_heads().., 2) | present(trunk())"]
 diff-formatter = "delta"
+
+[revsets]
+log = "::@"
 
 [merge-tools.delta]
 diff-args = ["--file-transformation", "s,^[12]/tmp/jj-diff-[^/]*/,,", "$left", "$right"]
 
 [aliases]
-lg = ["log", "-r", "::@", "-T", 'builtin_log_comfortable ++ diff.stat(72) ++ "\n"']
+lg = ["log", "-T", 'builtin_log_comfortable ++ diff.stat(72) ++ "\n"']
 pull = ["util", "exec", "--", "bash", "-c", "jj git fetch && jj sync"]
 sync = ["rebase", "-r", "mutable()", "-d", "exactly(trunk(), 1)"]
 submit = ["git", "push", "-c", "@-"]

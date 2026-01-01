@@ -6,9 +6,6 @@ INSTALLED_PLUGINS=$(patsubst %,.config/zellij/plugins/%.wasm,$(LOCAL_PLUGINS))
 
 gen: $(INSTALLED_PLUGINS)
 
-clean:
-	@rm -f $(INSTALLED_PLUGINS)
-
 .config/zellij/plugins/%.wasm: ../zellij-plugins/target/wasm32-wasip1/release/%.wasm
 	@mkdir -p "$(dir $@)"
 	@wasm-opt -Oz -o $@ $<
