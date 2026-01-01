@@ -3,11 +3,12 @@ name = "Jesse Luehrs"
 email = "doy@tozt.net"
 
 [ui]
-default-command = ["log", "--reversed", "--no-pager", "-r", "present(@) | ancestors(immutable_heads().., 2) | present(trunk())"]
+default-command = ["log", "--reversed", "--no-pager", "-r", "present(@) | ancestors(immutable_heads().., 2) | trunk()"]
 diff-formatter = "delta"
 
 [revsets]
 log = "::@"
+short-prefixes = "present(@) | ancestors(immutable_heads().., 2) | trunk()"
 
 [merge-tools.delta]
 diff-args = ["--file-transformation", "s,^[12]/tmp/jj-diff-[^/]*/,,", "$left", "$right"]
